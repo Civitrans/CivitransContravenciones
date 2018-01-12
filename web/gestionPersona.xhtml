@@ -22,7 +22,7 @@
                             <section class="content-header">
                                 <h1>
                                     Gestión De Personas
-                                    <small>Modulo que permitira consultar, Editar e ingresar una nueva persona</small>
+                                    <small>Modulo que permitira consultar, editar e ingresar una nueva persona</small>
                                 </h1>
                                 <ol class="breadcrumb">
                                     <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -89,6 +89,14 @@
                                     </div>
                                 </div>
                             </section>
+                            
+                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+
+                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                            <p:graphicImage url="/resources/images/loading.gif" style="width: 25px;"/> Espere...
+                        </p:dialog>
+                        
+                        <p:commandButton value="Send" icon="ui-icon-refresh" />
                             <h:panelGrid id="pnGroup" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                 <h:panelGroup rendered="#{gestionpersonasBean.mostrarConsulta}">
                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
@@ -101,27 +109,20 @@
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">Tipo Documento</f:facet>
-                                                        <h:outputLabel style="text" >
-                                                            #{per.perTipodocumento} 
-                                                        </h:outputLabel>
+                                                            #{gestionpersonasBean.listTipoDocumento.get(per.perTipodocumento.intValue())} 
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">Documento</f:facet>
-                                                        <h:outputLabel style="text" >
                                                             #{per.perDocumento} 
-                                                        </h:outputLabel>
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">Nombre Completo</f:facet>
-                                                        <h:outputLabel style="text" >
                                                             #{per.perNombre1} #{per.perNombre2} #{per.perApellido1} #{per.perApellido2} 
-                                                        </h:outputLabel>
+
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">Estado</f:facet>
-                                                        <h:outputLabel  >
-                                                            #{per.perEstado >= 2 ? "INACTIVO":"ACTIVO"}
-                                                        </h:outputLabel>
+                                                            #{gestionpersonasBean.estadoPersona.get(per.perEstado.intValue())}
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">Detalle</f:facet>
@@ -136,6 +137,7 @@
                                 </h:panelGroup> 
                             </h:panelGrid>
                         </div>
+                        
                     </h:form>
                 </c:if>
             </ui:define>

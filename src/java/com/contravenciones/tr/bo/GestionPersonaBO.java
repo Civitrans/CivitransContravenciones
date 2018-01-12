@@ -21,4 +21,11 @@ public interface GestionPersonaBO {
      */
     void listPersona(BeanGestionPersona bean) throws Exception;
     
+     /**
+     *
+     * @param bean
+     * @throws Exception
+     */
+    void cargarDatos(BeanGestionPersona bean) throws Exception;
+    
 }

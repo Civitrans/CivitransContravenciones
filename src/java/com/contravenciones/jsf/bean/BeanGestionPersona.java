@@ -11,6 +11,8 @@ import com.contravenciones.tr.persistence.CivPersonas;
 import com.contravenciones.utility.Log_Handler;
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
@@ -25,11 +27,24 @@ public class BeanGestionPersona implements Serializable {
     private GestionPersonaBO gestionPersonaBO;
     
     private List<CivPersonas> listPersonas;
+    private Map<Integer, String> listTipoDocumento; // tipos de documento
+    private Map<Integer, String> estadoPersona;
     private String buscarPersona;
     private boolean mostrarConsulta=false;
     
+    
+    public void cargarDatos(){
+        try {
+            getGestionPersonaBO().cargarDatos(this);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    
      /*Método para consultar todos las personas registradas en la base de datos.*/
     public void listarPersona() {
+        cargarDatos();
+        getListTipoDocumento();
         impListarPersona();
         //RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
     }
@@ -117,6 +132,34 @@ public class BeanGestionPersona implements Serializable {
      */
     public void setMostrarConsulta(boolean mostrarConsulta) {
         this.mostrarConsulta = mostrarConsulta;
+    }
+
+    /**
+     * @return the listTipoDocumento
+     */
+    public Map<Integer, String> getListTipoDocumento() {
+        return listTipoDocumento;
+    }
+
+    /**
+     * @param listTipoDocumento the listTipoDocumento to set
+     */
+    public void setListTipoDocumento(Map<Integer, String> listTipoDocumento) {
+        this.listTipoDocumento = listTipoDocumento;
+    }
+
+    /**
+     * @return the estadoPersona
+     */
+    public Map<Integer, String> getEstadoPersona() {
+        return estadoPersona;
+    }
+
+    /**
+     * @param estadoPersona the estadoPersona to set
+     */
+    public void setEstadoPersona(Map<Integer, String> estadoPersona) {
+        this.estadoPersona = estadoPersona;
     }
     
     
