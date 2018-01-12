@@ -44,6 +44,19 @@
         </managed-property>
     </managed-bean>
     <managed-bean>
+        <managed-bean-name>gestionrecursosBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanGestionRecurso</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>gestionRecursoBO</property-name>
+            <value>#{gestionRecursoBO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <value>#{loginBean}</value>
+        </managed-property>
+    </managed-bean>
+    <managed-bean>
         <managed-bean-name>parametrosBean</managed-bean-name>
         <managed-bean-class>com.contravenciones.jsf.bean.BeanParametros</managed-bean-class>
         <managed-bean-scope>session</managed-bean-scope>

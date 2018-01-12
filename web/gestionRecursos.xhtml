@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:f="http://xmlns.jcp.org/jsf/core">
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
     <body>
         <ui:composition template="./plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml">
             <ui:define name="content">
@@ -21,7 +22,7 @@
                             <section class="content-header">
                                 <h1>
                                     Gestión De Recursos
-                                    <small>Modulo que permitira consultar,Editar e ingresar un nuevo recurso</small>
+                                    <small>Modulo que permitira consultar, editar e ingresar un nuevo recurso</small>
                                 </h1>
                                 <ol class="breadcrumb">
                                     <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
@@ -29,6 +30,11 @@
                                     <li class="active">Gestion Recursos</li>
                                 </ol>
                             </section>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p:messages closable="true" autoUpdate="false" id="messageGeneral" showDetail="true" />
+                                </div>
+                            </div>
                             <section class="content-header">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -55,9 +61,10 @@
                                                         </div>
                                                         <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                                             <div class="input-group margin-5">
-                                                                <h:inputText class="form-control text-uppercase" maxlength="20" id="frmGestionusuario"></h:inputText>
+                                                                <h:inputText class="form-control text-uppercase" maxlength="20" id="txtBuscarRecurso" value="#{gestionrecursosBean.buscarRecursos}"></h:inputText>
                                                                 <span class="input-group-btn">
                                                                     <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
+                                                                        <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona()}" execute="gestionPersona:txtBuscarPersona" render="gestionPersona:pnGroup"></f:ajax>
                                                                     </h:commandLink>
                                                                 </span>
                                                             </div>
