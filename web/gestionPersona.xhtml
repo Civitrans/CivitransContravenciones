@@ -89,14 +89,6 @@
                                     </div>
                                 </div>
                             </section>
-                            
-                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
-
-                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                            <p:graphicImage url="/resources/images/loading.gif" style="width: 25px;"/> Espere...
-                        </p:dialog>
-                        
-                        <p:commandButton value="Send" icon="ui-icon-refresh" />
                             <h:panelGrid id="pnGroup" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                 <h:panelGroup rendered="#{gestionpersonasBean.mostrarConsulta}">
                                     <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
@@ -137,7 +129,23 @@
                                 </h:panelGroup> 
                             </h:panelGrid>
                         </div>
-                        
+                        <script>
+                            $(document).ready(function () {
+                                $('.table').dataTable({
+                                    language: {
+                                        "url": "#{request.contextPath}\resources\js\i18n\Spanish.lang"
+                                    }
+                                });
+                            });
+                            function reload() {
+                                $('.table').dataTable({
+                                    language: {
+                                        "url": "#{request.contextPath}\resources\js\i18n\Spanish.lang"
+                                    }
+                                });
+                            }
+                            setFechaInput();
+                        </script>
                     </h:form>
                 </c:if>
             </ui:define>

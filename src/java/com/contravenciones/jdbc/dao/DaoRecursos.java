@@ -78,4 +78,13 @@ public class DaoRecursos extends HibernateDaoSupport implements ITRecursos {
         List list = getHibernateTemplate().find(hql);
         return list;
     }
+    
+    @Override
+
+    public List<CivRecursos> listarRecursos(String recurso) throws Exception {
+
+        String hql = "from CivRecursos where Rec_Nombre like :recurso ORDER BY 1 asc";
+        List list = getHibernateTemplate().findByNamedParam(hql, "recurso", "%" + recurso + "%");
+        return list;
+    }
 }

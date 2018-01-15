@@ -31,7 +31,7 @@ public class DaoParametros extends HibernateDaoSupport implements ITParametros, 
     @Override
     public List<CivParametros> listParametros(long grupo) throws Exception {
 
-        String hql = "FROM CivParametros WHERE GRU_ID = :grupo order by par_codigo,PAR_NOMBRE";
+        String hql = "FROM CivParametros WHERE GRU_ID = :grupo and par_estado = 1 order by par_codigo,PAR_NOMBRE";
         List list = getHibernateTemplate().findByNamedParam(hql, "grupo", grupo);
         return list;
     }

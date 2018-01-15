@@ -4,11 +4,11 @@
     Author     : Miguel Borja
 --%>
 
-<%@page import="com.civitrans.singleton.SessionSingleton"%>
-<%@page import="com.civitrans.model.LoginUser"%>
-<%@page import="com.civitrans.utility.Log_Handler"%>
-<%@page import="com.civitrans.singleton.AuthSingleton"%>
-<%@page import="com.civitrans.jsf.bean.BeanLogin"%>
+<%@page import="com.contravenciones.singleton.SessionSingleton"%>
+<%@page import="com.contravenciones.model.LoginUser"%>
+<%@page import="com.contravenciones.utility.Log_Handler"%>
+<%@page import="com.contravenciones.singleton.AuthSingleton"%>
+<%@page import="com.contravenciones.jsf.bean.BeanLogin"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%

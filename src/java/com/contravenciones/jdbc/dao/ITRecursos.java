@@ -58,4 +58,6 @@ public interface ITRecursos {
     public CivRecursos getRecursosbyId(int id_recurso) throws Exception;
     
     public List<CivRecursos> getRecursosAll() throws Exception;
+    
+     public List<CivRecursos> listarRecursos(String recurso) throws Exception;
 }
