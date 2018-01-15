@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import com.contravenciones.jdbc.dao.ITAttempts;
+import com.contravenciones.utility.ValidacionDatos;
 
 /**
  *
@@ -203,10 +204,10 @@ public class LoginImplBO implements LoginBO, Serializable {
             for (int i = 0; i < listR.size(); i++) {
                 CivRecursos r = listR.get(i);
                 if (r.getCivModulos().getModId().intValue() == m.getCodigo()) {
-                    if(r.getRecTipo().intValue() == 1){
+                    if (r.getRecTipo().intValue() == 1) {
                         Recurso rec = new Recurso();
                         rec.setCodigo(r.getRecId().intValue());
-                        rec.setNombre(r.getRecNombre());
+                        rec.setNombre(new ValidacionDatos().letraMayuscula(r.getRecNombre()));
                         rec.setCarpeta(r.getRecCarpeta());
                         rec.setDescripcion(r.getRecDescripcion());
                         listrec.add(rec);

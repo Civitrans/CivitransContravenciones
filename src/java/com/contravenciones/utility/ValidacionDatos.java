@@ -93,4 +93,14 @@ public class ValidacionDatos {
         sw = campo.matches("^[a-zA-Z0-9][a-zA-Z0-9-_.]{2,8}[a-zA-Z0-9]$");
         return sw;
     }
+    
+    /*Función para convertir la primera letra en mayúscula de una cadena*/
+    public String letraMayuscula(String cadena) {
+        String nombre = "";
+        for (String p : cadena.split(" ")) {
+            nombre += p.substring(0, 1).toUpperCase() + p.substring(1, p.length()).toLowerCase() + " ";
+        }
+        nombre = nombre.trim();
+        return nombre;
+    }
 }

@@ -188,7 +188,11 @@
         <property name="personasDAO" ref="personasDAO" />
         <property name="parametrosDAO" ref="parametrosDAO"/>
     </bean>
-    
+    <bean id="gestionRecursoBO" class="com.contravenciones.tr.bo.GestionRecursoImplBO">
+        <property name="recursosDAO" ref="recursosDAO" />
+        <property name="parametrosDAO" ref="parametrosDAO"/>
+        <property name="modulosDAO" ref="modulosDAO"/>
+    </bean>
     <bean id="renovarPasswordBO" class="com.contravenciones.tr.bo.RenovarPasswordImplBO">
         <property name="usuariosDAO" ref="usuariosDAO" />
     </bean>

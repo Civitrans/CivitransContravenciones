@@ -16,110 +16,273 @@
                     </c:if>
                 </c:forEach>
                 <c:if  test="#{val eq true}">
-                    <h:form id="frmGestionusuario">
+                    <h:form id="gestionRecursos">
                         <div class="content-wrapper">
                             <!-- Content Header (Page header) -->
-                            <section class="content-header">
-                                <h1>
-                                    Gestión De Recursos
-                                    <small>Modulo que permitira consultar, editar e ingresar un nuevo recurso</small>
-                                </h1>
-                                <ol class="breadcrumb">
-                                    <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                                    <li><a href="gestionRecursos.xhtml"><i class="fa fa-briefcase"></i> Recursos</a></li>
-                                    <li class="active">Gestion Recursos</li>
-                                </ol>
-                            </section>
+
                             <div class="row">
                                 <div class="col-lg-12">
                                     <p:messages closable="true" autoUpdate="false" id="messageGeneral" showDetail="true" />
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h:panelGrid id="menuConsulta" class="col-lg-12">
+                                        <h:panelGroup rendered="#{gestionrecursosBean.mostrarBuscar}">
+                                            <section class="content-header">
+
+                                                <h1>
+                                                    Gestión De Recursos
+                                                    <small>Modulo que permitira consultar, editar e ingresar un nuevo recurso</small>
+                                                </h1>
+                                                <ol class="breadcrumb">
+                                                    <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                                                    <li><a href="gestionRecursos.xhtml"><i class="fa fa-briefcase"></i> Recursos</a></li>
+                                                    <li class="active">Gestion Recursos</li>
+                                                </ol>
+
+                                            </section>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                </div>
+                            </div>
+
                             <section class="content-header">
                                 <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="nav-tabs-custom">
-                                            <ul class="nav nav-tabs">
-                                                <li class="active"><a href="#nombreRecurso" data-toggle="tab">Nombre Recurso</a></li>
-                                                <li><a href="#usuarioRecurso" data-toggle="tab">Usuario Recurso</a></li>
-                                                <li><a href="#fechaRecurso" data-toggle="tab">Fecha Recurso</a></li>
-                                            </ul>
-                                            <div class="tab-content">
-                                                <div class="active tab-pane" id="nombreRecurso">
-                                                    <br></br>
+                                    <h:panelGrid id="consulta" class="col-lg-12">
+                                        <h:panelGroup rendered="#{gestionrecursosBean.mostrarBuscar}">
+                                            <div class="col-md-12">
+                                                <div class="nav-tabs-custom">
+                                                    <ul class="nav nav-tabs">
+                                                        <li class="active"><a href="#nombreRecurso" data-toggle="tab">Nombre Recurso</a></li>
+                                                        <li><a href="#usuarioRecurso" data-toggle="tab">Usuario Recurso</a></li>
+                                                        <li><a href="#fechaRecurso" data-toggle="tab">Fecha Recurso</a></li>
+                                                    </ul>
+                                                    <div class="tab-content">
+                                                        <div class="active tab-pane" id="nombreRecurso">
+                                                            <br></br>
+                                                            <div class="row">
+                                                                <div class="col-md-3"></div>
+                                                                <div class="col-xs-12 visible-xs">
+                                                                    <div class="input-group margin-2">
+                                                                        <label for="inputPassword3" class="control-label align-left">Nombre Recursos</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-3 visible-lg visible-md" style="width: 13%">
+                                                                    <div class="input-group margin-2">
+                                                                        <label for="inputPassword3" class="control-label align-left">Nombre Recurso</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
+                                                                    <div class="input-group margin-5">
+
+                                                                        <h:inputText class="form-control text-uppercase" maxlength="20" id="txtBuscarRecurso" value="#{gestionrecursosBean.buscarRecursos}"></h:inputText>
+                                                                        <span class="input-group-btn">
+                                                                            <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
+                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.listarRecurso()}" execute="gestionRecursos:txtBuscarRecurso" render="gestionRecursos:pnGroup"></f:ajax>
+                                                                            </h:commandLink>
+                                                                        </span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr></hr>
+                                                        </div>
+                                                        <!-- /.tab-pane -->
+                                                        <div class="tab-pane" id="usuarioRecurso">
+                                                            c
+                                                        </div>
+                                                        <!-- /.tab-pane -->
+
+                                                        <div class="tab-pane" id="fechaRecurso">
+                                                            b
+                                                        </div>
+                                                        <!-- /.tab-pane -->
+                                                    </div>
+                                                    <!-- /.tab-content -->
+                                                </div>
+                                                <!-- /.nav-tabs-custom -->
+                                            </div>
+                                        </h:panelGroup>
+
+                                    </h:panelGrid>
+
+
+                                </div>
+                            </section>
+
+                            <h:panelGrid id="pnGroup" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <h:panelGroup rendered="#{gestionrecursosBean.mostrarConsulta}">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <h:dataTable id="recurso" class="table table-striped table-bordered table-hover" value="#{gestionrecursosBean.listRecursos}"  var="recu" cellspacing="0">
+                                                    <h:column>
+                                                        <f:facet name="header">#</f:facet>
+                                                            #{recu.recId}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">NOMBRE RECURSO</f:facet>
+                                                            #{recu.recNombre} 
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">DESCRIPCIÓN</f:facet>
+                                                            #{recu.recDescripcion} 
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">MÓDULO</f:facet>
+                                                            #{gestionrecursosBean.listModulos.get(recu.civModulos.modId.intValue())}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">ESTADO</f:facet>
+                                                            #{gestionrecursosBean.listEstadoRecurso.get(recu.recEstado.intValue())}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">DETALLE</f:facet>
+                                                        <h:commandLink class="fa fa-eye">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                            <f:ajax event="click" listener="#{gestionrecursosBean.detalle(recu)}" execute="recurso" render="@form" />
+                                                        </h:commandLink>
+                                                    </h:column>
+                                                </h:dataTable>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </h:panelGroup> 
+                            </h:panelGrid>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h:panelGrid id="detalle" class="col-lg-12">
+                                        <h:panelGroup rendered="#{gestionrecursosBean.mostrarDetalle}">
+                                            <section class="content-header">
+
+                                                <h1>
+                                                    Gestión De Recursos
+                                                    <small>Modulo que permitira consultar, editar e ingresar un nuevo recurso</small>
+                                                </h1>
+                                                <ol class="breadcrumb">
+                                                    <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                                                    <li><a href="gestionRecursos.xhtml"><i class="fa fa-briefcase"></i> Recursos</a></li>
+                                                    <li class="active">Detalle Recurso</li>
+                                                </ol>
+
+                                            </section>
+                                            <br/>
+                                            <div class="box box-primary">
+                                                <div class="box-header with-border">
+                                                    <h3 class="box-title">#{gestionrecursosBean.nombreRecurso} </h3>
+                                                </div>
+                                                <div class="box-body">
                                                     <div class="row">
-                                                        <div class="col-md-3"></div>
-                                                        <div class="col-xs-12 visible-xs">
-                                                            <div class="input-group margin-2">
-                                                                <label for="inputPassword3" class="control-label align-left">Nombre Recursos</label>
+                                                        <div class="col-lg-2">
+                                                            <div class="form-group">
+                                                                <label for="idRecurso">Recurso</label>
+                                                                <h:inputText value="#{gestionrecursosBean.idrecurso}" class="form-control text-uppercase" id="idRecurso" readonly="true"></h:inputText>
                                                             </div>
                                                         </div>
-                                                        <div class="col-lg-3 visible-lg visible-md" style="width: 13%">
-                                                            <div class="input-group margin-2">
-                                                                <label for="inputPassword3" class="control-label align-left">Nombre Recurso</label>
+                                                        <div class="col-lg-6">
+                                                            <div class="form-group">
+                                                                <label for="nombreRecurso">Nombre Recurso</label>
+                                                                <h:inputText value="#{gestionrecursosBean.nombreRecurso}" class="form-control" id="nombreRecurso" disabled="#{gestionrecursosBean.campos}"></h:inputText>
                                                             </div>
                                                         </div>
-                                                        <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
-                                                            <div class="input-group margin-5">
-                                                                <h:inputText class="form-control text-uppercase" maxlength="20" id="txtBuscarRecurso" value="#{gestionrecursosBean.buscarRecursos}"></h:inputText>
-                                                                <span class="input-group-btn">
-                                                                    <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
-                                                                        <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona()}" execute="gestionPersona:txtBuscarPersona" render="gestionPersona:pnGroup"></f:ajax>
-                                                                    </h:commandLink>
-                                                                </span>
+                                                        <div class="col-lg-4">
+                                                            <div class="form-group">
+                                                                <label for="descripcionRecurso">Descripción Recurso</label>
+                                                                <h:inputText value="#{gestionrecursosBean.descripcion}" class="form-control" id="descripcionRecurso" disabled="#{gestionrecursosBean.campos}"></h:inputText>                                </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group">
+                                                                <label for="fechaInicialRecurso">Fecha Inicial Recurso</label>
+                                                                <h:inputText id="fechaInicialRecurso" value="#{gestionrecursosBean.fechaInicial}" class="date datepicker form-control" disabled="#{gestionrecursosBean.campos}">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                                </h:inputText><!--VALUE OK-->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group">
+                                                                <label for="fechaFinalRecurso">Fecha Final Recurso</label>
+                                                                <h:inputText disabled="true" id="fechaFinalRecurso" value="#{gestionrecursosBean.fechaFinal}" class="date datepicker form-control">
+                                                                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                                </h:inputText><!--VALUE OK-->
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group">
+                                                                <label for="estadoRecurso">Estado Recurso</label>
+                                                                <h:selectOneMenu value="#{gestionrecursosBean.estado}" class="form-control select2-dropdown" id="cmbEstado" disabled="#{gestionrecursosBean.campos}">
+                                                                    <f:selectItems value="#{gestionrecursosBean.listEstadoRecurso.entrySet()}"  var="estado"  itemValue="#{estado.key}" itemLabel="#{estado.value}" />
+                                                                </h:selectOneMenu>    
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group">
+                                                                <label for="carpetaRecurso">Carpeta Recurso</label>
+                                                                <h:inputText value="#{gestionrecursosBean.carpeta}" class="form-control text-uppercase" id="carpetaRecurso" disabled="#{gestionrecursosBean.campos}"></h:inputText> 
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <hr></hr>
-                                                </div>
-                                                <!-- /.tab-pane -->
-                                                <div class="tab-pane" id="usuarioRecurso">
-                                                    c
-                                                </div>
-                                                <!-- /.tab-pane -->
+                                                    <div class="row">
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group">
+                                                                <label for="moduloRecurso">Módulo</label>
+                                                                <h:selectOneMenu value="#{gestionrecursosBean.modulo}" class="form-control select2-dropdown" id="cmbModulo" disabled="#{gestionrecursosBean.campos}">
+                                                                    <f:selectItems value="#{gestionrecursosBean.listModulos.entrySet()}"  var="modu"  itemValue="#{modu.key}" itemLabel="#{modu.value}" />
+                                                                </h:selectOneMenu> 
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3">
+                                                            <div class="form-group">
+                                                                <label for="tipoRecurso">Tipo Recurso</label>
+                                                                <h:inputText value="#{gestionrecursosBean.tipo}" class="form-control text-uppercase" id="tipoRecurso" disabled="#{gestionrecursosBean.campos}"></h:inputText> 
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
-                                                <div class="tab-pane" id="fechaRecurso">
-                                                    b
+                                                    <div class="row">
+                                                        <div class="col-lg-3"></div>
+                                                        <div class="col-lg-6" style="text-align: center">
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <h:panelGrid id="btnEditar">
+                                                                        <h:panelGroup rendered="#{gestionrecursosBean.btnEditar}">
+                                                                            <h:commandLink class="btn btn-danger">
+                                                                                <span class="fa fa-edit"></span> Editar
+                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.habilitarCampos()}" render="btnsEditar btnEditar nombreRecurso cmbEstado tipoRecurso cmbModulo descripcionRecurso carpetaRecurso fechaFinalRecurso fechaInicialRecurso" ></f:ajax>
+                                                                            </h:commandLink>
+                                                                        </h:panelGroup>
+                                                                    </h:panelGrid>
+                                                                    <h:panelGrid id="btnsEditar">
+                                                                        <h:panelGroup rendered="#{gestionrecursosBean.botones}">
+                                                                            <h:commandLink class="btn btn-warning" >
+                                                                                <span class="fa fa-close"></span> Cancelar
+                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.cancelarEdicion()}" render="btnsEditar btnEditar nombreRecurso cmbEstado tipoRecurso cmbModulo descripcionRecurso carpetaRecurso fechaFinalRecurso fechaInicialRecurso"></f:ajax>
+                                                                            </h:commandLink>
+                                                                            <h:commandLink class="btn btn-success">
+                                                                                <span class="fa fa-save"></span> Guardar
+                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.editarRecurso()}" execute="nombreRecurso cmbEstado tipoRecurso cmbModulo descripcionRecurso carpetaRecurso fechaFinalRecurso fechaInicialRecurso"
+                                                                                        render="btnsEditar btnEditar nombreRecurso cmbEstado tipoRecurso cmbModulo descripcionRecurso carpetaRecurso fechaFinalRecurso fechaInicialRecurso"/>
+                                                                            </h:commandLink> 
+                                                                        </h:panelGroup>
+                                                                    </h:panelGrid>
+
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3"></div>
+                                                    </div>
                                                 </div>
-                                                <!-- /.tab-pane -->
-                                            </div>
-                                            <!-- /.tab-content -->
-                                        </div>
-                                        <!-- /.nav-tabs-custom -->
-                                    </div>
+                                            </div> 
+                                        </h:panelGroup>
+                                    </h:panelGrid>   
                                 </div>
-
-                                <div class="box box-primary">
-                                    <div class="box-body">
-
-                                        <table id="example2" class="table table-bordered table-hover">
-                                            <thead>
-                                                <tr>
-                                                    <th width="5%" style="text-align: center">#</th>
-                                                    <th width="25%" style="text-align: center">NOMBRE RECURSO</th>
-                                                    <th width="25%" style="text-align: center">DESCRIPCION</th>
-                                                    <th width="15%" style="text-align: center">ESTADO</th>
-                                                    <th width="20%" style="text-align: center">CARPETA</th>
-                                                    <th width="10%" style="text-align: center"><i class="fa fa-gears"/></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td width="5%" style="text-align: center">1</td>
-                                                    <td width="25%" style="text-align: center">RECURSO PRUEBA</td>
-                                                    <td width="25%" style="text-align: center">gestionRecurso.xhtml</td>
-                                                    <td width="15%" style="text-align: center">ACTIVO</td>
-                                                    <td width="10%" style="text-align: center"> /</td>
-                                                    <td width="10%" style="text-align: center"> 4</td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                                
-                                 <ui:include src="detalleGestionRecurso.xhtml" />
-                            </section>
+                            </div>
                         </div>
+                        <script>
+                            setFechaInput();
+                        </script>
                     </h:form>
                 </c:if>
             </ui:define>

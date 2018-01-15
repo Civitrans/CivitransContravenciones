@@ -90,6 +90,7 @@
                                     </div>
 
                                 </div>
+<<<<<<< HEAD
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <h:panelGrid id="pnGroup" class="col-lg-12">
@@ -124,6 +125,30 @@
                                                                     <f:ajax event="click" listener="#{gestionusuarioBean.datosUsuario(usu)}" execute="usuEstado usuRunt" render="frmConUsuario:pnlaccordion2" />
                                                                 </h:commandLink>
                                                             </h:column>
+=======
+                            </section>
+                            <h:panelGrid id="pnGroup" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                <h:panelGroup rendered="#{gestionpersonasBean.mostrarConsulta}">
+                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                        <div class="box box-primary">
+                                            <div class="box-body">
+                                                <h:dataTable id="persona" class="table table-striped table-bordered table-hover" value="#{gestionpersonasBean.listPersonas}"  var="per" cellspacing="0">
+                                                    <h:column>
+                                                        <f:facet name="header">#</f:facet>
+                                                            #{per.perId}
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Tipo Documento</f:facet>
+                                                            #{gestionpersonasBean.listTipoDocumento.get(per.perTipodocumento.intValue())} 
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Documento</f:facet>
+                                                            #{per.perDocumento} 
+                                                    </h:column>
+                                                    <h:column>
+                                                        <f:facet name="header">Nombre Completo</f:facet>
+                                                            #{per.perNombre1} #{per.perNombre2} #{per.perApellido1} #{per.perApellido2} 
+>>>>>>> ff435f664fb80b860d44d10171882afbb29dc567
 
                                                         </h:dataTable>
                                                     </div>
@@ -147,6 +172,26 @@
 
 
                         </div>
+<<<<<<< HEAD
+=======
+                        <script>
+                            $(document).ready(function () {
+                                $('.table').dataTable({
+                                    language: {
+                                        "url": "#{request.contextPath}\resources\js\i18n\Spanish.lang"
+                                    }
+                                });
+                            });
+                            function reload() {
+                                $('.table').dataTable({
+                                    language: {
+                                        "url": "#{request.contextPath}\resources\js\i18n\Spanish.lang"
+                                    }
+                                });
+                            }
+                            setFechaInput();
+                        </script>
+>>>>>>> ff435f664fb80b860d44d10171882afbb29dc567
                     </h:form>
                 </c:if>
             </ui:define>
