@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <body>
+        <c:set var="val" value="false"/>
+        <c:forEach items="${loginBean.listRecursos}" var="rec">
+            <c:if  test="#{rec eq 'gestionRecursos'}" var="bool">
+                <c:set var="val" value="true"/>
+            </c:if>
+        </c:forEach>
+        <c:if  test="#{val eq true}">
+
+            <h:form id="frmDetalleGestionPersona">
+                <section class="content-header">
+                    <h1>
+                        Detalle Personas
+                        <small>Lugar donde podra observar una informacion detallada de la persona</small>
+                    </h1>
+                    <ol class="breadcrumb">
+                        <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                        <li><a><i class="fa fa-briefcase"></i> Personas</a></li>
+                        <li><a href="gestionPersona.xhtml"><i class="fa fa-briefcase"></i> Gestión Personas</a></li>
+                        <li class="active">Detalle Personas</li>
+                    </ol>
+                    <br></br>
+                    <div class="box box-primary">
+                        <div class="box-body">
+                            <h6 class="page-header"><i class="fa fa-user"></i> Información Personal</h6>
+                            <div class="row">
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label for="idRecurso">Tipo Documento</label>
+                                        <h:inputText class="form-control text-uppercas" id="tipodocumentoPersona" readonly="true"></h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="nombreRecurso">Documento</label>
+                                        <h:inputText class="form-control text-uppercas" id="docuemntoPersona" readonly="true"></h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5">
+                                    <div class="form-group">
+                                        <label for="descripcionRecurso">Nombre Completo</label>
+                                        <h:inputText class="form-control text-uppercas" id="nombrePersona" readonly="true"></h:inputText>                                </div>
+                                </div>
+                                  <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label for="fechanacimientoPersona">Fecha Nacimiento</label>
+                                        <h:inputText class="form-control text-uppercas" id="fechanacimientoPersona" readonly="true"></h:inputText>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            
+                            <div class="row">
+                               <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="lugarnacimientoPersona">Lugar Nacimiento</label>
+                                        <h:inputText class="form-control text-uppercas" id="lugarnacimientoPersona" readonly="true"></h:inputText>                                </div>
+                                </div>
+                                 <div class="col-lg-3">
+                                    <div class="form-group">
+                                        <label for="fechaExpedicionPersona">Fecha Expedicion</label>
+                                        <h:inputText class="form-control text-uppercas" id="fechaExpedicionPersona" readonly="true"></h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label for="sexoPersona">Sexo</label>
+                                        <h:inputText class="form-control text-uppercas" id="sexoPersona" readonly="true"></h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label for="rhPersona">Rh</label>
+                                        <h:inputText class="form-control text-uppercas" id="rhPersona" readonly="true"></h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-lg-2">
+                                    <div class="form-group">
+                                        <label for="grupoSanguineoPersona">Grupo Sanguineo</label>
+                                        <h:inputText class="form-control text-uppercas" id="grupoSanguineoPersona" readonly="true"></h:inputText>       
+                                    </div>
+                                </div>
+                            </div>
+                            <h6 class="page-header"><i class="fa fa-home"></i> Información Residencia</h6>
+                            
+                            <h5 class="page-header"></h5>
+                            <div class="row">
+                                <div class="col-lg-4"></div>
+                                <div class="col-lg-2">
+                                    <h:commandLink class="btn btn-success" style="width: 100%">
+                                        <span class="fa fa-edit"></span> Editar
+                                    </h:commandLink>
+                                </div>
+                                <div class="col-lg-2" >
+                                    <h:commandLink class="btn btn-danger" style="width: 100%">
+                                        <span class="fa fa-trash"></span> Eliminar
+                                    </h:commandLink>
+                                </div>
+                                <div class="col-lg-4"></div>
+                            </div>
+                        </div>
+                    </div> 
+                </section>
+
+
+
+
+
+            </h:form>
+        </c:if>
+
+        <hr></hr>
+
+
+    </body>      
+</html>        
+

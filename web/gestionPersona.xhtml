@@ -19,6 +19,11 @@
                     <h:form id="gestionPersona">
                         <div class="content-wrapper">
                             <!-- Content Header (Page header) -->
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p:messages closable="true" autoUpdate="false" id="messageGeneral" showDetail="true" />
+                                </div>
+                            </div>
                             <section class="content-header">
                                 <h1>
                                     Gestión De Personas
@@ -30,11 +35,7 @@
                                     <li class="active">Gestion Personas</li>
                                 </ol>
                             </section>
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <p:messages closable="true" autoUpdate="false" id="messageGeneral" showDetail="true" />
-                                </div>
-                            </div>
+
                             <section class="content-header">
                                 <div class="row">
                                     <div class="col-md-12">
@@ -55,6 +56,7 @@
                                                             </div>
                                                         </div>
                                                         <div class="col-lg-3 visible-lg visible-md" style="width: 12%">
+                                                        <div class="col-lg-3 visible-lg visible-md" style="width: 13%">
                                                             <div class="input-group margin-2">
                                                                 <label for="inputPassword3" class="control-label align-left">Nombre Persona</label>
                                                             </div>
@@ -87,62 +89,70 @@
                                         </div>
                                         <!-- /.nav-tabs-custom -->
                                     </div>
+
                                 </div>
-                            </section>
-                            
-                        <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h:panelGrid id="pnGroup" class="col-lg-12">
+                                            <h:panelGroup  rendered="#{gestionpersonasBean.mostrarConsulta}">
+                                                <div class="box box-primary">
+                                                    <div class="box-body">
+                                                        <h:dataTable id="persona" class="table table-striped table-bordered table-hover" value="#{gestionpersonasBean.listPersonas}"  var="per" cellspacing="0">
+                                                            <h:column>
+                                                                <f:facet name="header">#</f:facet>
+                                                                    #{per.perId}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Tipo Documento</f:facet>
+                                                                    #{gestionpersonasBean.listTipoDocumento.get(per.perTipodocumento.intValue())} 
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Documento</f:facet>
+                                                                    #{per.perDocumento} 
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Nombre Completo</f:facet>
+                                                                    #{per.perNombre1} #{per.perNombre2} #{per.perApellido1} #{per.perApellido2} 
 
-                        <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
-                            <p:graphicImage url="/resources/images/loading.gif" style="width: 25px;"/> Espere...
-                        </p:dialog>
-                        
-                        <p:commandButton value="Send" icon="ui-icon-refresh" />
-                            <h:panelGrid id="pnGroup" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                <h:panelGroup rendered="#{gestionpersonasBean.mostrarConsulta}">
-                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                        <div class="box box-primary">
-                                            <div class="box-body">
-                                                <h:dataTable id="persona" class="table table-striped table-bordered table-hover" value="#{gestionpersonasBean.listPersonas}"  var="per" cellspacing="0">
-                                                    <h:column>
-                                                        <f:facet name="header">#</f:facet>
-                                                            #{per.perId}
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Tipo Documento</f:facet>
-                                                            #{gestionpersonasBean.listTipoDocumento.get(per.perTipodocumento.intValue())} 
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Documento</f:facet>
-                                                            #{per.perDocumento} 
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Nombre Completo</f:facet>
-                                                            #{per.perNombre1} #{per.perNombre2} #{per.perApellido1} #{per.perApellido2} 
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Estado</f:facet>
+                                                                    #{gestionpersonasBean.estadoPersona.get(per.perEstado.intValue())}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Detalle</f:facet>
+                                                                <h:commandLink class="fa fa-eye">
+                                                                    <f:ajax event="click" listener="#{gestionusuarioBean.datosUsuario(usu)}" execute="usuEstado usuRunt" render="frmConUsuario:pnlaccordion2" />
+                                                                </h:commandLink>
+                                                            </h:column>
 
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Estado</f:facet>
-                                                            #{gestionpersonasBean.estadoPersona.get(per.perEstado.intValue())}
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Detalle</f:facet>
-                                                        <h:commandLink class="fa fa-eye">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
-                                                            <f:ajax event="click" listener="#{gestionusuarioBean.datosUsuario(usu)}" execute="usuEstado usuRunt" render="frmConUsuario:pnlaccordion2" />
-                                                        </h:commandLink>
-                                                    </h:column>
-                                                </h:dataTable>
-                                            </div>
-                                        </div>
+                                                        </h:dataTable>
+                                                    </div>
+                                                </div>
+                                            </h:panelGroup> 
+                                        </h:panelGrid>
                                     </div>
-                                </h:panelGroup> 
-                            </h:panelGrid>
+                                </div>
+
+
+                            </section>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h:panelGrid class="col-lg-12">
+                                        <h:panelGroup>
+                                            <ui:include src="detalleGestionPersona.xhtml" />
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                </div>
+                            </div>
+
+
                         </div>
-                        
                     </h:form>
                 </c:if>
             </ui:define>
 
         </ui:composition>
-
+        bloquear
     </body>
 </html>
