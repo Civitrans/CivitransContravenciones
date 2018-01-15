@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los tipos de pago para un usuario en una caja.</comment>
         <id name="usuCajTpId" type="big_decimal">
             <column name="USU_CAJ_TP_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="usuId" type="long">
             <column name="USU_ID" precision="10" scale="0" not-null="true">

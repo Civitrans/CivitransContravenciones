@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los diferentes modulos accesibles desde de sistema</comment>
         <id name="modId" type="big_decimal">
             <column name="MOD_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="modNombre" type="string">
             <column name="MOD_NOMBRE" length="200">

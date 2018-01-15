@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los poblados a nivel nacional.</comment>
         <id name="pobId" type="big_decimal">
             <column name="POB_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="pobNombre" type="string">
             <column name="POB_NOMBRE" length="200">

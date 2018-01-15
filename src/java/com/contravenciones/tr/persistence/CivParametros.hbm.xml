@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan todos los valores parametricos del sistema. Ver tabla CIV_GRUPOS</comment>
         <id name="parId" type="big_decimal">
             <column name="PAR_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civGrupos" class="com.contravenciones.tr.persistence.CivGrupos" fetch="select">
             <column name="GRU_ID" precision="22" scale="0">

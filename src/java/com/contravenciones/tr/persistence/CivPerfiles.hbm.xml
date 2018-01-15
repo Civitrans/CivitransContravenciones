@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los diferentes perfiles de usuario del sistema. Ver CIV_USUPERFIL.</comment>
         <id name="perfId" type="big_decimal">
             <column name="PERF_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="perfNombre" type="string">
             <column name="PERF_NOMBRE" length="300">
