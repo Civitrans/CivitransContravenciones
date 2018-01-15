@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 15/01/2018 11:03:59 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivUsuariosCajasTipopagos" table="CIV_USUARIOS_CAJAS_TIPOPAGOS" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los tipos de pago para un usuario en una caja.</comment>
         <id name="usuCajTpId" type="big_decimal">
             <column name="USU_CAJ_TP_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <property name="usuId" type="long">
             <column name="USU_ID" precision="10" scale="0" not-null="true">

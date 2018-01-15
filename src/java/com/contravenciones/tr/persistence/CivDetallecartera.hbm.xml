@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15/01/2018 11:03:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivDetallecartera" table="CIV_DETALLECARTERA" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="detcarId" type="big_decimal">
+            <column name="DETCAR_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true">
+                <comment>USUARIO QUE INGRESO EL DETALLE DE LA CARTERA</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civCarteras" class="com.contravenciones.tr.persistence.CivCarteras" fetch="select">
+            <column name="CAR_ID" precision="22" scale="0" not-null="true">
+                <comment>CARTERA DEL DETALLE DE LA CARTERA</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civConceptos" class="com.contravenciones.tr.persistence.CivConceptos" fetch="select">
+            <column name="CON_ID" precision="22" scale="0" not-null="true">
+                <comment>CONCEPTO DEL DETALLE DE LA CARTERA</comment>
+            </column>
+        </many-to-one>
+        <property name="detcarReferencia" type="string">
+            <column name="DETCAR_REFERENCIA" length="30" not-null="true">
+                <comment>REFERENCIA DEL DETALLE DE LA CARTERA</comment>
+            </column>
+        </property>
+        <property name="detcarFecha" type="date">
+            <column name="DETCAR_FECHA" length="7" not-null="true">
+                <comment>FECHA DEL DETALLE DE LA CARTERA</comment>
+            </column>
+        </property>
+        <property name="detcarEstado" type="byte">
+            <column name="DETCAR_ESTADO" precision="2" scale="0" not-null="true">
+                <comment>ESTADO DEL DETALLE DE LA CARTERA</comment>
+            </column>
+        </property>
+        <property name="detcarValor" type="big_decimal">
+            <column name="DETCAR_VALOR" precision="20" scale="0" not-null="true">
+                <comment>VALOR DEL DETALLE DE LA CARTERA</comment>
+            </column>
+        </property>
+        <property name="pagId" type="big_decimal">
+            <column name="PAG_ID" precision="22" scale="0">
+                <comment>PAGO DEL DETALLE DE LA CARTERA</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

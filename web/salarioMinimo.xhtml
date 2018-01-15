@@ -1,0 +1,247 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <body>
+
+        <ui:composition template="./plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml">
+
+            <ui:define name="content">
+                <c:set var="val" value="false"/>
+                <c:forEach items="${loginBean.listRecursos}" var="rec">
+                    <c:if  test="#{rec eq 'salarioMinimo'}" var="bool">
+                        <c:set var="val" value="true"/>
+                    </c:if>
+                </c:forEach>
+                <c:if  test="#{val eq true}">
+                    <h:form id="salarioMinimo">
+                        <div class="container-fluid">
+                            <div class="row" >
+                                &nbsp;
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p:messages closable="true" autoUpdate="false" id="messageGeneral" showDetail="true" />
+                                </div>
+                            </div>
+                            <div class="box box-primary">
+                                <div id="page-wrapper">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <h6 class="page-header margin"> 
+                                                <i class="fa fa-money"></i>
+                                                Salario Mínimo</h6>
+                                        </div>
+                                    </div>
+                                    <div class="nav-tabs-custom">
+                                        <ul class="nav nav-tabs">
+                                            <li class="active">
+                                                <a href="#tab_1"  data-toggle="tab">
+                                                    <p:commandButton title="Consultar Vigencia" value="Consultar">
+                                                        <f:ajax event="click" listener="#{salarioMinimoBean.listVigencias()}" render="salarioMinimo:consultaVigencia salarioMinimo:codVigencia" />
+                                                    </p:commandButton>
+                                                </a>
+                                            </li>
+                                            <li><a href="#tab_2" data-toggle="tab">
+                                                    <p:commandButton title="Registrar Vigencia" value="Registrar"></p:commandButton>
+                                                </a>
+                                            </li>
+                                        </ul>
+                                        <div class="tab-content">
+                                            <div class="tab-pane active" id="tab_1">
+                                                <h:panelGroup id="consultaVigencia">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2" style="text-align: center;">
+                                                            <h5><b>Seleccione vigencia:</b></h5>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <h:selectOneMenu value="#{salarioMinimoBean.codeVigencia}" id="codVigencia"  class="form-control select2-dropdown">
+                                                                <f:selectItem itemValue="0" itemLabel="Seleccione Vigencias"/>
+                                                                <f:selectItem itemValue="1000" itemLabel="Todas las vigencias"/>
+                                                                <f:selectItems value="#{salarioMinimoBean.listVigencia}"  var="vig"  itemValue="#{vig.salId}" itemLabel="#{vig.salVigencia}" />
+                                                                <f:ajax event="change" listener="#{salarioMinimoBean.salarioVigencia()}" execute="salarioMinimo:codVigencia" render="salarioMinimo:salario"/>
+                                                            </h:selectOneMenu>
+                                                        </div>
+                                                        <div class="col-sm-2"></div>
+                                                        <div class="col-sm-1">
+                                                            <h5><b>Valor:</b></h5>
+                                                        </div>
+                                                        <div class="col-sm-2 input-group">
+                                                            <h:inputText readonly="true" class="form-control" value="#{salarioMinimoBean.salario}"  maxlength="50" id="salario">
+                                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                                            </h:inputText>
+                                                            <span class="input-group-btn">
+                                                                <h:commandLink title="Editar vigencia" class="btn btn-tumblr">
+                                                                    <i class="fa fa-edit" />
+                                                                    <f:ajax event="click" listener="#{salarioMinimoBean.modal()}" render="salarioMinimo:bodyActualizar" />
+                                                                </h:commandLink>
+                                                            </span><!--VALUE OK-->
+                                                        </div>
+
+                                                    </div>
+                                                </h:panelGroup>
+                                                <br/> <br/> 
+                                            </div>
+                                            <div class="tab-pane" id="tab_2">
+                                                <h:panelGroup id="registrarVigencia">
+                                                    <div class="form-group">
+                                                        <div class="col-sm-2" style="text-align: center;">
+                                                            <h5><b>Vigencia*:</b></h5>
+                                                        </div>
+                                                        <div class="col-sm-3">
+                                                            <h:inputText a:placeholder="Ejemplo: 2018" class="form-control" value="#{salarioMinimoBean.vigencia}"  maxlength="4" id="inputVigencia">
+                                                            </h:inputText><!--VALUE OK-->
+                                                        </div>
+                                                        <div class="col-sm-2"></div>
+                                                        <div class="col-sm-1">
+                                                            <h5><b>Valor*:</b></h5>
+                                                        </div>
+                                                        <div class="col-sm-2">
+                                                            <h:inputText class="form-control" value="#{salarioMinimoBean.salario}"  maxlength="20" id="inputValor">
+                                                            </h:inputText><!--VALUE OK-->
+                                                        </div>
+
+                                                    </div>
+                                                </h:panelGroup>
+                                                <div class="form-group">
+                                                    <div class="col-lg-12">
+                                                        <div class="col-lg-5"></div>
+                                                        <div class="col-lg-6">
+                                                            <h:commandLink class="btn btn-tumblr" value="Registrar" >
+                                                                <f:ajax event="click" listener="#{salarioMinimoBean.registrarSalario()}" execute="salarioMinimo:registrarVigencia" render="salarioMinimo:inputVigencia salarioMinimo:inputValor"/>
+                                                            </h:commandLink>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <br/> <br/> <br/> <br/> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!--Modal Actualizar Salario-->
+                        <div class="modal fade" id="actualizarSalario" style="overflow-y: scroll;" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <h4 class="modal-title" id="myModalLabel">Actualización</h4>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p:messages id="errorActualizar" showDetail="true" closable="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:panelGroup class="modal-body" id="bodyActualizar">
+                                            <div class="panel-body">
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <h:outputLabel>Vigencia</h:outputLabel>
+                                                        <h:inputText class="form-control" value="#{salarioMinimoBean.vigencia}"  maxlength="4" id="inputVigenciaAct">
+                                                        </h:inputText><!--VALUE OK-->
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-6">
+                                                    <div class="form-group">
+                                                        <h:outputLabel>Salario</h:outputLabel>
+                                                        <h:inputText class="form-control" value="#{salarioMinimoBean.salario}"  maxlength="20" id="inputValorAct">
+                                                        </h:inputText><!--VALUE OK-->
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </h:panelGroup>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-warning" data-dismiss="modal">Cancelar</button>
+                                        <h:commandButton id="btnActualizar" class="btn btn-success btn-submit right" value="Actualizar" onclick="$('#actualizarOficina').modal('hide');" disabled="${salarioMinimoBean.btnActualizar}">
+                                            <f:ajax event="click" listener="#{salarioMinimoBean.actualizarVigencia()}" execute="salarioMinimo:bodyActualizar" render="salarioMinimo:consultaVigencia"/>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+                        <!--Modal Mostrar todos los salarios-->
+                        <div class="modal fade" id="todosSalarios" style="overflow-y: scroll;" data-keyboard="false" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+
+                                        <h4 class="modal-title" id="myModalLabel">Histórico Salario Mínimo</h4>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <p:messages id="errorModal" showDetail="true" closable="true"/>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <h:panelGroup class="modal-body" id="bodySalario">
+
+                                            <div class="container-fluid">
+                                                <div class="row" >
+                                                    &nbsp;
+                                                </div>
+                                                <div class="row">
+                                                    <div class="panel panel-default">
+                                                        <div class="panel-body">
+                                                            <h:panelGroup id="pnGroup2">
+                                                                <fieldset>
+                                                                    <h:dataTable id="oficina" class="dataTable table-striped table-bordered table-hover" value="#{salarioMinimoBean.listVigencia}"  var="vig" cellspacing="0">
+                                                                        <h:column>
+                                                                            <f:facet name="header">Vigencia</f:facet>
+                                                                                #{vig.salVigencia}
+                                                                        </h:column>
+                                                                        <h:column>
+                                                                            <f:facet name="header">Valor</f:facet>
+                                                                            <h:outputText value="#{vig.salValor}">
+                                                                                <f:convertNumber currencySymbol="$" type="currency" />
+                                                                            </h:outputText>
+                                                                        </h:column>
+
+                                                                    </h:dataTable>
+                                                                </fieldset>
+
+                                                            </h:panelGroup> 
+                                                        </div>
+                                                    </div>
+                                                </div> 
+                                            </div>
+                                        </h:panelGroup>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-warning btn-submit right" value="Atrás" onclick="$('#todosSalarios').modal('hide');">
+                                            <f:ajax event="click" listener="#{salarioMinimoBean.listVigencias()}" render="salarioMinimo:consultaVigencia"/>
+                                        </h:commandButton>
+                                    </div>
+                                </div>
+                                <!-- /.modal-content -->
+                            </div>
+                            <!-- /.modal-dialog -->
+                        </div>
+
+
+                    </h:form>
+
+                </c:if>
+                <c:if  test="#{val eq false}">
+                    <script>
+                        document.location.href = 'index2.html';
+                    </script>
+                </c:if>
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

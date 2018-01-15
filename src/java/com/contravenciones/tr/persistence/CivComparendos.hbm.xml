@@ -1,0 +1,270 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15/01/2018 11:03:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivComparendos" table="CIV_COMPARENDOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="comId" type="big_decimal">
+            <column name="COM_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="civPersonasByPerId" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
+            <column name="PER_ID" precision="22" scale="0" not-null="true">
+                <comment>PERSONA DEL COMPARENDO</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civPersonasByPerTestigo" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
+            <column name="PER_TESTIGO" precision="22" scale="0">
+                <comment>TESTIGO DEL COMPARENDO</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civPersonasByPerPropietario" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
+            <column name="PER_PROPIETARIO" precision="22" scale="0">
+                <comment>PROPIETARIO DEL VEHICULO</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civInfracciones" class="com.contravenciones.tr.persistence.CivInfracciones" fetch="select">
+            <column name="INF_ID" precision="22" scale="0" not-null="true">
+                <comment>INFRACCION DEL COMPARENDO</comment>
+            </column>
+        </many-to-one>
+        <property name="sedId" type="big_decimal">
+            <column name="SED_ID" precision="22" scale="0" not-null="true">
+                <comment>SEDE DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comNumero" type="string">
+            <column name="COM_NUMERO" length="20" not-null="true" unique="true">
+                <comment>NUMERO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comFecha" type="date">
+            <column name="COM_FECHA" length="7" not-null="true">
+                <comment>FECHA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comHora" type="string">
+            <column name="COM_HORA" length="5" not-null="true">
+                <comment>HORA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comVia" type="big_decimal">
+            <column name="COM_VIA" precision="22" scale="0">
+                <comment>VIA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comTipovia" type="big_decimal">
+            <column name="COM_TIPOVIA" precision="22" scale="0">
+                <comment>TIPO DE LA VIA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comDireccion" type="string">
+            <column name="COM_DIRECCION" length="80" not-null="true">
+                <comment>DIRECCION DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="munId" type="big_decimal">
+            <column name="MUN_ID" precision="22" scale="0" not-null="true">
+                <comment>MUNICIPIO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="locId" type="string">
+            <column name="LOC_ID" length="40">
+                <comment>LOCALIDAD DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="divId" type="big_decimal">
+            <column name="DIV_ID" precision="22" scale="0">
+                <comment>DIVIPO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comPlaca" type="string">
+            <column name="COM_PLACA" length="12">
+                <comment>PLACA DEL VEHICULO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comClase" type="big_decimal">
+            <column name="COM_CLASE" precision="22" scale="0">
+                <comment>CLASE DEL VEHICULO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comServicio" type="big_decimal">
+            <column name="COM_SERVICIO" precision="22" scale="0">
+                <comment>SERVICIO DEL VEHICULO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comRadioAccion" type="big_decimal">
+            <column name="COM_RADIO_ACCION" precision="22" scale="0">
+                <comment>RADIO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comModalidad" type="big_decimal">
+            <column name="COM_MODALIDAD" precision="22" scale="0">
+                <comment>MODALIDAD DEL VEHICULO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comPasajeros" type="big_decimal">
+            <column name="COM_PASAJEROS" precision="22" scale="0" />
+        </property>
+        <property name="divMatri" type="big_decimal">
+            <column name="DIV_MATRI" precision="22" scale="0">
+                <comment>DIVIPO DE LA MATRICULA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comLicenciacon" type="string">
+            <column name="COM_LICENCIACON" length="14">
+                <comment>LICENCIA DE LA PERSONA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comCategoria" type="string">
+            <column name="COM_CATEGORIA" length="2">
+                <comment>CATEGORIA DE LA LICENCIA DE LA PERSONA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="divLicencia" type="big_decimal">
+            <column name="DIV_LICENCIA" precision="22" scale="0">
+                <comment>DIVIPO DE LA LICENCIA DE LA PERSONA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comFechavence" type="date">
+            <column name="COM_FECHAVENCE" length="7">
+                <comment>FECHA QUE VENCE LA LICENCIA DE LA PERSONA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comTipoinfractor" type="big_decimal">
+            <column name="COM_TIPOINFRACTOR" precision="22" scale="0" not-null="true">
+                <comment>TIPO DE INFRACTOR DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comLicenciatran" type="string">
+            <column name="COM_LICENCIATRAN" length="16">
+                <comment>LICENCIA DE TRNAISTO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="divLicenciatra" type="big_decimal">
+            <column name="DIV_LICENCIATRA" precision="22" scale="0">
+                <comment>DIVIPO DE LA LICENCIA DE TRNASITO</comment>
+            </column>
+        </property>
+        <property name="comNitempresa" type="string">
+            <column name="COM_NITEMPRESA" length="15">
+                <comment>NIT DE LA EMPRESA</comment>
+            </column>
+        </property>
+        <property name="comNombreempresa" type="string">
+            <column name="COM_NOMBREEMPRESA" length="30">
+                <comment>NOMBRE DE LA EMPRESA</comment>
+            </column>
+        </property>
+        <property name="comTarjetaoperacion" type="string">
+            <column name="COM_TARJETAOPERACION" length="10">
+                <comment>TARAJETA DE OPERACION</comment>
+            </column>
+        </property>
+        <property name="ageId" type="big_decimal">
+            <column name="AGE_ID" precision="22" scale="0" not-null="true">
+                <comment>AGENTE DELCOMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comFuga" type="big_decimal">
+            <column name="COM_FUGA" precision="22" scale="0" not-null="true">
+                <comment>FUGA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comAccidente" type="big_decimal">
+            <column name="COM_ACCIDENTE" precision="22" scale="0" not-null="true">
+                <comment>ACCIDENTE DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comInmovilizacion" type="big_decimal">
+            <column name="COM_INMOVILIZACION" precision="22" scale="0" not-null="true">
+                <comment>INVOLILIZACION DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comPolca" type="big_decimal">
+            <column name="COM_POLCA" precision="22" scale="0" not-null="true">
+                <comment>SI EL COMPARENDO EL POLCA</comment>
+            </column>
+        </property>
+        <property name="comFirmado" type="big_decimal">
+            <column name="COM_FIRMADO" precision="22" scale="0" not-null="true">
+                <comment>FIMA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comElectronico" type="big_decimal">
+            <column name="COM_ELECTRONICO" precision="22" scale="0" not-null="true">
+                <comment>SI EL COMPARENDO ES ELECTRONICO</comment>
+            </column>
+        </property>
+        <property name="comFotomulta" type="big_decimal">
+            <column name="COM_FOTOMULTA" precision="22" scale="0" not-null="true">
+                <comment>SI EL COMPARENDO ES UNA FOTO MULTA</comment>
+            </column>
+        </property>
+        <property name="comTipo" type="big_decimal">
+            <column name="COM_TIPO" precision="22" scale="0" not-null="true">
+                <comment>TIPO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comOrganismo" type="string">
+            <column name="COM_ORGANISMO" length="20" not-null="true">
+                <comment>ORGANISMO</comment>
+            </column>
+        </property>
+        <property name="comEstado" type="big_decimal">
+            <column name="COM_ESTADO" precision="22" scale="0" not-null="true">
+                <comment>ESTADO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comGradoalco" type="string">
+            <column name="COM_GRADOALCO" length="8">
+                <comment>GRADO DE ALCOHOL</comment>
+            </column>
+        </property>
+        <property name="comFechanoti" type="date">
+            <column name="COM_FECHANOTI" length="7">
+                <comment>FECHA NOTIFICACION</comment>
+            </column>
+        </property>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0" not-null="true">
+                <comment>USUARIO QUE INGRESO EL COMPARENDO AL SISTEMA</comment>
+            </column>
+        </property>
+        <property name="comFechaproceso" type="date">
+            <column name="COM_FECHAPROCESO" length="7" not-null="true">
+                <comment>FECHA DE PROCESO</comment>
+            </column>
+        </property>
+        <property name="patId" type="big_decimal">
+            <column name="PAT_ID" precision="22" scale="0">
+                <comment>PATIO DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="gruId" type="big_decimal">
+            <column name="GRU_ID" precision="22" scale="0">
+                <comment>GRUA DEL COMPARENDO</comment>
+            </column>
+        </property>
+        <property name="comObservaciones" type="string">
+            <column name="COM_OBSERVACIONES" length="500">
+                <comment>OBSERVACIONES</comment>
+            </column>
+        </property>
+        <property name="comTipoingreso" type="big_decimal">
+            <column name="COM_TIPOINGRESO" precision="22" scale="0">
+                <comment>TIPO DE INGREO AL SISTEMA</comment>
+            </column>
+        </property>
+        <property name="comDireccioninfra" type="string">
+            <column name="COM_DIRECCIONINFRA" length="500">
+                <comment>DIRECCION DEL INFRACTOR</comment>
+            </column>
+        </property>
+        <property name="divDireccioninfra" type="big_decimal">
+            <column name="DIV_DIRECCIONINFRA" precision="22" scale="0">
+                <comment>DIRECCION DEL INFRACTOR</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -76,6 +76,13 @@
                 <value>com/contravenciones/tr/persistence/CivHistorialUsuarioCaja.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivHistorialPerfilRecurso.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivUsuariosCajasTipopagos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivInfracciones.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivValorinfraccion.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivSalariosminimos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivComparendos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivConceptos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDetallecartera.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivCarteras.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -147,6 +154,9 @@
     <bean id="paisDAO" class="com.contravenciones.jdbc.dao.DaoPais">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
+    <bean id="salarioMinimoDAO" class="com.contravenciones.jdbc.dao.DaoSalarioMinimo"> 
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
     <!-- BOS -->
     <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
         <property name="loginDAO" ref="loginDAO"></property>
@@ -195,6 +205,9 @@
     </bean>
     <bean id="renovarPasswordBO" class="com.contravenciones.tr.bo.RenovarPasswordImplBO">
         <property name="usuariosDAO" ref="usuariosDAO" />
+    </bean>
+    <bean id="SalarioMinimoBO" class="com.contravenciones.tr.bo.SalarioMinimoImplBO">
+        <property name="salarioMinimoDAO" ref="salarioMinimoDAO" />
     </bean>
     <!-- Transaction -->    
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">

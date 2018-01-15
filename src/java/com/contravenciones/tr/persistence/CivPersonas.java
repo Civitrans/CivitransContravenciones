@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 30/12/2017 12:47:12 PM by Hibernate Tools 4.3.1
+// Generated 15/01/2018 11:03:58 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -35,7 +35,11 @@ public class CivPersonas  implements java.io.Serializable {
      private BigDecimal usuId;
      private BigDecimal perLugarexpedicion;
      private Set civDireccioneses = new HashSet(0);
+     private Set civComparendosesForPerId = new HashSet(0);
+     private Set civComparendosesForPerTestigo = new HashSet(0);
      private Set civUsuarioses = new HashSet(0);
+     private Set civCarterases = new HashSet(0);
+     private Set civComparendosesForPerPropietario = new HashSet(0);
 
     public CivPersonas() {
     }
@@ -49,7 +53,7 @@ public class CivPersonas  implements java.io.Serializable {
         this.perApellido1 = perApellido1;
         this.perEstado = perEstado;
     }
-    public CivPersonas(BigDecimal perId, BigDecimal perTipodocumento, String perDocumento, Date perFechanac, String perGruposanguineo, String perRh, String perSexo, String perNombre1, String perNombre2, String perApellido1, String perApellido2, String perEmail, String perCelular, BigDecimal perLugarnacimiento, Date perFechaexp, BigDecimal perEstado, Date perFechainicial, Date perFechafinal, Date perFechaproceso, BigDecimal usuId, BigDecimal perLugarexpedicion, Set civDireccioneses, Set civUsuarioses) {
+    public CivPersonas(BigDecimal perId, BigDecimal perTipodocumento, String perDocumento, Date perFechanac, String perGruposanguineo, String perRh, String perSexo, String perNombre1, String perNombre2, String perApellido1, String perApellido2, String perEmail, String perCelular, BigDecimal perLugarnacimiento, Date perFechaexp, BigDecimal perEstado, Date perFechainicial, Date perFechafinal, Date perFechaproceso, BigDecimal usuId, BigDecimal perLugarexpedicion, Set civDireccioneses, Set civComparendosesForPerId, Set civComparendosesForPerTestigo, Set civUsuarioses, Set civCarterases, Set civComparendosesForPerPropietario) {
        this.perId = perId;
        this.perTipodocumento = perTipodocumento;
        this.perDocumento = perDocumento;
@@ -72,7 +76,11 @@ public class CivPersonas  implements java.io.Serializable {
        this.usuId = usuId;
        this.perLugarexpedicion = perLugarexpedicion;
        this.civDireccioneses = civDireccioneses;
+       this.civComparendosesForPerId = civComparendosesForPerId;
+       this.civComparendosesForPerTestigo = civComparendosesForPerTestigo;
        this.civUsuarioses = civUsuarioses;
+       this.civCarterases = civCarterases;
+       this.civComparendosesForPerPropietario = civComparendosesForPerPropietario;
     }
    
     public BigDecimal getPerId() {
@@ -229,12 +237,40 @@ public class CivPersonas  implements java.io.Serializable {
     public void setCivDireccioneses(Set civDireccioneses) {
         this.civDireccioneses = civDireccioneses;
     }
+    public Set getCivComparendosesForPerId() {
+        return this.civComparendosesForPerId;
+    }
+    
+    public void setCivComparendosesForPerId(Set civComparendosesForPerId) {
+        this.civComparendosesForPerId = civComparendosesForPerId;
+    }
+    public Set getCivComparendosesForPerTestigo() {
+        return this.civComparendosesForPerTestigo;
+    }
+    
+    public void setCivComparendosesForPerTestigo(Set civComparendosesForPerTestigo) {
+        this.civComparendosesForPerTestigo = civComparendosesForPerTestigo;
+    }
     public Set getCivUsuarioses() {
         return this.civUsuarioses;
     }
     
     public void setCivUsuarioses(Set civUsuarioses) {
         this.civUsuarioses = civUsuarioses;
+    }
+    public Set getCivCarterases() {
+        return this.civCarterases;
+    }
+    
+    public void setCivCarterases(Set civCarterases) {
+        this.civCarterases = civCarterases;
+    }
+    public Set getCivComparendosesForPerPropietario() {
+        return this.civComparendosesForPerPropietario;
+    }
+    
+    public void setCivComparendosesForPerPropietario(Set civComparendosesForPerPropietario) {
+        this.civComparendosesForPerPropietario = civComparendosesForPerPropietario;
     }
 
 

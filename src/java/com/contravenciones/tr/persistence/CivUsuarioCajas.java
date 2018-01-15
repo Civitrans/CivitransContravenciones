@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 30/12/2017 12:47:12 PM by Hibernate Tools 4.3.1
+// Generated 15/01/2018 11:03:58 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,9 +11,9 @@ public class CivUsuarioCajas  implements java.io.Serializable {
 
 
      private CivUsuarioCajasId id;
-     private CivUsuarios civUsuarios;
-     private CivSedes civSedes;
      private CivCajas civCajas;
+     private CivSedes civSedes;
+     private CivUsuarios civUsuarios;
      private Date usucajFechaInicio;
      private Date usucajFechaFin;
 
@@ -21,18 +21,18 @@ public class CivUsuarioCajas  implements java.io.Serializable {
     }
 
 	
-    public CivUsuarioCajas(CivUsuarioCajasId id, CivUsuarios civUsuarios, CivSedes civSedes, CivCajas civCajas, Date usucajFechaInicio) {
+    public CivUsuarioCajas(CivUsuarioCajasId id, CivCajas civCajas, CivSedes civSedes, CivUsuarios civUsuarios, Date usucajFechaInicio) {
         this.id = id;
-        this.civUsuarios = civUsuarios;
-        this.civSedes = civSedes;
         this.civCajas = civCajas;
+        this.civSedes = civSedes;
+        this.civUsuarios = civUsuarios;
         this.usucajFechaInicio = usucajFechaInicio;
     }
-    public CivUsuarioCajas(CivUsuarioCajasId id, CivUsuarios civUsuarios, CivSedes civSedes, CivCajas civCajas, Date usucajFechaInicio, Date usucajFechaFin) {
+    public CivUsuarioCajas(CivUsuarioCajasId id, CivCajas civCajas, CivSedes civSedes, CivUsuarios civUsuarios, Date usucajFechaInicio, Date usucajFechaFin) {
        this.id = id;
-       this.civUsuarios = civUsuarios;
-       this.civSedes = civSedes;
        this.civCajas = civCajas;
+       this.civSedes = civSedes;
+       this.civUsuarios = civUsuarios;
        this.usucajFechaInicio = usucajFechaInicio;
        this.usucajFechaFin = usucajFechaFin;
     }
@@ -44,12 +44,12 @@ public class CivUsuarioCajas  implements java.io.Serializable {
     public void setId(CivUsuarioCajasId id) {
         this.id = id;
     }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
+    public CivCajas getCivCajas() {
+        return this.civCajas;
     }
     
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
+    public void setCivCajas(CivCajas civCajas) {
+        this.civCajas = civCajas;
     }
     public CivSedes getCivSedes() {
         return this.civSedes;
@@ -58,12 +58,12 @@ public class CivUsuarioCajas  implements java.io.Serializable {
     public void setCivSedes(CivSedes civSedes) {
         this.civSedes = civSedes;
     }
-    public CivCajas getCivCajas() {
-        return this.civCajas;
+    public CivUsuarios getCivUsuarios() {
+        return this.civUsuarios;
     }
     
-    public void setCivCajas(CivCajas civCajas) {
-        this.civCajas = civCajas;
+    public void setCivUsuarios(CivUsuarios civUsuarios) {
+        this.civUsuarios = civUsuarios;
     }
     public Date getUsucajFechaInicio() {
         return this.usucajFechaInicio;

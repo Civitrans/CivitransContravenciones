@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 30/12/2017 12:47:12 PM by Hibernate Tools 4.3.1
+// Generated 15/01/2018 11:03:58 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,8 +12,8 @@ public class CivDetalleRecUsu  implements java.io.Serializable {
 
 
      private BigDecimal detRecId;
-     private CivUsuarios civUsuarios;
      private CivRecursos civRecursos;
+     private CivUsuarios civUsuarios;
      private BigDecimal detRecUsuId;
      private Boolean propiedadVisible;
      private Boolean propiedadEnabled;
@@ -24,15 +24,15 @@ public class CivDetalleRecUsu  implements java.io.Serializable {
     }
 
 	
-    public CivDetalleRecUsu(BigDecimal detRecId, CivUsuarios civUsuarios, CivRecursos civRecursos) {
+    public CivDetalleRecUsu(BigDecimal detRecId, CivRecursos civRecursos, CivUsuarios civUsuarios) {
         this.detRecId = detRecId;
-        this.civUsuarios = civUsuarios;
         this.civRecursos = civRecursos;
+        this.civUsuarios = civUsuarios;
     }
-    public CivDetalleRecUsu(BigDecimal detRecId, CivUsuarios civUsuarios, CivRecursos civRecursos, BigDecimal detRecUsuId, Boolean propiedadVisible, Boolean propiedadEnabled, Date fechaInicial, Date fechaFin) {
+    public CivDetalleRecUsu(BigDecimal detRecId, CivRecursos civRecursos, CivUsuarios civUsuarios, BigDecimal detRecUsuId, Boolean propiedadVisible, Boolean propiedadEnabled, Date fechaInicial, Date fechaFin) {
        this.detRecId = detRecId;
-       this.civUsuarios = civUsuarios;
        this.civRecursos = civRecursos;
+       this.civUsuarios = civUsuarios;
        this.detRecUsuId = detRecUsuId;
        this.propiedadVisible = propiedadVisible;
        this.propiedadEnabled = propiedadEnabled;
@@ -47,19 +47,19 @@ public class CivDetalleRecUsu  implements java.io.Serializable {
     public void setDetRecId(BigDecimal detRecId) {
         this.detRecId = detRecId;
     }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
-    }
-    
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
-    }
     public CivRecursos getCivRecursos() {
         return this.civRecursos;
     }
     
     public void setCivRecursos(CivRecursos civRecursos) {
         this.civRecursos = civRecursos;
+    }
+    public CivUsuarios getCivUsuarios() {
+        return this.civUsuarios;
+    }
+    
+    public void setCivUsuarios(CivUsuarios civUsuarios) {
+        this.civUsuarios = civUsuarios;
     }
     public BigDecimal getDetRecUsuId() {
         return this.detRecUsuId;

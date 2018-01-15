@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15/01/2018 11:03:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivSalariosminimos" table="CIV_SALARIOSMINIMOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="salId" type="big_decimal">
+            <column name="SAL_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true">
+                <comment>USUARIO QUE INGRESO EL REGISTRO</comment>
+            </column>
+        </many-to-one>
+        <property name="salVigencia" type="big_decimal">
+            <column name="SAL_VIGENCIA" precision="22" scale="0" not-null="true">
+                <comment>VIGENCIA DEL SALARIO MINIMO</comment>
+            </column>
+        </property>
+        <property name="salValor" type="big_decimal">
+            <column name="SAL_VALOR" precision="22" scale="0" not-null="true">
+                <comment>VALOR DE LA VIGENCIA</comment>
+            </column>
+        </property>
+        <property name="salEstado" type="byte">
+            <column name="SAL_ESTADO" precision="2" scale="0" not-null="true">
+                <comment>ESTADO DEL SALARIO MINIMO</comment>
+            </column>
+        </property>
+        <property name="salFechainicial" type="date">
+            <column name="SAL_FECHAINICIAL" length="7" not-null="true">
+                <comment>FECHA INICIAL DEL SALARIO MINIMO</comment>
+            </column>
+        </property>
+        <property name="salFechafinal" type="date">
+            <column name="SAL_FECHAFINAL" length="7">
+                <comment>FECHA FINAL DEL SALARIO MINIMO</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15/01/2018 11:03:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivValorinfraccion" table="CIV_VALORINFRACCION" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="valinfId" type="big_decimal">
+            <column name="VALINF_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true">
+                <comment>USUARIO QUE INGRESO EL VALOR DE LA INFRACCION</comment>
+            </column>
+        </many-to-one>
+        <property name="valinfLey" type="string">
+            <column name="VALINF_LEY" length="100">
+                <comment>NUMERO DE LA LEY DEL VALOR DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <property name="valinfSalarios" type="big_decimal">
+            <column name="VALINF_SALARIOS" precision="22" scale="0" not-null="true">
+                <comment>SALARIOS MINIMOS DIARIOS VIGENTES</comment>
+            </column>
+        </property>
+        <property name="infId" type="big_decimal">
+            <column name="INF_ID" precision="22" scale="0" not-null="true">
+                <comment>INFRACCION</comment>
+            </column>
+        </property>
+        <property name="valinfResolucion" type="string">
+            <column name="VALINF_RESOLUCION" length="100">
+                <comment>RESOLUCION DEL VALOR DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <property name="valinfFechares" type="date">
+            <column name="VALINF_FECHARES" length="7">
+                <comment>FECHA DE LA RESOLUCION</comment>
+            </column>
+        </property>
+        <property name="valinfFechainicial" type="date">
+            <column name="VALINF_FECHAINICIAL" length="7" not-null="true">
+                <comment>FECHA INCIAL DEL VALOR DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <property name="valinfFechafinal" type="date">
+            <column name="VALINF_FECHAFINAL" length="7">
+                <comment>FECHA FINAL DEL VALOR DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <property name="valinfEstado" type="big_decimal">
+            <column name="VALINF_ESTADO" precision="22" scale="0" not-null="true">
+                <comment>ESTADO DEL VALOR DE LA INFRACCION</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 30/12/2017 12:47:13 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 15/01/2018 11:03:59 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivDepartamentos" table="CIV_DEPARTAMENTOS" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan todos los departamentos nacionales. Ver CIV_DIVIPOS.</comment>
         <id name="depId" type="big_decimal">
             <column name="DEP_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <property name="depNombre" type="string">
             <column name="DEP_NOMBRE" length="200">

@@ -30,4 +30,11 @@
     <table-filter match-name="CIV_HISTORIAL_PERFIL_RECURSO"/>
     <table-filter match-name="CIV_HISTORIAL_USUARIO_CAJA"/>
     <table-filter match-name="CIV_USUARIOS_CAJAS_TIPOPAGOS"/>
+    <table-filter match-name="CIV_SALARIOSMINIMOS"/>
+    <table-filter match-name="CIV_INFRACCIONES"/>
+    <table-filter match-name="CIV_VALORINFRACCION"/>
+    <table-filter match-name="CIV_CONCEPTOS"/>
+    <table-filter match-name="CIV_CARTERAS"/>
+    <table-filter match-name="CIV_DETALLECARTERA"/>
+    <table-filter match-name="CIV_COMPARENDOS"/>
 </hibernate-reverse-engineering>

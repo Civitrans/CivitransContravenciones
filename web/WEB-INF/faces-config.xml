@@ -84,6 +84,19 @@
         </managed-property>
     </managed-bean>
     <!--End Renovar Password-->
+    <managed-bean>
+        <managed-bean-name>salarioMinimoBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanSalarioMinimo</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>salarioMinimoBO</property-name>
+            <value>#{SalarioMinimoBO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <value>#{loginBean}</value>
+        </managed-property>
+    </managed-bean>
     <!--
      <managed-bean>
          <managed-bean-name>usuariosBean</managed-bean-name>

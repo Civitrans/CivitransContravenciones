@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 15/01/2018 11:03:59 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivInfracciones" table="CIV_INFRACCIONES" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="infId" type="big_decimal">
+            <column name="INF_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true">
+                <comment>USUARIO QUE INGRESO LAINFRACCION</comment>
+            </column>
+        </many-to-one>
+        <property name="infCodigoTransito" type="string">
+            <column name="INF_CODIGO_TRANSITO" length="3" />
+        </property>
+        <property name="infNumero" type="string">
+            <column name="INF_NUMERO" length="3" not-null="true">
+                <comment>NUMERO DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <property name="infDescripcion" type="string">
+            <column name="INF_DESCRIPCION" length="800" not-null="true">
+                <comment>DESCRIPCION DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <property name="infEstado" type="big_decimal">
+            <column name="INF_ESTADO" precision="22" scale="0" not-null="true">
+                <comment>ESTADO DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <property name="infFechainicial" type="date">
+            <column name="INF_FECHAINICIAL" length="7" not-null="true">
+                <comment>FECHA INICIAL DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <property name="infFechafinal" type="date">
+            <column name="INF_FECHAFINAL" length="7">
+                <comment>FECHA FIANL DE LA INFRACCION</comment>
+            </column>
+        </property>
+        <set name="civComparendoses" table="CIV_COMPARENDOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="INF_ID" precision="22" scale="0" not-null="true">
+                    <comment>INFRACCION DEL COMPARENDO</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivComparendos" />
+        </set>
+    </class>
+</hibernate-mapping>
