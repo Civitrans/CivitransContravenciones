@@ -69,6 +69,7 @@ public class BeanGestionUsuario implements Serializable {
     private boolean detalleRecurso = false; // Indica que recurso se le puede seleccionar el detalle recurso.
     private boolean mensajeTP = false; // si se desea deshabilitar los tipos de pagos de un usuario, esta variable indica como debe ser el proceso.
     private boolean mensajeC = false;// si se desea deshabilitar las cajas de un usuario, esta variable indica como debe ser el proceso.
+    private boolean mostrar= false;
     private boolean disableEstado = false; //Si el estado del usuario es 3 deshabilita la opcion de cambiarle de estado
     private String titleEstado = "Estado del usuario";
     private String colorAccordion = "text-black"; // si selecciona un recurso, cambia el color del módulo, para indicar que se ha seleccionado un recurso en ese módulo.
@@ -317,8 +318,9 @@ public class BeanGestionUsuario implements Serializable {
 
     /*Método para consultar todos los usuarios registrados en la base de datos.*/
     public void listarUsuarios() {
+        setMostrar(true);
         impListarUsuario();
-        RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
+        //RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
     }
 
     protected void impListarUsuario() {
@@ -2345,6 +2347,20 @@ public class BeanGestionUsuario implements Serializable {
      */
     public void setTitleEstado(String titleEstado) {
         this.titleEstado = titleEstado;
+    }
+
+    /**
+     * @return the mostrar
+     */
+    public boolean isMostrar() {
+        return mostrar;
+    }
+
+    /**
+     * @param mostrar the mostrar to set
+     */
+    public void setMostrar(boolean mostrar) {
+        this.mostrar = mostrar;
     }
 
 }

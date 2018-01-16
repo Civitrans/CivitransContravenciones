@@ -10,6 +10,7 @@ import com.contravenciones.tr.bo.SalarioMinimoBO;
 import com.contravenciones.tr.persistence.CivSalariosminimos;
 import com.contravenciones.utility.Log_Handler;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
@@ -26,6 +27,9 @@ public class BeanSalarioMinimo implements Serializable {
     private SalarioMinimoBO salarioMinimoBO;
 
     private int codeVigencia;
+    private int estado;
+    
+    private Date fechaIni;
 
     private boolean btnActualizar = false;
 
@@ -232,6 +236,34 @@ public class BeanSalarioMinimo implements Serializable {
      */
     public void setBtnActualizar(boolean btnActualizar) {
         this.btnActualizar = btnActualizar;
+    }
+
+    /**
+     * @return the estado
+     */
+    public int getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the fechaIni
+     */
+    public Date getFechaIni() {
+        return fechaIni;
+    }
+
+    /**
+     * @param fechaIni the fechaIni to set
+     */
+    public void setFechaIni(Date fechaIni) {
+        this.fechaIni = fechaIni;
     }
 
 }

@@ -109,12 +109,18 @@
                                     </h:panelGrid>
                                 </div>
                             </div>
-
-
                             <div class="row">
                                 <div class="col-lg-12"> 
                                     <h:panelGrid id="pnGroup" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                         <h:panelGroup rendered="#{gestionrecursosBean.mostrarConsulta}">
+                                            <div class="row col-lg-12" align="right">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                    
+                                                    <h:commandLink title="Crear Recurso" class="fa fa-user-plus fa-2x" onclick="$('#crearRecurso').modal('show');">
+                                                        <f:ajax execute="@form" event="click" render="gestionRecursos:crear"/>
+                                                    </h:commandLink>   
+                                                </div>
+                                            </div>
                                             <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                                 <div class="box box-primary">
                                                     <div class="box-body">
@@ -280,9 +286,6 @@
                                                                 </h:panelGrid>
                                                             </div>
                                                         </div>
-
-
-
                                                     </div>
                                                 </div> 
                                             </section>
@@ -290,10 +293,73 @@
                                     </h:panelGrid>   
                                 </div>
                             </div>
+                            <!-- Modal Crear Recurso -->
+                        <div class="modal fade" id="crearRecurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <p:messages closable="true" autoUpdate="true" id="msggeneral12" showDetail="true"/>
+                                            </div>
+                                        </div>
+                                        <h4 class="modal-title" id="myModalLabel2">Crear Recurso</h4>
+                                    </div>
+
+                                    <div class="modal-body">
+
+                                        <div class="panel panel-default">
+                                            <div class="panel-heading">
+                                                <h4>  <b>Recurso</b>  </h4>
+                                            </div>
+
+                                            <div class="panel-body">
+                                                <div class="col-lg-12">
+                                                    <h:panelGrid id="crear">
+                                                        <h:panelGroup>
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <label>Nombre del recurso</label>
+                                                                    <h:inputText class="form-control col-lg-6" value="#{gestionrecursosBean.nombreRecurso}" id="nombreRec">
+                                                                    </h:inputText><!--VALUE OK-->
+                                                                </div>
+                                                                <div class="col-lg-6">
+                                                                    <label>Módulo</label>
+                                                                    <h:selectOneMenu id="cmbModuloR" value="#{gestionrecursosBean.modulo}" class="select2-dropdown form-control col-lg-6">
+                                                                        <f:selectItems value="#{gestionrecursosBean.listModulos.entrySet()}"  var="modulos" itemLabel="#{modulos.value}" itemValue="#{modulos.key}" />
+                                                                    </h:selectOneMenu>
+                                                                </div>
+                                                            </div>
+                                                        </h:panelGroup>
+                                                    </h:panelGrid>
+
+                                                </div><!--col 12 lg-->
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+                                        <h:commandButton class="btn btn-warning btn-submit right" value="Cancelar" onclick="$('#crearRecurso').modal('hide');">
+
+                                        </h:commandButton>
+                                        <h:commandButton id="btnCrearRecurso" class="btn btn-success btn-submit right" value="Crear" onclick="$('#crearRecurso').modal('hide');">
+
+                                        </h:commandButton>
+                                    </div>
+
+                                </div>
+
+                                <!-- /.modal-content -->
+                            </div>
+
+                            <!-- /.modal-dialog -->
                         </div>
+                        </div>
+                        
                         <script>
                             setFechaInput();
                         </script>
+
                     </h:form>
                 </c:if>
             </ui:define>

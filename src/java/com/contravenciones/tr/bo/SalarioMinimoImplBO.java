@@ -9,9 +9,11 @@ import com.contravenciones.exception.SalarioMinimoException;
 import com.contravenciones.jdbc.dao.ITSalarioMinimo;
 import com.contravenciones.jsf.bean.BeanSalarioMinimo;
 import com.contravenciones.tr.persistence.CivSalariosminimos;
+import com.contravenciones.tr.persistence.CivUsuarios;
 import com.contravenciones.utility.ValidacionDatos;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -38,6 +40,7 @@ public class SalarioMinimoImplBO implements SalarioMinimoBO {
         if (min != null) {
             bean.setVigencia(String.valueOf(min.getSalVigencia()));
             bean.setSalario(min.getSalValor().doubleValue());
+            bean.setFechaIni(min.getSalFechainicial());
         }
 
     }
@@ -60,9 +63,14 @@ public class SalarioMinimoImplBO implements SalarioMinimoBO {
 
         CivSalariosminimos comprobar = getSalarioMinimoDAO().salarioByVigencia(Long.parseLong(bean.getVigencia()));
         if (comprobar == null) {
+            CivUsuarios us = new CivUsuarios();
+            us.setUsuId(BigDecimal.valueOf(Integer.parseInt(bean.getLoginBean().getID_Usuario())));
             CivSalariosminimos sal = new CivSalariosminimos();
             sal.setSalValor(BigDecimal.valueOf(bean.getSalario()));
             sal.setSalVigencia(BigDecimal.valueOf(Integer.parseInt(bean.getVigencia())));
+            sal.setSalEstado(BigDecimal.ONE);
+            sal.setSalFechainicial(new Date());
+            sal.setCivUsuarios(us);
             getSalarioMinimoDAO().insert(sal);
         } else {
             throw new SalarioMinimoException("La vigencia ya tiene asignada un salario mínimo", 2);
@@ -90,6 +98,16 @@ public class SalarioMinimoImplBO implements SalarioMinimoBO {
         sal.setSalId(BigDecimal.valueOf(bean.getCodeVigencia()));
         sal.setSalValor(BigDecimal.valueOf(bean.getSalario()));
         sal.setSalVigencia(BigDecimal.valueOf(Integer.parseInt(bean.getVigencia())));
+        sal.setSalEstado(BigDecimal.valueOf(bean.getEstado()));
+        if(bean.getEstado()==1){
+            sal.setSalFechafinal(null);
+        }else{
+            sal.setSalFechafinal(new Date());
+        }
+        sal.setSalFechainicial(bean.getFechaIni());
+        CivUsuarios us = new CivUsuarios();
+        us.setUsuId(BigDecimal.valueOf(Integer.parseInt(bean.getLoginBean().getID_Usuario())));
+        sal.setCivUsuarios(us);
         getSalarioMinimoDAO().update(sal);
 
     }

@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 15/01/2018 11:03:58 AM by Hibernate Tools 4.3.1
+// Generated 15/01/2018 03:21:52 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ public class CivSalariosminimos  implements java.io.Serializable {
      private CivUsuarios civUsuarios;
      private BigDecimal salVigencia;
      private BigDecimal salValor;
-     private byte salEstado;
+     private BigDecimal salEstado;
      private Date salFechainicial;
      private Date salFechafinal;
 
@@ -23,7 +23,7 @@ public class CivSalariosminimos  implements java.io.Serializable {
     }
 
 	
-    public CivSalariosminimos(BigDecimal salId, CivUsuarios civUsuarios, BigDecimal salVigencia, BigDecimal salValor, byte salEstado, Date salFechainicial) {
+    public CivSalariosminimos(BigDecimal salId, CivUsuarios civUsuarios, BigDecimal salVigencia, BigDecimal salValor, BigDecimal salEstado, Date salFechainicial) {
         this.salId = salId;
         this.civUsuarios = civUsuarios;
         this.salVigencia = salVigencia;
@@ -31,7 +31,7 @@ public class CivSalariosminimos  implements java.io.Serializable {
         this.salEstado = salEstado;
         this.salFechainicial = salFechainicial;
     }
-    public CivSalariosminimos(BigDecimal salId, CivUsuarios civUsuarios, BigDecimal salVigencia, BigDecimal salValor, byte salEstado, Date salFechainicial, Date salFechafinal) {
+    public CivSalariosminimos(BigDecimal salId, CivUsuarios civUsuarios, BigDecimal salVigencia, BigDecimal salValor, BigDecimal salEstado, Date salFechainicial, Date salFechafinal) {
        this.salId = salId;
        this.civUsuarios = civUsuarios;
        this.salVigencia = salVigencia;
@@ -69,11 +69,11 @@ public class CivSalariosminimos  implements java.io.Serializable {
     public void setSalValor(BigDecimal salValor) {
         this.salValor = salValor;
     }
-    public byte getSalEstado() {
+    public BigDecimal getSalEstado() {
         return this.salEstado;
     }
     
-    public void setSalEstado(byte salEstado) {
+    public void setSalEstado(BigDecimal salEstado) {
         this.salEstado = salEstado;
     }
     public Date getSalFechainicial() {
