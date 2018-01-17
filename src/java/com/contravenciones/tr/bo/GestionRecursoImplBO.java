@@ -75,6 +75,10 @@ public class GestionRecursoImplBO implements GestionRecursoBO {
 
     @Override
     public void editarRecursos(BeanGestionRecurso bean) throws Exception {
+        
+        validarCampos(bean.getNombreRecurso());
+        validarCampos(bean.getCarpeta());
+        validarCampos(bean.getDescripcion());
 
         CivRecursos rec = new CivRecursos();
         rec.setRecId(BigDecimal.valueOf(bean.getIdrecurso()));
@@ -96,6 +100,26 @@ public class GestionRecursoImplBO implements GestionRecursoBO {
         rec.setRecTipo(BigDecimal.valueOf(bean.getTipo()));
         getRecursosDAO().update(rec);
     }
+    
+    @Override
+    public void crearRecursos(BeanGestionRecurso bean) throws Exception {
+        
+        validarCampos(bean.getNombreRecurso());
+        validarCampos(bean.getCarpeta());
+        validarCampos(bean.getDescripcion());
+        
+        CivRecursos rec = new CivRecursos();
+        rec.setRecNombre(bean.getNombreRecurso().toUpperCase());
+        rec.setRecDescripcion(bean.getDescripcion());
+        rec.setRecFechainicial(new Date());
+        rec.setRecEstado(BigDecimal.ONE);
+        rec.setRecCarpeta(bean.getCarpeta());
+        CivModulos mod = new CivModulos();
+        mod.setModId(BigDecimal.valueOf(bean.getModulo()));
+        rec.setCivModulos(mod);
+        rec.setRecTipo(BigDecimal.valueOf(bean.getTipo()));
+        getRecursosDAO().insert(rec);
+    }
 
     @Override
     public void cancelarEditar(BeanGestionRecurso bean) throws Exception {
@@ -111,6 +135,13 @@ public class GestionRecursoImplBO implements GestionRecursoBO {
         bean.setModulo(rec.getCivModulos().getModId().intValue());
         bean.setTipo(rec.getRecTipo().intValue());
 
+    }
+    
+    public boolean validarCampos(String campo) throws Exception{
+        if(campo.equals("")){
+            throw new RecursoException("Campos vacíos",1);
+        }
+        return true;
     }
 
     /**

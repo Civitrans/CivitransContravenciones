@@ -115,8 +115,8 @@
                                         <h:panelGroup rendered="#{gestionrecursosBean.mostrarConsulta}">
                                             <div class="row col-lg-12" align="right">
                                                 <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                                    
-                                                    <h:commandLink title="Crear Recurso" class="fa fa-user-plus fa-2x" onclick="$('#crearRecurso').modal('show');">
+
+                                                    <h:commandLink title="Crear Recurso" class="fa fa-plus fa-2x" onclick="$('#crearRecurso').modal('show');">
                                                         <f:ajax execute="@form" event="click" render="gestionRecursos:crear"/>
                                                     </h:commandLink>   
                                                 </div>
@@ -294,68 +294,93 @@
                                 </div>
                             </div>
                             <!-- Modal Crear Recurso -->
-                        <div class="modal fade" id="crearRecurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="row">
-                                            <div class="col-lg-12">
-                                                <p:messages closable="true" autoUpdate="true" id="msggeneral12" showDetail="true"/>
-                                            </div>
-                                        </div>
-                                        <h4 class="modal-title" id="myModalLabel2">Crear Recurso</h4>
-                                    </div>
-
-                                    <div class="modal-body">
-
-                                        <div class="panel panel-default">
-                                            <div class="panel-heading">
-                                                <h4>  <b>Recurso</b>  </h4>
-                                            </div>
-
-                                            <div class="panel-body">
+                            <div class="modal fade" id="crearRecurso" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="row">
                                                 <div class="col-lg-12">
-                                                    <h:panelGrid id="crear">
-                                                        <h:panelGroup>
-                                                            <div class="row">
-                                                                <div class="col-lg-6">
-                                                                    <label>Nombre del recurso</label>
-                                                                    <h:inputText class="form-control col-lg-6" value="#{gestionrecursosBean.nombreRecurso}" id="nombreRec">
-                                                                    </h:inputText><!--VALUE OK-->
-                                                                </div>
-                                                                <div class="col-lg-6">
-                                                                    <label>Módulo</label>
-                                                                    <h:selectOneMenu id="cmbModuloR" value="#{gestionrecursosBean.modulo}" class="select2-dropdown form-control col-lg-6">
-                                                                        <f:selectItems value="#{gestionrecursosBean.listModulos.entrySet()}"  var="modulos" itemLabel="#{modulos.value}" itemValue="#{modulos.key}" />
-                                                                    </h:selectOneMenu>
-                                                                </div>
-                                                            </div>
-                                                        </h:panelGroup>
-                                                    </h:panelGrid>
+                                                    <p:messages closable="true" autoUpdate="true" id="mensajeModal" showDetail="true"/>
+                                                </div>
+                                            </div>
+                                            <h4 class="modal-title" id="myModalLabel2">Crear Recurso</h4>
+                                        </div>
 
-                                                </div><!--col 12 lg-->
+                                        <div class="modal-body">
+
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h4>  <b>Recurso</b>  </h4>
+                                                </div>
+
+                                                <div class="panel-body">
+                                                    <div class="col-lg-12">
+                                                        <h:panelGrid id="crear">
+                                                            <h:panelGroup>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <label>Nombre del recurso</label>
+                                                                        <h:inputText class="form-control col-lg-6" value="#{gestionrecursosBean.nombreRecurso}" id="nombreRec">
+                                                                        </h:inputText><!--VALUE OK-->
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <label>Módulo</label>
+                                                                        <h:selectOneMenu id="cmbModuloR" value="#{gestionrecursosBean.modulo}" class="select2-dropdown form-control col-lg-6">
+                                                                            <f:selectItems value="#{gestionrecursosBean.listModulos.entrySet()}"  var="modulos" itemLabel="#{modulos.value}" itemValue="#{modulos.key}" />
+                                                                        </h:selectOneMenu>
+                                                                    </div>
+                                                                    <br/>
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-6">
+                                                                        <label>Tipo</label>
+                                                                        <h:selectOneMenu value="#{gestionrecursosBean.tipo}" class="form-control select2-dropdown col-lg-6">
+                                                                            <f:selectItem itemValue="1" itemLabel="Operativo"/>
+                                                                            <f:selectItem itemValue="2" itemLabel="Administrativo"/>
+                                                                        </h:selectOneMenu>
+                                                                    </div>
+                                                                    <div class="col-lg-6">
+                                                                        <label>Carpeta</label>
+                                                                        <h:inputText class="form-control col-lg-6" value="#{gestionrecursosBean.carpeta}" id="nombreCarpeta">
+                                                                        </h:inputText><!--VALUE OK-->
+                                                                    </div> 
+
+
+                                                                </div>
+                                                                <div class="row">
+                                                                    <div class="col-lg-12">
+                                                                        <label>Descripción</label>
+                                                                        <h:inputTextarea class="form-control col-lg-6" value="#{gestionrecursosBean.descripcion}"/>
+                                                                    </div>
+                                                                </div>
+                                                            </h:panelGroup>
+                                                        </h:panelGrid>
+
+                                                    </div><!--col 12 lg-->
+                                                </div>
                                             </div>
                                         </div>
+
+                                        <div class="modal-footer">
+                                            <h:commandLink class="btn btn-warning btn-submit right" onclick="$('#crearRecurso').modal('hide');">
+                                                <span class="fa fa-close"></span> Cancelar
+                                                <f:ajax event="click" listener="#{gestionrecursosBean.cancelarCrear()}" render="gestionRecursos:crear"/>
+                                            </h:commandLink>
+                                            <h:commandLink id="btnCrearRecurso" class="btn btn-success btn-submit right">
+                                                <span class="fa fa-save"></span> Crear
+                                                <f:ajax event="click" listener="#{gestionrecursosBean.registrarRecurso()}" render="gestionRecursos:crear" execute="gestionRecursos:crear"/>
+                                            </h:commandLink>
+                                        </div>
+
                                     </div>
 
-                                    <div class="modal-footer">
-                                        <h:commandButton class="btn btn-warning btn-submit right" value="Cancelar" onclick="$('#crearRecurso').modal('hide');">
-
-                                        </h:commandButton>
-                                        <h:commandButton id="btnCrearRecurso" class="btn btn-success btn-submit right" value="Crear" onclick="$('#crearRecurso').modal('hide');">
-
-                                        </h:commandButton>
-                                    </div>
-
+                                    <!-- /.modal-content -->
                                 </div>
 
-                                <!-- /.modal-content -->
+                                <!-- /.modal-dialog -->
                             </div>
+                        </div>
 
-                            <!-- /.modal-dialog -->
-                        </div>
-                        </div>
-                        
                         <script>
                             setFechaInput();
                         </script>

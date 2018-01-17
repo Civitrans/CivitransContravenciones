@@ -5,11 +5,8 @@
  */
 package com.contravenciones.jsf.bean;
 
-import com.contravenciones.exception.PersonaException;
 import com.contravenciones.exception.RecursoException;
-import com.contravenciones.tr.bo.GestionPersonaBO;
 import com.contravenciones.tr.bo.GestionRecursoBO;
-import com.contravenciones.tr.persistence.CivPersonas;
 import com.contravenciones.tr.persistence.CivRecursos;
 import com.contravenciones.utility.Log_Handler;
 import java.io.Serializable;
@@ -35,6 +32,7 @@ public class BeanGestionRecurso implements Serializable {
     private boolean mostrarConsulta = false;
     private boolean mostrarDetalle = false;
     private boolean mostrarBuscar = true;
+    
 
     /*Detalle Recurso*/
     private Map<Integer, String> listEstadoRecurso;
@@ -63,7 +61,7 @@ public class BeanGestionRecurso implements Serializable {
         try {
             getGestionRecursoBO().cargarDatos(this);
         } catch (Exception e) {
-            Log_Handler.registrarEvento("Error al listar personas : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            Log_Handler.registrarEvento("Error al cargar datos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
         }
@@ -77,7 +75,7 @@ public class BeanGestionRecurso implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
         } catch (Exception e) {
-            Log_Handler.registrarEvento("Error al listar personas : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            Log_Handler.registrarEvento("Error al listar recursos: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
         }
@@ -99,7 +97,7 @@ public class BeanGestionRecurso implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
         } catch (Exception e) {
-            Log_Handler.registrarEvento("Error al listar personas : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            Log_Handler.registrarEvento("Error al mostrar detalle recursos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
         }
@@ -112,6 +110,28 @@ public class BeanGestionRecurso implements Serializable {
         setBotones(true);
     }
 
+    public void registrarRecurso() {
+        impRegistrarRecurso();
+    }
+
+    protected void impRegistrarRecurso() {
+        try {
+            getGestionRecursoBO().crearRecursos(this);
+            cancelarCrear();
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Recurso creado correctamente"));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
+            RequestContext.getCurrentInstance().execute("$('#crearRecurso').modal('hide');");
+        } catch (RecursoException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:mensajeModal");
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al registrar recurso : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:mensajeModal");
+        }
+
+    }
+    
     public void editarRecurso() {
         impEditarRecurso();
     }
@@ -150,11 +170,22 @@ public class BeanGestionRecurso implements Serializable {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
         } catch (Exception e) {
-            Log_Handler.registrarEvento("Error al listar personas : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            Log_Handler.registrarEvento("Error : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
         }
 
+    }
+    
+    public void cancelarCrear(){
+        setNombreRecurso("");
+        setDescripcion("");
+        setCarpeta("");
+        setTipo(1);
+        setModulo(1);
+        setEstado(1);
+        setFechaInicial(null);
+        setFechaFinal(null);
     }
 
     /**

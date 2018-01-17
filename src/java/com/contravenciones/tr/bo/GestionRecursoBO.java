@@ -44,6 +44,13 @@ public interface GestionRecursoBO {
      */
     void editarRecursos(BeanGestionRecurso bean) throws Exception;
     
+    /**
+     *
+     * @param bean
+     * @throws Exception
+     */
+    void crearRecursos(BeanGestionRecurso bean) throws Exception;
+    
      /**
      *
      * @param bean
