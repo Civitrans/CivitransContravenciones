@@ -16,7 +16,7 @@ import java.io.Serializable;
 import static java.lang.Thread.currentThread;
 import java.util.AbstractList;
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.Date; 
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -31,7 +31,7 @@ import org.primefaces.context.RequestContext;
  */
 public class BeanGestionUsuario implements Serializable {
 
-    private BeanLogin loginBean;
+    private BeanLogin loginBean; 
     private GestionUsuarioBO gestionUsuarioBO;
     private String documento; //documento de la persona al crear usuario.
     private int tipoDocumento; // tipo de documento de la persona al crear usuario.
