@@ -423,7 +423,7 @@
                                     <div class="modal-footer">
                                         <h:commandLink class="btn btn-warning btn-submit right" onclick="$('#registrarAgente').modal('hide');">
                                             <span class="fa fa-close"></span> Cancelar
-                                            <f:ajax event="click" listener="#{rangosBean.cancelarAgente()}"
+                                            <f:ajax event="click" listener="#{rangosBean.cancelarAgente()}" render="rangos:crear"/>
                                         </h:commandLink>
                                         <h:commandLink disabled="#{rangosBean.btnRegistrar}" id="btnRegistrarAgente" class="btn btn-success btn-submit right">
                                             <span class="fa fa-save"></span> Registrar
