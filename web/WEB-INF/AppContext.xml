@@ -83,6 +83,10 @@
                 <value>com/contravenciones/tr/persistence/CivConceptos.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivDetallecartera.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivCarteras.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivAgentes.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDetalleRangoComparendos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivRangosComparendos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDepartamentos.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -157,63 +161,85 @@
     <bean id="salarioMinimoDAO" class="com.contravenciones.jdbc.dao.DaoSalarioMinimo"> 
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <!-- BOS -->
-    <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
-        <property name="loginDAO" ref="loginDAO"></property>
-        <property name="attemptsDAO" ref="attemptsDAO"></property>
-        <property name="personasDAO" ref="personasDAO"></property>
-        <property name="usuariosDAO" ref="usuariosDAO" />
-    </bean>   
-    <bean id="GestionUsuarioBO" class="com.contravenciones.tr.bo.GestionUsuarioImplBO">
-        <property name="usuariosDAO" ref="usuariosDAO" />
-        <property name="personasDAO" ref="personasDAO" />
-        <property name="perfilesDAO" ref="perfilesDAO" />
-        <property name="perfilRecursosDAO" ref="perfilRecursoDAO"  />
-        <property name="recursosDAO" ref="recursosDAO" />
-        <property name="usuarioPerfilDAO" ref="usuarioPerfilDAO" />
-        <property name="sedesDAO" ref="sedesDAO" />
-        <property name="parametrosDAO" ref="parametrosDAO"/>
-        <property name="attemptsDAO" ref="attemptsDAO"/>
-        <property name="usuarioCajasDAO" ref="usuarioCajasDAO"/>
-        <property name="modulosDAO" ref="modulosDAO"/>
-        <property name="cajaDAO" ref="cajasDAO"/>
-        <property name="historialPerfilRecursoDAO" ref="historialPerfilRecursoDAO" />
-        <property name="historialUsuarioCajaDAO" ref="historialUsuarioCajaDAO" />
-        <property name="detalleRecursosDAO" ref="detalleRecursosDAO" />
-        <property name="detalleRecUsuDAO" ref="detalleRecUsuDAO" />
-        <property name="usuarioCajaTipoPagoDAO" ref="usuarioCajaTipoPagoDAO"/>
+    <bean id="detalleRangoComparendosDAO" class="com.contravenciones.jdbc.dao.DaoDetalleRangoComparendos"> 
+        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-     <bean id="parametroBO" class="com.contravenciones.tr.bo.ParametrosImplBO">
-        <property name="parametrosDAO" ref="parametrosDAO" />
-        <property name="departamentosDAO" ref="departamentosDAO" />
-        <property name="municipiosDAO" ref="municipiosDAO" />
-        <property name="paisDAO" ref="paisDAO" />
-        <property name="personasDAO" ref="personasDAO" />
-        <property name="sedesDAO" ref="sedesDAO" />
-        <property name="perfilesDAO" ref="perfilesDAO" />
-        <property name="cajasDAO" ref="cajasDAO" />
-        <property name="usuariosDAO" ref="usuariosDAO" />
+    <bean id="agentesDAO" class="com.contravenciones.jdbc.dao.DaoAgentes"> 
+        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <bean id="gestionPersonaBO" class="com.contravenciones.tr.bo.GestionPersonaImplBO">
-        <property name="personasDAO" ref="personasDAO" />
-        <property name="parametrosDAO" ref="parametrosDAO"/>
+    <bean id="rangosComparendosDAO" class="com.contravenciones.jdbc.dao.DaoRangosComparendos"> 
+        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <bean id="gestionRecursoBO" class="com.contravenciones.tr.bo.GestionRecursoImplBO">
-        <property name="recursosDAO" ref="recursosDAO" />
-        <property name="parametrosDAO" ref="parametrosDAO"/>
-        <property name="modulosDAO" ref="modulosDAO"/>
+    <bean id="divipoDAO" class="com.contravenciones.jdbc.dao.DaoDivipos"> 
+        <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <bean id="renovarPasswordBO" class="com.contravenciones.tr.bo.RenovarPasswordImplBO">
-        <property name="usuariosDAO" ref="usuariosDAO" />
-    </bean>
-    <bean id="SalarioMinimoBO" class="com.contravenciones.tr.bo.SalarioMinimoImplBO">
-        <property name="salarioMinimoDAO" ref="salarioMinimoDAO" />
-    </bean>
-    <!-- Transaction -->    
-    <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
-        <property name="sessionFactory" ref="sessionFactory"/>
-        <property name="dataSource" ref="dataSource" />
-    </bean>
+
+    
+<!-- BOS -->
+<bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
+    <property name="loginDAO" ref="loginDAO"></property>
+    <property name="attemptsDAO" ref="attemptsDAO"></property>
+    <property name="personasDAO" ref="personasDAO"></property>
+    <property name="usuariosDAO" ref="usuariosDAO" />
+</bean>   
+<bean id="GestionUsuarioBO" class="com.contravenciones.tr.bo.GestionUsuarioImplBO">
+    <property name="usuariosDAO" ref="usuariosDAO" />
+    <property name="personasDAO" ref="personasDAO" />
+    <property name="perfilesDAO" ref="perfilesDAO" />
+    <property name="perfilRecursosDAO" ref="perfilRecursoDAO"  />
+    <property name="recursosDAO" ref="recursosDAO" />
+    <property name="usuarioPerfilDAO" ref="usuarioPerfilDAO" />
+    <property name="sedesDAO" ref="sedesDAO" />
+    <property name="parametrosDAO" ref="parametrosDAO"/>
+    <property name="attemptsDAO" ref="attemptsDAO"/>
+    <property name="usuarioCajasDAO" ref="usuarioCajasDAO"/>
+    <property name="modulosDAO" ref="modulosDAO"/>
+    <property name="cajaDAO" ref="cajasDAO"/>
+    <property name="historialPerfilRecursoDAO" ref="historialPerfilRecursoDAO" />
+    <property name="historialUsuarioCajaDAO" ref="historialUsuarioCajaDAO" />
+    <property name="detalleRecursosDAO" ref="detalleRecursosDAO" />
+    <property name="detalleRecUsuDAO" ref="detalleRecUsuDAO" />
+    <property name="usuarioCajaTipoPagoDAO" ref="usuarioCajaTipoPagoDAO"/>
+</bean>
+<bean id="parametroBO" class="com.contravenciones.tr.bo.ParametrosImplBO">
+    <property name="parametrosDAO" ref="parametrosDAO" />
+    <property name="departamentosDAO" ref="departamentosDAO" />
+    <property name="municipiosDAO" ref="municipiosDAO" />
+    <property name="paisDAO" ref="paisDAO" />
+    <property name="personasDAO" ref="personasDAO" />
+    <property name="sedesDAO" ref="sedesDAO" />
+    <property name="perfilesDAO" ref="perfilesDAO" />
+    <property name="cajasDAO" ref="cajasDAO" />
+    <property name="usuariosDAO" ref="usuariosDAO" />
+</bean>
+<bean id="gestionPersonaBO" class="com.contravenciones.tr.bo.GestionPersonaImplBO">
+    <property name="personasDAO" ref="personasDAO" />
+    <property name="parametrosDAO" ref="parametrosDAO"/>
+    <property name="divipoDAO" ref="divipoDAO"/>
+</bean>
+<bean id="gestionRecursoBO" class="com.contravenciones.tr.bo.GestionRecursoImplBO">
+    <property name="recursosDAO" ref="recursosDAO" />
+    <property name="parametrosDAO" ref="parametrosDAO"/>
+    <property name="modulosDAO" ref="modulosDAO"/>
+</bean>
+<bean id="renovarPasswordBO" class="com.contravenciones.tr.bo.RenovarPasswordImplBO">
+    <property name="usuariosDAO" ref="usuariosDAO" />
+</bean>
+<bean id="SalarioMinimoBO" class="com.contravenciones.tr.bo.SalarioMinimoImplBO">
+    <property name="salarioMinimoDAO" ref="salarioMinimoDAO" />
+</bean>
+<bean id="RangosBO" class="com.contravenciones.tr.bo.RangosImplBO">
+    <property name="personasDAO" ref="personasDAO" />
+     <property name="parametrosDAO" ref="parametrosDAO"/>
+     <property name="rangosDAO" ref="rangosComparendosDAO"/>
+     <property name="agentesDAO" ref="agentesDAO"/>
+     <property name="detalleRangoComparendosDAO" ref="detalleRangoComparendosDAO"/>
+</bean>
+<!-- Transaction -->    
+<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
+    <property name="sessionFactory" ref="sessionFactory"/>
+    <property name="dataSource" ref="dataSource" />
+</bean>
    
-    <tx:annotation-driven transaction-manager="transactionManager" />
+<tx:annotation-driven transaction-manager="transactionManager" />
 </beans>

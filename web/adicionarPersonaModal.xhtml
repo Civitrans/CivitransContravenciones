@@ -1,0 +1,258 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <meta name="viewport" content="width=500, initial-scale=1, maximum-scale=1"></meta>
+    <body>
+        <div class="container-fluid">
+            <div class="modal fade" id="dg_persona" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-body">
+                            <h:panelGrid id="form">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <h2>
+                                            <i class="fa fa-user"></i> Registro Persona 
+                                        </h2>
+                                    </div><!-- /.col -->
+                                    <p:messages autoUpdate="true" id="mnsje" showDetail="true" />
+                                </div>
+                                <!-- info row -->
+                                <div class="row invoice-info" id="divmodal">
+                                    <h:panelGrid id="panelModalPersona">
+                                        <h:panelGroup id="ModalPersona">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txt_detalle_tipoDocumento">Tipo Documento</label>
+                                                        <h:selectOneMenu id="txtDetalleTipoDocumento"  class="form-control"  value="#{gestionpersonasBean.tipoDoc}" >
+                                                            <f:selectItems value="#{parametrosBean.tipo_documentos}" var="tipoDocumento" itemValue="#{tipoDocumento.code}" itemLabel="#{tipoDocumento.nombreP}"></f:selectItems>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleDocumento">Documento</label>
+                                                        <h:inputText id="txtDetalleDocumento" class="form-control text-uppercase" value="#{gestionpersonasBean.documento}" maxlength="20" >
+                                                        </h:inputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleFechaExp">Fecha Nacimiento</label>
+                                                        <p:watermark for="txtDetalleFechaNac" value="DD/MM/YYYY"/>
+                                                        <h:inputText id="txtDetalleFechaNac" class="date datepicker form-control" value="#{gestionpersonasBean.fechaNac}" maxlength="10">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                        </h:inputText><!--VALUE OK-->
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetallePaisNac">Pais Nacimiento</label>
+                                                        <h:selectOneMenu id="txtDetallePaisNac"  class="form-control" value="#{gestionpersonasBean.paisNac}">
+                                                            <f:ajax event="change" render="txtDetalleLugarNacimiento" />
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.listarPaises()}" var="pais" itemValue="#{pais.code}" itemLabel="#{pais.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleLugarNacimiento">Departamento Nacimiento</label>
+                                                        <h:selectOneMenu id="txtDetalleLugarNacimiento"  class="form-control" value="#{gestionpersonasBean.depNac}">
+                                                            <f:ajax event="change" render="txtDetalleCiudadNacimiento" />
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.listarDepartamentosByPais(gestionpersonasBean.paisNac)}" var="depnac" itemValue="#{depnac.code}" itemLabel="#{depnac.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>                                                    
+                                                </div>                                                    
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleCiudadNacimiento">Municipio Nacimiento</label>
+                                                        <h:selectOneMenu id="txtDetalleCiudadNacimiento"  class="form-control" value="#{gestionpersonasBean.munNac}">
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.listarMunicipios(gestionpersonasBean.depNac)}" var="munac" itemValue="#{munac.code}" itemLabel="#{munac.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetallePaisExp">Pais Expedición</label>
+                                                        <h:selectOneMenu id="txtDetallePaisExp"  class="form-control" value="#{gestionpersonasBean.paisExp}">
+                                                            <f:ajax event="change" render="txtDetalleDepartamentoExp" />
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.listarPaises()}" var="pais" itemValue="#{pais.code}" itemLabel="#{pais.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleDepartamentoExp">Departamento Expedición</label>
+                                                        <h:selectOneMenu id="txtDetalleDepartamentoExp"  class="form-control" value="#{gestionpersonasBean.depExp}">
+                                                            <f:ajax event="change" render="txtDetalleMunicipioExp" />
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.listarDepartamentosByPais(gestionpersonasBean.paisExp)}" var="depexp" itemValue="#{depexp.code}" itemLabel="#{depexp.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleMunicipioExp">Municipio Expedición</label>
+                                                        <h:selectOneMenu id="txtDetalleMunicipioExp"  class="form-control" value="#{gestionpersonasBean.munExp}">
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.listarMunicipios(gestionpersonasBean.depExp)}" var="munexp" itemValue="#{munexp.code}" itemLabel="#{munexp.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleFechaExp">Fecha Expedición</label>
+                                                        <p:watermark for="txtDetalleFechaExp" value="DD/MM/YYYY"/>
+                                                        <h:inputText id="txtDetalleFechaExp" class="date datepicker form-control" value="#{gestionpersonasBean.fechaExp}" maxlength="10">
+                                                            <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                        </h:inputText><!--VALUE OK-->
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetallePrimerNombre">Primer Nombre</label>
+                                                        <h:inputText  class="form-control" id="txtDetallePrimerNombre" value="#{gestionpersonasBean.nombre1}" maxlength="50">
+                                                        </h:inputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleSegundoNombre">Segundo Nombre</label>
+                                                        <h:inputText  class="form-control" id="txtDetalleSegundoNombre" value="#{gestionpersonasBean.nombre2}" maxlength="50">
+                                                        </h:inputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetallePrimerApellido">Primer Apellido</label>
+                                                        <h:inputText  class="form-control" id="txtDetallePrimerApellido" value="#{gestionpersonasBean.apellido1}" maxlength="50">
+                                                        </h:inputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleSegundoApellido">Segundo Apellido</label>
+                                                        <h:inputText  class="form-control" id="txtDetalleSegundoApellido" value="#{gestionpersonasBean.apellido2}" maxlength="50">
+                                                        </h:inputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleSexo">Sexo</label>
+                                                        <h:selectOneMenu id="txtDetalleSexo"  class="form-control" value="#{gestionpersonasBean.sexo}">
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItem itemLabel="Femenino" itemValue="F" />
+                                                            <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleGrupoSanguineo">Grupo Sanguíneo</label>
+                                                        <h:selectOneMenu id="txtDetalleGrupoSanguineo" class="form-control" value="#{gestionpersonasBean.grupoSang}">
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.consultarParametros(390)}" var="listgs" itemValue="#{listgs.subGrupo}" itemLabel="#{listgs.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleCelular">Celular</label>
+                                                        <h:inputText  class="form-control" id="txtDetalleCelular" value="#{gestionpersonasBean.celular}" maxlength="15">
+                                                            
+                                                        </h:inputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleTelefono">Teléfono</label>
+                                                        <h:inputText  class="form-control" id="txtDetalleTelefono" value="#{gestionpersonasBean.telefono}"  maxlength="15">
+                                                            
+                                                        </h:inputText>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-2">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleEmail">E-mail</label>
+                                                        <h:inputText  class="form-control text-lowercase" id="txtDetalleEmail" value="#{gestionpersonasBean.celular}" maxlength="70">
+                                                        </h:inputText>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleDepartamentoDireccion">Departamento Dirección</label>
+                                                        <h:selectOneMenu id="txtDetalleDepartamentoDireccion"  class="form-control" value="#{gestionpersonasBean.depDir}">
+                                                            <f:ajax event="change" render="txtDetalleMunicipioDireccion" />
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.listarDepartamentos()}" var="depdir" itemValue="#{depdir.code}" itemLabel="#{depdir.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleMunicipioDireccion">Municipio Dirección</label>
+                                                        <h:selectOneMenu id="txtDetalleMunicipioDireccion"  class="form-control" value="#{gestionpersonasBean.munDir}">
+                                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                                            <f:selectItems value="#{parametrosBean.listarMunicipios(gestionpersonasBean.depDir)}" var="mundir" itemValue="#{mundir.code}" itemLabel="#{mundir.nombreP}"/>
+                                                        </h:selectOneMenu>
+                                                    </div>
+                                                </div>                                                    
+                                                <div class="col-md-6">
+                                                    <div class="form-group">
+                                                        <label for="txtDetalleDireccion">Dirección</label>
+                                                        <h:inputText  class="form-control" id="txtDetalleDireccion" value="#{gestionpersonasBean.dir}" maxlength="50">
+                                                        </h:inputText>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                </div><!-- /.row -->
+                                <script>
+                                    setFechaInput();
+                                </script>
+                            </h:panelGrid>
+                        </div>
+                        <div class="modal-footer" >
+                            <div class="row" style="margin-bottom: 30px">
+                                <div class="col-lg-1"/>
+                                <div class="col-lg-7 text-left">
+                                   <h:commandLink class="btn btn-primary">
+                                        <f:ajax event="click" execute="@form txtDetalleTipoDocumento txtDetalleDocumento" listener="#{personaBean.guardarDatosPersona()}"  render="panelModalPersona"/>
+                                        <i class="fa fa-server"></i>
+                                        <span>Guardar</span>
+                                    </h:commandLink>
+                                </div>
+                                <div class="col-lg-3">
+                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                        <i class="fa fa-close"></i> Cancelar
+                                    </button>
+                                </div>
+                                <div class="col-lg-1"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

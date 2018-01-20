@@ -55,6 +55,7 @@ Contributor(s):
     <mapping resource="com/contravenciones/tr/persistence/CivDepartamentos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivPersonas.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivOrganismos.hbm.xml"/>
+    <mapping resource="com/contravenciones/tr/persistence/CivAgentes.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivComparendos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivDivipos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivPoblados.hbm.xml"/>
@@ -73,11 +74,13 @@ Contributor(s):
     <mapping resource="com/contravenciones/tr/persistence/CivParametros.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivInfracciones.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivValorinfraccion.hbm.xml"/>
+    <mapping resource="com/contravenciones/tr/persistence/CivRangosComparendos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivHistorialUsuarioCaja.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivMunicipios.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivRecursos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivModulos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivGrupos.hbm.xml"/>
+    <mapping resource="com/contravenciones/tr/persistence/CivDetalleRangoComparendos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivDetalleRecUsu.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivSalariosminimos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivPerfilrecurso.hbm.xml"/>

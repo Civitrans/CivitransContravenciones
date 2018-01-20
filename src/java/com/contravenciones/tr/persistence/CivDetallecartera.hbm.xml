@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 15/01/2018 03:21:52 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 19/01/2018 08:59:43 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivDetallecartera" table="CIV_DETALLECARTERA" schema="CONTRAVENCIONES" optimistic-lock="version">
         <id name="detcarId" type="big_decimal">
@@ -13,14 +13,14 @@
                 <comment>USUARIO QUE INGRESO EL DETALLE DE LA CARTERA</comment>
             </column>
         </many-to-one>
-        <many-to-one name="civCarteras" class="com.contravenciones.tr.persistence.CivCarteras" fetch="select">
-            <column name="CAR_ID" precision="22" scale="0" not-null="true">
-                <comment>CARTERA DEL DETALLE DE LA CARTERA</comment>
-            </column>
-        </many-to-one>
         <many-to-one name="civConceptos" class="com.contravenciones.tr.persistence.CivConceptos" fetch="select">
             <column name="CON_ID" precision="22" scale="0" not-null="true">
                 <comment>CONCEPTO DEL DETALLE DE LA CARTERA</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civCarteras" class="com.contravenciones.tr.persistence.CivCarteras" fetch="select">
+            <column name="CAR_ID" precision="22" scale="0" not-null="true">
+                <comment>CARTERA DEL DETALLE DE LA CARTERA</comment>
             </column>
         </many-to-one>
         <property name="detcarReferencia" type="string">

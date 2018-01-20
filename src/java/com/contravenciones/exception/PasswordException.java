@@ -8,7 +8,7 @@ package com.contravenciones.exception;
 /**
  * Clase que define una Excepcion en el módulo de Password
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class PasswordException extends Exception {
 

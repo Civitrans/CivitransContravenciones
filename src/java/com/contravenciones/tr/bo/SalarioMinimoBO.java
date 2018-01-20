@@ -11,7 +11,7 @@ import com.contravenciones.tr.persistence.CivSalariosminimos;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public interface SalarioMinimoBO {
 

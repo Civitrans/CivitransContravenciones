@@ -8,7 +8,7 @@ package com.contravenciones.exception;
 /**
  * Objecto para manejar los errores de Web Service
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class CivitransWebServiceException extends Exception {
 

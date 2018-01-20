@@ -10,7 +10,7 @@ import javax.faces.application.FacesMessage;
 /**
  * Clase para definir los errores del módulo de Liquidación
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class LiquidacionException extends Exception {
 

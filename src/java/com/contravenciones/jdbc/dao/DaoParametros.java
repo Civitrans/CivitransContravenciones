@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class DaoParametros extends HibernateDaoSupport implements ITParametros, Serializable {
 

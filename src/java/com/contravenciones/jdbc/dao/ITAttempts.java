@@ -9,7 +9,7 @@ import com.contravenciones.tr.persistence.CivAttempts;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public interface ITAttempts {
 

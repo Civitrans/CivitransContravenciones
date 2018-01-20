@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 15/01/2018 03:21:52 PM by Hibernate Tools 4.3.1
+// Generated 19/01/2018 08:59:41 AM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
@@ -11,9 +11,9 @@ public class CivPerfilrecurso  implements java.io.Serializable {
 
 
      private CivPerfilrecursoId id;
-     private CivPerfiles civPerfiles;
-     private CivRecursos civRecursos;
      private CivUsuarios civUsuarios;
+     private CivRecursos civRecursos;
+     private CivPerfiles civPerfiles;
      private Date perrecFechaini;
      private Date perrecFechafin;
 
@@ -21,16 +21,16 @@ public class CivPerfilrecurso  implements java.io.Serializable {
     }
 
 	
-    public CivPerfilrecurso(CivPerfilrecursoId id, CivRecursos civRecursos, CivUsuarios civUsuarios) {
+    public CivPerfilrecurso(CivPerfilrecursoId id, CivUsuarios civUsuarios, CivRecursos civRecursos) {
         this.id = id;
-        this.civRecursos = civRecursos;
         this.civUsuarios = civUsuarios;
+        this.civRecursos = civRecursos;
     }
-    public CivPerfilrecurso(CivPerfilrecursoId id, CivPerfiles civPerfiles, CivRecursos civRecursos, CivUsuarios civUsuarios, Date perrecFechaini, Date perrecFechafin) {
+    public CivPerfilrecurso(CivPerfilrecursoId id, CivUsuarios civUsuarios, CivRecursos civRecursos, CivPerfiles civPerfiles, Date perrecFechaini, Date perrecFechafin) {
        this.id = id;
-       this.civPerfiles = civPerfiles;
-       this.civRecursos = civRecursos;
        this.civUsuarios = civUsuarios;
+       this.civRecursos = civRecursos;
+       this.civPerfiles = civPerfiles;
        this.perrecFechaini = perrecFechaini;
        this.perrecFechafin = perrecFechafin;
     }
@@ -42,12 +42,12 @@ public class CivPerfilrecurso  implements java.io.Serializable {
     public void setId(CivPerfilrecursoId id) {
         this.id = id;
     }
-    public CivPerfiles getCivPerfiles() {
-        return this.civPerfiles;
+    public CivUsuarios getCivUsuarios() {
+        return this.civUsuarios;
     }
     
-    public void setCivPerfiles(CivPerfiles civPerfiles) {
-        this.civPerfiles = civPerfiles;
+    public void setCivUsuarios(CivUsuarios civUsuarios) {
+        this.civUsuarios = civUsuarios;
     }
     public CivRecursos getCivRecursos() {
         return this.civRecursos;
@@ -56,12 +56,12 @@ public class CivPerfilrecurso  implements java.io.Serializable {
     public void setCivRecursos(CivRecursos civRecursos) {
         this.civRecursos = civRecursos;
     }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
+    public CivPerfiles getCivPerfiles() {
+        return this.civPerfiles;
     }
     
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
+    public void setCivPerfiles(CivPerfiles civPerfiles) {
+        this.civPerfiles = civPerfiles;
     }
     public Date getPerrecFechaini() {
         return this.perrecFechaini;

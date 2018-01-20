@@ -62,7 +62,7 @@ import org.primefaces.context.RequestContext;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class GestionUsuarioImplBO implements GestionUsuarioBO {
 

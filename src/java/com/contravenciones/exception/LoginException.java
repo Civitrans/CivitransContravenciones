@@ -8,7 +8,7 @@ package com.contravenciones.exception;
 /**
  * Clase para definir los errores del módulo de Liquidación
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class LoginException extends Exception {
 

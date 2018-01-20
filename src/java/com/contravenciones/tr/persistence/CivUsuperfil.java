@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 15/01/2018 03:21:52 PM by Hibernate Tools 4.3.1
+// Generated 19/01/2018 08:59:41 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,8 +12,8 @@ public class CivUsuperfil  implements java.io.Serializable {
 
 
      private BigDecimal usuperId;
-     private CivPerfiles civPerfiles;
      private CivUsuarios civUsuarios;
+     private CivPerfiles civPerfiles;
      private Date usuperFechaini;
      private Date usuperFechafin;
 
@@ -21,15 +21,15 @@ public class CivUsuperfil  implements java.io.Serializable {
     }
 
 	
-    public CivUsuperfil(BigDecimal usuperId, CivPerfiles civPerfiles, CivUsuarios civUsuarios) {
+    public CivUsuperfil(BigDecimal usuperId, CivUsuarios civUsuarios, CivPerfiles civPerfiles) {
         this.usuperId = usuperId;
-        this.civPerfiles = civPerfiles;
         this.civUsuarios = civUsuarios;
+        this.civPerfiles = civPerfiles;
     }
-    public CivUsuperfil(BigDecimal usuperId, CivPerfiles civPerfiles, CivUsuarios civUsuarios, Date usuperFechaini, Date usuperFechafin) {
+    public CivUsuperfil(BigDecimal usuperId, CivUsuarios civUsuarios, CivPerfiles civPerfiles, Date usuperFechaini, Date usuperFechafin) {
        this.usuperId = usuperId;
-       this.civPerfiles = civPerfiles;
        this.civUsuarios = civUsuarios;
+       this.civPerfiles = civPerfiles;
        this.usuperFechaini = usuperFechaini;
        this.usuperFechafin = usuperFechafin;
     }
@@ -41,19 +41,19 @@ public class CivUsuperfil  implements java.io.Serializable {
     public void setUsuperId(BigDecimal usuperId) {
         this.usuperId = usuperId;
     }
-    public CivPerfiles getCivPerfiles() {
-        return this.civPerfiles;
-    }
-    
-    public void setCivPerfiles(CivPerfiles civPerfiles) {
-        this.civPerfiles = civPerfiles;
-    }
     public CivUsuarios getCivUsuarios() {
         return this.civUsuarios;
     }
     
     public void setCivUsuarios(CivUsuarios civUsuarios) {
         this.civUsuarios = civUsuarios;
+    }
+    public CivPerfiles getCivPerfiles() {
+        return this.civPerfiles;
+    }
+    
+    public void setCivPerfiles(CivPerfiles civPerfiles) {
+        this.civPerfiles = civPerfiles;
     }
     public Date getUsuperFechaini() {
         return this.usuperFechaini;

@@ -11,7 +11,7 @@ import java.util.Date;
  * Clase que define los datos de autenticación RUNT y enrolamiento de una
  * persona.
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class AutenticacionUser {
 

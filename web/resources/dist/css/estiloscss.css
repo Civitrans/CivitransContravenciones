@@ -38,6 +38,14 @@ Copyright 2016
     background-color: #dff0d8;
     border-color: #d6e9c6;
 }
+.mensaje-warning .mensajeAlert-link {
+    color: #66512c;
+}
+.mensaje-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+}
 
 .boton {
     border-radius: 3px;

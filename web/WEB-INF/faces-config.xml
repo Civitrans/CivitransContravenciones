@@ -97,6 +97,19 @@
             <value>#{loginBean}</value>
         </managed-property>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>rangosBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanRangos</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>rangosBO</property-name>
+            <value>#{RangosBO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <value>#{loginBean}</value>
+        </managed-property>
+    </managed-bean>
     <!--
      <managed-bean>
          <managed-bean-name>usuariosBean</managed-bean-name>

@@ -1,18 +1,18 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 15/01/2018 03:21:52 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 19/01/2018 08:59:43 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivDetalleRecUsu" table="CIV_DETALLE_REC_USU" schema="CONTRAVENCIONES" optimistic-lock="version">
         <id name="detRecId" type="big_decimal">
             <column name="DET_REC_ID" precision="22" scale="0" />
             <generator class="increment" />
         </id>
-        <many-to-one name="civRecursos" class="com.contravenciones.tr.persistence.CivRecursos" fetch="select">
-            <column name="REC_ID" precision="22" scale="0" not-null="true" />
-        </many-to-one>
         <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
             <column name="USU_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="civRecursos" class="com.contravenciones.tr.persistence.CivRecursos" fetch="select">
+            <column name="REC_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
         <property name="detRecUsuId" type="big_decimal">
             <column name="DET_REC_USU_ID" precision="22" scale="0" />

@@ -37,4 +37,7 @@
     <table-filter match-name="CIV_CARTERAS"/>
     <table-filter match-name="CIV_DETALLECARTERA"/>
     <table-filter match-name="CIV_COMPARENDOS"/>
+    <table-filter match-name="CIV_RANGOS_COMPARENDOS"/>
+    <table-filter match-name="CIV_DETALLE_RANGO_COMPARENDOS"/>
+    <table-filter match-name="CIV_AGENTES"/>
 </hibernate-reverse-engineering>

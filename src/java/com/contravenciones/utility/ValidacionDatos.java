@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class ValidacionDatos {
 

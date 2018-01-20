@@ -10,7 +10,7 @@ import com.contravenciones.jsf.bean.BeanGestionUsuario;
 
 /**
  *
- * @author Miguel Borja
+ * @author roymer Camacho
  */
 public interface GestionUsuarioBO {
 

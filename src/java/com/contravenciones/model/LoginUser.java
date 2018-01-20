@@ -14,7 +14,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Esta clase maneja los datos de sesión de los usuarios en el sistema.
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class LoginUser implements Serializable {
 

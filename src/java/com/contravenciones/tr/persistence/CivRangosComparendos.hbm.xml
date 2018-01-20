@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/01/2018 08:59:43 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivRangosComparendos" table="CIV_RANGOS_COMPARENDOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="ranId" type="big_decimal">
+            <column name="RAN_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="ranNumInicial" type="string">
+            <column name="RAN_NUM_INICIAL" length="20" />
+        </property>
+        <property name="ranNumFinal" type="string">
+            <column name="RAN_NUM_FINAL" length="20" />
+        </property>
+        <property name="ranFechaInicial" type="date">
+            <column name="RAN_FECHA_INICIAL" length="7" />
+        </property>
+        <property name="ranFechaFinal" type="date">
+            <column name="RAN_FECHA_FINAL" length="7" />
+        </property>
+        <property name="ranEstado" type="big_decimal">
+            <column name="RAN_ESTADO" precision="22" scale="0" />
+        </property>
+        <property name="ranNumResolucion" type="string">
+            <column name="RAN_NUM_RESOLUCION" length="20" />
+        </property>
+        <property name="ranFechaResolucion" type="date">
+            <column name="RAN_FECHA_RESOLUCION" length="7" />
+        </property>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0" />
+        </property>
+        <property name="ranTipoComparendo" type="big_decimal">
+            <column name="RAN_TIPO_COMPARENDO" precision="22" scale="0" />
+        </property>
+        <set name="civDetalleRangoComparendoses" table="CIV_DETALLE_RANGO_COMPARENDOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RAN_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRangoComparendos" />
+        </set>
+    </class>
+</hibernate-mapping>

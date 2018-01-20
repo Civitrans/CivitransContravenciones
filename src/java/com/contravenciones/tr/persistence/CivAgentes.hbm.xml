@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/01/2018 08:59:43 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivAgentes" table="CIV_AGENTES" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="ageId" type="big_decimal">
+            <column name="AGE_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civPersonas" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
+            <column name="PER_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="ageTipo" type="big_decimal">
+            <column name="AGE_TIPO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="agePlaca" type="string">
+            <column name="AGE_PLACA" length="20" not-null="true" />
+        </property>
+        <property name="ageFechaInicio" type="date">
+            <column name="AGE_FECHA_INICIO" length="7" not-null="true" />
+        </property>
+        <property name="ageFechaFin" type="date">
+            <column name="AGE_FECHA_FIN" length="7" />
+        </property>
+        <property name="ageFirma" type="blob">
+            <column name="AGE_FIRMA" />
+        </property>
+        <set name="civDetalleRangoComparendoses" table="CIV_DETALLE_RANGO_COMPARENDOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="AGE_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRangoComparendos" />
+        </set>
+    </class>
+</hibernate-mapping>

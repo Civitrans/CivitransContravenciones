@@ -18,7 +18,7 @@ import org.hibernate.cfg.Configuration;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class Log_Handler {
 
@@ -41,7 +41,7 @@ public class Log_Handler {
     /**
      * Registra los mensajes generados por diferentes componentes del sistema.
      *
-     * @author Miguel Borja
+     * @author Roymer Camacho
      * @param mensaje Mensaje a registrar
      * @param error Objeto Throwable del mensaje (Disponible solamente en
      * niveles FATAL, ERROR).

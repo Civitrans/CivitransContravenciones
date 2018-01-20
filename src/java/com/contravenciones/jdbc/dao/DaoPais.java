@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class DaoPais extends HibernateDaoSupport implements ITPaises, Serializable {
 

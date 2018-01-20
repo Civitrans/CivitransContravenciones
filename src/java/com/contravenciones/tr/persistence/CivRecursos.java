@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 15/01/2018 03:21:52 PM by Hibernate Tools 4.3.1
+// Generated 19/01/2018 08:59:41 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;

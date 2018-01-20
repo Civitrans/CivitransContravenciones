@@ -12,7 +12,7 @@ import java.util.HashMap;
 /**
  * Esta clase se encarga de manejar los datos de sesión de los usuarios.
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class SessionSingleton {
 

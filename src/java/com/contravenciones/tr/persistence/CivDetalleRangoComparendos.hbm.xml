@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 19/01/2018 08:59:43 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivDetalleRangoComparendos" table="CIV_DETALLE_RANGO_COMPARENDOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="dtranId" type="big_decimal">
+            <column name="DTRAN_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civRangosComparendos" class="com.contravenciones.tr.persistence.CivRangosComparendos" fetch="select">
+            <column name="RAN_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="civAgentes" class="com.contravenciones.tr.persistence.CivAgentes" fetch="select">
+            <column name="AGE_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="dtranNumero" type="string">
+            <column name="DTRAN_NUMERO" length="20" not-null="true" unique="true" />
+        </property>
+        <property name="dtranEstado" type="big_decimal">
+            <column name="DTRAN_ESTADO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="dtranFechaInicial" type="date">
+            <column name="DTRAN_FECHA_INICIAL" length="7" />
+        </property>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="dtranFechaUso" type="date">
+            <column name="DTRAN_FECHA_USO" length="7" />
+        </property>
+        <property name="dtranObservaciones" type="string">
+            <column name="DTRAN_OBSERVACIONES" length="1000" />
+        </property>
+    </class>
+</hibernate-mapping>

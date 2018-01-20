@@ -16,7 +16,7 @@ import javax.faces.context.FacesContext;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class BeanLogin implements Serializable {
 

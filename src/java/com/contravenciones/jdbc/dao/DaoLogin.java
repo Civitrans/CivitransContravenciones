@@ -11,7 +11,7 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class DaoLogin extends HibernateDaoSupport implements ITLogin, Serializable {
 

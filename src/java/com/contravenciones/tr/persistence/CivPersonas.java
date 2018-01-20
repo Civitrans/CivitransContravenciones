@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 15/01/2018 03:21:52 PM by Hibernate Tools 4.3.1
+// Generated 19/01/2018 08:59:41 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -38,6 +38,7 @@ public class CivPersonas  implements java.io.Serializable {
      private Set civComparendosesForPerId = new HashSet(0);
      private Set civComparendosesForPerTestigo = new HashSet(0);
      private Set civUsuarioses = new HashSet(0);
+     private Set civAgenteses = new HashSet(0);
      private Set civCarterases = new HashSet(0);
      private Set civComparendosesForPerPropietario = new HashSet(0);
 
@@ -53,7 +54,7 @@ public class CivPersonas  implements java.io.Serializable {
         this.perApellido1 = perApellido1;
         this.perEstado = perEstado;
     }
-    public CivPersonas(BigDecimal perId, BigDecimal perTipodocumento, String perDocumento, Date perFechanac, String perGruposanguineo, String perRh, String perSexo, String perNombre1, String perNombre2, String perApellido1, String perApellido2, String perEmail, String perCelular, BigDecimal perLugarnacimiento, Date perFechaexp, BigDecimal perEstado, Date perFechainicial, Date perFechafinal, Date perFechaproceso, BigDecimal usuId, BigDecimal perLugarexpedicion, Set civDireccioneses, Set civComparendosesForPerId, Set civComparendosesForPerTestigo, Set civUsuarioses, Set civCarterases, Set civComparendosesForPerPropietario) {
+    public CivPersonas(BigDecimal perId, BigDecimal perTipodocumento, String perDocumento, Date perFechanac, String perGruposanguineo, String perRh, String perSexo, String perNombre1, String perNombre2, String perApellido1, String perApellido2, String perEmail, String perCelular, BigDecimal perLugarnacimiento, Date perFechaexp, BigDecimal perEstado, Date perFechainicial, Date perFechafinal, Date perFechaproceso, BigDecimal usuId, BigDecimal perLugarexpedicion, Set civDireccioneses, Set civComparendosesForPerId, Set civComparendosesForPerTestigo, Set civUsuarioses, Set civAgenteses, Set civCarterases, Set civComparendosesForPerPropietario) {
        this.perId = perId;
        this.perTipodocumento = perTipodocumento;
        this.perDocumento = perDocumento;
@@ -79,6 +80,7 @@ public class CivPersonas  implements java.io.Serializable {
        this.civComparendosesForPerId = civComparendosesForPerId;
        this.civComparendosesForPerTestigo = civComparendosesForPerTestigo;
        this.civUsuarioses = civUsuarioses;
+       this.civAgenteses = civAgenteses;
        this.civCarterases = civCarterases;
        this.civComparendosesForPerPropietario = civComparendosesForPerPropietario;
     }
@@ -257,6 +259,13 @@ public class CivPersonas  implements java.io.Serializable {
     
     public void setCivUsuarioses(Set civUsuarioses) {
         this.civUsuarioses = civUsuarioses;
+    }
+    public Set getCivAgenteses() {
+        return this.civAgenteses;
+    }
+    
+    public void setCivAgenteses(Set civAgenteses) {
+        this.civAgenteses = civAgenteses;
     }
     public Set getCivCarterases() {
         return this.civCarterases;

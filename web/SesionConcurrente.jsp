@@ -1,7 +1,7 @@
 <%-- 
     Document   : newjsp
     Created on : 18/07/2016, 03:17:18 PM
-    Author     : Miguel Borja
+    Author     : Roymer Camacho
 --%>
 
 <%@page import="com.contravenciones.singleton.SessionSingleton"%>

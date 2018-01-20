@@ -8,7 +8,7 @@ package com.contravenciones.exception;
 /**
  * Clase para definir los errores de autenticación en el sistema.
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class AuthenticationException extends Exception {
 

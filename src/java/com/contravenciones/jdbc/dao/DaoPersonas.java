@@ -42,7 +42,18 @@ public class DaoPersonas extends HibernateDaoSupport implements ITPersonas {
 
         String hql = "from CivPersonas where Per_Nombre1 like :persona or Per_Nombre2 like :persona or Per_Apellido1 like :persona or Per_Apellido2 like :persona ORDER BY 1 asc";
         List list = getHibernateTemplate().findByNamedParam(hql, "persona", "%" + persona + "%");
-        return list;
+       return list;
+        
+    }
+    
+    @Override
+    public CivPersonas consultarPersonasDocumento(String nro_documento) throws Exception {
+        String hql = "from CivPersonas where per_documento=:nro_documento";
+        List list = getHibernateTemplate().findByNamedParam(hql, "nro_documento", nro_documento);
+        if (list.size() > 0) {
+            return (CivPersonas) list.get(0);
+        }
+        return null;
     }
     
     /**

@@ -22,7 +22,7 @@ import java.util.HashMap;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class GestionRecursoImplBO implements GestionRecursoBO {
 

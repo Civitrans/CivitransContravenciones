@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public interface ITLogin {
 

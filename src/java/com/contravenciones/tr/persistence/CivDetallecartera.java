@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 15/01/2018 03:21:52 PM by Hibernate Tools 4.3.1
+// Generated 19/01/2018 08:59:41 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -13,8 +13,8 @@ public class CivDetallecartera  implements java.io.Serializable {
 
      private BigDecimal detcarId;
      private CivUsuarios civUsuarios;
-     private CivCarteras civCarteras;
      private CivConceptos civConceptos;
+     private CivCarteras civCarteras;
      private String detcarReferencia;
      private Date detcarFecha;
      private byte detcarEstado;
@@ -25,21 +25,21 @@ public class CivDetallecartera  implements java.io.Serializable {
     }
 
 	
-    public CivDetallecartera(BigDecimal detcarId, CivUsuarios civUsuarios, CivCarteras civCarteras, CivConceptos civConceptos, String detcarReferencia, Date detcarFecha, byte detcarEstado, BigDecimal detcarValor) {
+    public CivDetallecartera(BigDecimal detcarId, CivUsuarios civUsuarios, CivConceptos civConceptos, CivCarteras civCarteras, String detcarReferencia, Date detcarFecha, byte detcarEstado, BigDecimal detcarValor) {
         this.detcarId = detcarId;
         this.civUsuarios = civUsuarios;
-        this.civCarteras = civCarteras;
         this.civConceptos = civConceptos;
+        this.civCarteras = civCarteras;
         this.detcarReferencia = detcarReferencia;
         this.detcarFecha = detcarFecha;
         this.detcarEstado = detcarEstado;
         this.detcarValor = detcarValor;
     }
-    public CivDetallecartera(BigDecimal detcarId, CivUsuarios civUsuarios, CivCarteras civCarteras, CivConceptos civConceptos, String detcarReferencia, Date detcarFecha, byte detcarEstado, BigDecimal detcarValor, BigDecimal pagId) {
+    public CivDetallecartera(BigDecimal detcarId, CivUsuarios civUsuarios, CivConceptos civConceptos, CivCarteras civCarteras, String detcarReferencia, Date detcarFecha, byte detcarEstado, BigDecimal detcarValor, BigDecimal pagId) {
        this.detcarId = detcarId;
        this.civUsuarios = civUsuarios;
-       this.civCarteras = civCarteras;
        this.civConceptos = civConceptos;
+       this.civCarteras = civCarteras;
        this.detcarReferencia = detcarReferencia;
        this.detcarFecha = detcarFecha;
        this.detcarEstado = detcarEstado;
@@ -61,19 +61,19 @@ public class CivDetallecartera  implements java.io.Serializable {
     public void setCivUsuarios(CivUsuarios civUsuarios) {
         this.civUsuarios = civUsuarios;
     }
-    public CivCarteras getCivCarteras() {
-        return this.civCarteras;
-    }
-    
-    public void setCivCarteras(CivCarteras civCarteras) {
-        this.civCarteras = civCarteras;
-    }
     public CivConceptos getCivConceptos() {
         return this.civConceptos;
     }
     
     public void setCivConceptos(CivConceptos civConceptos) {
         this.civConceptos = civConceptos;
+    }
+    public CivCarteras getCivCarteras() {
+        return this.civCarteras;
+    }
+    
+    public void setCivCarteras(CivCarteras civCarteras) {
+        this.civCarteras = civCarteras;
     }
     public String getDetcarReferencia() {
         return this.detcarReferencia;

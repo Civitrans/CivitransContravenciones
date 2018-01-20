@@ -9,7 +9,7 @@ import javax.faces.application.FacesMessage;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class SolicitudException extends Exception {
 

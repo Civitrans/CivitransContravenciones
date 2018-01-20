@@ -10,7 +10,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  */
 public class DigestHandler {
 

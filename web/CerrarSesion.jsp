@@ -1,7 +1,7 @@
 <%-- 
     Document   : CerrarSesion
     Created on : 3/08/2016, 09:22:56 AM
-    Author     : Miguel Borja
+    Author     : Roymer Camacho
 --%>
 
 

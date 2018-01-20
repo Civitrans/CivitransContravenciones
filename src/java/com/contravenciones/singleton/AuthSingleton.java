@@ -21,7 +21,7 @@ import java.util.concurrent.TimeUnit;
  * Esta clase se encarga del manejo de tokens y proceso general de autenticación
  * con el servicio de RUNT
  *
- * @author Miguel Borja
+ * @author Roymer Camacho
  *
  */
 public class AuthSingleton {
