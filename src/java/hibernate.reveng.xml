@@ -40,4 +40,7 @@
     <table-filter match-name="CIV_RANGOS_COMPARENDOS"/>
     <table-filter match-name="CIV_DETALLE_RANGO_COMPARENDOS"/>
     <table-filter match-name="CIV_AGENTES"/>
+    <table-filter match-name="CIV_CARGUEPLANO"/>
+    <table-filter match-name="CIV_CARGUECOMPARENDO"/>
+    <table-filter match-name="CIV_ESTRUCTURA_SIMIT"/>
 </hibernate-reverse-engineering>

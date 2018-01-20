@@ -110,6 +110,35 @@
             <value>#{loginBean}</value>
         </managed-property>
     </managed-bean>
+    <!--Plannos   -->
+    <managed-bean>
+        <managed-bean-name>
+            planosBean
+        </managed-bean-name>
+        <managed-bean-class>
+            com.contravenciones.jsf.bean.BeanPlanos
+        </managed-bean-class>
+        <managed-bean-scope>
+            view
+        </managed-bean-scope>
+        <managed-property>
+            <property-name>
+                loginBean
+            </property-name>
+            <value>
+                #{loginBean}
+            </value>
+        </managed-property>
+        <managed-property>
+            <property-name>
+                planosBO
+            </property-name>
+            <value>
+                #{planosBO}
+            </value>
+        </managed-property>
+    </managed-bean>
+    <!--End Planos-->
     <!--
      <managed-bean>
          <managed-bean-name>usuariosBean</managed-bean-name>

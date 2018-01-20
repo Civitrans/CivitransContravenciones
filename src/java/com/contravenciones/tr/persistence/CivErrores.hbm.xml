@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 19/01/2018 08:59:43 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 20/01/2018 11:02:55 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivErrores" table="CIV_ERRORES" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los posibles errores del sistema y sus posibles soluciones.</comment>

@@ -10,6 +10,8 @@
         <title>Civitrans</title>
         <link rel="shortcut icon" href="#{request.contextPath}/resources/images/favicon.png" type="image/x-icon"/>
         <link rel="icon" href="#{request.contextPath}/resources/images/favicon.png" type="image/x-icon"/>
+        <link href="#{request.contextPath}/resources/cnv/css/controles.css" rel="stylesheet" type="text/css"/>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- Tell the browser to be responsive to screen width -->
@@ -35,7 +37,7 @@
         <!--<link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/jquery.dataTables.min.css" />-->
 
         <script src="#{request.contextPath}/resources/js/HabilitarCamposEditables.js" type="text/javascript"></script>
-        <!--<script src="#{request.contextPath}/resources/js/jquerydataTablemin.js" type="text/javascript"></script>-->
+        <!--<script src="{request.contextPath}/resources/js/jquerydataTablemin.js" type="text/javascript"></script>-->
         <link href="#{request.contextPath}/resources/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -43,7 +45,6 @@
         <script src="#{request.contextPath}/resources/js/html5shiv.min.js" type="text/javascript"></script>
         <script src="#{request.contextPath}/resources/js/respond.min.js" type="text/javascript"></script>
         <script src="#{request.contextPath}/resources/js/jquery.validate.min.js" type="text/javascript"></script>
-
         <style>
             .datepicker{z-index:1051 !important;}
         </style>
@@ -74,13 +75,13 @@
                                 <ul class="nav navbar-nav">
                                     <li class="dropdown user user-menu">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <img src="#{request.contextPath}/plantillas/AdminLTE-2.4.2/template/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
+                                            <img src="#{request.contextPath}/resources/dist/img/user2-160x160.jpg" class="user-image" alt="User Image"/>
                                             <span class="hidden-xs">#{loginBean.nombre}</span>
                                         </a>
                                         <ul class="dropdown-menu">
                                             <!-- User image -->
                                             <li class="user-header">
-                                                <img src="#{request.contextPath}/plantillas/AdminLTE-2.4.2/template/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                                                <img src="#{request.contextPath}/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
 
                                                 <p>
                                                     Alexander Pierce - Web Developer
@@ -114,7 +115,7 @@
                                 <!-- Sidebar user panel -->
                                 <div class="user-panel">
                                     <div class="pull-left image">
-                                        <img src="#{request.contextPath}/plantillas/AdminLTE-2.4.2/template/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
+                                        <img src="#{request.contextPath}/resources/dist/img/user2-160x160.jpg" class="img-circle" alt="User Image"/>
                                     </div>
                                     <div class="pull-left info">
                                         <p>#{loginBean.nombre}</p>
@@ -207,7 +208,7 @@
                                                 <p>User Registrations</p>
                                             </div>
                                             <div class="icon">
-                                                <i class="ion ion-person-add"></i>
+                                                <i class="ion ion--add"></i>
                                             </div>
                                             <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                                         </div>
@@ -268,7 +269,7 @@
                                             <div class="box-body chat" id="chat-box">
                                                 <!-- chat item -->
                                                 <div class="item">
-                                                    <img src="#{request.contextPath}/plantillas/AdminLTE-2.4.2/template/dist/img/user4-128x128.jpg" alt="user image" class="online"/>
+                                                    <img src="#{request.contextPath}/resources/dist/img/user4-128x128.jpg" alt="user image" class="online"/>
 
                                                     <p class="message">
                                                         <a href="#" class="name">
@@ -295,7 +296,7 @@
                                                 <!-- /.item -->
                                                 <!-- chat item -->
                                                 <div class="item">
-                                                    <img src="#{request.contextPath}/plantillas/AdminLTE-2.4.2/template/dist/img/user3-128x128.jpg" alt="user image" class="offline"/>
+                                                    <img src="#{request.contextPath}/faces/resources/dist/img/user3-128x128.jpg" alt="user image" class="offline"/>
 
                                                     <p class="message">
                                                         <a href="#" class="name">
@@ -310,7 +311,7 @@
                                                 <!-- /.item -->
                                                 <!-- chat item -->
                                                 <div class="item">
-                                                    <img src="#{request.contextPath}/plantillas/AdminLTE-2.4.2/template/dist/img/user2-160x160.jpg" alt="user image" class="offline"/>
+                                                    <img src="#{request.contextPath}/faces/resources/dist/img/user2-160x160.jpg" alt="user image" class="offline"/>
 
                                                     <p class="message">
                                                         <a href="#" class="name">
@@ -674,8 +675,6 @@
                 </div>
             </div>
         </div>
-        
-        
         <!-- jQuery 2.1.4 -->
         <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
         <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
@@ -699,12 +698,11 @@
         <!-- AdminLTE for demo purposes -->
         <script src="#{request.contextPath}/resources/dist/js/demo.js"></script>
 
-            <!--<script src="#{request.contextPath}/resources/js/Spinner.js" type="text/javascript"></script>-->
+        <!--<script src="{request.contextPath}/resources/js/Spinner.js" type="text/javascript"></script>-->
 
         <script src="#{request.contextPath}/resources/js/paste.js" type="text/javascript"></script>
         <script src="#{request.contextPath}/resources/js/unload.js" type="text/javascript"></script>
-
-
+        <script src="#{request.contextPath}/resources/cnv/js/jScript.js" type="text/javascript"></script>
         <!-- -->
     </h:body>
 </html>

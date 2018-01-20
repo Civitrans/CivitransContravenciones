@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/01/2018 11:02:55 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivCargueplano" table="CIV_CARGUEPLANO" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="carplaId" type="big_decimal">
+            <column name="CARPLA_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="carplaNombre" type="string">
+            <column name="CARPLA_NOMBRE" length="100" />
+        </property>
+        <property name="carplaFechaCargue" type="date">
+            <column name="CARPLA_FECHA_CARGUE" length="7" />
+        </property>
+        <property name="usuId" type="big_decimal">
+            <column name="USU_ID" precision="22" scale="0" />
+        </property>
+        <property name="carplaEstado" type="big_decimal">
+            <column name="CARPLA_ESTADO" precision="22" scale="0" />
+        </property>
+        <property name="carplaArchivo" type="blob">
+            <column name="CARPLA_ARCHIVO" />
+        </property>
+    </class>
+</hibernate-mapping>

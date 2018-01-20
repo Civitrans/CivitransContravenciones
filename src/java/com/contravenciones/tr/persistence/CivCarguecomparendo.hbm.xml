@@ -1,0 +1,204 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/01/2018 11:02:55 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivCarguecomparendo" table="CIV_CARGUECOMPARENDO" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="carcompId" type="long">
+            <column name="CARCOMP_ID" precision="10" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="comconsecutivo" type="string">
+            <column name="COMCONSECUTIVO" length="200" />
+        </property>
+        <property name="comnumero" type="string">
+            <column name="COMNUMERO" length="200" />
+        </property>
+        <property name="comfecha" type="string">
+            <column name="COMFECHA" length="200" />
+        </property>
+        <property name="comhora" type="string">
+            <column name="COMHORA" length="200" />
+        </property>
+        <property name="comdir" type="string">
+            <column name="COMDIR" length="200" />
+        </property>
+        <property name="comdivipomuni" type="string">
+            <column name="COMDIVIPOMUNI" length="200" />
+        </property>
+        <property name="comlocalidadcomuna" type="string">
+            <column name="COMLOCALIDADCOMUNA" length="200" />
+        </property>
+        <property name="complaca" type="string">
+            <column name="COMPLACA" length="200" />
+        </property>
+        <property name="comdivipomatri" type="string">
+            <column name="COMDIVIPOMATRI" length="200" />
+        </property>
+        <property name="comtipovehi" type="string">
+            <column name="COMTIPOVEHI" length="200" />
+        </property>
+        <property name="comtiposer" type="string">
+            <column name="COMTIPOSER" length="200" />
+        </property>
+        <property name="comcodigoradio" type="string">
+            <column name="COMCODIGORADIO" length="200" />
+        </property>
+        <property name="comcodigomodalidad" type="string">
+            <column name="COMCODIGOMODALIDAD" length="200" />
+        </property>
+        <property name="comcodigopasajeros" type="string">
+            <column name="COMCODIGOPASAJEROS" length="200" />
+        </property>
+        <property name="cominfractor" type="string">
+            <column name="COMINFRACTOR" length="200" />
+        </property>
+        <property name="comtipodoc" type="string">
+            <column name="COMTIPODOC" length="200" />
+        </property>
+        <property name="comnombe" type="string">
+            <column name="COMNOMBE" length="200" />
+        </property>
+        <property name="comapellido" type="string">
+            <column name="COMAPELLIDO" length="200" />
+        </property>
+        <property name="comedadinfractor" type="string">
+            <column name="COMEDADINFRACTOR" length="200" />
+        </property>
+        <property name="comdirinfractor" type="string">
+            <column name="COMDIRINFRACTOR" length="200" />
+        </property>
+        <property name="comemail" type="string">
+            <column name="COMEMAIL" length="200" />
+        </property>
+        <property name="comteleinfractor" type="string">
+            <column name="COMTELEINFRACTOR" length="200" />
+        </property>
+        <property name="comidciudad" type="string">
+            <column name="COMIDCIUDAD" length="200" />
+        </property>
+        <property name="comlicencia" type="string">
+            <column name="COMLICENCIA" length="200" />
+        </property>
+        <property name="comcategoria" type="string">
+            <column name="COMCATEGORIA" length="200" />
+        </property>
+        <property name="comsecreexpide" type="string">
+            <column name="COMSECREEXPIDE" length="200" />
+        </property>
+        <property name="comfechavence" type="string">
+            <column name="COMFECHAVENCE" length="200" />
+        </property>
+        <property name="comtipoinfrac" type="string">
+            <column name="COMTIPOINFRAC" length="200" />
+        </property>
+        <property name="complictransito" type="string">
+            <column name="COMPLICTRANSITO" length="200" />
+        </property>
+        <property name="comdivipolicen" type="string">
+            <column name="COMDIVIPOLICEN" length="200" />
+        </property>
+        <property name="comidentificacion" type="string">
+            <column name="COMIDENTIFICACION" length="200" />
+        </property>
+        <property name="comidtipodocprop" type="string">
+            <column name="COMIDTIPODOCPROP" length="200" />
+        </property>
+        <property name="comnombreprop" type="string">
+            <column name="COMNOMBREPROP" length="200" />
+        </property>
+        <property name="comnombreempresa" type="string">
+            <column name="COMNOMBREEMPRESA" length="200" />
+        </property>
+        <property name="comnitempresa" type="string">
+            <column name="COMNITEMPRESA" length="200" />
+        </property>
+        <property name="comtarjetaoperacion" type="string">
+            <column name="COMTARJETAOPERACION" length="200" />
+        </property>
+        <property name="compplacaagente" type="string">
+            <column name="COMPPLACAAGENTE" length="200" />
+        </property>
+        <property name="comobserva" type="string">
+            <column name="COMOBSERVA" length="200" />
+        </property>
+        <property name="comfuga" type="string">
+            <column name="COMFUGA" length="200" />
+        </property>
+        <property name="comacci" type="string">
+            <column name="COMACCI" length="200" />
+        </property>
+        <property name="cominmov" type="string">
+            <column name="COMINMOV" length="200" />
+        </property>
+        <property name="compatioinmoviliza" type="string">
+            <column name="COMPATIOINMOVILIZA" length="200" />
+        </property>
+        <property name="comdirpatioinmovi" type="string">
+            <column name="COMDIRPATIOINMOVI" length="200" />
+        </property>
+        <property name="comgruanumero" type="string">
+            <column name="COMGRUANUMERO" length="200" />
+        </property>
+        <property name="complacagrua" type="string">
+            <column name="COMPLACAGRUA" length="200" />
+        </property>
+        <property name="comconsecutiinmovi" type="string">
+            <column name="COMCONSECUTIINMOVI" length="200" />
+        </property>
+        <property name="comidentificaciontest" type="string">
+            <column name="COMIDENTIFICACIONTEST" length="200" />
+        </property>
+        <property name="comnombretesti" type="string">
+            <column name="COMNOMBRETESTI" length="200" />
+        </property>
+        <property name="comdirecrestesti" type="string">
+            <column name="COMDIRECRESTESTI" length="200" />
+        </property>
+        <property name="comteletestigo" type="string">
+            <column name="COMTELETESTIGO" length="200" />
+        </property>
+        <property name="comvalor" type="string">
+            <column name="COMVALOR" length="200" />
+        </property>
+        <property name="comvalad" type="string">
+            <column name="COMVALAD" length="200" />
+        </property>
+        <property name="comorganismo" type="string">
+            <column name="COMORGANISMO" length="200" />
+        </property>
+        <property name="comestadocom" type="string">
+            <column name="COMESTADOCOM" length="200" />
+        </property>
+        <property name="compolca" type="string">
+            <column name="COMPOLCA" length="200" />
+        </property>
+        <property name="cominfraccion" type="string">
+            <column name="COMINFRACCION" length="200" />
+        </property>
+        <property name="comvalinfra" type="string">
+            <column name="COMVALINFRA" length="200" />
+        </property>
+        <property name="gradoalcohol" type="string">
+            <column name="GRADOALCOHOL" length="200" />
+        </property>
+        <property name="fotomulta" type="string">
+            <column name="FOTOMULTA" length="200" />
+        </property>
+        <property name="fechaDeNotificacion" type="string">
+            <column name="FECHA_DE_NOTIFICACION" length="200" />
+        </property>
+        <property name="estado" type="big_decimal">
+            <column name="ESTADO" precision="22" scale="0" />
+        </property>
+        <property name="fechaProceso" type="date">
+            <column name="FECHA_PROCESO" length="7" />
+        </property>
+        <property name="descripcionError" type="string">
+            <column name="DESCRIPCION_ERROR" length="500" />
+        </property>
+        <property name="carplaId" type="big_decimal">
+            <column name="CARPLA_ID" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>

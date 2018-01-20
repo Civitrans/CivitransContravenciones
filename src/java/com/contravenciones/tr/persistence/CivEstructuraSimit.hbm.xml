@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 20/01/2018 11:02:55 AM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivEstructuraSimit" table="CIV_ESTRUCTURA_SIMIT" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="estrId" type="big_decimal">
+            <column name="ESTR_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <property name="estrNombreCampo" type="string">
+            <column name="ESTR_NOMBRE_CAMPO" length="50">
+                <comment>AQUI VA EL NOMBRE DEL CAMPO QUE SE ENCUENTRA EN EL ARCHIVO DE EXCEL DEL SIMIT</comment>
+            </column>
+        </property>
+        <property name="estrIndice" type="big_decimal">
+            <column name="ESTR_INDICE" precision="22" scale="0">
+                <comment>LUGAR DONDE SE ENCUENTRA POSICIONADO EL CAMPO</comment>
+            </column>
+        </property>
+        <property name="estrDescripcion" type="string">
+            <column name="ESTR_DESCRIPCION" length="100" />
+        </property>
+        <property name="estrLongitudMin" type="big_decimal">
+            <column name="ESTR_LONGITUD_MIN" precision="22" scale="0" />
+        </property>
+        <property name="estrLongitudMax" type="big_decimal">
+            <column name="ESTR_LONGITUD_MAX" precision="22" scale="0" />
+        </property>
+        <property name="estrTipoDato" type="string">
+            <column name="ESTR_TIPO_DATO" length="20" />
+        </property>
+        <property name="estrObligatorio" type="string">
+            <column name="ESTR_OBLIGATORIO" length="1">
+                <comment>SI O NO (S/N)</comment>
+            </column>
+        </property>
+        <property name="estrObservaciones" type="string">
+            <column name="ESTR_OBSERVACIONES" length="200" />
+        </property>
+        <property name="estrTipo" type="big_decimal">
+            <column name="ESTR_TIPO" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>
