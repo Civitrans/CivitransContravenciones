@@ -101,6 +101,7 @@ public class BeanGestionPersona implements Serializable {
     protected void guardarPersona() {
         try {
             getGestionPersonaBO().guardarPersona(this);
+            limpiarModal();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Persona registrada correctamente"));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("messageGeneral");
             RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
@@ -127,6 +128,24 @@ public class BeanGestionPersona implements Serializable {
 
     public void cancelarModal() {
         RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
+    }
+    
+    public void limpiarModal(){
+        setTipoDoc(0);
+        setNombre1("");
+        setNombre2("");
+        setApellido1("");
+        setApellido2("");
+        setPaisExp(0);
+        setDepExp(0);
+        setMunExp(0);
+        setFechaExp(null);
+        setDepNac(0);
+        setMunNac(0);
+        setSexo("");
+        setGrupoSang("");
+        setCelular("");
+        setEmail("");
     }
 
     /**
