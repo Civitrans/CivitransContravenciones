@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los datos de los diferentes organismos de transito.</comment>
         <id name="orgId" type="big_decimal">
             <column name="ORG_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="orgNombre" type="string">
             <column name="ORG_NOMBRE" length="100">

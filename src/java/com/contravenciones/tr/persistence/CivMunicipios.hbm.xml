@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los diferentes municipios/localidades nacionales o internacionales</comment>
         <id name="munId" type="big_decimal">
             <column name="MUN_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="munNombre" type="string">
             <column name="MUN_NOMBRE" length="200">

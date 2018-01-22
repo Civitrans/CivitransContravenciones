@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan el historial de credenciales de cada usuario en el sistema.</comment>
         <id name="id" type="big_decimal">
             <column name="ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
             <column name="USU_ID" precision="22" scale="0">

@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los recursos disponibles para los usuarios del sistema.</comment>
         <id name="recId" type="big_decimal">
             <column name="REC_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civModulos" class="com.contravenciones.tr.persistence.CivModulos" fetch="select">
             <column name="MOD_ID" precision="22" scale="0">

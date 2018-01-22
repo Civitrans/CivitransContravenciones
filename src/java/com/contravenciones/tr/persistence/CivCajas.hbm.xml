@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacena las cajas usadas en el modulo de liquidacion en el sistema.</comment>
         <id name="cajId" type="big_decimal">
             <column name="CAJ_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="cajNombre" type="string">
             <column name="CAJ_NOMBRE">

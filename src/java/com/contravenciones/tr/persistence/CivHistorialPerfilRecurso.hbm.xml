@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivHistorialPerfilRecurso" table="CIV_HISTORIAL_PERFIL_RECURSO" schema="CONTRAVENCIONES" optimistic-lock="version">
         <id name="hisPerfRecId" type="big_decimal">
             <column name="HIS_PERF_REC_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="perfId" type="big_decimal">
             <column name="PERF_ID" precision="22" scale="0" />

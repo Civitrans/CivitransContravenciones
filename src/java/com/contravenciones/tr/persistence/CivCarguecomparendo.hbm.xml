@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivCarguecomparendo" table="CIV_CARGUECOMPARENDO" schema="CONTRAVENCIONES" optimistic-lock="version">
         <id name="carcompId" type="long">
             <column name="CARCOMP_ID" precision="10" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="comconsecutivo" type="string">
             <column name="COMCONSECUTIVO" length="200" />

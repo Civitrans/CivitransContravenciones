@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los diferentes eventos del sistema</comment>
         <id name="evId" type="big_decimal">
             <column name="EV_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="usuId" type="big_decimal">
             <column name="USU_ID" precision="22" scale="0">

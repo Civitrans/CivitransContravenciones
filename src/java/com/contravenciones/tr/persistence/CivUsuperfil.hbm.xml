@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan las relaciones entre los usuarios y sus perfiles. Ver CIV_PERFILES</comment>
         <id name="usuperId" type="big_decimal">
             <column name="USUPER_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
             <column name="USU_ID" precision="22" scale="0" not-null="true">

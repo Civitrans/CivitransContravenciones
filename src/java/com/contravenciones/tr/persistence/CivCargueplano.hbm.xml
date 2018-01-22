@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivCargueplano" table="CIV_CARGUEPLANO" schema="CONTRAVENCIONES" optimistic-lock="version">
         <id name="carplaId" type="big_decimal">
             <column name="CARPLA_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="carplaNombre" type="string">
             <column name="CARPLA_NOMBRE" length="100" />
