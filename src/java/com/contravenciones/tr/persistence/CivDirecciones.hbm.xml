@@ -1,17 +1,22 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 20/01/2018 11:02:55 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 22/01/2018 08:46:50 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivDirecciones" table="CIV_DIRECCIONES" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan las direcciones disponibles para las persona inscritas en el sistema.</comment>
         <id name="dirId" type="big_decimal">
             <column name="DIR_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="civPersonas" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
             <column name="PER_ID" precision="22" scale="0">
                 <comment>Fk de la taabla civ_personas</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="civDivipos" class="com.contravenciones.tr.persistence.CivDivipos" fetch="select">
+            <column name="DIV_ID" precision="22" scale="0">
+                <comment>fk del la tabla civ_divipo</comment>
             </column>
         </many-to-one>
         <property name="dirDescripcion" type="string">
@@ -42,11 +47,6 @@
         <property name="dirFechaproceso" type="date">
             <column name="DIR_FECHAPROCESO" length="7">
                 <comment>Fecha del sistema</comment>
-            </column>
-        </property>
-        <property name="divId" type="big_decimal">
-            <column name="DIV_ID" precision="22" scale="0">
-                <comment>fk del la tabla civ_divipo</comment>
             </column>
         </property>
     </class>

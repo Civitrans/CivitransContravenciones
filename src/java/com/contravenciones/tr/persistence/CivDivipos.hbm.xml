@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 20/01/2018 11:02:55 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 22/01/2018 08:46:50 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivDivipos" table="CIV_DIVIPOS" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los datos de los Divipos a nivel nacional.</comment>
         <id name="divId" type="big_decimal">
             <column name="DIV_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <property name="depId" type="big_decimal">
             <column name="DEP_ID" precision="22" scale="0">
@@ -34,5 +34,13 @@
                 <comment>fk de la tabla civ_pais</comment>
             </column>
         </property>
+        <set name="civDireccioneses" table="CIV_DIRECCIONES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="DIV_ID" precision="22" scale="0">
+                    <comment>fk del la tabla civ_divipo</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDirecciones" />
+        </set>
     </class>
 </hibernate-mapping>

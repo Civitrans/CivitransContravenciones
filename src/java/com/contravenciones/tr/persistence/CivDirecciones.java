@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 20/01/2018 11:02:54 AM by Hibernate Tools 4.3.1
+// Generated 22/01/2018 08:46:48 AM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -13,13 +13,13 @@ public class CivDirecciones  implements java.io.Serializable {
 
      private BigDecimal dirId;
      private CivPersonas civPersonas;
+     private CivDivipos civDivipos;
      private String dirDescripcion;
      private String dirTelefono;
      private BigDecimal dirEstado;
      private Date dirFechainicial;
      private Date dirFechafinal;
      private Date dirFechaproceso;
-     private BigDecimal divId;
 
     public CivDirecciones() {
     }
@@ -28,16 +28,16 @@ public class CivDirecciones  implements java.io.Serializable {
     public CivDirecciones(BigDecimal dirId) {
         this.dirId = dirId;
     }
-    public CivDirecciones(BigDecimal dirId, CivPersonas civPersonas, String dirDescripcion, String dirTelefono, BigDecimal dirEstado, Date dirFechainicial, Date dirFechafinal, Date dirFechaproceso, BigDecimal divId) {
+    public CivDirecciones(BigDecimal dirId, CivPersonas civPersonas, CivDivipos civDivipos, String dirDescripcion, String dirTelefono, BigDecimal dirEstado, Date dirFechainicial, Date dirFechafinal, Date dirFechaproceso) {
        this.dirId = dirId;
        this.civPersonas = civPersonas;
+       this.civDivipos = civDivipos;
        this.dirDescripcion = dirDescripcion;
        this.dirTelefono = dirTelefono;
        this.dirEstado = dirEstado;
        this.dirFechainicial = dirFechainicial;
        this.dirFechafinal = dirFechafinal;
        this.dirFechaproceso = dirFechaproceso;
-       this.divId = divId;
     }
    
     public BigDecimal getDirId() {
@@ -53,6 +53,13 @@ public class CivDirecciones  implements java.io.Serializable {
     
     public void setCivPersonas(CivPersonas civPersonas) {
         this.civPersonas = civPersonas;
+    }
+    public CivDivipos getCivDivipos() {
+        return this.civDivipos;
+    }
+    
+    public void setCivDivipos(CivDivipos civDivipos) {
+        this.civDivipos = civDivipos;
     }
     public String getDirDescripcion() {
         return this.dirDescripcion;
@@ -95,13 +102,6 @@ public class CivDirecciones  implements java.io.Serializable {
     
     public void setDirFechaproceso(Date dirFechaproceso) {
         this.dirFechaproceso = dirFechaproceso;
-    }
-    public BigDecimal getDivId() {
-        return this.divId;
-    }
-    
-    public void setDivId(BigDecimal divId) {
-        this.divId = divId;
     }
 
 

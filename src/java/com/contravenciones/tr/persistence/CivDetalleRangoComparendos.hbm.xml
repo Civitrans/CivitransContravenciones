@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 20/01/2018 11:02:55 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 22/01/2018 08:46:50 AM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivDetalleRangoComparendos" table="CIV_DETALLE_RANGO_COMPARENDOS" schema="CONTRAVENCIONES" optimistic-lock="version">
         <id name="dtranId" type="big_decimal">
             <column name="DTRAN_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="civRangosComparendos" class="com.contravenciones.tr.persistence.CivRangosComparendos" fetch="select">
             <column name="RAN_ID" precision="22" scale="0" not-null="true" />
