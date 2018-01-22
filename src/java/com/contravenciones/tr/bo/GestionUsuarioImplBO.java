@@ -56,6 +56,7 @@ import com.contravenciones.tr.persistence.CivUsuarioCajas;
 import com.contravenciones.tr.persistence.CivUsuarioCajasId;
 import com.contravenciones.tr.persistence.CivUsuariosCajasTipopagos;
 import com.contravenciones.utility.Log_Handler;
+import com.contravenciones.utility.ValidacionDatos;
 import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import org.primefaces.context.RequestContext;
@@ -90,7 +91,7 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         bean.setListaRecursosPerfilUsuario(new ArrayList<>());
         for (CivRecursos perfilR : getRecursosDAO().getRecursosAll()) {
             BeanGestionUsuario datos = new BeanGestionUsuario();
-            datos.setNombreRecurso(perfilR.getRecNombre());
+            datos.setNombreRecurso(new ValidacionDatos().letraMayuscula(perfilR.getRecNombre()));
             datos.setCodeRecurso(perfilR.getRecId().intValue());
             datos.setCodeModulo(perfilR.getCivModulos().getModId().intValue());
             datos.setCheckValue(false);

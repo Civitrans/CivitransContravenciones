@@ -162,7 +162,7 @@
 
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h:panelGrid id="detalle" class="col-lg-12">
+                                    <h:panelGrid id="detalleRecurso" class="col-lg-12">
                                         <h:panelGroup rendered="#{gestionrecursosBean.mostrarDetalle}">
                                             <section class="content-header">
                                                 <h1>
@@ -220,7 +220,7 @@
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label for="estadoRecurso">Estado Recurso</label>
+                                                                    <label for="cmbEstado">Estado Recurso</label>
                                                                     <h:selectOneMenu value="#{gestionrecursosBean.estado}" class="form-control select2-dropdown" id="cmbEstado" disabled="#{gestionrecursosBean.campos}">
                                                                         <f:selectItems value="#{gestionrecursosBean.listEstadoRecurso.entrySet()}"  var="estado"  itemValue="#{estado.key}" itemLabel="#{estado.value}" />
                                                                     </h:selectOneMenu>    
@@ -236,7 +236,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label for="moduloRecurso">Módulo</label>
+                                                                    <label for="cmbModulo">Módulo</label>
                                                                     <h:selectOneMenu value="#{gestionrecursosBean.modulo}" class="form-control select2-dropdown" id="cmbModulo" disabled="#{gestionrecursosBean.campos}">
                                                                         <f:selectItems value="#{gestionrecursosBean.listModulos.entrySet()}"  var="modu"  itemValue="#{modu.key}" itemLabel="#{modu.value}" />
                                                                     </h:selectOneMenu> 
