@@ -17,6 +17,5 @@ public interface PlanosBO {
 
     public void getListEstructura(BeanPlanos bean) throws Exception;
 
-    public String validarLiena(List<String> list) throws Exception;
-
+    public List<PlanosImplBO> validarLiena(List listaCampos, int tipo) throws Exception;
 }

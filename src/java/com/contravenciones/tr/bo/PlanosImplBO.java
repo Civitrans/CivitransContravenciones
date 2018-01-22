@@ -5,8 +5,10 @@
  */
 package com.contravenciones.tr.bo;
 
+import com.contravenciones.jdbc.dao.ITCargueComparendos;
 import com.contravenciones.jdbc.dao.ITEstructuraSimit;
 import com.contravenciones.jsf.bean.BeanPlanos;
+import com.contravenciones.tr.persistence.CivCarguecomparendo;
 import com.contravenciones.tr.persistence.CivEstructuraSimit;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
@@ -31,6 +33,12 @@ public class PlanosImplBO implements PlanosBO {
     private final SimpleDateFormat dirDate = new SimpleDateFormat("ddMMYYYY");
     private final SimpleDateFormat sudDirDate = new SimpleDateFormat("dd-MM-YYYY hh mm ss");
     private ITEstructuraSimit estructuraSimitDAO;
+    private ITCargueComparendos cargueComparendosDAO;
+    private String msg = "";
+    private String valor = "";
+    private String campo = "";
+    private boolean error;
+    private CivCarguecomparendo CvCarguecomparendo;
 
     @Override
     public void getListEstructura(BeanPlanos bean) throws Exception {
@@ -83,81 +91,167 @@ public class PlanosImplBO implements PlanosBO {
             }
 
             line++;
-            String msg = "";
-            for (String string : param) {
 
-                long idx = param.indexOf(string) + 1;
-                CivEstructuraSimit ces = getEstructuraSimitDAO().getEstructuraSimit(idx, 1);
+            List<PlanosImplBO> plano = validarLiena(param, 1);
 
-                msg = "";
-
-                if (ces.getEstrObligatorio().equals("S") && string.isEmpty()) {
-                    msg += "Line:" + line + " Error: El Campo " + ces.getEstrNombreCampo().trim().toLowerCase() + " es obligatorio. \r\n";
-                    break;
-                }
-
-                int i;
-
-                switch (ces.getEstrTipoDato()) {
-
-                    case "numerico": {
-                        try {
-                            i = Integer.parseInt(string);
-                            if (i > 19999 && idx == 1) {
-                                msg += "El indice supero los 19999 registros. \r\n";
-                            }
-                        } catch (NumberFormatException e) {
-                            msg += "El campo " + ces.getEstrNombreCampo().trim().toLowerCase() + " no tiene un formato valido o supero la cantidad aceptada por un numero entero. \r\n";
-                        }
+            if (plano == null) {
+                bean.setNoCargados((bean.getNoCargados() + 1));
+                bean.getHashLine().put("linea", line + "");
+                bean.getHashLine().put("msg", getCvCarguecomparendo().getDescripcionError());
+                bean.getHashLine().put("value", "");
+                bean.getListLinea().add(bean.getHashLine());
+            } else {
+                for (PlanosImplBO planosImplBO : plano) {
+                    if (!planosImplBO.isError()) {
+                        bean.setNoCargados((bean.getNoCargados() + 1));
+                        bean.getHashLine().put("linea", line + "");
+                        bean.getHashLine().put("msg", getCvCarguecomparendo().getDescripcionError());
+                        bean.getHashLine().put("value", "");
+                        bean.getListLinea().add(bean.getHashLine());
+                        continue;
                     }
-                    break;
-
-                    case "alfanumerico": {
-                        if (!(string.length() >= ces.getEstrLongitudMin().intValue()) && !(string.length() <= ces.getEstrLongitudMax().intValue())) {
-                            msg += "La longitud de " + ces.getEstrNombreCampo().trim().toLowerCase() + " no es correcta. \r\n";
-                        }
-                    }
-                    break;
-                    case "fecha": {
-                        if (string.length() == ces.getEstrLongitudMax().intValue()) {
-                            try {
-                                Date date = new Date(new java.text.SimpleDateFormat("dd/MM/yyyy").parse(string).getTime());
-                            } catch (ParseException e) {
-                                msg += "El campo " + ces.getEstrNombreCampo().trim().toLowerCase() + " no tiene un formato valido \r\n";
-                            }
-                        } else {
-                            msg += "La longitud de " + ces.getEstrNombreCampo().trim().toLowerCase() + " no es correcta. \r\n";
-                        }
-                    }
-                    break;
-                }
-                if (!msg.isEmpty()) {
-                    bean.setNoCargados((bean.getNoCargados() + 1));
-                    bean.getHashLine().put("linea", line + "");
-                    bean.getHashLine().put("msg", msg);
-                    bean.getHashLine().put("value", string);
-                    bean.getListLinea().add(bean.getHashLine());
-                    break;
-                }
-            }//next 
-            if (!msg.isEmpty()) {
-                continue;
-            }
-            bean.setCargados((bean.getCargados() + 1));
-        }
-    }
+                    bean.setCargados((bean.getCargados() + 1));
+                }//next
+            }//If 
+        }//while
+    }//main
 
     @Override
-    public String validarLiena(List<String> list) throws Exception {
+    public List<PlanosImplBO> validarLiena(List listaCampos, int tipo) throws Exception {
+        int numeroCampo = 0;
+        String nombreCampo = "";
+        String registro = " Registro " + (listaCampos.get(0).toString() != null ? listaCampos.get(0).toString() : "") + "-" + (listaCampos.get(1).toString() != null ? listaCampos.get(1).toString() : " Sin Comparendo");
+        int cantidadCampos = listaCampos.size();
         try {
-            for (String string : list) {
-                int indx = list.indexOf(string);
+            List<PlanosImplBO> listaValidados = new ArrayList();
+            setCvCarguecomparendo(new CivCarguecomparendo());
+            if (listaCampos.size() < 57) {
+                getCvCarguecomparendo().setDescripcionError(registro + " linea no cumple con los campos minimos. valor Minimo(57) valor Obtenido (" + listaCampos.size() + ")");
+                setError(false);
+                return null;
+            }
+
+            if (listaCampos.size() > 60) {
+                getCvCarguecomparendo().setDescripcionError(registro + " linea no cumple con los campos minimos. valor Maximo(60) valor Obtenido (" + listaCampos.size() + ")");
+                setError(false);
+                return null;
+            }
+
+            if (listaCampos.get(55).equals("F")) {
+                cantidadCampos = 57;
+                if (listaCampos.size() < 58) {
+                    getCvCarguecomparendo().setDescripcionError(registro + " linea no cumple con los campos minimos. Campo grado de alcohol no reportado.");
+                    setError(false);
+                    return null;
+                }
+            }
+
+            if (!listaCampos.get(55).equals("F") && listaCampos.size() > 57) {
+                if (listaCampos.size() == 59) {
+                    cantidadCampos = 59;
+                    if (!listaCampos.get(57).equals("S") && !listaCampos.get(57).equals("N")) {
+                        getCvCarguecomparendo().setDescripcionError(registro + " linea no cumple con los campos minimos. Campo Foto Multa no reportado correctamente.");
+                        setError(false);
+                        return null;
+                    }
+                } else {
+                    if (listaCampos.size() == 60) {
+                        cantidadCampos = 60;
+                        if (!listaCampos.get(58).equals("S") && !listaCampos.get(58).equals("N")) {
+                            getCvCarguecomparendo().setDescripcionError(registro + " linea no cumple con los campos minimos. Campo Foto Multa no reportado correctamente.");
+                            setError(false);
+                            return null;
+                        }
+                    }
+                }
+            }
+
+//            if (listaCampos.size() < estructuraEstandar.size()) {
+//                getCvCarguecomparendo().setDescripcionError(registro + " linea no cumple con los campos minimos. valor Minimo("+estructuraEstandar.size()+") valor Obtenido ("+listaCampos.size()+")");
+//                setError(false);
+//                return null;
+//            }
+            //for (int i = 0; i < estructuraEstandar.size(); i++) {
+            for (int i = 0; i < cantidadCampos; i++) {
+                numeroCampo = i + 1;
+                PlanosImplBO datosCarguePlano = new PlanosImplBO();
+                setError(true);
+                CivEstructuraSimit estructura = getEstructuraSimitDAO().getEstructuraSimit((i + 1), tipo);
+                nombreCampo = estructura.getEstrNombreCampo();
+                datosCarguePlano.setCampo(estructura.getEstrNombreCampo());
+                valor = listaCampos.get(i).toString();
+
+                if (valor.trim().equals("") || valor.isEmpty()) {
+                    if (estructura.getEstrObligatorio().equals("S")) {
+                        getCvCarguecomparendo().setDescripcionError(registro + " - error en (" + estructura.getEstrNombreCampo() + ") el campo es obligatorio - en el campo: (" + (i + 1) + ")");
+                        setError(false);
+                        break;
+                    } else {
+                        if (nombreCampo.equals("COMNOMBREPROP")) {
+                            if ((!listaCampos.get(30).equals("")) && (!listaCampos.get(31).equals(""))) {
+                                getCvCarguecomparendo().setDescripcionError(registro + " - error en(" + estructura.getEstrNombreCampo() + ")  COMNOMBREPROP no puede ser vacio si existe documento de identidad" + "- en el campo: (" + (i + 1) + ")");
+                                setError(false);
+                                break;
+                            }
+                        }
+                        valor = "";
+                    }
+
+                } else {
+                    if (valor.length() < estructura.getEstrLongitudMin().intValue()) {
+                        getCvCarguecomparendo().setDescripcionError(registro + " - longitud no permitida en (" + estructura.getEstrNombreCampo() + ") min( :" + estructura.getEstrLongitudMin().intValue() + ") real(" + valor.length() + ") valor:" + valor + "- en el campo: (" + (i + 1) + ")");
+                        setError(false);
+                        break;
+                    }
+                    if (valor.length() > estructura.getEstrLongitudMax().intValue()) {
+
+                        getCvCarguecomparendo().setDescripcionError(registro + " - longitud no permitida en (" + estructura.getEstrNombreCampo() + ")  max( :" + estructura.getEstrLongitudMax().intValue() + ") real(" + valor.length() + ") valor:" + valor + "- en el campo: (" + (i + 1) + ")");
+                        setError(false);
+                        break;
+                    }
+                    if (estructura.getEstrTipoDato().equals("numerico")) {
+                        try {
+                            long valorEntero = Long.parseLong(valor);
+                        } catch (NumberFormatException e) {
+                            getCvCarguecomparendo().setDescripcionError(registro + " - error en (" + estructura.getEstrNombreCampo() + ") al convertir valor a entero :(" + valor + ") causa :" + e.getMessage() + "- en el campo: (" + (i + 1) + ")");
+                            setError(false);
+                            break;
+                        }
+
+                    }
+                    if (estructura.getEstrTipoDato().equals("fecha")) {
+                        try {
+                            Date valorFecha = new Date(new java.text.SimpleDateFormat("dd/mm/yyyy").parse(valor).getTime());
+                        } catch (ParseException ex) {
+                            getCvCarguecomparendo().setDescripcionError(registro + " - error en(" + estructura.getEstrNombreCampo() + ")  al convertir valor a fecha:(" + valor + ") requerido 'dd/mm/yyyy' causa :" + ex.getMessage() + "- en el campo: (" + (i + 1) + ")");
+                            setError(false);
+                            break;
+                        }
+                    }
+
+                }
+                datosCarguePlano.setValor(valor);
+                listaValidados.add(datosCarguePlano);
 
             }
+            if (isError()) {
+                CivCarguecomparendo migracionComp = getCargueComparendosDAO().getCargueComparendo(Long.parseLong(listaCampos.get(1).toString()), listaCampos.get(15).toString(), Long.parseLong(listaCampos.get(14).toString()));
+                if (migracionComp == null) {
+                    getCvCarguecomparendo().setDescripcionError(registro + " - Guardado Exitosamente");
+                } else {
+                    getCvCarguecomparendo().setDescripcionError(registro + " - Ya se encuentra Registrado");
+                    setError(false);
+                }
+
+                return listaValidados;
+            }
+            return null;
         } catch (Exception e) {
-            e.printStackTrace();
+            getCvCarguecomparendo().setDescripcionError(registro + " - Error Fatal : " + e + "En el campo (" + nombreCampo + ")(" + numeroCampo + ") valor (" + valor + ")");
+            setError(false);
+            return null;
         }
-        return "";
+
     }
 
     /**
@@ -174,4 +268,87 @@ public class PlanosImplBO implements PlanosBO {
         this.estructuraSimitDAO = estructuraSimitDAO;
     }
 
+    /**
+     * @return the msg
+     */
+    public String getMsg() {
+        return msg;
+    }
+
+    /**
+     * @param msg the msg to set
+     */
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    /**
+     * @return the valor
+     */
+    public String getValor() {
+        return valor;
+    }
+
+    /**
+     * @param valor the valor to set
+     */
+    public void setValor(String valor) {
+        this.valor = valor;
+    }
+
+    /**
+     * @return the campo
+     */
+    public String getCampo() {
+        return campo;
+    }
+
+    /**
+     * @param campo the campo to set
+     */
+    public void setCampo(String campo) {
+        this.campo = campo;
+    }
+
+    /**
+     * @return the error
+     */
+    public boolean isError() {
+        return error;
+    }
+
+    /**
+     * @param error the error to set
+     */
+    public void setError(boolean error) {
+        this.error = error;
+    }
+
+    /**
+     * @return the CvCarguecomparendo
+     */
+    public CivCarguecomparendo getCvCarguecomparendo() {
+        return CvCarguecomparendo;
+    }
+
+    /**
+     * @param CvCarguecomparendo the CvCarguecomparendo to set
+     */
+    public void setCvCarguecomparendo(CivCarguecomparendo CvCarguecomparendo) {
+        this.CvCarguecomparendo = CvCarguecomparendo;
+    }
+
+    /**
+     * @return the cargueComparendosDAO
+     */
+    public ITCargueComparendos getCargueComparendosDAO() {
+        return cargueComparendosDAO;
+    }
+
+    /**
+     * @param cargueComparendosDAO the cargueComparendosDAO to set
+     */
+    public void setCargueComparendosDAO(ITCargueComparendos cargueComparendosDAO) {
+        this.cargueComparendosDAO = cargueComparendosDAO;
+    }
 }
