@@ -178,6 +178,11 @@ public class RangosImplBO implements RangosBO {
         }
         CivPersonas per = getPersonasDAO().consultarPersonasDocumento(bean.getIdentificacion());
         if(per!=null){
+            List<CivAgentes>agente = getAgentesDAO().listarAgentes(per.getPerId().intValue());
+            if(!agente.isEmpty()){
+                bean.setBtnRegistrar(true);
+                throw new RangosException("La persona consultada ya tiene asignada una placa.", 1);
+            }
             bean.setDetalleConsulta(true);
             bean.setCrearPersona(false);
             bean.setBtnRegistrar(false);

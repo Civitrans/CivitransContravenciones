@@ -37,6 +37,7 @@
                                                     <div class="form-group">
                                                         <label for="txtDetalleDocumento">Documento</label>
                                                         <h:inputText id="txtDetalleDocumento" class="form-control text-uppercase" value="#{gestionpersonasBean.documento}" maxlength="20" >
+                                                            <f:ajax event="blur" listener="#{gestionpersonasBean.verificarPersona()}" render="btnRegistrar"></f:ajax>
                                                         </h:inputText>
                                                     </div>
                                                 </div>
@@ -191,7 +192,7 @@
                                                 <div class="col-md-2">
                                                     <div class="form-group">
                                                         <label for="txtDetalleEmail">E-mail</label>
-                                                        <h:inputText  class="form-control text-lowercase" id="txtDetalleEmail" value="#{gestionpersonasBean.celular}" maxlength="70">
+                                                        <h:inputText  class="form-control text-lowercase" id="txtDetalleEmail" value="#{gestionpersonasBean.email}" maxlength="70">
                                                         </h:inputText>
                                                     </div> 
                                                 </div>
@@ -236,16 +237,17 @@
                             <div class="row" style="margin-bottom: 30px">
                                 <div class="col-lg-1"/>
                                 <div class="col-lg-7 text-left">
-                                   <h:commandLink class="btn btn-primary">
-                                        <f:ajax event="click" execute="@form txtDetalleTipoDocumento txtDetalleDocumento" listener="#{personaBean.guardarDatosPersona()}"  render="panelModalPersona"/>
+                                    <h:commandLink id="btnRegistrar" class="btn btn-primary" disabled="#{gestionpersonasBean.btnRegistrar}">
+                                       <f:ajax event="click" execute="@form txtDetalleTipoDocumento txtDetalleDocumento" listener="#{gestionpersonasBean.guardarDatosPersona()}"  render="panelModalPersona"/>
                                         <i class="fa fa-server"></i>
                                         <span>Guardar</span>
                                     </h:commandLink>
                                 </div>
                                 <div class="col-lg-3">
-                                    <button type="button" class="btn btn-danger" data-dismiss="modal">
+                                    <h:commandLink id="btnCancelar" class="btn btn-danger">
+                                        <f:ajax event="click" listener="#{gestionpersonasBean.cancelarModal()}" />
                                         <i class="fa fa-close"></i> Cancelar
-                                    </button>
+                                    </h:commandLink>
                                 </div>
                                 <div class="col-lg-1"/>
                             </div>

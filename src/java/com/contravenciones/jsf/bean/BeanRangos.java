@@ -124,6 +124,9 @@ public class BeanRangos implements Serializable {
         setIdentificacion("");
         setPlaca("");
         setNombrePersona("");
+        setBtnRegistrar(false);
+        setCrearPersona(false);
+        setDetalleConsulta(false);
     }
     
     

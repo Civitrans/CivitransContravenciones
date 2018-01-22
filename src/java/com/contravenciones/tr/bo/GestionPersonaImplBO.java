@@ -6,6 +6,7 @@
 package com.contravenciones.tr.bo;
 
 import com.contravenciones.exception.PersonaException;
+import com.contravenciones.jdbc.dao.ITDirecciones;
 import com.contravenciones.jdbc.dao.ITDivipo;
 import com.contravenciones.jdbc.dao.ITParametros;
 import com.contravenciones.jdbc.dao.ITPersonas;
@@ -30,6 +31,7 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
     private ITPersonas personasDAO;
     private ITParametros parametrosDAO;
     private ITDivipo divipoDAO;
+    private ITDirecciones direccionesDAO;
 
     @Override
     public void listPersona(BeanGestionPersona bean) throws Exception {
@@ -55,6 +57,18 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
         for (CivParametros objParametros : getParametrosDAO().listParametros(391)) {
             bean.getEstadoPersona().put(objParametros.getParCodigo().intValue(), objParametros.getParNombre());
         }
+        
+    }
+    
+    @Override
+    public void verificarPersona(BeanGestionPersona bean) throws Exception {
+       CivPersonas persona = getPersonasDAO().consultarPersonasByDocumento(bean.getTipoDoc(), bean.getDocumento());
+       if(persona!=null){
+           bean.setBtnRegistrar(true);
+            throw new PersonaException("La persona ya existe", 1);
+       }else{
+           bean.setBtnRegistrar(false);
+       }
         
     }
     
@@ -174,12 +188,11 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
         direccion.setDirFechaproceso(new Date());
         direccion.setCivPersonas(persona);
 
-        /*direccion.setCivDivipos(divipo_direccion);
+        direccion.setCivDivipos(divipo_direccion);
         if (getDireccionesDAO().insert(direccion) == 0) {
             throw new PersonaException("Direccion no pudo ser ingresada.", 1);
         }
 
-        beanPersona.setMensaje("Persona registrada exitosamente");*/
     }
 
     /**
@@ -222,6 +235,20 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
      */
     public void setDivipoDAO(ITDivipo divipoDAO) {
         this.divipoDAO = divipoDAO;
+    }
+
+    /**
+     * @return the direccionesDAO
+     */
+    public ITDirecciones getDireccionesDAO() {
+        return direccionesDAO;
+    }
+
+    /**
+     * @param direccionesDAO the direccionesDAO to set
+     */
+    public void setDireccionesDAO(ITDirecciones direccionesDAO) {
+        this.direccionesDAO = direccionesDAO;
     }
 
 }

@@ -23,16 +23,16 @@ import org.primefaces.context.RequestContext;
  * @author Roymer Camacho
  */
 public class BeanGestionPersona implements Serializable {
-    
+
     private BeanLogin loginBean;
     private GestionPersonaBO gestionPersonaBO;
-    
+
     private List<CivPersonas> listPersonas;
     private Map<Integer, String> listTipoDocumento; // tipos de documento
     private Map<Integer, String> estadoPersona;
     private String buscarPersona;
-    private boolean mostrarConsulta=false;
-    
+    private boolean mostrarConsulta = false;
+
     private int idpersona;
     private int tipoDoc;
     private String documento;
@@ -56,17 +56,18 @@ public class BeanGestionPersona implements Serializable {
     private int depDir;
     private int munDir;
     private String dir;
-    
-    
-    public void cargarDatos(){
+    private boolean btnRegistrar;
+    private String origen;
+
+    public void cargarDatos() {
         try {
             getGestionPersonaBO().cargarDatos(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    
-     /*Método para consultar todos las personas registradas en la base de datos.*/
+
+    /*Método para consultar todos las personas registradas en la base de datos.*/
     public void listarPersona() {
         cargarDatos();
         getListTipoDocumento();
@@ -88,8 +89,8 @@ public class BeanGestionPersona implements Serializable {
         }
 
     }
-    
-     public void guardarDatosPersona() {
+
+    public void guardarDatosPersona() {
         guardarPersona();
 //        mostrarAlerta();
     }
@@ -100,7 +101,10 @@ public class BeanGestionPersona implements Serializable {
     protected void guardarPersona() {
         try {
             getGestionPersonaBO().guardarPersona(this);
-            //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "", getMensaje()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Persona registrada correctamente"));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("messageGeneral");
+            RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
+            
         } catch (PersonaException ex) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(ex.getNivelFacesMessage(), "Error", ex.getMessage()));
         } catch (Exception e) {
@@ -109,7 +113,22 @@ public class BeanGestionPersona implements Serializable {
         }
     }
 
-    
+    public void verificarPersona() {
+        try {
+            getGestionPersonaBO().verificarPersona(this);
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("mnsje");
+        } catch (PersonaException ex) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(ex.getNivelFacesMessage(), "Error", ex.getMessage()));
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al verificar persona: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(loginBean.getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+        }
+    }
+
+    public void cancelarModal() {
+        RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
+    }
+
     /**
      * @return the listPersonas
      */
@@ -529,7 +548,33 @@ public class BeanGestionPersona implements Serializable {
     public void setIdpersona(int idpersona) {
         this.idpersona = idpersona;
     }
-    
-    
+
+    /**
+     * @return the btnRegistrar
+     */
+    public boolean isBtnRegistrar() {
+        return btnRegistrar;
+    }
+
+    /**
+     * @param btnRegistrar the btnRegistrar to set
+     */
+    public void setBtnRegistrar(boolean btnRegistrar) {
+        this.btnRegistrar = btnRegistrar;
+    }
+
+    /**
+     * @return the origen
+     */
+    public String getOrigen() {
+        return origen;
+    }
+
+    /**
+     * @param origen the origen to set
+     */
+    public void setOrigen(String origen) {
+        this.origen = origen;
+    }
 
 }

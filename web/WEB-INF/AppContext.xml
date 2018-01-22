@@ -188,7 +188,9 @@
     <bean id="estructuraSimitDAO" class="com.contravenciones.jdbc.dao.DaoEstructuraSimit">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-
+    <bean id="direccionesDAO" class="com.contravenciones.jdbc.dao.DaoDirecciones">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
     <!-- BOS -->
     <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
         <property name="loginDAO" ref="loginDAO"></property>
@@ -230,6 +232,7 @@
         <property name="personasDAO" ref="personasDAO" />
         <property name="parametrosDAO" ref="parametrosDAO"/>
         <property name="divipoDAO" ref="divipoDAO"/>
+        <property name="direccionesDAO" ref="direccionesDAO"/>
     </bean>
     <bean id="gestionRecursoBO" class="com.contravenciones.tr.bo.GestionRecursoImplBO">
         <property name="recursosDAO" ref="recursosDAO" />
