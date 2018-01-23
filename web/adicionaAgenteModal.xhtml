@@ -52,7 +52,7 @@
                                                             <span class="input-group-btn">
                                                                 <h:commandLink class="btn btn-success">
                                                                     <i class="fa fa-search" />
-                                                                    <f:ajax event="click" listener="#{rangosBean.consultarPersona()}" execute="rangos:ident" render="rangos:btnRegistrarAgente rangos:mensajeCrearPersona rangos:detalleConsulta" />
+                                                                    <f:ajax event="click" listener="#{rangosBean.consultarPersona()}" execute="agentes:ident" render="agentes:btnRegistrarAgente agentes:mensajeCrearPersona agentes:detalleConsulta" />
                                                                 </h:commandLink>
                                                             </span>
                                                         </div>
@@ -101,11 +101,11 @@
                         <div class="modal-footer">
                             <h:commandLink class="btn btn-warning btn-submit right" onclick="$('#registrarAgente').modal('hide');">
                                 <span class="fa fa-close"></span> Cancelar
-                                <f:ajax event="click" listener="#{rangosBean.cancelarAgente()}" render="rangos:crear rangos:mensajeCrearPersona"/>
+                                <f:ajax event="click" listener="#{rangosBean.cancelarAgente()}" render="agentes:crear agentes:mensajeCrearPersona"/>
                             </h:commandLink>
                             <h:commandLink disabled="#{rangosBean.btnRegistrar}" id="btnRegistrarAgente" class="btn btn-success btn-submit right">
                                 <span class="fa fa-save"></span> Registrar
-                                <f:ajax event="click" listener="#{rangosBean.registrarAgente()}" execute="rangos:crear"/>
+                                <f:ajax event="click" listener="#{rangosBean.registrarAgente()}" execute="agentes:crear"/>
                             </h:commandLink>
                         </div>
 

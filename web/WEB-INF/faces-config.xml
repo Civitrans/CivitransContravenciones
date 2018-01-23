@@ -110,6 +110,19 @@
             <value>#{loginBean}</value>
         </managed-property>
     </managed-bean>
+    <managed-bean>
+        <managed-bean-name>agentesBean</managed-bean-name>
+        <managed-bean-class>com.contravenciones.jsf.bean.BeanAgentes</managed-bean-class>
+        <managed-bean-scope>view</managed-bean-scope>
+        <managed-property>
+            <property-name>agentesBO</property-name>
+            <value>#{AgentesBO}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>loginBean</property-name>
+            <value>#{loginBean}</value>
+        </managed-property>
+    </managed-bean>
     <!--Plannos   -->
     <managed-bean>
         <managed-bean-name>

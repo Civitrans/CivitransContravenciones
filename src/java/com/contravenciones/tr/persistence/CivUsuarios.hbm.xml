@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 22/01/2018 08:46:50 AM by Hibernate Tools 4.3.1 -->
+<!-- Generated 22/01/2018 03:31:25 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivUsuarios" table="CIV_USUARIOS" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan la informacion de los usuarios registrados en el sistema.</comment>
@@ -54,28 +54,6 @@
                 <comment>Bandera si el usuario es RUNT o no</comment>
             </column>
         </property>
-        <set name="civAttemptses" table="CIV_ATTEMPTS" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="USU_ID" precision="22" scale="0" not-null="true">
-                    <comment>ID unico de usuario</comment>
-                </column>
-            </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivAttempts" />
-        </set>
-        <set name="civDetalleRecUsus" table="CIV_DETALLE_REC_USU" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="USU_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecUsu" />
-        </set>
-        <set name="civUsuperfils" table="CIV_USUPERFIL" inverse="true" lazy="true" fetch="select">
-            <key>
-                <column name="USU_ID" precision="22" scale="0" not-null="true">
-                    <comment>ID de usuario</comment>
-                </column>
-            </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivUsuperfil" />
-        </set>
         <set name="civSalariosminimoses" table="CIV_SALARIOSMINIMOS" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
@@ -145,6 +123,34 @@
                 </column>
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDetallecartera" />
+        </set>
+        <set name="civAttemptses" table="CIV_ATTEMPTS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" not-null="true">
+                    <comment>ID unico de usuario</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivAttempts" />
+        </set>
+        <set name="civDatosParametricoses" table="CIV_DATOS_PARAMETRICOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDatosParametricos" />
+        </set>
+        <set name="civDetalleRecUsus" table="CIV_DETALLE_REC_USU" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecUsu" />
+        </set>
+        <set name="civUsuperfils" table="CIV_USUPERFIL" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" not-null="true">
+                    <comment>ID de usuario</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUsuperfil" />
         </set>
     </class>
 </hibernate-mapping>

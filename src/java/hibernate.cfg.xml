@@ -76,6 +76,7 @@ Contributor(s):
     <mapping resource="com/contravenciones/tr/persistence/CivParametros.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivInfracciones.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivValorinfraccion.hbm.xml"/>
+    <mapping resource="com/contravenciones/tr/persistence/CivDatosParametricos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivRangosComparendos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivHistorialUsuarioCaja.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivMunicipios.hbm.xml"/>

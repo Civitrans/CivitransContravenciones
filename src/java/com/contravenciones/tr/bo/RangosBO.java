@@ -18,10 +18,11 @@ public interface RangosBO {
     /**
      *
      * @param bean
-     * @param BuscarReferencia
+     * @param ref
+     
      * @throws Exception
      */
-    void listAgentes(BeanRangos bean, String BuscarReferencia) throws Exception;
+    void generarRangos(BeanRangos bean, String ref) throws Exception;
     
     /**
      *
@@ -35,12 +36,6 @@ public interface RangosBO {
      * @param bean
      * @throws Exception
      */
-    void consultarPersona(BeanRangos bean) throws Exception;
-    
-     /**
-     *
-     * @param bean
-     * @throws Exception
-     */
-    void registrarAgente(BeanRangos bean) throws Exception;
+    void registrarRangos(BeanRangos bean) throws Exception;
+  
 }

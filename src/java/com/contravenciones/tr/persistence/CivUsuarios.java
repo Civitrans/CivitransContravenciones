@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 22/01/2018 08:46:48 AM by Hibernate Tools 4.3.1
+// Generated 22/01/2018 03:31:24 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -23,9 +23,6 @@ public class CivUsuarios  implements java.io.Serializable {
      private Date usuFechafinal;
      private Date usuFechaproceso;
      private BigDecimal usuUsuariorunt;
-     private Set civAttemptses = new HashSet(0);
-     private Set civDetalleRecUsus = new HashSet(0);
-     private Set civUsuperfils = new HashSet(0);
      private Set civSalariosminimoses = new HashSet(0);
      private Set civUspHistorias = new HashSet(0);
      private Set civValorinfraccions = new HashSet(0);
@@ -35,6 +32,10 @@ public class CivUsuarios  implements java.io.Serializable {
      private Set civConceptoses = new HashSet(0);
      private Set civUsuarioCajases = new HashSet(0);
      private Set civDetallecarteras = new HashSet(0);
+     private Set civAttemptses = new HashSet(0);
+     private Set civDatosParametricoses = new HashSet(0);
+     private Set civDetalleRecUsus = new HashSet(0);
+     private Set civUsuperfils = new HashSet(0);
 
     public CivUsuarios() {
     }
@@ -51,7 +52,7 @@ public class CivUsuarios  implements java.io.Serializable {
         this.usuFechaproceso = usuFechaproceso;
         this.usuUsuariorunt = usuUsuariorunt;
     }
-    public CivUsuarios(BigDecimal usuId, CivSedes civSedes, CivPersonas civPersonas, String usuNombre, String usuPassword, BigDecimal usuEstado, Date usuFechainicial, Date usuFechafinal, Date usuFechaproceso, BigDecimal usuUsuariorunt, Set civAttemptses, Set civDetalleRecUsus, Set civUsuperfils, Set civSalariosminimoses, Set civUspHistorias, Set civValorinfraccions, Set civCarterases, Set civPerfilrecursos, Set civInfraccioneses, Set civConceptoses, Set civUsuarioCajases, Set civDetallecarteras) {
+    public CivUsuarios(BigDecimal usuId, CivSedes civSedes, CivPersonas civPersonas, String usuNombre, String usuPassword, BigDecimal usuEstado, Date usuFechainicial, Date usuFechafinal, Date usuFechaproceso, BigDecimal usuUsuariorunt, Set civSalariosminimoses, Set civUspHistorias, Set civValorinfraccions, Set civCarterases, Set civPerfilrecursos, Set civInfraccioneses, Set civConceptoses, Set civUsuarioCajases, Set civDetallecarteras, Set civAttemptses, Set civDatosParametricoses, Set civDetalleRecUsus, Set civUsuperfils) {
        this.usuId = usuId;
        this.civSedes = civSedes;
        this.civPersonas = civPersonas;
@@ -62,9 +63,6 @@ public class CivUsuarios  implements java.io.Serializable {
        this.usuFechafinal = usuFechafinal;
        this.usuFechaproceso = usuFechaproceso;
        this.usuUsuariorunt = usuUsuariorunt;
-       this.civAttemptses = civAttemptses;
-       this.civDetalleRecUsus = civDetalleRecUsus;
-       this.civUsuperfils = civUsuperfils;
        this.civSalariosminimoses = civSalariosminimoses;
        this.civUspHistorias = civUspHistorias;
        this.civValorinfraccions = civValorinfraccions;
@@ -74,6 +72,10 @@ public class CivUsuarios  implements java.io.Serializable {
        this.civConceptoses = civConceptoses;
        this.civUsuarioCajases = civUsuarioCajases;
        this.civDetallecarteras = civDetallecarteras;
+       this.civAttemptses = civAttemptses;
+       this.civDatosParametricoses = civDatosParametricoses;
+       this.civDetalleRecUsus = civDetalleRecUsus;
+       this.civUsuperfils = civUsuperfils;
     }
    
     public BigDecimal getUsuId() {
@@ -146,27 +148,6 @@ public class CivUsuarios  implements java.io.Serializable {
     public void setUsuUsuariorunt(BigDecimal usuUsuariorunt) {
         this.usuUsuariorunt = usuUsuariorunt;
     }
-    public Set getCivAttemptses() {
-        return this.civAttemptses;
-    }
-    
-    public void setCivAttemptses(Set civAttemptses) {
-        this.civAttemptses = civAttemptses;
-    }
-    public Set getCivDetalleRecUsus() {
-        return this.civDetalleRecUsus;
-    }
-    
-    public void setCivDetalleRecUsus(Set civDetalleRecUsus) {
-        this.civDetalleRecUsus = civDetalleRecUsus;
-    }
-    public Set getCivUsuperfils() {
-        return this.civUsuperfils;
-    }
-    
-    public void setCivUsuperfils(Set civUsuperfils) {
-        this.civUsuperfils = civUsuperfils;
-    }
     public Set getCivSalariosminimoses() {
         return this.civSalariosminimoses;
     }
@@ -229,6 +210,34 @@ public class CivUsuarios  implements java.io.Serializable {
     
     public void setCivDetallecarteras(Set civDetallecarteras) {
         this.civDetallecarteras = civDetallecarteras;
+    }
+    public Set getCivAttemptses() {
+        return this.civAttemptses;
+    }
+    
+    public void setCivAttemptses(Set civAttemptses) {
+        this.civAttemptses = civAttemptses;
+    }
+    public Set getCivDatosParametricoses() {
+        return this.civDatosParametricoses;
+    }
+    
+    public void setCivDatosParametricoses(Set civDatosParametricoses) {
+        this.civDatosParametricoses = civDatosParametricoses;
+    }
+    public Set getCivDetalleRecUsus() {
+        return this.civDetalleRecUsus;
+    }
+    
+    public void setCivDetalleRecUsus(Set civDetalleRecUsus) {
+        this.civDetalleRecUsus = civDetalleRecUsus;
+    }
+    public Set getCivUsuperfils() {
+        return this.civUsuperfils;
+    }
+    
+    public void setCivUsuperfils(Set civUsuperfils) {
+        this.civUsuperfils = civUsuperfils;
     }
 
 

@@ -7,6 +7,7 @@ package com.contravenciones.jsf.bean;
 
 import com.contravenciones.exception.RangosException;
 import com.contravenciones.model.Agente;
+import com.contravenciones.tr.bo.AgentesBO;
 import com.contravenciones.tr.bo.RangosBO;
 import com.contravenciones.tr.persistence.CivAgentes;
 import com.contravenciones.tr.persistence.CivPersonas;
@@ -24,10 +25,10 @@ import org.primefaces.context.RequestContext;
  *
  * @author Roymer Camacho
  */
-public class BeanRangos implements Serializable {
+public class BeanAgentes implements Serializable {
 
     private BeanLogin loginBean;
-    private RangosBO rangosBO;
+    private AgentesBO agentesBO;
 
     private boolean mostrarBuscar = true;
     private boolean mostrarConsultaAgente = false;
@@ -49,17 +50,9 @@ public class BeanRangos implements Serializable {
     private boolean crearPersona=false;
     private boolean btnRegistrar=true;
     
-    private String rangoInicial;
-    private String rangoFinal;
-    private String referenciaInicial;
-    private String referenciaFinal;
-    private Date fechaResolucion;
-    private int numeroRango;
-    private int maxLength;
-
     public void cargarDatos() {
         try {
-            getRangosBO().cargarDatos(this);
+            getAgentesBO().cargarDatos(this);
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al cargar datos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
@@ -67,34 +60,15 @@ public class BeanRangos implements Serializable {
         }
     }
 
-    public void generarRangos(String ref) {
-        impGenerarRangos(ref);
+    public void listarAgente(String BuscarReferencia) {
+        cargarDatos();
+        impListarAgente(BuscarReferencia);
         //RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
     }
 
-    protected void impGenerarRangos(String ref) {
+    protected void impListarAgente(String BuscarReferencia) {
         try {
-            getRangosBO().generarRangos(this, ref);
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
-        } catch (RangosException e) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
-        } catch (Exception e) {
-            Log_Handler.registrarEvento("Error al listar agentes: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
-        }
-
-    }
-    
-    public void registrarRango() {
-        impRegistrarRango();
-        //RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
-    }
-
-    protected void impRegistrarRango() {
-        try {
-            getRangosBO().registrarRangos(this);
+            getAgentesBO().listAgentes(this, BuscarReferencia);
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
         } catch (RangosException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
@@ -107,7 +81,46 @@ public class BeanRangos implements Serializable {
 
     }
     
-  
+    public void consultarPersona() {
+        impConsultarPersona();
+        //RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
+    }
+
+    protected void impConsultarPersona() {
+        try {
+            getAgentesBO().consultarPersona(this);
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+        } catch (RangosException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al consultar persona: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+        }
+
+    }
+    
+     public void registrarAgente() {
+        impRegistrarAgente();
+    }
+
+    protected void impRegistrarAgente() {
+        try {
+            getAgentesBO().registrarAgente(this);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Agente registrado correctamente"));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            RequestContext.getCurrentInstance().execute("$('#registrarAgente').modal('hide');");
+        } catch (RangosException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al listar agentes: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+        }
+
+    }
     
     public void cancelarAgente(){
         setIdentificacion("");
@@ -132,20 +145,6 @@ public class BeanRangos implements Serializable {
      */
     public void setLoginBean(BeanLogin loginBean) {
         this.loginBean = loginBean;
-    }
-
-    /**
-     * @return the rangosBO
-     */
-    public RangosBO getRangosBO() {
-        return rangosBO;
-    }
-
-    /**
-     * @param rangosBO the rangosBO to set
-     */
-    public void setRangosBO(RangosBO rangosBO) {
-        this.rangosBO = rangosBO;
     }
 
     /**
@@ -373,102 +372,19 @@ public class BeanRangos implements Serializable {
     }
 
     /**
-     * @return the rangoInicial
+     * @return the agentesBO
      */
-    public String getRangoInicial() {
-        return rangoInicial;
+    public AgentesBO getAgentesBO() {
+        return agentesBO;
     }
 
     /**
-     * @param rangoInicial the rangoInicial to set
+     * @param agentesBO the agentesBO to set
      */
-    public void setRangoInicial(String rangoInicial) {
-        this.rangoInicial = rangoInicial;
+    public void setAgentesBO(AgentesBO agentesBO) {
+        this.agentesBO = agentesBO;
     }
 
-    /**
-     * @return the rangoFinal
-     */
-    public String getRangoFinal() {
-        return rangoFinal;
-    }
-
-    /**
-     * @param rangoFinal the rangoFinal to set
-     */
-    public void setRangoFinal(String rangoFinal) {
-        this.rangoFinal = rangoFinal;
-    }
-
-    /**
-     * @return the referenciaInicial
-     */
-    public String getReferenciaInicial() {
-        return referenciaInicial;
-    }
-
-    /**
-     * @param referenciaInicial the referenciaInicial to set
-     */
-    public void setReferenciaInicial(String referenciaInicial) {
-        this.referenciaInicial = referenciaInicial;
-    }
-
-    /**
-     * @return the referenciaFinal
-     */
-    public String getReferenciaFinal() {
-        return referenciaFinal;
-    }
-
-    /**
-     * @param referenciaFinal the referenciaFinal to set
-     */
-    public void setReferenciaFinal(String referenciaFinal) {
-        this.referenciaFinal = referenciaFinal;
-    }
-
-    /**
-     * @return the fechaResolucion
-     */
-    public Date getFechaResolucion() {
-        return fechaResolucion;
-    }
-
-    /**
-     * @param fechaResolucion the fechaResolucion to set
-     */
-    public void setFechaResolucion(Date fechaResolucion) {
-        this.fechaResolucion = fechaResolucion;
-    }
-
-    /**
-     * @return the numeroRango
-     */
-    public int getNumeroRango() {
-        return numeroRango;
-    }
-
-    /**
-     * @param numeroRango the numeroRango to set
-     */
-    public void setNumeroRango(int numeroRango) {
-        this.numeroRango = numeroRango;
-    }
-
-    /**
-     * @return the maxLength
-     */
-    public int getMaxLength() {
-        return maxLength;
-    }
-
-    /**
-     * @param maxLength the maxLength to set
-     */
-    public void setMaxLength(int maxLength) {
-        this.maxLength = maxLength;
-    }
 
 
 }

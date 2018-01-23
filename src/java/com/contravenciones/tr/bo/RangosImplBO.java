@@ -7,15 +7,19 @@ package com.contravenciones.tr.bo;
 
 import com.contravenciones.exception.RangosException;
 import com.contravenciones.jdbc.dao.ITAgentes;
+import com.contravenciones.jdbc.dao.ITDatosParametricos;
 import com.contravenciones.jdbc.dao.ITDetalleRangoComparendos;
 import com.contravenciones.jdbc.dao.ITParametros;
 import com.contravenciones.jdbc.dao.ITPersonas;
 import com.contravenciones.jdbc.dao.ITRangos;
+import com.contravenciones.jdbc.dao.ITSedes;
 import com.contravenciones.jsf.bean.BeanRangos;
 import com.contravenciones.model.Agente;
 import com.contravenciones.tr.persistence.CivAgentes;
+import com.contravenciones.tr.persistence.CivDatosParametricos;
 import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPersonas;
+import com.contravenciones.tr.persistence.CivSedes;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -33,185 +37,54 @@ public class RangosImplBO implements RangosBO {
     private ITRangos rangosDAO;
     private ITDetalleRangoComparendos detalleRangoComparendosDAO;
     private ITParametros parametrosDAO;
+    private ITDatosParametricos datosParametricosDAO;
+    private ITSedes sedesDAO;
 
     @Override
     public void cargarDatos(BeanRangos bean) throws Exception {
-        //Combo de Tipo de documento que se encuentra en la tabla parametros
-        bean.setListTipoDocumento(new HashMap<>());
-        bean.setEstadoPersona(new HashMap<>());
-        for (CivParametros objParametros : getParametrosDAO().listParametros(5)) {
-            bean.getListTipoDocumento().put(objParametros.getParCodigo().intValue(), objParametros.getParNombre());
-        }
-        for (CivParametros objParametros : getParametrosDAO().listParametros(391)) {
-            bean.getEstadoPersona().put(objParametros.getParCodigo().intValue(), objParametros.getParNombre());
-        }
-
-    }
-
-    @Override
-    public void listAgentes(BeanRangos bean, String BuscarReferencia) throws Exception {
-        bean.setListDatos(new ArrayList<>());
-        if (BuscarReferencia.equals("nombre")) {
-            for (CivPersonas per : getPersonasDAO().listarPersonas(bean.getReferencia().toUpperCase())) {
-                if (per != null) {
-                    for (CivAgentes ag : getAgentesDAO().listarAgentes(per.getPerId().intValue())) {
-                        if (ag != null) {
-                            Agente dat = new Agente();
-                            dat.setAgeId(ag.getAgeId().intValue());
-                            dat.setAgeTipo(ag.getAgeTipo().intValue());
-                            dat.setAgePlaca(ag.getAgePlaca());
-                            dat.setAgeFechaInicio(ag.getAgeFechaInicio());
-                            dat.setAgeFechaFin(ag.getAgeFechaFin());
-                            dat.setPerId(per.getPerId().intValue());
-                            dat.setPerDocumento(per.getPerDocumento());
-                            dat.setPerTipodocumento(per.getPerTipodocumento().intValue());
-                            dat.setPerFechanac(per.getPerFechanac());
-                            dat.setPerGruposanguineo(per.getPerGruposanguineo());
-                            dat.setPerRh(per.getPerRh());
-                            dat.setPerSexo(per.getPerSexo());
-                            dat.setPerNombre1(per.getPerNombre1());
-                            dat.setPerNombre2(per.getPerNombre2());
-                            dat.setPerApellido1(per.getPerApellido1());
-                            dat.setPerApellido2(per.getPerApellido2());
-                            dat.setPerEmail(per.getPerEmail());
-                            dat.setPerCelular(per.getPerCelular());
-                            dat.setPerLugarnacimiento(per.getPerLugarnacimiento().intValue());
-                            dat.setPerFechaexp(per.getPerFechaexp());
-                            dat.setPerEstado(per.getPerEstado().intValue());
-                            dat.setPerFechainicial(per.getPerFechainicial());
-                            dat.setPerFechafinal(per.getPerFechafinal());
-                            bean.getListDatos().add(dat);
-                        }
-                    }
-
-                }
+        String numeros = "";
+        CivDatosParametricos dp = getDatosParametricosDAO().consultarDatosPID(1);
+        CivSedes s = getSedesDAO().getSedeById(bean.getLoginBean().getSede());
+        if (dp != null) {
+            for (int i = 0; i < dp.getDtparaLongitud().intValue(); i++) {
+                numeros += "0";
             }
-
+            String rangoLong=(numeros.substring(0, dp.getDtparaLongitud().intValue() - (s.getSedCodigo() + "").length()));
+            String rango = s.getSedCodigo() + rangoLong;
+            bean.setMaxLength(rangoLong.length());
+            bean.setRangoInicial(rango);
+            bean.setRangoFinal(rango);
         }
-        if (BuscarReferencia.equals("placa")) {
-            if(bean.getReferencia().equals("")){
-                throw new RangosException("Digite referencia", 1);
-            }
-            for (CivAgentes ag : getAgentesDAO().listarAgentesPlaca(bean.getReferencia())) {
-                if (ag != null) {
-                    CivPersonas per = getPersonasDAO().consultarPersonasById(ag.getCivPersonas().getPerId().intValue());
-                    if (per != null) {
-                        Agente dat = new Agente();
-                        dat.setAgeId(ag.getAgeId().intValue());
-                        dat.setAgeTipo(ag.getAgeTipo().intValue());
-                        dat.setAgePlaca(ag.getAgePlaca());
-                        dat.setAgeFechaInicio(ag.getAgeFechaInicio());
-                        dat.setAgeFechaFin(ag.getAgeFechaFin());
-                        dat.setPerId(per.getPerId().intValue());
-                        dat.setPerDocumento(per.getPerDocumento());
-                        dat.setPerTipodocumento(per.getPerTipodocumento().intValue());
-                        dat.setPerFechanac(per.getPerFechanac());
-                        dat.setPerGruposanguineo(per.getPerGruposanguineo());
-                        dat.setPerRh(per.getPerRh());
-                        dat.setPerSexo(per.getPerSexo());
-                        dat.setPerNombre1(per.getPerNombre1());
-                        dat.setPerNombre2(per.getPerNombre2());
-                        dat.setPerApellido1(per.getPerApellido1());
-                        dat.setPerApellido2(per.getPerApellido2());
-                        dat.setPerEmail(per.getPerEmail());
-                        dat.setPerCelular(per.getPerCelular());
-                        dat.setPerLugarnacimiento(per.getPerLugarnacimiento().intValue());
-                        dat.setPerFechaexp(per.getPerFechaexp());
-                        dat.setPerEstado(per.getPerEstado().intValue());
-                        dat.setPerFechainicial(per.getPerFechainicial());
-                        dat.setPerFechafinal(per.getPerFechafinal());
-                        bean.getListDatos().add(dat);
-                    }
-                }
-            }
-        }
-        if (BuscarReferencia.equals("identificacion")) {
-            if(bean.getReferencia().equals("")){
-                throw new RangosException("Digite referencia", 1);
-            }
-            CivPersonas per = getPersonasDAO().consultarPersonasDocumento(bean.getReferencia());
-            if (per != null) {
-                for (CivAgentes ag : getAgentesDAO().listarAgentes(per.getPerId().intValue())) {
-                    if (ag != null) {
-                        Agente dat = new Agente();
-                        dat.setAgeId(ag.getAgeId().intValue());
-                        dat.setAgeTipo(ag.getAgeTipo().intValue());
-                        dat.setAgePlaca(ag.getAgePlaca());
-                        dat.setAgeFechaInicio(ag.getAgeFechaInicio());
-                        dat.setAgeFechaFin(ag.getAgeFechaFin());
-                        dat.setPerId(per.getPerId().intValue());
-                        dat.setPerDocumento(per.getPerDocumento());
-                        dat.setPerTipodocumento(per.getPerTipodocumento().intValue());
-                        dat.setPerFechanac(per.getPerFechanac());
-                        dat.setPerGruposanguineo(per.getPerGruposanguineo());
-                        dat.setPerRh(per.getPerRh());
-                        dat.setPerSexo(per.getPerSexo());
-                        dat.setPerNombre1(per.getPerNombre1());
-                        dat.setPerNombre2(per.getPerNombre2());
-                        dat.setPerApellido1(per.getPerApellido1());
-                        dat.setPerApellido2(per.getPerApellido2());
-                        dat.setPerEmail(per.getPerEmail());
-                        dat.setPerCelular(per.getPerCelular());
-                        dat.setPerLugarnacimiento(per.getPerLugarnacimiento().intValue());
-                        dat.setPerFechaexp(per.getPerFechaexp());
-                        dat.setPerEstado(per.getPerEstado().intValue());
-                        dat.setPerFechainicial(per.getPerFechainicial());
-                        dat.setPerFechafinal(per.getPerFechafinal());
-                        bean.getListDatos().add(dat);
-                    }
-                }
-
-            }
-        }
-
-        if (bean.getListDatos().isEmpty()) {
-            throw new RangosException("No se encontraron coincidencias.", 1);
-        }
-        bean.setMostrarConsultaAgente(true);
     }
     
     @Override
-    public void consultarPersona(BeanRangos bean) throws Exception {
-        
-        if(bean.getIdentificacion().equals("")){
-            throw new RangosException("Digite número de identificación", 1);
-        }
-        CivPersonas per = getPersonasDAO().consultarPersonasDocumento(bean.getIdentificacion());
-        if(per!=null){
-            List<CivAgentes>agente = getAgentesDAO().listarAgentes(per.getPerId().intValue());
-            if(!agente.isEmpty()){
-                bean.setBtnRegistrar(true);
-                throw new RangosException("La persona consultada ya tiene asignada una placa.", 1);
-            }
-            bean.setDetalleConsulta(true);
-            bean.setCrearPersona(false);
-            bean.setBtnRegistrar(false);
-            bean.setIdPersona(per.getPerId().intValue());
-            bean.setNombrePersona(per.getPerNombre1() + " " + (per.getPerNombre2() != null ? per.getPerNombre2() + " " : "") + per.getPerApellido1() + " " + (per.getPerApellido2() != null ? per.getPerApellido2() : ""));
+    public void registrarRangos(BeanRangos bean) throws Exception {
+      
+    }
+
+    @Override
+    public void generarRangos(BeanRangos bean, String ref) throws Exception {
+        int longi = bean.getRangoInicial().length();
+
+        String valor, ran;
+        if (ref.equals("fechaInicial")) {
+            ran=bean.getRangoInicial();
+            valor=bean.getReferenciaInicial();
         }else{
-            bean.setCrearPersona(true);
-            bean.setDetalleConsulta(false);
-            bean.setBtnRegistrar(true);
+            ran=bean.getRangoFinal();
+            valor=bean.getReferenciaFinal();
         }
-    }
-    
-    @Override
-    public void registrarAgente(BeanRangos bean) throws Exception {
+
+        String rango = (ran.substring(0, longi - (valor + "").length())) + valor;
+        if (ref.equals("fechaInicial")) {
+            bean.setRangoInicial(rango);
+        }else{
+            if(Long.parseLong(bean.getReferenciaInicial())>=Long.parseLong(bean.getReferenciaFinal())){
+                throw new RangosException("El rango final debe ser mayor al rango inicial.", 1);
+            }
+            bean.setRangoFinal(rango);
+        }
         
-       if(bean.getPlaca().equals("")){
-            throw new RangosException("Digite Placa", 1);
-       }
-       
-       
-       CivAgentes agente = new CivAgentes();
-       CivPersonas persona = new CivPersonas();
-       persona.setPerId(BigDecimal.valueOf(bean.getIdPersona()));
-       agente.setCivPersonas(persona);
-       agente.setAgeTipo(BigDecimal.valueOf(bean.getTipoAgente()));
-       agente.setAgePlaca(bean.getPlaca());
-       agente.setAgeFechaInicio(new Date());
-       getAgentesDAO().insert(agente);
-       
     }
 
     /**
@@ -282,6 +155,34 @@ public class RangosImplBO implements RangosBO {
      */
     public void setParametrosDAO(ITParametros parametrosDAO) {
         this.parametrosDAO = parametrosDAO;
+    }
+
+    /**
+     * @return the datosParametricosDAO
+     */
+    public ITDatosParametricos getDatosParametricosDAO() {
+        return datosParametricosDAO;
+    }
+
+    /**
+     * @param datosParametricosDAO the datosParametricosDAO to set
+     */
+    public void setDatosParametricosDAO(ITDatosParametricos datosParametricosDAO) {
+        this.datosParametricosDAO = datosParametricosDAO;
+    }
+
+    /**
+     * @return the sedesDAO
+     */
+    public ITSedes getSedesDAO() {
+        return sedesDAO;
+    }
+
+    /**
+     * @param sedesDAO the sedesDAO to set
+     */
+    public void setSedesDAO(ITSedes sedesDAO) {
+        this.sedesDAO = sedesDAO;
     }
 
 }

@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 22/01/2018 08:46:48 AM by Hibernate Tools 4.3.1
+// Generated 22/01/2018 03:31:24 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -24,6 +24,7 @@ public class CivConceptos  implements java.io.Serializable {
      private Date conFechafinal;
      private BigDecimal conEstado;
      private Set civDetallecarteras = new HashSet(0);
+     private Set civDatosParametricoses = new HashSet(0);
      private Set civCarterases = new HashSet(0);
 
     public CivConceptos() {
@@ -38,7 +39,7 @@ public class CivConceptos  implements java.io.Serializable {
         this.conFechainicial = conFechainicial;
         this.conEstado = conEstado;
     }
-    public CivConceptos(BigDecimal conId, CivUsuarios civUsuarios, String conNombre, String conDescripcion, BigDecimal conTipo, BigDecimal conClase, BigDecimal conPrioridad, Date conFechainicial, Date conFechafinal, BigDecimal conEstado, Set civDetallecarteras, Set civCarterases) {
+    public CivConceptos(BigDecimal conId, CivUsuarios civUsuarios, String conNombre, String conDescripcion, BigDecimal conTipo, BigDecimal conClase, BigDecimal conPrioridad, Date conFechainicial, Date conFechafinal, BigDecimal conEstado, Set civDetallecarteras, Set civDatosParametricoses, Set civCarterases) {
        this.conId = conId;
        this.civUsuarios = civUsuarios;
        this.conNombre = conNombre;
@@ -50,6 +51,7 @@ public class CivConceptos  implements java.io.Serializable {
        this.conFechafinal = conFechafinal;
        this.conEstado = conEstado;
        this.civDetallecarteras = civDetallecarteras;
+       this.civDatosParametricoses = civDatosParametricoses;
        this.civCarterases = civCarterases;
     }
    
@@ -129,6 +131,13 @@ public class CivConceptos  implements java.io.Serializable {
     
     public void setCivDetallecarteras(Set civDetallecarteras) {
         this.civDetallecarteras = civDetallecarteras;
+    }
+    public Set getCivDatosParametricoses() {
+        return this.civDatosParametricoses;
+    }
+    
+    public void setCivDatosParametricoses(Set civDatosParametricoses) {
+        this.civDatosParametricoses = civDatosParametricoses;
     }
     public Set getCivCarterases() {
         return this.civCarterases;

@@ -1,0 +1,48 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 22/01/2018 03:31:25 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivDatosParametricos" table="CIV_DATOS_PARAMETRICOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+        <id name="dtparaId" type="big_decimal">
+            <column name="DTPARA_ID" precision="22" scale="0" />
+            <generator class="increment" />
+        </id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+            <column name="USU_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="civConceptos" class="com.contravenciones.tr.persistence.CivConceptos" fetch="select">
+            <column name="CONC_ID" precision="22" scale="0" />
+        </many-to-one>
+        <property name="dtparaTipo" type="big_decimal">
+            <column name="DTPARA_TIPO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="dtparaPorcentaje" type="big_decimal">
+            <column name="DTPARA_PORCENTAJE" precision="22" scale="0" />
+        </property>
+        <property name="dtparaDiaMin" type="big_decimal">
+            <column name="DTPARA_DIA_MIN" precision="22" scale="0" />
+        </property>
+        <property name="dtparaDiaMax" type="big_decimal">
+            <column name="DTPARA_DIA_MAX" precision="22" scale="0" />
+        </property>
+        <property name="dtparaFechaIni" type="date">
+            <column name="DTPARA_FECHA_INI" length="7" not-null="true" />
+        </property>
+        <property name="dtparaFechaFin" type="date">
+            <column name="DTPARA_FECHA_FIN" length="7" />
+        </property>
+        <property name="dtparaEstado" type="big_decimal">
+            <column name="DTPARA_ESTADO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="dtparaDescripcion" type="string">
+            <column name="DTPARA_DESCRIPCION" length="1000" not-null="true" />
+        </property>
+        <property name="dtparaValorFijo" type="big_decimal">
+            <column name="DTPARA_VALOR_FIJO" precision="22" scale="0" />
+        </property>
+        <property name="dtparaLongitud" type="big_decimal">
+            <column name="DTPARA_LONGITUD" precision="22" scale="0" />
+        </property>
+    </class>
+</hibernate-mapping>
