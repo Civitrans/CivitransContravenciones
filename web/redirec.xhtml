@@ -1,0 +1,57 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <head>
+        <link href="#{request.contextPath}/resources/cnv/css/ihover.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <body background="#{request.contextPath}/resources/images/backgroup (2).png">
+        <h:form>
+            <div class="container container-fluid">
+                <!-- Scale up-->
+                <div class="row center">
+                    <div class="col-sm-2">
+                        &nbsp;
+                    </div>
+                    <div class="col-sm-4">
+                        <!-- normal -->
+                        <div class="ih-item circle effect6 scale_up">
+                            <h:commandLink action="#{loginBean.redireccion(1)}">
+                                <div class="img">
+                                    <img src="#{request.contextPath}/resources/images/Administrativo.jpg" alt=""/>
+                                </div>
+                                <div class="info">
+                                    <h3>
+                                        Administrativo    
+                                    </h3>
+                                    <p>Configuracion y Administracion</p>
+                                </div>
+                            </h:commandLink>
+                        </div>
+                        <!-- end normal -->
+                    </div>
+                    <div class="col-sm-4">
+                        <!-- colored -->
+                        <div class="ih-item circle colored effect6 scale_up">
+                            <h:commandLink action="#{loginBean.redireccion(2)}">
+                                <div class="img">
+                                    <img src="#{request.contextPath}/resources/images/funcionario.jpg" alt=""/>
+                                </div>
+                                <div class="info">
+                                    <h3>Funcionarios</h3>
+                                    <p>Procesos Misionales</p>
+                                </div>
+                            </h:commandLink>
+                        </div>
+                        <!-- end colored-->
+                    </div>
+                    <div class="col-sm-2">
+                        &nbsp;
+                    </div>
+                </div>
+                <!-- end Scale up-->
+            </div>
+        </h:form>
+    </body>
+</html>

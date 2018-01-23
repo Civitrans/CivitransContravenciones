@@ -19,7 +19,7 @@ public interface LoginBO {
      * @param obj
      * @throws java.lang.Exception
      */
-     void iniciarSesion(BeanLogin obj) throws Exception;
+    void iniciarSesion(BeanLogin obj) throws Exception;
 
     /**
      *
@@ -42,7 +42,10 @@ public interface LoginBO {
      * @throws Exception
      */
     List<String> listarRecursos(BeanLogin obj) throws Exception;
-    
-    
+
+    public List<Modulo> listarModulos(BeanLogin obj, int tipo) throws Exception;
+
     void consultarDatosUsuario(BeanLogin obj) throws Exception;
+
+    public String getPlantilla(BeanLogin obj) throws Exception;
 }

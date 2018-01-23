@@ -2,6 +2,7 @@ package com.contravenciones.jsf.bean;
 
 import com.contravenciones.exception.LoginException;
 import com.contravenciones.model.Modulo;
+import com.contravenciones.model.Recurso;
 import com.contravenciones.singleton.AuthSingleton;
 import com.contravenciones.tr.bo.LoginBO;
 import com.contravenciones.utility.Log_Handler;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext; 
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -28,8 +29,6 @@ public class BeanLogin implements Serializable {
     private static final String REGEX_MAIL = "^$|^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$";
     private static final String REGEX_DIRECCION = "^[a-zA-Z0-9-@.#_ ]*$";
     private static final String VALIDATOR_MENSAJE = "inválido/a. Revise que el campo no tenga caracteres especiales como tildes, puntos o numerales.";
-
-    
 
     private String id_usuario;
     private String user = "";
@@ -54,6 +53,11 @@ public class BeanLogin implements Serializable {
     private String cedulaPersonaUsuario;
     private Date fechaInicioPersonaUsuario;
 
+    private boolean Ad = false;
+    private boolean Op = false;
+    private int tipo;
+    private String plantilla;
+
     /**
      *
      * @return
@@ -70,9 +74,8 @@ public class BeanLogin implements Serializable {
             validarAcceso(); //Revisar Estado del Usuario
             getLoginBO().consultarDatosUsuario(this);
 
-           // setRoot("/resources/dist/img/" + (getID_Usuario().equals("5") ? "avatar3.png" : "user2-160x160.jpg"));
-           // setRoot("/resources/images/transito_avatar.png");
-
+            // setRoot("/resources/dist/img/" + (getID_Usuario().equals("5") ? "avatar3.png" : "user2-160x160.jpg"));
+            // setRoot("/resources/images/transito_avatar.png");
             return ejecutarDestino();
         } catch (LoginException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", e.getMessage()));
@@ -85,14 +88,60 @@ public class BeanLogin implements Serializable {
     }
 
     private String ejecutarDestino() {
-        if (getUserEstado() == 3) { //Usuario Por reestablecer credenciales
-            return "/reestablecer.civ";
-        }else
-        {
-            return "/inicio?faces-redirect=true"; //Redirect=true obligatorio para validaciones de filtro
+
+        try {
+
+            for (Modulo mod : getListModulos()) {
+                for (Recurso re : mod.getListRecurso()) {
+
+                    if (re.getTipo() == 1 && !isAd()) {
+                        setAd(true);
+                    }
+
+                    if (re.getTipo() == 2 && !isOp()) {
+                        setOp(true);
+                    }
+                }
+            }
+
+            if (getUserEstado() == 3) { //Usuario Por reestablecer credenciales
+                return "/reestablecer.civ";
+            } else {
+
+                //String api = isAd() && isOp() ? "/redirec" : isAd() && !isOp() ? "/inicioAdministrativo" : "/inicioOperativo";
+                String api = isAd() && isOp() ? "/redirec" : "/inicio";
+                if (isAd() && !isOp()) {
+                    setListModulos(getLoginBO().listarModulos(this, 1)); //Se carga el menu correspondiente al usuario
+                    setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralAdminstrativa.xhtml");
+                } else if (!isAd() && isOp()) {
+                    setListModulos(getLoginBO().listarModulos(this, 2)); //Se carga el menu correspondiente al usuario
+                    setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml");
+                }
+                return api + "?faces-redirect=true"; //Redirect=true obligatorio para validaciones de filtro
+            }
+        } catch (LoginException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", e.getMessage()));
+            return "";
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error iniciando sesion: ", e, Log_Handler.ERROR, getClass(), (getID_Usuario() != null) ? Integer.parseInt(getID_Usuario()) : 0);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            return "";
         }
-         
-        
+    }
+
+    public String redireccion(int tp) throws Exception {
+        try {
+            setTipo(tp);
+            setListModulos(getLoginBO().listarModulos(this, tipo)); //Se carga el menu correspondiente al usuario
+            return redireccionImpl();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
+    protected String redireccionImpl() throws Exception {
+        return getLoginBO().getPlantilla(this);
     }
 
     public void validarAcceso() {
@@ -421,12 +470,68 @@ public class BeanLogin implements Serializable {
     public String getREGEX_MAIL() {
         return REGEX_MAIL;
     }
-    
+
     /**
      * @return the REGEXNUMERO
      */
     public String getREGEXNUMERO() {
         return REGEXNUMERO;
+    }
+
+    /**
+     * @return the plantilla
+     */
+    public String getPlantilla() {
+        return plantilla;
+    }
+
+    /**
+     * @param plantilla the plantilla to set
+     */
+    public void setPlantilla(String plantilla) {
+        this.plantilla = plantilla;
+    }
+
+    /**
+     * @return the Ad
+     */
+    public boolean isAd() {
+        return Ad;
+    }
+
+    /**
+     * @param Ad the Ad to set
+     */
+    public void setAd(boolean Ad) {
+        this.Ad = Ad;
+    }
+
+    /**
+     * @return the Op
+     */
+    public boolean isOp() {
+        return Op;
+    }
+
+    /**
+     * @param Op the Op to set
+     */
+    public void setOp(boolean Op) {
+        this.Op = Op;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public int getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 
 }

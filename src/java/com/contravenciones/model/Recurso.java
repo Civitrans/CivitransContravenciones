@@ -21,6 +21,7 @@ public class Recurso implements Serializable {
     private String nombre;
     private String carpeta;
     private String descripcion;
+    private int tipo;
 
     /**
      * @return the nombre
@@ -76,5 +77,19 @@ public class Recurso implements Serializable {
      */
     public void setCarpeta(String carpeta) {
         this.carpeta = carpeta;
+    }
+
+    /**
+     * @return the tipo
+     */
+    public int getTipo() {
+        return tipo;
+    }
+
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(int tipo) {
+        this.tipo = tipo;
     }
 }

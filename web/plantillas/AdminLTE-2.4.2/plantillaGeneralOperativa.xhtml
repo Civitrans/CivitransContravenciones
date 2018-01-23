@@ -91,11 +91,13 @@
                                             <!-- Menu Body -->
                                             <!-- Menu Footer-->
                                             <li class="user-footer">
-                                                <div class="pull-left">
-                                                    <a href="#" class="btn btn-default btn-flat">Profile</a>
-                                                </div>
+                                                <h:form>
+                                                    <div class="pull-left">
+                                                        <h:commandLink action="#{loginBean.redireccion(1)}" rendered="#{loginBean.ad}" class="btn btn-default btn-flat">Administrativo</h:commandLink>
+                                                    </div>    
+                                                </h:form>
                                                 <div class="pull-right">
-                                                    <a href="#" class="btn btn-default btn-flat">Sign out</a>
+                                                    <h:link outcome="/CerrarSesion.jsp" class="btn btn-default btn-flat">Sign out</h:link>
                                                 </div>
                                             </li>
                                         </ul>

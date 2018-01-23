@@ -28,6 +28,7 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import com.contravenciones.jdbc.dao.ITAttempts;
 import com.contravenciones.utility.ValidacionDatos;
+import java.util.ArrayList;
 
 /**
  *
@@ -204,14 +205,83 @@ public class LoginImplBO implements LoginBO, Serializable {
             for (int i = 0; i < listR.size(); i++) {
                 CivRecursos r = listR.get(i);
                 if (r.getCivModulos().getModId().intValue() == m.getCodigo()) {
-                    if (r.getRecTipo().intValue() == 1) {
-                        Recurso rec = new Recurso();
-                        rec.setCodigo(r.getRecId().intValue());
-                        rec.setNombre(new ValidacionDatos().letraMayuscula(r.getRecNombre()));
-                        rec.setCarpeta(r.getRecCarpeta());
-                        rec.setDescripcion(r.getRecDescripcion());
-                        listrec.add(rec);
-                    }
+                    Recurso rec = new Recurso();
+                    rec.setCodigo(r.getRecId().intValue());
+                    rec.setNombre(new ValidacionDatos().letraMayuscula(r.getRecNombre()));
+                    rec.setCarpeta(r.getRecCarpeta());
+                    rec.setDescripcion(r.getRecDescripcion());
+                    rec.setTipo(r.getRecTipo().intValue());
+                    listrec.add(rec);
+                }
+            }
+            m.setListRecurso(listrec);
+        }
+
+        return listModulo;
+    }
+
+    @Override
+    public List<Modulo> listarModulos(BeanLogin obj, int tipo) throws Exception {
+        List<CivRecursos> listR = getLoginDAO().listarRecursos(Integer.parseInt(obj.getID_Usuario()));
+
+        List<CivRecursos> index = new ArrayList<>();
+
+        for (CivRecursos civRecursos : listR) {
+            if (civRecursos.getRecTipo().intValue() != tipo && civRecursos.getRecTipo().intValue() != 3) {
+                index.add(civRecursos);
+            }
+        }
+
+        for (CivRecursos integer : index) {
+            listR.remove(integer);
+        }
+
+        List<Modulo> listModulo = new LinkedList<>();
+        Modulo mod;
+
+        if (listR == null) {
+            throw new LoginException("El usuario no tiene ningún perfil asignado. Por favor contáctese con el administrador del sistema.");
+        }
+
+        for (int x = 0; x < listR.size(); x++) {
+            CivRecursos r = listR.get(x);
+            if (listModulo.isEmpty()) {
+                mod = new Modulo();
+                mod.setCodigo(r.getCivModulos().getModId().intValue());
+                mod.setIcon(r.getCivModulos().getIcon());
+                mod.setNombre(r.getCivModulos().getModNombre());
+                listModulo.add(mod);
+            }
+            boolean sw = true;
+            for (int i = 0; i < listModulo.size(); i++) {
+                Modulo m = listModulo.get(i);
+                if (r.getCivModulos().getModId().intValue() == m.getCodigo()) {
+                    sw = false;
+                    break;
+                }
+            }
+            if (sw) {
+                mod = new Modulo();
+                mod.setCodigo(r.getCivModulos().getModId().intValue());
+                mod.setIcon(r.getCivModulos().getIcon());
+                mod.setNombre(r.getCivModulos().getModNombre());
+                listModulo.add(mod);
+            }
+        }
+
+        for (int x = 0; x < listModulo.size(); x++) {
+            Modulo m = listModulo.get(x);
+            List<Recurso> listrec = new LinkedList<>();
+            for (int i = 0; i < listR.size(); i++) {
+                CivRecursos r = listR.get(i);
+                if (r.getCivModulos().getModId().intValue() == m.getCodigo()) {
+                    Recurso rec = new Recurso();
+                    rec.setCodigo(r.getRecId().intValue());
+                    rec.setNombre(new ValidacionDatos().letraMayuscula(r.getRecNombre()));
+                    rec.setCarpeta(r.getRecCarpeta());
+                    rec.setDescripcion(r.getRecDescripcion());
+                    rec.setTipo(r.getRecTipo().intValue());
+                    listrec.add(rec);
                 }
             }
             m.setListRecurso(listrec);
@@ -263,6 +333,30 @@ public class LoginImplBO implements LoginBO, Serializable {
                 ? "" : persona.getPerApellido2()));
         obj.setCedulaPersonaUsuario(persona.getPerDocumento());
         obj.setFechaInicioPersonaUsuario(persona.getPerFechainicial());
+    }
+
+    @Override
+    public String getPlantilla(BeanLogin obj) throws Exception {
+        try {
+
+            switch (obj.getTipo()) {
+                case 1: {
+                    obj.setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralAdminstrativa.xhtml");
+                }
+                break;
+
+                case 2: {
+                    obj.setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml");
+                }
+                break;
+            }
+
+            return "/inicio?faces-redirect=true";
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     public ITPersonas getPersonasDAO() {

@@ -44,9 +44,10 @@
             }
             id_usu = Integer.parseInt(bean.getID_Usuario());
         }
+        request.getSession().invalidate();
     } catch (Exception e) {
         Log_Handler.registrarEvento("Error cerrando sesion: ", e, Log_Handler.ERROR, getClass(),id_usu);
     } finally {
-        response.sendRedirect("/Aplicativo/faces/index.xhtml");
+        response.sendRedirect("/CivitransContravenciones");
     }
 %>
