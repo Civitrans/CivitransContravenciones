@@ -100,6 +100,7 @@
                 <value>com/contravenciones/tr/persistence/CivMunicipios.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivConceptos.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivDatosParametricos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPlantillas.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -195,12 +196,16 @@
     <bean id="datosParametricosDAO" class="com.contravenciones.jdbc.dao.DaoDatosParametricos">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
+    <bean id="plantillasDAO" class="com.contravenciones.jdbc.dao.DaoPlantillas">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
     <!-- BOS -->
     <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
         <property name="loginDAO" ref="loginDAO"></property>
         <property name="attemptsDAO" ref="attemptsDAO"></property>
         <property name="personasDAO" ref="personasDAO"></property>
         <property name="usuariosDAO" ref="usuariosDAO" />
+        <property name="plantillasDAO" ref="plantillasDAO" />
     </bean>   
     <bean id="GestionUsuarioBO" class="com.contravenciones.tr.bo.GestionUsuarioImplBO">
         <property name="usuariosDAO" ref="usuariosDAO" />

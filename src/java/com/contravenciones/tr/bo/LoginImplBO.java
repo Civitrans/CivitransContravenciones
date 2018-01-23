@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import com.contravenciones.jdbc.dao.ITAttempts;
+import com.contravenciones.jdbc.dao.ITPlantillas;
 import com.contravenciones.utility.ValidacionDatos;
 import java.util.ArrayList;
 
@@ -43,6 +44,7 @@ public class LoginImplBO implements LoginBO, Serializable {
     private ITAttempts attemptsDAO;
     private ITPersonas personasDAO;
     private ITUsuarios usuariosDAO;
+    private ITPlantillas plantillasDAO;
 
     @Override
     public void iniciarSesion(BeanLogin obj) throws Exception {
@@ -338,19 +340,7 @@ public class LoginImplBO implements LoginBO, Serializable {
     @Override
     public String getPlantilla(BeanLogin obj) throws Exception {
         try {
-
-            switch (obj.getTipo()) {
-                case 1: {
-                    obj.setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralAdminstrativa.xhtml");
-                }
-                break;
-
-                case 2: {
-                    obj.setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml");
-                }
-                break;
-            }
-
+            obj.setPlantilla(getPlantillasDAO().getPlantilla(obj.getTipo()).getPlanUri());
             return "/inicio?faces-redirect=true";
 
         } catch (Exception e) {
@@ -407,6 +397,20 @@ public class LoginImplBO implements LoginBO, Serializable {
      */
     public void setUsuariosDAO(ITUsuarios usuariosDAO) {
         this.usuariosDAO = usuariosDAO;
+    }
+
+    /**
+     * @return the plantillasDAO
+     */
+    public ITPlantillas getPlantillasDAO() {
+        return plantillasDAO;
+    }
+
+    /**
+     * @param plantillasDAO the plantillasDAO to set
+     */
+    public void setPlantillasDAO(ITPlantillas plantillasDAO) {
+        this.plantillasDAO = plantillasDAO;
     }
 
 }

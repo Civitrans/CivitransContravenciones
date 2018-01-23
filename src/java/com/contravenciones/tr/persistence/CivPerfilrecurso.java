@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 22/01/2018 03:31:24 PM by Hibernate Tools 4.3.1
+// Generated 23/01/2018 03:51:28 PM by Hibernate Tools 4.3.1
 
 
 import java.util.Date;
