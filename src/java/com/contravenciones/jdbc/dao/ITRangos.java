@@ -13,9 +13,9 @@ import java.util.List;
  * @author Roymer Camacho
  */
 public interface ITRangos {
-    
+
     /**
-    
+     *
      *
      * @param rangos El Objeto a insertar.
      * @return ID único del elemento insertado.
@@ -24,7 +24,7 @@ public interface ITRangos {
     public long insert(CivRangosComparendos rangos) throws Exception;
 
     /**
-     
+     *
      *
      * @param rangos El Objeto a actualizar.
      * @return Retorna verdadero si la actualización fue correcta.
@@ -32,5 +32,18 @@ public interface ITRangos {
      */
     public boolean update(CivRangosComparendos rangos) throws Exception;
 
-   
+    /**
+     *
+     *
+     * @return @throws Exception La Excepción lanzada en caso de error.
+     */
+    public List<CivRangosComparendos> getRangosAll() throws Exception;
+
+    /**
+     *
+     *
+     * @return @throws Exception La Excepción lanzada en caso de error.
+     */
+    public CivRangosComparendos rangoId(int id) throws Exception;
+
 }

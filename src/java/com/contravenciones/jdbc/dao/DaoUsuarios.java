@@ -44,7 +44,7 @@ public class DaoUsuarios extends HibernateDaoSupport implements ITUsuarios {
 
         String hql = "from CivUsuarios where usu_id =:id_usuario";
         List list = getHibernateTemplate().findByNamedParam(hql, "id_usuario", id_usuario);
-        if (list.size() >= 0) {
+        if (list.size() > 0) {
             return (CivUsuarios) list.get(0);
         }
         return null;

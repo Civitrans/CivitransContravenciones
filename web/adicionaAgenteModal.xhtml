@@ -22,7 +22,7 @@
 
                         <div class="modal-body">
                             <h:panelGrid id="mensajeCrearPersona">
-                                <h:panelGroup rendered="#{rangosBean.crearPersona}">
+                                <h:panelGroup rendered="#{agentesBean.crearPersona}">
                                     <div class="col-lg-12">
                                         <div class="mensaje-div mensaje-danger">
                                             La persona no existe, para continuar debe registrar la persona. 
@@ -47,19 +47,19 @@
                                                     <div class="col-lg-12">
                                                         <label for="identificacion">Número de Identificación: </label>
                                                         <div class="input-group">
-                                                            <h:inputText id="ident" class="form-control" value="#{rangosBean.identificacion}">
+                                                            <h:inputText id="ident" class="form-control" value="#{agentesBean.identificacion}">
                                                             </h:inputText>
                                                             <span class="input-group-btn">
                                                                 <h:commandLink class="btn btn-success">
                                                                     <i class="fa fa-search" />
-                                                                    <f:ajax event="click" listener="#{rangosBean.consultarPersona()}" execute="agentes:ident" render="agentes:btnRegistrarAgente agentes:mensajeCrearPersona agentes:detalleConsulta" />
+                                                                    <f:ajax event="click" listener="#{agentesBean.consultarPersona()}" execute="agentes:ident" render="agentes:btnRegistrarAgente agentes:mensajeCrearPersona agentes:detalleConsulta" />
                                                                 </h:commandLink>
                                                             </span>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <h:panelGrid id="detalleConsulta" >
-                                                    <h:panelGroup rendered="#{rangosBean.detalleConsulta}">
+                                                    <h:panelGroup rendered="#{agentesBean.detalleConsulta}">
                                                         <div class="row">
                                                             <br/>
                                                             <hr></hr>
@@ -67,12 +67,12 @@
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <label>Nombre de la persona</label>
-                                                                <h:inputText readonly="true" class="form-control col-lg-6" value="#{rangosBean.nombrePersona}" id="nombrePer">
+                                                                <h:inputText readonly="true" class="form-control col-lg-6" value="#{agentesBean.nombrePersona}" id="nombrePer">
                                                                 </h:inputText><!--VALUE OK-->
                                                             </div>
                                                             <div class="col-lg-6">
                                                                 <label>Placa</label>
-                                                                <h:inputText class="form-control col-lg-6" value="#{rangosBean.placa}" id="placaAgente">
+                                                                <h:inputText class="form-control col-lg-6" value="#{agentesBean.placa}" id="placaAgente">
                                                                 </h:inputText><!--VALUE OK-->
                                                             </div>
                                                             <br/>
@@ -81,7 +81,7 @@
                                                         <div class="row">
                                                             <div class="col-lg-6">
                                                                 <label>Tipo</label>
-                                                                <h:selectOneMenu value="#{rangosBean.tipoAgente}" class="form-control select2-dropdown col-lg-6">
+                                                                <h:selectOneMenu value="#{agentesBean.tipoAgente}" class="form-control select2-dropdown col-lg-6">
                                                                     <f:selectItem itemValue="1" itemLabel="Operativo"/>
                                                                     <f:selectItem itemValue="2" itemLabel="Administrativo"/>
                                                                 </h:selectOneMenu>
@@ -101,11 +101,11 @@
                         <div class="modal-footer">
                             <h:commandLink class="btn btn-warning btn-submit right" onclick="$('#registrarAgente').modal('hide');">
                                 <span class="fa fa-close"></span> Cancelar
-                                <f:ajax event="click" listener="#{rangosBean.cancelarAgente()}" render="agentes:crear agentes:mensajeCrearPersona"/>
+                                <f:ajax event="click" listener="#{agentesBean.cancelarAgente()}" render="agentes:crear agentes:mensajeCrearPersona"/>
                             </h:commandLink>
-                            <h:commandLink disabled="#{rangosBean.btnRegistrar}" id="btnRegistrarAgente" class="btn btn-success btn-submit right">
+                            <h:commandLink disabled="#{agentesBean.btnRegistrar}" id="btnRegistrarAgente" class="btn btn-success btn-submit right">
                                 <span class="fa fa-save"></span> Registrar
-                                <f:ajax event="click" listener="#{rangosBean.registrarAgente()}" execute="agentes:crear"/>
+                                <f:ajax event="click" listener="#{agentesBean.registrarAgente()}" execute="agentes:crear"/>
                             </h:commandLink>
                         </div>
 

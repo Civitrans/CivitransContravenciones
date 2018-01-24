@@ -56,7 +56,7 @@ public class BeanAgentes implements Serializable {
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al cargar datos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:messageGeneral");
         }
     }
 
@@ -69,14 +69,14 @@ public class BeanAgentes implements Serializable {
     protected void impListarAgente(String BuscarReferencia) {
         try {
             getAgentesBO().listAgentes(this, BuscarReferencia);
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:messageGeneral");
         } catch (RangosException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:messageGeneral");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al listar agentes: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:messageGeneral");
         }
 
     }
@@ -89,14 +89,14 @@ public class BeanAgentes implements Serializable {
     protected void impConsultarPersona() {
         try {
             getAgentesBO().consultarPersona(this);
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:mensajeModal");
         } catch (RangosException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:mensajeModal");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al consultar persona: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:mensajeModal");
         }
 
     }
@@ -109,15 +109,15 @@ public class BeanAgentes implements Serializable {
         try {
             getAgentesBO().registrarAgente(this);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Agente registrado correctamente"));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:messageGeneral");
             RequestContext.getCurrentInstance().execute("$('#registrarAgente').modal('hide');");
         } catch (RangosException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:mensajeModal");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al listar agentes: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("agentes:mensajeModal");
         }
 
     }

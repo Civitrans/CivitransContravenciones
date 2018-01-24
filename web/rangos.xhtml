@@ -7,7 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <body>
-        <ui:composition template="./plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml">
+        <ui:composition template="#{loginBean.plantilla}">
             <ui:define name="content">
                 <c:set var="val" value="false"/>
                 <c:forEach items="${loginBean.listRecursos}" var="rec">
@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h:panelGrid id="menuConsulta" class="col-lg-12">
-                                        <h:panelGroup rendered="#{gestionrecursosBean.mostrarBuscar}">
+                                        <h:panelGroup rendered="#{rangosBean.mostrarBuscar}">
                                             <section class="content-header">
 
                                                 <h1>
@@ -37,7 +37,7 @@
                                                 </h1>
                                                 <ol class="breadcrumb">
                                                     <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                                                    <li><a href="gestionRecursos.xhtml"><i class="fa fa-briefcase"></i> Rangos</a></li>
+                                                    <li><a href="rangos.xhtml"><i class="fa fa-briefcase"></i> Rangos</a></li>
                                                     <li class="active">Rangos Comparendos</li>
                                                 </ol>
 
@@ -102,63 +102,87 @@
                             </div>
                             <div class="row">
                                 <div class="col-lg-12"> 
-                                    <div class="row col-lg-12" align="right">
-                                        <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                            <h:commandLink title="Registrar Agente" class="fa fa-plus fa-2x" onclick="$('#adicionarRango').modal('show');">
-                                                <f:ajax execute="@form" event="click" render="rangos:crear" listener="#{rangosBean.cargarDatos()}"/>
-                                            </h:commandLink>   
-                                        </div>
-                                    </div>
-                                    <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
-                                        <div class="box box-primary">
-                                            <div class="box-body">
-                                                <h:dataTable id="agente" class="table table-striped table-bordered table-hover" value="#{rangosBean.listDatos}"  var="ran" cellspacing="0">
-                                                    <h:column>
-                                                        <f:facet name="header">#</f:facet>
-                                                            #{ran.ageId}
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Tipo Documento</f:facet>
-                                                            #{rangosBean.listTipoDocumento.get(ran.perTipodocumento)} 
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Documento</f:facet>
-                                                            #{ran.perDocumento} 
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Nombre Completo</f:facet>
-                                                            #{ran.perNombre1} #{ran.perNombre2} #{ran.perApellido1} #{ran.perApellido2} 
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Placa</f:facet>
-                                                            #{ran.agePlaca} 
-                                                    </h:column>
-                                                    <h:column>
-                                                        <f:facet name="header">Detalle</f:facet>
-                                                        <h:commandLink class="fa fa-eye">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
-                                                            <f:ajax event="click" listener="#{gestionrecursosBean.detalle(recu)}" execute="recurso" render="@form" />
-                                                        </h:commandLink>
-                                                    </h:column>
-                                                </h:dataTable>
+                                    <h:panelGrid id="buscar" class="col-lg-12">
+                                        <h:panelGroup rendered="#{rangosBean.mostrarConsulta}">
+                                            <div class="row col-lg-12" align="right">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                    <h:commandLink title="Registrar Rango" class="fa fa-plus fa-2x" onclick="$('#adicionarRango').modal('show');">
+                                                        <f:ajax execute="@form" event="click" render="rangos:crear" listener="#{rangosBean.cargarDatos()}"/>
+                                                    </h:commandLink>   
+                                                </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                            <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                <div class="box box-primary">
+                                                    <div class="box-body">
+                                                        <h:dataTable id="rango" class="table table-striped table-bordered table-hover" value="#{rangosBean.listRangos}"  var="ran" cellspacing="0">
+                                                            <h:column>
+                                                                <f:facet name="header">#</f:facet>
+                                                                    #{ran.ranId}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Rango Inicial</f:facet>
+                                                                    #{ran.ranNumInicial}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Rango Final</f:facet>
+                                                                    #{ran.ranNumFinal}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Tipo Comparendo</f:facet>
+                                                                    #{rangosBean.tipoComparendos.get(ran.ranTipoComparendo)}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Activos</f:facet>
+                                                                    #{ran.activos}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Utilizados</f:facet>
+                                                                    #{ran.utilizados}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Total</f:facet>
+                                                                    #{ran.total}
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Progreso
+                                                                </f:facet>
+                                                                <div class="progress progress-xs progress-striped active">
+                                                                    <div class="progress-bar #{ran.bar}" style="width: #{ran.porcentaje}"></div>
+                                                                </div>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Utilizados
+                                                                </f:facet>
+                                                                <span class="badge #{ran.uti}">#{ran.porcentaje}</span>
+                                                            </h:column>
+                                                            <h:column>
+                                                                <f:facet name="header">Detalle</f:facet>
+                                                                <h:commandLink class="fa fa-eye">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                    <f:ajax event="click" listener="#{rangosBean.detalle(ran)}" execute="rango" render="@form" />
+                                                                </h:commandLink>
+                                                            </h:column>
+                                                        </h:dataTable>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+
                                 </div>
                             </div>
-
                             <div class="row">
                                 <div class="col-lg-12">
-                                    <h:panelGrid id="detalle" class="col-lg-12">
-                                        <h:panelGroup rendered="#{gestionrecursosBean.mostrarDetalle}">
+                                    <h:panelGrid id="detalleRango" class="col-lg-12">
+                                        <h:panelGroup rendered="#{rangosBean.mostrarDetalle}">
                                             <section class="content-header">
                                                 <h1>
-                                                    Detalle Gestión De Recursos
-                                                    <small>Modulo que permitira consultar, editar e ingresar un nuevo recurso</small>
+                                                    Detalle Rangos
+                                                    <small>Modulo que permitira consultar y editar detalle rangos</small>
                                                 </h1>
                                                 <ol class="breadcrumb">
                                                     <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                                                    <li><a href="gestionRecursos.xhtml"><i class="fa fa-briefcase"></i> Recursos</a></li>
-                                                    <li class="active">Detalle Recurso</li>
+                                                    <li><a href="rangos.xhtml"><i class="fa fa-briefcase"></i> Rangos</a></li>
+                                                    <li class="active">Detalle Rango</li>
                                                 </ol>
                                             </section>
                                             <section class="content-header">
@@ -170,68 +194,76 @@
                                                         <div class="row">
                                                             <div class="col-lg-2">
                                                                 <div class="form-group">
-                                                                    <label for="idRecurso">Recurso</label>
-                                                                    <h:inputText value="#{gestionrecursosBean.idrecurso}" class="form-control text-uppercase" id="idRecurso" readonly="true"></h:inputText>
-                                                                </div>
-                                                            </div>
-                                                            <div class="col-lg-6">
-                                                                <div class="form-group">
-                                                                    <label for="nombreRecurso">Nombre Recurso</label>
-                                                                    <h:inputText value="#{gestionrecursosBean.nombreRecurso}" class="form-control" id="nombreRecurso" disabled="#{gestionrecursosBean.campos}"></h:inputText>
+                                                                    <label for="idCodigo">Código</label>
+                                                                    <h:inputText value="#{rangosBean.codigo}" class="form-control text-uppercase" id="idCodigo" readonly="true"></h:inputText>
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-4">
                                                                 <div class="form-group">
-                                                                    <label for="descripcionRecurso">Descripción Recurso</label>
-                                                                    <h:inputText value="#{gestionrecursosBean.descripcion}" class="form-control" id="descripcionRecurso" disabled="#{gestionrecursosBean.campos}"></h:inputText>                                </div>
+                                                                    <label for="rangoIni">Rango Inicial</label>
+                                                                    <h:inputText value="#{rangosBean.rangoInicial}" class="form-control" id="iniRango" disabled="#{rangosBean.campos}"></h:inputText>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-4">
+                                                                <div class="form-group">
+                                                                    <label for="descripcionRecurso">Rango Final</label>
+                                                                    <h:inputText value="#{rangosBean.rangoFinal}" class="form-control" id="finRango" disabled="#{rangosBean.campos}"></h:inputText>                                </div>
                                                             </div>
                                                         </div>
 
                                                         <div class="row">
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label for="fechaInicialRecurso">Fecha Inicial Recurso</label>
-                                                                    <h:inputText id="fechaInicialRecurso" value="#{gestionrecursosBean.fechaInicial}" class="date datepicker form-control" disabled="#{gestionrecursosBean.campos}">
+                                                                    <label for="fechaInicialRecurso">Fecha Inicial</label>
+                                                                    <h:inputText id="fechaInicialRango" value="#{rangosBean.fechaInicial}" class="date datepicker form-control" disabled="#{rangosBean.campos}">
                                                                         <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
                                                                     </h:inputText><!--VALUE OK-->
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label for="fechaFinalRecurso">Fecha Final Recurso</label>
-                                                                    <h:inputText disabled="true" id="fechaFinalRecurso" value="#{gestionrecursosBean.fechaFinal}" class="date datepicker form-control">
+                                                                    <label for="fechaFinalRecurso">Fecha Final</label>
+                                                                    <h:inputText disabled="true" id="fechaFinalRango" value="#{rangosBean.fechaFinal}" class="date datepicker form-control">
                                                                         <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
                                                                     </h:inputText><!--VALUE OK-->
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label for="estadoRecurso">Estado Recurso</label>
-                                                                    <h:selectOneMenu value="#{gestionrecursosBean.estado}" class="form-control select2-dropdown" id="cmbEstado" disabled="#{gestionrecursosBean.campos}">
-                                                                        <f:selectItems value="#{gestionrecursosBean.listEstadoRecurso.entrySet()}"  var="estado"  itemValue="#{estado.key}" itemLabel="#{estado.value}" />
+                                                                    <label for="cmbEstado">Estado</label>
+                                                                    <h:selectOneMenu value="#{rangosBean.estado}" class="form-control select2-dropdown" id="cmbEstado" disabled="#{rangosBean.campos}">
+                                                                        <f:selectItems value="#{rangosBean.listEstadoRango.entrySet()}"  var="estado"  itemValue="#{estado.key}" itemLabel="#{estado.value}" />
                                                                     </h:selectOneMenu>    
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label for="carpetaRecurso">Carpeta Recurso</label>
-                                                                    <h:inputText value="#{gestionrecursosBean.carpeta}" class="form-control text-uppercase" id="carpetaRecurso" disabled="#{gestionrecursosBean.campos}"></h:inputText> 
+                                                                    <label for="res">Número de Resolución</label>
+                                                                    <h:inputText value="#{rangosBean.numeroRango}" class="form-control text-uppercase" id="numResolucion" disabled="#{rangosBean.campos}"></h:inputText> 
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="row">
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label for="moduloRecurso">Módulo</label>
-                                                                    <h:selectOneMenu value="#{gestionrecursosBean.modulo}" class="form-control select2-dropdown" id="cmbModulo" disabled="#{gestionrecursosBean.campos}">
-                                                                        <f:selectItems value="#{gestionrecursosBean.listModulos.entrySet()}"  var="modu"  itemValue="#{modu.key}" itemLabel="#{modu.value}" />
+                                                                    <label for="fechaFinalRecurso">Fecha Resolución</label>
+                                                                    <h:inputText disabled="#{rangosBean.campos}" id="fechaR" value="#{rangosBean.fechaResolucion}" class="date datepicker form-control">
+                                                                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                                    </h:inputText><!--VALUE OK-->
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label for="comparendo">Tipo Comparendo</label>
+                                                                    <h:selectOneMenu value="#{rangosBean.tipoComparendo}" class="form-control select2-dropdown" id="tipoc" disabled="#{rangosBean.campos}">
+                                                                        <f:selectItems value="#{rangosBean.tipoComparendos.entrySet()}"  var="compa"  itemValue="#{compa.key}" itemLabel="#{compa.value}" />
                                                                     </h:selectOneMenu> 
                                                                 </div>
                                                             </div>
                                                             <div class="col-lg-3">
                                                                 <div class="form-group">
-                                                                    <label for="tipoRecurso">Tipo Recurso</label>
-                                                                    <h:inputText value="#{gestionrecursosBean.tipo}" class="form-control text-uppercase" id="tipoRecurso" disabled="#{gestionrecursosBean.campos}"></h:inputText> 
+                                                                    <label for="creacion">Usuario Creación</label>
+                                                                    <h:inputText value="#{rangosBean.usuarioCreacion}" class="form-control text-uppercase" id="creacion" disabled="#{rangosBean.campos}"></h:inputText> 
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -239,10 +271,10 @@
                                                         <div class="row">
                                                             <div class="col-lg-12" align="center">
                                                                 <h:panelGrid id="btnEditar">
-                                                                    <h:panelGroup rendered="#{gestionrecursosBean.btnEditar}">
+                                                                    <h:panelGroup rendered="#{rangosBean.btnEditar}">
                                                                         <h:commandLink class="btn btn-danger" style="width: 200px" >
                                                                             <span class="fa fa-edit"></span> Editar
-                                                                            <f:ajax event="click" listener="#{gestionrecursosBean.habilitarCampos()}" render="btnsEditar btnEditar nombreRecurso cmbEstado tipoRecurso cmbModulo descripcionRecurso carpetaRecurso fechaFinalRecurso fechaInicialRecurso" ></f:ajax>
+                                                                            <f:ajax event="click" listener="#{rangosBean.habilitarCampos()}" render="numResolucion btnsEditar btnEditar fechaR iniRango finRango cmbEstado tipoc fechaInicialRango" ></f:ajax>
                                                                         </h:commandLink>
                                                                     </h:panelGroup>
                                                                 </h:panelGrid>
@@ -252,18 +284,18 @@
                                                         <div class="row">
                                                             <div class="col-lg-12" align="center">
                                                                 <h:panelGrid id="btnsEditar">
-                                                                    <h:panelGroup rendered="#{gestionrecursosBean.botones}">
+                                                                    <h:panelGroup rendered="#{rangosBean.botones}">
                                                                         <div class="col-lg-6" align="center">
                                                                             <h:commandLink class="btn btn-warning" style="width: 200px" >
                                                                                 <span class="fa fa-close"></span> Cancelar
-                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.cancelarEdicion()}" render="btnsEditar btnEditar nombreRecurso cmbEstado tipoRecurso cmbModulo descripcionRecurso carpetaRecurso fechaFinalRecurso fechaInicialRecurso"></f:ajax>
+                                                                                <f:ajax event="click" listener="#{rangosBean.cancelarEdicion()}" render="numResolucion btnsEditar btnEditar fechaR iniRango finRango cmbEstado tipoc fechaInicialRango"></f:ajax>
                                                                             </h:commandLink>
                                                                         </div>
                                                                         <div class="col-lg-6" align="center">
                                                                             <h:commandLink class="btn btn-success" style="width: 200px">
                                                                                 <span class="fa fa-save"></span> Guardar
-                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.editarRecurso()}" execute="nombreRecurso cmbEstado tipoRecurso cmbModulo descripcionRecurso carpetaRecurso fechaFinalRecurso fechaInicialRecurso"
-                                                                                        render="btnsEditar btnEditar nombreRecurso cmbEstado tipoRecurso cmbModulo descripcionRecurso carpetaRecurso fechaFinalRecurso fechaInicialRecurso"/>
+                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.editarRecurso()}" execute="numResolucion fechaR iniRango finRango cmbEstado tipoc fechaInicialRango"
+                                                                                        render="numResolucion btnsEditar btnEditar fechaR iniRango finRango cmbEstado tipoc fechaInicialRango"/>
                                                                             </h:commandLink> 
                                                                         </div>
 
@@ -273,6 +305,43 @@
                                                             </div>
                                                         </div>
                                                     </div>
+                                                    <hr/>
+                                                    <h:dataTable id="detRango" class="table table-striped table-bordered table-hover" value="#{rangosBean.listDetalleRango}"  var="dtran" cellspacing="0">
+                                                        <h:column>
+                                                            <f:facet name="header">#</f:facet>
+                                                                #{dtran.dtranId}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Número Rango</f:facet>
+                                                                #{dtran.dtranNumero}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Estado</f:facet>
+                                                                #{dtran.dtranEstado}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Agente</f:facet>
+                                                                #{dtran.civAgentes.ageId}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Fecha Inicial</f:facet>
+                                                                #{dtran.dtranFechaInicial}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Fecha Uso</f:facet>
+                                                                #{dtran.dtranFechaUso}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Observaciones</f:facet>
+                                                                #{dtran.dtranObservaciones}
+                                                        </h:column>
+                                                        <h:column>
+                                                            <f:facet name="header">Detalle</f:facet>
+                                                            <h:commandLink class="fa fa-eye">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
+                                                                <f:ajax event="click" listener="#{rangosBean.detalle(recu)}" execute="recurso" render="@form" />
+                                                            </h:commandLink>
+                                                        </h:column>
+                                                    </h:dataTable>
                                                 </div> 
                                             </section>
                                         </h:panelGroup>
@@ -341,7 +410,7 @@
                                                                         <span class="input-group-btn">
                                                                             <h:commandLink class="btn btn-success">
                                                                                 <i class="fa fa-search" />
-                                                                                <f:ajax event="click" listener="#{rangosBean.generarRangos('fechaFinal')}" execute="rangos:refFin" render="rangos:rangoFin" />
+                                                                                <f:ajax event="click" listener="#{rangosBean.generarRangos('fechaFinal')}" execute="rangos:refFin" render="rangos:rangoFin rangos:btnRegistrarRango" />
                                                                             </h:commandLink>
                                                                         </span>
                                                                     </div>
@@ -361,8 +430,16 @@
                                                                     </h:inputText><!--VALUE OK-->
                                                                 </div>
                                                             </div> 
+                                                            <div class="row">
+                                                                <div class="col-lg-6">
+                                                                    <label>Tipo de Rango</label>
+                                                                    <h:selectOneMenu id="tipoRango"  class="form-control"  value="#{rangosBean.tipoComparendo}" >
+                                                                        <f:selectItem itemLabel="-- Seleccione --" itemValue="0" />
+                                                                        <f:selectItems value="#{rangosBean.tipoComparendos.entrySet()}" var="com" itemValue="#{com.key}" itemLabel="#{com.value}"></f:selectItems>
+                                                                    </h:selectOneMenu>
+                                                                </div>
 
-
+                                                            </div> 
                                                         </h:panelGroup>
                                                     </h:panelGrid>
 
@@ -372,13 +449,13 @@
                                     </div>
 
                                     <div class="modal-footer">
-                                        <h:commandLink class="btn btn-warning btn-submit right" onclick="$('#registrarAgente').modal('hide');">
+                                        <h:commandLink class="btn btn-warning btn-submit right" onclick="$('#adicionarRango').modal('hide');">
                                             <span class="fa fa-close"></span> Cancelar
-                                            <f:ajax event="click" listener="#{rangosBean.cancelarAgente()}" render="rangos:crear rangos:mensajeCrearPersona"/>
+                                            <f:ajax event="click" listener="#{rangosBean.cancelarModalRango()}" render="rangos:crear"/>
                                         </h:commandLink>
-                                        <h:commandLink disabled="#{rangosBean.btnRegistrar}" id="btnRegistrarAgente" class="btn btn-success btn-submit right">
+                                        <h:commandLink disabled="#{rangosBean.btnRegistrar}" id="btnRegistrarRango" class="btn btn-success btn-submit right #{rangosBean.btnRegistrar?'disabled':''}">
                                             <span class="fa fa-save"></span> Registrar
-                                            <f:ajax event="click" listener="#{rangosBean.registrarAgente()}" execute="rangos:crear"/>
+                                            <f:ajax event="click" listener="#{rangosBean.registrarRango()}" execute="rangos:crear" render="rangos:crear"/>
                                         </h:commandLink>
                                     </div>
 
@@ -389,6 +466,8 @@
 
                             <!-- /.modal-dialog -->
                         </div>
+
+
 
                     </h:form>
                 </c:if>

@@ -6,6 +6,7 @@
 package com.contravenciones.tr.bo;
 
 import com.contravenciones.jsf.bean.BeanRangos;
+import com.contravenciones.model.Rangos;
 
 
 
@@ -37,5 +38,29 @@ public interface RangosBO {
      * @throws Exception
      */
     void registrarRangos(BeanRangos bean) throws Exception;
+    
+     /**
+     *
+     * @param bean
+     
+     * @throws Exception
+     */
+    void listRangos(BeanRangos bean) throws Exception;
+    
+     /**
+     *
+     * @param bean
+     * @param list
+     * @throws Exception
+     */
+    void listDetalleRangos(BeanRangos bean, Rangos list) throws Exception;
+    
+    /**
+     *
+     * @param bean
+     
+     * @throws Exception
+     */
+    void cancelarEditar(BeanRangos bean) throws Exception;
   
 }

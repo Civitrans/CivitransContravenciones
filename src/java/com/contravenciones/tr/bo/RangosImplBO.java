@@ -13,13 +13,19 @@ import com.contravenciones.jdbc.dao.ITParametros;
 import com.contravenciones.jdbc.dao.ITPersonas;
 import com.contravenciones.jdbc.dao.ITRangos;
 import com.contravenciones.jdbc.dao.ITSedes;
+import com.contravenciones.jdbc.dao.ITUsuarios;
 import com.contravenciones.jsf.bean.BeanRangos;
 import com.contravenciones.model.Agente;
+import com.contravenciones.model.Rangos;
 import com.contravenciones.tr.persistence.CivAgentes;
 import com.contravenciones.tr.persistence.CivDatosParametricos;
+import com.contravenciones.tr.persistence.CivDetalleRangoComparendos;
 import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPersonas;
+import com.contravenciones.tr.persistence.CivRangosComparendos;
 import com.contravenciones.tr.persistence.CivSedes;
+import com.contravenciones.tr.persistence.CivUsuarios;
+import com.contravenciones.utility.ValidacionDatos;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -39,6 +45,7 @@ public class RangosImplBO implements RangosBO {
     private ITParametros parametrosDAO;
     private ITDatosParametricos datosParametricosDAO;
     private ITSedes sedesDAO;
+    private ITUsuarios usuariosDAO;
 
     @Override
     public void cargarDatos(BeanRangos bean) throws Exception {
@@ -49,42 +56,188 @@ public class RangosImplBO implements RangosBO {
             for (int i = 0; i < dp.getDtparaLongitud().intValue(); i++) {
                 numeros += "0";
             }
-            String rangoLong=(numeros.substring(0, dp.getDtparaLongitud().intValue() - (s.getSedCodigo() + "").length()));
+            String rangoLong = (numeros.substring(0, dp.getDtparaLongitud().intValue() - (s.getSedCodigo() + "").length()));
             String rango = s.getSedCodigo() + rangoLong;
             bean.setMaxLength(rangoLong.length());
             bean.setRangoInicial(rango);
             bean.setRangoFinal(rango);
+            bean.setRangoDefecto(rango);
+            bean.setLongitud(dp.getDtparaLongitud().intValue());
+        }
+        bean.setTipoComparendos(new HashMap<>());
+        for (CivParametros objParametros : getParametrosDAO().listParametros(393)) {
+            bean.getTipoComparendos().put(objParametros.getParCodigo().intValue(), objParametros.getParNombre());
+        }
+        bean.setListEstadoRango(new HashMap<>());
+        for (CivParametros objParametros : getParametrosDAO().listParametros(394)) {
+            bean.getListEstadoRango().put(objParametros.getParCodigo().intValue(), objParametros.getParNombre());
         }
     }
-    
+
     @Override
     public void registrarRangos(BeanRangos bean) throws Exception {
-      
+
+        if (bean.getTipoComparendo() == 0 || bean.getReferenciaInicial().equals("") || bean.getReferenciaFinal().equals("") || bean.getNumeroRango().equals("") || bean.getFechaResolucion() == null) {
+            throw new RangosException("Campos vacíos", 1);
+        }
+        for (int i = Integer.parseInt(bean.getReferenciaInicial()); i <= Integer.parseInt(bean.getReferenciaFinal()); i++) {
+
+            String valor = genRangos(bean.getLongitud(), String.valueOf(i), bean.getRangoDefecto());
+            CivDetalleRangoComparendos com = getDetalleRangoComparendosDAO().detalleRangobyNumero(valor);
+
+            if (com != null) {
+                throw new RangosException("Detalle rango ya se encuentra asociado a un rango", 1);
+            }
+        }
+
+        CivRangosComparendos ran = new CivRangosComparendos();
+        ran.setRanNumInicial(bean.getRangoInicial());
+        ran.setRanNumFinal(bean.getRangoFinal());
+        ran.setRanFechaInicial(new Date());
+        ran.setRanEstado(BigDecimal.ONE);
+        ran.setRanNumResolucion(bean.getNumeroRango().toUpperCase());
+        ran.setRanFechaResolucion(bean.getFechaResolucion());
+        ran.setUsuId(BigDecimal.valueOf(Integer.parseInt(bean.getLoginBean().getID_Usuario())));
+        ran.setRanTipoComparendo(BigDecimal.valueOf(bean.getTipoComparendo()));
+        long idRango = getRangosDAO().insert(ran);
+
+        for (int i = Integer.parseInt(bean.getReferenciaInicial()); i <= Integer.parseInt(bean.getReferenciaFinal()); i++) {
+
+            String valor = genRangos(bean.getLongitud(), String.valueOf(i), bean.getRangoDefecto());
+
+            CivDetalleRangoComparendos dr = new CivDetalleRangoComparendos();
+            CivRangosComparendos r = new CivRangosComparendos();
+            r.setRanId(BigDecimal.valueOf(idRango));
+            dr.setCivRangosComparendos(r);
+            dr.setDtranNumero(valor);
+            dr.setDtranEstado(BigDecimal.ONE);
+            dr.setDtranFechaInicial(new Date());
+            dr.setUsuId(BigDecimal.valueOf(Integer.parseInt(bean.getLoginBean().getID_Usuario())));
+            getDetalleRangoComparendosDAO().insert(dr);
+        }
+    }
+
+    @Override
+    public void listRangos(BeanRangos bean) throws Exception {
+        bean.setListRangos(new ArrayList<>());
+        for (CivRangosComparendos ran : getRangosDAO().getRangosAll()) {
+            int utilizados = 0, activos = 0, cantidad = 0;
+            Rangos r = new Rangos();
+            r.setRanId(ran.getRanId().intValue());
+            r.setRanNumInicial(ran.getRanNumInicial());
+            r.setRanNumFinal(ran.getRanNumFinal());
+            r.setRanFechaInicial(ran.getRanFechaInicial());
+            r.setRanFechaFinal(ran.getRanFechaFinal());
+            r.setRanEstado(ran.getRanEstado().intValue());
+            r.setRanNumResolucion(ran.getRanNumResolucion());
+            r.setRanFechaResolucion(ran.getRanFechaResolucion());
+            r.setRanTipoComparendo(ran.getRanTipoComparendo().intValue());
+            for (CivDetalleRangoComparendos dr : getDetalleRangoComparendosDAO().detalleRangobyId(ran.getRanId().intValue())) {
+                cantidad++;
+                if (dr.getDtranEstado().intValue() == 1) {
+                    activos++;
+                } else {
+                    utilizados++;
+                }
+            }
+            int porcentaje = utilizados * 100 / cantidad;
+            if (porcentaje <= 50) {
+                r.setBar(porcentaje > 0 ? "progress-bar-success" : "progress-bar-aqua");
+                r.setUti(porcentaje > 0 ? "bg-green" : "bg-aqua");
+            } else if (porcentaje <= 75) {
+                r.setBar("progress-bar-warning");
+                r.setUti("bg-yellow");
+            } else {
+                r.setBar("progress-bar progress-bar-danger");
+                r.setUti("bg-red");
+            }
+            r.setPorcentaje(porcentaje + "%");
+            r.setActivos(String.valueOf(activos));
+            r.setUtilizados(String.valueOf(utilizados));
+            r.setTotal(cantidad + "");
+            bean.getListRangos().add(r);
+        }
+
+    }
+
+    @Override
+    public void listDetalleRangos(BeanRangos bean, Rangos list) throws Exception {
+        bean.setMostrarDetalle(true);
+        bean.setMostrarBuscar(false);
+        bean.setMostrarConsulta(false);
+        /*Detalle rango*/
+        bean.setCodigo(list.getRanId() + "");
+        bean.setRangoInicial(list.getRanNumInicial());
+        bean.setRangoFinal(list.getRanNumFinal());
+        bean.setFechaInicial(list.getRanFechaInicial());
+        bean.setFechaFinal(list.getRanFechaFinal());
+        bean.setEstado(list.getRanEstado());
+        bean.setNumeroRango(list.getRanNumResolucion());
+        bean.setFechaResolucion(list.getRanFechaResolucion());
+        bean.setTipoComparendo(list.getRanTipoComparendo());
+        CivUsuarios usu = getUsuariosDAO().consultarUsuarioBy(list.getUsuId());
+        if (usu != null) {
+            bean.setUsuarioCreacion(usu.getUsuNombre());
+        }
+
+        bean.setListDetalleRango(new ArrayList<>());
+        for (CivDetalleRangoComparendos dr : getDetalleRangoComparendosDAO().detalleRangobyId(Integer.parseInt(bean.getCodigo()))) {
+            bean.getListDetalleRango().add(dr);
+        }
     }
 
     @Override
     public void generarRangos(BeanRangos bean, String ref) throws Exception {
+
+        if (!new ValidacionDatos().validarSolonumeros(bean.getReferenciaInicial()) || !new ValidacionDatos().validarSolonumeros(bean.getReferenciaFinal())) {
+            throw new RangosException("Datos incorrectos", 1);
+        }
+
         int longi = bean.getRangoInicial().length();
 
         String valor, ran;
         if (ref.equals("fechaInicial")) {
-            ran=bean.getRangoInicial();
-            valor=bean.getReferenciaInicial();
-        }else{
-            ran=bean.getRangoFinal();
-            valor=bean.getReferenciaFinal();
+            ran = bean.getRangoDefecto();
+            valor = bean.getReferenciaInicial();
+        } else {
+            ran = bean.getRangoDefecto();
+            valor = bean.getReferenciaFinal();
         }
 
-        String rango = (ran.substring(0, longi - (valor + "").length())) + valor;
+        String rango = genRangos(longi, valor, ran);
         if (ref.equals("fechaInicial")) {
             bean.setRangoInicial(rango);
-        }else{
-            if(Long.parseLong(bean.getReferenciaInicial())>=Long.parseLong(bean.getReferenciaFinal())){
+        } else {
+            if (Long.parseLong(bean.getReferenciaInicial()) >= Long.parseLong(bean.getReferenciaFinal())) {
+                bean.setBtnRegistrar(true);
+                bean.setRangoFinal(ran);
                 throw new RangosException("El rango final debe ser mayor al rango inicial.", 1);
             }
+            bean.setBtnRegistrar(false);
             bean.setRangoFinal(rango);
         }
-        
+
+    }
+
+    @Override
+    public void cancelarEditar(BeanRangos bean) throws Exception {
+
+        CivRangosComparendos ran = getRangosDAO().rangoId(Integer.parseInt(bean.getCodigo()));
+        bean.setCodigo(ran.getRanId() + "");
+        bean.setRangoInicial(ran.getRanNumInicial());
+        bean.setRangoFinal(ran.getRanNumFinal());
+        bean.setFechaInicial(ran.getRanFechaInicial());
+        bean.setEstado(ran.getRanEstado().intValue());
+        bean.setNumeroRango(ran.getRanNumResolucion());
+        bean.setFechaResolucion(ran.getRanFechaResolucion());
+        bean.setTipoComparendo(ran.getRanTipoComparendo().intValue());
+        bean.setFechaFinal(ran.getRanFechaFinal());
+
+    }
+
+    public String genRangos(int longi, String valor, String ran) {
+        String rango = (ran.substring(0, longi - (valor + "").length())) + valor;
+        return rango;
     }
 
     /**
@@ -183,6 +336,20 @@ public class RangosImplBO implements RangosBO {
      */
     public void setSedesDAO(ITSedes sedesDAO) {
         this.sedesDAO = sedesDAO;
+    }
+
+    /**
+     * @return the usuariosDAO
+     */
+    public ITUsuarios getUsuariosDAO() {
+        return usuariosDAO;
+    }
+
+    /**
+     * @param usuariosDAO the usuariosDAO to set
+     */
+    public void setUsuariosDAO(ITUsuarios usuariosDAO) {
+        this.usuariosDAO = usuariosDAO;
     }
 
 }

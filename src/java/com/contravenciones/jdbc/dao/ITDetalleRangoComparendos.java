@@ -31,6 +31,10 @@ public interface ITDetalleRangoComparendos {
      * @throws Exception La Excepción lanzada en caso de error.
      */
     public boolean update(CivDetalleRangoComparendos detalle) throws Exception;
+    
+    public List<CivDetalleRangoComparendos> detalleRangobyId(int id) throws Exception;
+    
+    public CivDetalleRangoComparendos detalleRangobyNumero(String numero) throws Exception;
 
    
 }

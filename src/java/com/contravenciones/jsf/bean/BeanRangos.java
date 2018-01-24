@@ -7,15 +7,19 @@ package com.contravenciones.jsf.bean;
 
 import com.contravenciones.exception.RangosException;
 import com.contravenciones.model.Agente;
+import com.contravenciones.model.Rangos;
 import com.contravenciones.tr.bo.RangosBO;
 import com.contravenciones.tr.persistence.CivAgentes;
+import com.contravenciones.tr.persistence.CivDetalleRangoComparendos;
 import com.contravenciones.tr.persistence.CivPersonas;
+import com.contravenciones.tr.persistence.CivRangosComparendos;
 import com.contravenciones.utility.Log_Handler;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.primefaces.context.RequestContext;
@@ -32,31 +36,89 @@ public class BeanRangos implements Serializable {
     private boolean mostrarBuscar = true;
     private boolean mostrarConsultaAgente = false;
 
-    private List<CivAgentes> listAgente;
-    private List<CivPersonas> listPersonas;
-    private Map<Integer, String> listTipoDocumento; // tipos de documento
-    private Map<Integer, String> estadoPersona;
-    private List<Agente> listDatos;
-
-    private String referencia;
-    private String nombrePersona;
-    private String placa;
-    private String identificacion;
-    private int tipoAgente;
-    private int idPersona;
+    private Map<Integer, String> tipoComparendos;
+   
+    private List<Rangos> listRangos;
     
     private boolean detalleConsulta=false;
     private boolean crearPersona=false;
-    private boolean btnRegistrar=true;
+    private boolean btnRegistrar=false;
+    private boolean mostrarDetalle=false;
+    private boolean mostrarConsulta=true;
     
     private String rangoInicial;
     private String rangoFinal;
     private String referenciaInicial;
     private String referenciaFinal;
     private Date fechaResolucion;
-    private int numeroRango;
+    private String numeroRango;
+    private String rangoDefecto;
+    private int longitud;
     private int maxLength;
+    private int tipoComparendo;
+    /*Detalle rango*/
+    private Map<Integer, String> listEstadoRango;
+    private String codigo;
+    private Date fechaInicial;
+    private Date fechaFinal;
+    private int estado;
+    private String usuarioCreacion;
+    private boolean campos=true;
+    private boolean btnEditar=true;
+    private boolean botones=false;
+    private List<CivDetalleRangoComparendos> listDetalleRango;
+    
 
+    @PostConstruct
+    public void listaRangos(){
+       try {
+           cargarDatos();
+            getRangosBO().listRangos(this);
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al listar rangos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+        } 
+    }
+    public void detalle(Rangos bean) {
+        
+        try {
+            getRangosBO().listDetalleRangos(this, bean);
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al cargar detalles : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+        }
+    }
+    
+    public void habilitarCampos() {
+        setCampos(false);
+        setBtnEditar(false);
+        setBotones(true);
+    }
+    
+    public void cancelarEdicion() {
+        impCancelarEdicion();
+    }
+
+    protected void impCancelarEdicion() {
+        try {
+            getRangosBO().cancelarEditar(this);
+            setCampos(true);
+            setBtnEditar(true);
+            setBotones(false);
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
+        } catch (RangosException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
+        }
+
+    }
+    
     public void cargarDatos() {
         try {
             getRangosBO().cargarDatos(this);
@@ -95,27 +157,32 @@ public class BeanRangos implements Serializable {
     protected void impRegistrarRango() {
         try {
             getRangosBO().registrarRangos(this);
+            cancelarModalRango();
+             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Rango registrado correctamente"));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            RequestContext.getCurrentInstance().execute("$('#adicionarRango').modal('hide');");
         } catch (RangosException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al listar agentes: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:mensajeModal");
         }
 
     }
+     
     
-  
-    
-    public void cancelarAgente(){
-        setIdentificacion("");
-        setPlaca("");
-        setNombrePersona("");
+    public void cancelarModalRango(){
+        setRangoInicial("");
+        setRangoFinal("");
+        setReferenciaInicial("");
+        setReferenciaFinal("");
+        setNumeroRango("");
+        setFechaResolucion(null);
         setBtnRegistrar(false);
-        setCrearPersona(false);
-        setDetalleConsulta(false);
+        setLongitud(0);
+        setRangoDefecto("");
     }
     
     
@@ -176,146 +243,7 @@ public class BeanRangos implements Serializable {
         this.mostrarConsultaAgente = mostrarConsulta;
     }
 
-    /**
-     * @return the listAgente
-     */
-    public List<CivAgentes> getListAgente() {
-        return listAgente;
-    }
-
-    /**
-     * @param listAgente the listAgente to set
-     */
-    public void setListAgente(List<CivAgentes> listAgente) {
-        this.listAgente = listAgente;
-    }
-
-    /**
-     * @return the listPersonas
-     */
-    public List<CivPersonas> getListPersonas() {
-        return listPersonas;
-    }
-
-    /**
-     * @param listPersonas the listPersonas to set
-     */
-    public void setListPersonas(List<CivPersonas> listPersonas) {
-        this.listPersonas = listPersonas;
-    }
-
-    /**
-     * @return the referencia
-     */
-    public String getReferencia() {
-        return referencia;
-    }
-
-    /**
-     * @param referencia the referencia to set
-     */
-    public void setReferencia(String referencia) {
-        this.referencia = referencia;
-    }
-
-    /**
-     * @return the listTipoDocumento
-     */
-    public Map<Integer, String> getListTipoDocumento() {
-        return listTipoDocumento;
-    }
-
-    /**
-     * @param listTipoDocumento the listTipoDocumento to set
-     */
-    public void setListTipoDocumento(Map<Integer, String> listTipoDocumento) {
-        this.listTipoDocumento = listTipoDocumento;
-    }
-
-    /**
-     * @return the estadoPersona
-     */
-    public Map<Integer, String> getEstadoPersona() {
-        return estadoPersona;
-    }
-
-    /**
-     * @param estadoPersona the estadoPersona to set
-     */
-    public void setEstadoPersona(Map<Integer, String> estadoPersona) {
-        this.estadoPersona = estadoPersona;
-    }
-
-    /**
-     * @return the listDatos
-     */
-    public List<Agente> getListDatos() {
-        return listDatos;
-    }
-
-    /**
-     * @param listDatos the listDatos to set
-     */
-    public void setListDatos(List<Agente> listDatos) {
-        this.listDatos = listDatos;
-    }
-
-    /**
-     * @return the nombrePersona
-     */
-    public String getNombrePersona() {
-        return nombrePersona;
-    }
-
-    /**
-     * @param nombrePersona the nombrePersona to set
-     */
-    public void setNombrePersona(String nombrePersona) {
-        this.nombrePersona = nombrePersona;
-    }
-
-    /**
-     * @return the placa
-     */
-    public String getPlaca() {
-        return placa;
-    }
-
-    /**
-     * @param placa the placa to set
-     */
-    public void setPlaca(String placa) {
-        this.placa = placa;
-    }
-
-    /**
-     * @return the tipoAgente
-     */
-    public int getTipoAgente() {
-        return tipoAgente;
-    }
-
-    /**
-     * @param tipoAgente the tipoAgente to set
-     */
-    public void setTipoAgente(int tipoAgente) {
-        this.tipoAgente = tipoAgente;
-    }
-
-    /**
-     * @return the identificacion
-     */
-    public String getIdentificacion() {
-        return identificacion;
-    }
-
-    /**
-     * @param identificacion the identificacion to set
-     */
-    public void setIdentificacion(String identificacion) {
-        this.identificacion = identificacion;
-    }
-
+   
     /**
      * @return the detalleConsulta
      */
@@ -344,19 +272,6 @@ public class BeanRangos implements Serializable {
         this.crearPersona = crearPersona;
     }
 
-    /**
-     * @return the idPersona
-     */
-    public int getIdPersona() {
-        return idPersona;
-    }
-
-    /**
-     * @param idPersona the idPersona to set
-     */
-    public void setIdPersona(int idPersona) {
-        this.idPersona = idPersona;
-    }
 
     /**
      * @return the btnRegistrar
@@ -445,14 +360,14 @@ public class BeanRangos implements Serializable {
     /**
      * @return the numeroRango
      */
-    public int getNumeroRango() {
+    public String getNumeroRango() {
         return numeroRango;
     }
 
     /**
      * @param numeroRango the numeroRango to set
      */
-    public void setNumeroRango(int numeroRango) {
+    public void setNumeroRango(String numeroRango) {
         this.numeroRango = numeroRango;
     }
 
@@ -468,6 +383,245 @@ public class BeanRangos implements Serializable {
      */
     public void setMaxLength(int maxLength) {
         this.maxLength = maxLength;
+    }
+
+    /**
+     * @return the tipoComparendo
+     */
+    public int getTipoComparendo() {
+        return tipoComparendo;
+    }
+
+    /**
+     * @param tipoComparendo the tipoComparendo to set
+     */
+    public void setTipoComparendo(int tipoComparendo) {
+        this.tipoComparendo = tipoComparendo;
+    }
+
+    /**
+     * @return the tipoComparendos
+     */
+    public Map<Integer, String> getTipoComparendos() {
+        return tipoComparendos;
+    }
+
+    /**
+     * @param tipoComparendos the tipoComparendos to set
+     */
+    public void setTipoComparendos(Map<Integer, String> tipoComparendos) {
+        this.tipoComparendos = tipoComparendos;
+    }
+
+    /**
+     * @return the rangoDefecto
+     */
+    public String getRangoDefecto() {
+        return rangoDefecto;
+    }
+
+    /**
+     * @param rangoDefecto the rangoDefecto to set
+     */
+    public void setRangoDefecto(String rangoDefecto) {
+        this.rangoDefecto = rangoDefecto;
+    }
+
+    /**
+     * @return the longitud
+     */
+    public int getLongitud() {
+        return longitud;
+    }
+
+    /**
+     * @param longitud the longitud to set
+     */
+    public void setLongitud(int longitud) {
+        this.longitud = longitud;
+    }
+
+
+    /**
+     * @return the listRangos
+     */
+    public List<Rangos> getListRangos() {
+        return listRangos;
+    }
+
+    /**
+     * @param listRangos the listRangos to set
+     */
+    public void setListRangos(List<Rangos> listRangos) {
+        this.listRangos = listRangos;
+    }
+
+    /**
+     * @return the mostrarDetalle
+     */
+    public boolean isMostrarDetalle() {
+        return mostrarDetalle;
+    }
+
+    /**
+     * @param mostrarDetalle the mostrarDetalle to set
+     */
+    public void setMostrarDetalle(boolean mostrarDetalle) {
+        this.mostrarDetalle = mostrarDetalle;
+    }
+
+    /**
+     * @return the mostrarConsulta
+     */
+    public boolean isMostrarConsulta() {
+        return mostrarConsulta;
+    }
+
+    /**
+     * @param mostrarConsulta the mostrarConsulta to set
+     */
+    public void setMostrarConsulta(boolean mostrarConsulta) {
+        this.mostrarConsulta = mostrarConsulta;
+    }
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * @return the fechaInicial
+     */
+    public Date getFechaInicial() {
+        return fechaInicial;
+    }
+
+    /**
+     * @param fechaInicial the fechaInicial to set
+     */
+    public void setFechaInicial(Date fechaInicial) {
+        this.fechaInicial = fechaInicial;
+    }
+
+    /**
+     * @return the fechaFinal
+     */
+    public Date getFechaFinal() {
+        return fechaFinal;
+    }
+
+    /**
+     * @param fechaFinal the fechaFinal to set
+     */
+    public void setFechaFinal(Date fechaFinal) {
+        this.fechaFinal = fechaFinal;
+    }
+
+    /**
+     * @return the estado
+     */
+    public int getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the usuarioCreacion
+     */
+    public String getUsuarioCreacion() {
+        return usuarioCreacion;
+    }
+
+    /**
+     * @param usuarioCreacion the usuarioCreacion to set
+     */
+    public void setUsuarioCreacion(String usuarioCreacion) {
+        this.usuarioCreacion = usuarioCreacion;
+    }
+
+    /**
+     * @return the campos
+     */
+    public boolean isCampos() {
+        return campos;
+    }
+
+    /**
+     * @param campos the campos to set
+     */
+    public void setCampos(boolean campos) {
+        this.campos = campos;
+    }
+
+    /**
+     * @return the listDetalleRango
+     */
+    public List<CivDetalleRangoComparendos> getListDetalleRango() {
+        return listDetalleRango;
+    }
+
+    /**
+     * @param listDetalleRango the listDetalleRango to set
+     */
+    public void setListDetalleRango(List<CivDetalleRangoComparendos> listDetalleRango) {
+        this.listDetalleRango = listDetalleRango;
+    }
+
+    /**
+     * @return the btnEditar
+     */
+    public boolean isBtnEditar() {
+        return btnEditar;
+    }
+
+    /**
+     * @param btnEditar the btnEditar to set
+     */
+    public void setBtnEditar(boolean btnEditar) {
+        this.btnEditar = btnEditar;
+    }
+
+    /**
+     * @return the botones
+     */
+    public boolean isBotones() {
+        return botones;
+    }
+
+    /**
+     * @param botones the botones to set
+     */
+    public void setBotones(boolean botones) {
+        this.botones = botones;
+    }
+
+    /**
+     * @return the listEstadoRango
+     */
+    public Map<Integer, String> getListEstadoRango() {
+        return listEstadoRango;
+    }
+
+    /**
+     * @param listEstadoRango the listEstadoRango to set
+     */
+    public void setListEstadoRango(Map<Integer, String> listEstadoRango) {
+        this.listEstadoRango = listEstadoRango;
     }
 
 
