@@ -36,21 +36,21 @@ import java.util.ArrayList;
  * @author Jefrey
  */
 public class LoginImplBO implements LoginBO, Serializable {
-
+    
     private static final long serialVersionUID = 545488145141L;
     private static final int TIEMPO_RESTABLECER_HORAS = 24;
-
+    
     private ITLogin loginDAO;
     private ITAttempts attemptsDAO;
     private ITPersonas personasDAO;
     private ITUsuarios usuariosDAO;
     private ITPlantillas plantillasDAO;
-
+    
     @Override
     public void iniciarSesion(BeanLogin obj) throws Exception {
         Date ini = new Date();
         ini.setTime(0);
-
+        
         CivUsuarios login = new CivUsuarios();
         login.setUsuNombre(obj.getUser().trim().toUpperCase(Locale.ROOT));
         login.setUsuPassword(obj.getPassword());
@@ -112,7 +112,7 @@ public class LoginImplBO implements LoginBO, Serializable {
      */
     private void registrarIntento(int usuario) throws Exception {
         CivAttempts aut = getAttemptsDAO().consultarIntentos(usuario);
-
+        
         if (aut == null) {
             aut = new CivAttempts();
             CivUsuarios usu = new CivUsuarios();
@@ -145,7 +145,7 @@ public class LoginImplBO implements LoginBO, Serializable {
             aut.setTtpUltimoIntento(new Date());
             getAttemptsDAO().update(aut);
         }
-
+        
     }
 
     /**
@@ -164,17 +164,17 @@ public class LoginImplBO implements LoginBO, Serializable {
             getAttemptsDAO().update(aut);
         }
     }
-
+    
     @Override
     public List<Modulo> listarModulos(BeanLogin obj) throws Exception {
         List<CivRecursos> listR = getLoginDAO().listarRecursos(Integer.parseInt(obj.getID_Usuario()));
         List<Modulo> listModulo = new LinkedList<>();
         Modulo mod;
-
+        
         if (listR == null) {
             throw new LoginException("El usuario no tiene ningún perfil asignado. Por favor contáctese con el administrador del sistema.");
         }
-
+        
         for (int x = 0; x < listR.size(); x++) {
             CivRecursos r = listR.get(x);
             if (listModulo.isEmpty()) {
@@ -200,7 +200,7 @@ public class LoginImplBO implements LoginBO, Serializable {
                 listModulo.add(mod);
             }
         }
-
+        
         for (int x = 0; x < listModulo.size(); x++) {
             Modulo m = listModulo.get(x);
             List<Recurso> listrec = new LinkedList<>();
@@ -218,33 +218,33 @@ public class LoginImplBO implements LoginBO, Serializable {
             }
             m.setListRecurso(listrec);
         }
-
+        
         return listModulo;
     }
-
+    
     @Override
     public List<Modulo> listarModulos(BeanLogin obj, int tipo) throws Exception {
         List<CivRecursos> listR = getLoginDAO().listarRecursos(Integer.parseInt(obj.getID_Usuario()));
-
+        
         List<CivRecursos> index = new ArrayList<>();
-
+        
         for (CivRecursos civRecursos : listR) {
             if (civRecursos.getRecTipo().intValue() != tipo && civRecursos.getRecTipo().intValue() != 3) {
                 index.add(civRecursos);
             }
         }
-
+        
         for (CivRecursos integer : index) {
             listR.remove(integer);
         }
-
+        
         List<Modulo> listModulo = new LinkedList<>();
         Modulo mod;
-
+        
         if (listR == null) {
             throw new LoginException("El usuario no tiene ningún perfil asignado. Por favor contáctese con el administrador del sistema.");
         }
-
+        
         for (int x = 0; x < listR.size(); x++) {
             CivRecursos r = listR.get(x);
             if (listModulo.isEmpty()) {
@@ -270,7 +270,7 @@ public class LoginImplBO implements LoginBO, Serializable {
                 listModulo.add(mod);
             }
         }
-
+        
         for (int x = 0; x < listModulo.size(); x++) {
             Modulo m = listModulo.get(x);
             List<Recurso> listrec = new LinkedList<>();
@@ -288,7 +288,7 @@ public class LoginImplBO implements LoginBO, Serializable {
             }
             m.setListRecurso(listrec);
         }
-
+        
         return listModulo;
     }
 
@@ -301,26 +301,26 @@ public class LoginImplBO implements LoginBO, Serializable {
         ValidacionPassword val = new ValidacionPassword();
         return val.generarPassword();
     }
-
+    
     @Override
     public List<String> listarRecursos(BeanLogin obj) throws Exception {
         List<CivRecursos> listR = getLoginDAO().listarRecursos(Integer.parseInt(obj.getID_Usuario()));
         List<String> rec = new LinkedList<>();
-
+        
         if (listR == null) {
             return null;
         }
-
+        
         for (CivRecursos list : listR) {
             rec.add(list.getRecDescripcion());
         }
-
+        
         return rec;
     }
-
+    
     @Override
     public void consultarDatosUsuario(BeanLogin obj) throws Exception {
-
+        
         CivPersonas persona = getPersonasDAO().consultarPersonasById(obj.getIdPersonaUsuario());
         if (persona == null) {
             throw new LoginException("No se encontró la persona correspondiente al usuario");
@@ -333,26 +333,27 @@ public class LoginImplBO implements LoginBO, Serializable {
                 + " "
                 + (persona.getPerApellido2() == null
                 ? "" : persona.getPerApellido2()));
+        obj.setNombrePersonaUsuario(new ValidacionDatos().letraMayuscula(obj.getNombrePersonaUsuario()));
         obj.setCedulaPersonaUsuario(persona.getPerDocumento());
         obj.setFechaInicioPersonaUsuario(persona.getPerFechainicial());
     }
-
+    
     @Override
     public String getPlantilla(BeanLogin obj) throws Exception {
         try {
-            obj.setPlantilla(getPlantillasDAO().getPlantilla(obj.getTipo()).getPlanUri());
+            obj.setPlantilla(getPlantillasDAO().getPlantilla(3).getPlanUri());
             return "/inicio?faces-redirect=true";
-
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
         return "";
     }
-
+    
     public ITPersonas getPersonasDAO() {
         return personasDAO;
     }
-
+    
     public void setPersonasDAO(ITPersonas personasDAO) {
         this.personasDAO = personasDAO;
     }
@@ -412,5 +413,5 @@ public class LoginImplBO implements LoginBO, Serializable {
     public void setPlantillasDAO(ITPlantillas plantillasDAO) {
         this.plantillasDAO = plantillasDAO;
     }
-
+    
 }

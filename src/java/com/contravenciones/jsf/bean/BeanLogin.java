@@ -104,21 +104,25 @@ public class BeanLogin implements Serializable {
                 }
             }
 
+            setAut_RUNT((isAd() && isOp()));
+            String api;
             if (getUserEstado() == 3) { //Usuario Por reestablecer credenciales
                 return "/reestablecer.civ";
             } else {
 
                 //String api = isAd() && isOp() ? "/redirec" : isAd() && !isOp() ? "/inicioAdministrativo" : "/inicioOperativo";
-                String api = isAd() && isOp() ? "/redirec" : "/inicio";
+                api = isAut_RUNT() ? "/redirec" : "/inicio";
+
                 if (isAd() && !isOp()) {
                     setListModulos(getLoginBO().listarModulos(this, 1)); //Se carga el menu correspondiente al usuario
-                    setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralAdminstrativa.xhtml");
+                    //    setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralAdminstrativa.xhtml");
                 } else if (!isAd() && isOp()) {
                     setListModulos(getLoginBO().listarModulos(this, 2)); //Se carga el menu correspondiente al usuario
-                    setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml");
+                    //    setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml");
                 }
-                return api + "?faces-redirect=true"; //Redirect=true obligatorio para validaciones de filtro
             }
+            return api + "?faces-redirect=true"; //Redirect=true obligatorio para validaciones de filtro
+
         } catch (LoginException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", e.getMessage()));
             return "";
@@ -133,7 +137,7 @@ public class BeanLogin implements Serializable {
         try {
             setTipo(tp);
             setListModulos(getLoginBO().listarModulos(this, tipo)); //Se carga el menu correspondiente al usuario
-            return redireccionImpl();
+            return redireccionImpl()+"?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }

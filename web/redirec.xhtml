@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html">
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <head>
         <link href="#{request.contextPath}/resources/cnv/css/ihover.css" rel="stylesheet" type="text/css"/>
@@ -11,10 +12,10 @@
             <div class="container container-fluid">
                 <!-- Scale up-->
                 <div class="row center">
-                    <div class="col-sm-2">
+                    <div class="col-lg-2 hidden-sm">
                         &nbsp;
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-lg-4 col-sm-6">
                         <!-- normal -->
                         <div class="ih-item circle effect6 scale_up">
                             <h:commandLink action="#{loginBean.redireccion(1)}">
@@ -31,7 +32,7 @@
                         </div>
                         <!-- end normal -->
                     </div>
-                    <div class="col-sm-4">
+                    <div class="col-lg-4 col-sm-6">
                         <!-- colored -->
                         <div class="ih-item circle colored effect6 scale_up">
                             <h:commandLink action="#{loginBean.redireccion(2)}">
@@ -42,11 +43,12 @@
                                     <h3>Funcionarios</h3>
                                     <p>Procesos Misionales</p>
                                 </div>
+                                <f:setPropertyActionListener target="#{loginBean.ad}" value="#{!loginBean.ad}" />
                             </h:commandLink>
                         </div>
                         <!-- end colored-->
                     </div>
-                    <div class="col-sm-2">
+                    <div class="col-lg-2 hidden-sm">
                         &nbsp;
                     </div>
                 </div>
