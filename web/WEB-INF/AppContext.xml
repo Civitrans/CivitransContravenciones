@@ -196,6 +196,9 @@
     <bean id="datosParametricosDAO" class="com.contravenciones.jdbc.dao.DaoDatosParametricos">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
+    <bean id="cargueComparendosDAO" class="com.contravenciones.jdbc.dao.DaoCargueComparendos">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>  
     <bean id="plantillasDAO" class="com.contravenciones.jdbc.dao.DaoPlantillas">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
@@ -272,6 +275,7 @@
     </bean>
     <bean id="planosBO" class="com.contravenciones.tr.bo.PlanosImplBO">
         <property name="estructuraSimitDAO" ref="estructuraSimitDAO"/>
+        <property name="cargueComparendosDAO" ref="cargueComparendosDAO"/>
     </bean>
     <!-- Transaction -->    
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
