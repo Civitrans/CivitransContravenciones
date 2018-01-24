@@ -37,15 +37,15 @@ public class BeanRangos implements Serializable {
     private boolean mostrarConsultaAgente = false;
 
     private Map<Integer, String> tipoComparendos;
-   
+
     private List<Rangos> listRangos;
-    
-    private boolean detalleConsulta=false;
-    private boolean crearPersona=false;
-    private boolean btnRegistrar=false;
-    private boolean mostrarDetalle=false;
-    private boolean mostrarConsulta=true;
-    
+
+    private boolean detalleConsulta = false;
+    private boolean crearPersona = false;
+    private boolean btnRegistrar = false;
+    private boolean mostrarDetalle = false;
+    private boolean mostrarConsulta = true;
+
     private String rangoInicial;
     private String rangoFinal;
     private String referenciaInicial;
@@ -63,25 +63,27 @@ public class BeanRangos implements Serializable {
     private Date fechaFinal;
     private int estado;
     private String usuarioCreacion;
-    private boolean campos=true;
-    private boolean btnEditar=true;
-    private boolean botones=false;
+    private int codigoUsuario;
+    private boolean campos = true;
+    private boolean btnEditar = true;
+    private boolean botones = false;
     private List<CivDetalleRangoComparendos> listDetalleRango;
-    
+    private Map<Integer, String> listEstadoDetalleRango;
 
     @PostConstruct
-    public void listaRangos(){
-       try {
-           cargarDatos();
+    public void listaRangos() {
+        try {
+            cargarDatos();
             getRangosBO().listRangos(this);
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al listar rangos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
-        } 
+        }
     }
+
     public void detalle(Rangos bean) {
-        
+
         try {
             getRangosBO().listDetalleRangos(this, bean);
         } catch (Exception e) {
@@ -90,13 +92,13 @@ public class BeanRangos implements Serializable {
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
         }
     }
-    
+
     public void habilitarCampos() {
         setCampos(false);
         setBtnEditar(false);
         setBotones(true);
     }
-    
+
     public void cancelarEdicion() {
         impCancelarEdicion();
     }
@@ -107,18 +109,18 @@ public class BeanRangos implements Serializable {
             setCampos(true);
             setBtnEditar(true);
             setBotones(false);
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
         } catch (RangosException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionRecursos:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos::messageGeneral");
         }
 
     }
-    
+
     public void cargarDatos() {
         try {
             getRangosBO().cargarDatos(this);
@@ -148,7 +150,7 @@ public class BeanRangos implements Serializable {
         }
 
     }
-    
+
     public void registrarRango() {
         impRegistrarRango();
         //RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
@@ -158,7 +160,7 @@ public class BeanRangos implements Serializable {
         try {
             getRangosBO().registrarRangos(this);
             cancelarModalRango();
-             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Rango registrado correctamente"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Rango registrado correctamente"));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
             RequestContext.getCurrentInstance().execute("$('#adicionarRango').modal('hide');");
         } catch (RangosException e) {
@@ -171,9 +173,42 @@ public class BeanRangos implements Serializable {
         }
 
     }
-     
     
-    public void cancelarModalRango(){
+    public void editarRango() {
+        impEditarRango();
+    }
+
+    protected void impEditarRango() {
+        try {
+            getRangosBO().editarRangos(this);
+            setCampos(true);
+            setBtnEditar(true);
+            setBotones(false);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Rango actualizado correctamente"));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+        } catch (RangosException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al listar personas : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+        }
+
+    }
+
+    public String agente(int id) {
+        try {
+            return getRangosBO().consultarAgente(id);
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al cargar detalle rangos agente : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
+        }
+        return "";
+    }
+
+    public void cancelarModalRango() {
         setRangoInicial("");
         setRangoFinal("");
         setReferenciaInicial("");
@@ -184,8 +219,6 @@ public class BeanRangos implements Serializable {
         setLongitud(0);
         setRangoDefecto("");
     }
-    
-    
 
     /**
      * @return the loginBean
@@ -243,7 +276,6 @@ public class BeanRangos implements Serializable {
         this.mostrarConsultaAgente = mostrarConsulta;
     }
 
-   
     /**
      * @return the detalleConsulta
      */
@@ -271,7 +303,6 @@ public class BeanRangos implements Serializable {
     public void setCrearPersona(boolean crearPersona) {
         this.crearPersona = crearPersona;
     }
-
 
     /**
      * @return the btnRegistrar
@@ -440,7 +471,6 @@ public class BeanRangos implements Serializable {
     public void setLongitud(int longitud) {
         this.longitud = longitud;
     }
-
 
     /**
      * @return the listRangos
@@ -624,5 +654,32 @@ public class BeanRangos implements Serializable {
         this.listEstadoRango = listEstadoRango;
     }
 
+    /**
+     * @return the listEstadoDetalleRango
+     */
+    public Map<Integer, String> getListEstadoDetalleRango() {
+        return listEstadoDetalleRango;
+    }
+
+    /**
+     * @param listEstadoDetalleRango the listEstadoDetalleRango to set
+     */
+    public void setListEstadoDetalleRango(Map<Integer, String> listEstadoDetalleRango) {
+        this.listEstadoDetalleRango = listEstadoDetalleRango;
+    }
+
+    /**
+     * @return the codigoUsuario
+     */
+    public int getCodigoUsuario() {
+        return codigoUsuario;
+    }
+
+    /**
+     * @param codigoUsuario the codigoUsuario to set
+     */
+    public void setCodigoUsuario(int codigoUsuario) {
+        this.codigoUsuario = codigoUsuario;
+    }
 
 }

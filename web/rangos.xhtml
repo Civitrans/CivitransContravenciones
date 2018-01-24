@@ -68,18 +68,13 @@
                                                                         <label class="control-label align-left">Rangos</label>
                                                                     </div>
                                                                 </div>
-                                                                <div class="col-lg-3 visible-lg visible-md" style="width: 14%">
-                                                                    <div class="input-group margin-2">
-                                                                        <label class="control-label align-left">Nombre Recurso</label>
-                                                                    </div>
-                                                                </div>
                                                                 <div class="col-md-4 col-lg-4 col-sm-12 col-xs-12">
                                                                     <div class="input-group margin-5">
 
-                                                                        <h:inputText class="form-control text-uppercase" maxlength="20" id="txtBuscarRecurso" value="#{gestionrecursosBean.buscarRecursos}"></h:inputText>
+                                                                        
                                                                         <span class="input-group-btn">
                                                                             <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
-                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.listarRecurso()}" execute="rangos:txtBuscarRecurso" render="gestionRecursos:pnGroup"></f:ajax>
+                                                                                <f:ajax event="click" listener="#{rangosBean.listaRangos()}"></f:ajax>
                                                                             </h:commandLink>
                                                                         </span>
                                                                     </div>
@@ -207,7 +202,8 @@
                                                             <div class="col-lg-4">
                                                                 <div class="form-group">
                                                                     <label for="descripcionRecurso">Rango Final</label>
-                                                                    <h:inputText value="#{rangosBean.rangoFinal}" class="form-control" id="finRango" disabled="#{rangosBean.campos}"></h:inputText>                                </div>
+                                                                    <h:inputText value="#{rangosBean.rangoFinal}" class="form-control" id="finRango" disabled="#{rangosBean.campos}"></h:inputText>                                
+                                                                </div>
                                                             </div>
                                                         </div>
 
@@ -294,8 +290,8 @@
                                                                         <div class="col-lg-6" align="center">
                                                                             <h:commandLink class="btn btn-success" style="width: 200px">
                                                                                 <span class="fa fa-save"></span> Guardar
-                                                                                <f:ajax event="click" listener="#{gestionrecursosBean.editarRecurso()}" execute="numResolucion fechaR iniRango finRango cmbEstado tipoc fechaInicialRango"
-                                                                                        render="numResolucion btnsEditar btnEditar fechaR iniRango finRango cmbEstado tipoc fechaInicialRango"/>
+                                                                                <f:ajax event="click" listener="#{rangosBean.editarRango()}" execute="numResolucion fechaR iniRango finRango cmbEstado tipoc fechaInicialRango"
+                                                                                        render="fechaFinalRango numResolucion btnsEditar btnEditar fechaR iniRango finRango cmbEstado tipoc fechaInicialRango"/>
                                                                             </h:commandLink> 
                                                                         </div>
 
@@ -317,19 +313,23 @@
                                                         </h:column>
                                                         <h:column>
                                                             <f:facet name="header">Estado</f:facet>
-                                                                #{dtran.dtranEstado}
+                                                                #{rangosBean.listEstadoDetalleRango.get(dtran.dtranEstado.intValue())}
                                                         </h:column>
                                                         <h:column>
                                                             <f:facet name="header">Agente</f:facet>
-                                                                #{dtran.civAgentes.ageId}
+                                                                #{rangosBean.agente(dtran.civAgentes.ageId.intValue())}
                                                         </h:column>
                                                         <h:column>
                                                             <f:facet name="header">Fecha Inicial</f:facet>
-                                                                #{dtran.dtranFechaInicial}
+                                                            <h:outputLabel value="#{dtran.dtranFechaInicial}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                            </h:outputLabel>
                                                         </h:column>
                                                         <h:column>
                                                             <f:facet name="header">Fecha Uso</f:facet>
-                                                                #{dtran.dtranFechaUso}
+                                                            <h:outputLabel value="#{dtran.dtranFechaUso}">
+                                                                <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                            </h:outputLabel>
                                                         </h:column>
                                                         <h:column>
                                                             <f:facet name="header">Observaciones</f:facet>

@@ -42,6 +42,20 @@ public interface RangosBO {
      /**
      *
      * @param bean
+     * @throws Exception
+     */
+    void editarRangos(BeanRangos bean) throws Exception;
+    
+    /**
+     *
+     * @param id
+     * @throws Exception
+     */
+    String consultarAgente(int id) throws Exception;
+    
+     /**
+     *
+     * @param bean
      
      * @throws Exception
      */
