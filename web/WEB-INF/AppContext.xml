@@ -265,6 +265,7 @@
         <property name="detalleRangoComparendosDAO" ref="detalleRangoComparendosDAO"/>
         <property name="datosParametricosDAO" ref="datosParametricosDAO"/>
         <property name="sedesDAO" ref="sedesDAO" />
+        <property name="usuariosDAO" ref="usuariosDAO" />
     </bean>
     <bean id="AgentesBO" class="com.contravenciones.tr.bo.AgentesImplBO">
         <property name="personasDAO" ref="personasDAO" />
