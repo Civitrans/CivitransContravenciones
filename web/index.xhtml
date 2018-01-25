@@ -5,13 +5,13 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
-        <link rel="shortcut icon" href="#{request.contextPath}/resources/images/favicon.png" type="image/x-icon"/>
-        <link rel="icon" href="#{request.contextPath}/resources/images/favicon.png" type="image/x-icon"/>
+        <link rel="shortcut icon" href="#{request.contextPath}/recursos/images/favicon.png" type="image/x-icon"/>
+        <link rel="icon" href="#{request.contextPath}/recursos/images/favicon.png" type="image/x-icon"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charset="UTF-8"/>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <!-- Bootstrap 3.3.5 -->
-        <link rel="stylesheet" href="#{request.contextPath}/resources/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="#{request.contextPath}/recursos/bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
         <title>Civitrans</title>
         <style type="text/css">
             html {
@@ -41,15 +41,15 @@
     <h:body>
         <p:ajaxStatus onstart="PF('statusDialog').show()"  onsuccess="PF('statusDialog').hide()" />
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
-            <p:graphicImage url="/resources/images/loading.gif" style="width: 25px;"/> Iniciando Sesión...
+            <p:graphicImage url="/recursos/images/loading.gif" style="width: 25px;"/> Iniciando Sesión...
         </p:dialog>
         <div class="container">
             <div class="row">
                 <center>
-                    <img src="#{request.contextPath}/resources/images/logo.png" class="visible-lg" style="margin-top: 100px; margin-left: 90px; width: 400px; height: 120px;" align="middle"/>
-                    <img src="#{request.contextPath}/resources/images/logo.png" class="visible-xs" style="margin-top: 60px; width: 280px; height: 92px" align="middle"/>
-                    <img src="#{request.contextPath}/resources/images/logo.png" class="visible-sm" style="margin-top: 60px; width: 590px; height: 180px" align="middle"/>
-                    <img src="#{request.contextPath}/resources/images/logo.png" class="visible-md" style="margin-top: 60px; width: 280px; height: 92px" align="middle"/>
+                    <img src="#{request.contextPath}/recursos/images/logo.png" class="visible-lg" style="margin-top: 100px; margin-left: 90px; width: 400px; height: 120px;" align="middle"/>
+                    <img src="#{request.contextPath}/recursos/images/logo.png" class="visible-xs" style="margin-top: 60px; width: 280px; height: 92px" align="middle"/>
+                    <img src="#{request.contextPath}/recursos/images/logo.png" class="visible-sm" style="margin-top: 60px; width: 590px; height: 180px" align="middle"/>
+                    <img src="#{request.contextPath}/recursos/images/logo.png" class="visible-md" style="margin-top: 60px; width: 280px; height: 92px" align="middle"/>
                     <br></br>
                     <small>Aplicación para los procesos misionales del Tránsito</small>
                 </center>
@@ -114,8 +114,8 @@
         <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
         <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
         <!-- Bootstrap 3.3.5 -->
-        <script src="#{request.contextPath}/resources/js/bootstrap.min.js"></script>
-        <script src="#{request.contextPath}/resources/js/paste.js"></script>
+        <script src="#{request.contextPath}/recursos/js/bootstrap.min.js"></script>
+        <script src="#{request.contextPath}/recursos/js/paste.js"></script>
     </h:body>
 </html>
 

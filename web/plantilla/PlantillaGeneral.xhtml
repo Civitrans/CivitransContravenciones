@@ -7,17 +7,20 @@
       xmlns:p="http://primefaces.org/ui">
 
     <h:head>
-        <meta charset="utf-8"></meta>
-        <meta http-equiv="X-UA-Compatible" content="IE=edge"></meta>
         <title>Civitrans</title>
-        <!-- Custom css-->
         <link rel="shortcut icon" href="#{request.contextPath}/recursos/images/favicon.png" type="image/x-icon"/>
         <link rel="icon" href="#{request.contextPath}/recursos/images/favicon.png" type="image/x-icon"/>
         <link href="#{request.contextPath}/recursos/cnv/css/controles.css" rel="stylesheet" type="text/css"/>
+        <link href="#{request.contextPath}/recursos/cnv/css/ihover.css" rel="stylesheet" type="text/css"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport"></meta>
+        <!--Alert style roymer-->
+        <link href="#{request.contextPath}/recursos/dist/css/estiloscss.css" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap 3.3.7 -->
         <link rel="stylesheet" href="#{request.contextPath}/recursos/bower_components/bootstrap/dist/css/bootstrap.min.css"></link>
+        <link rel="stylesheet" href="#{request.contextPath}/recursos/css/PrimefacesOverride.css" />
         <!-- Font Awesome -->
         <link rel="stylesheet" href="#{request.contextPath}/recursos/bower_components/font-awesome/css/font-awesome.min.css"></link>
         <!-- Ionicons -->
@@ -44,9 +47,18 @@
         <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
         <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
         <![endif]-->
+        <script src="#{request.contextPath}/recursos/js/HabilitarCamposEditables.js" type="text/javascript"></script>
+        <!--<script src="{request.contextPath}/resources/js/jquerydataTablemin.js" type="text/javascript"></script>-->
+        <link href="#{request.contextPath}/recursos/css/jquery.dataTables.css" rel="stylesheet" type="text/css"/>
+        <script src="#{request.contextPath}/recursos/js/html5shiv.min.js" type="text/javascript"></script>
+        <script src="#{request.contextPath}/recursos/js/respond.min.js" type="text/javascript"></script>
+        <script src="#{request.contextPath}/recursos/js/jquery.validate.min.js" type="text/javascript"></script>
+        <style>
+            .datepicker{z-index:1051 !important;}
+        </style>
 
-        <!-- Google Font -->
-        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"></link>
+        <!-- Google Font <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic"></link>-->
+
     </h:head>
 
     <h:body class="hold-transition #{loginBean.ad?'skin-yellow-light':'skin-blue'} sidebar-mini" onload="bloquear()">
@@ -63,12 +75,12 @@
                 <ui:insert name="top">
                     <header class="main-header">
                         <!-- Logo -->
-                        <a href="index2.html" class="logo">
+                        <h:link outcome="/inicio.xhtml" class="logo">
                             <!-- mini logo for sidebar mini 50x50 pixels -->
                             <span class="logo-mini"><b>C</b>vn</span>
                             <!-- logo for regular state and mobile devices -->
                             <span class="logo-lg"><b>Contra</b>venciones</span>
-                        </a>
+                        </h:link>
                         <!-- Header Navbar: style can be found in header.less -->
                         <nav class="navbar navbar-static-top">
                             <!-- Sidebar toggle button-->
@@ -183,7 +195,7 @@
                                                 <h:form>
                                                     <div class="pull-left">
                                                         <h:commandLink action="#{loginBean.redireccion(!loginBean.ad?2:1)}" rendered="#{loginBean.aut_RUNT}" class="btn btn-default btn-flat">
-                                                            #{!loginBean.ad?'Administravito':'Operativo'}
+                                                            #{!loginBean.ad?'Administrativo':'Operativo'}
                                                             <f:setPropertyActionListener target="#{loginBean.ad}" value="#{!loginBean.ad}" />
                                                         </h:commandLink>
                                                     </div>    
@@ -776,16 +788,15 @@
                 </div><!--container-->
             </div><!--left and Container--> 
         </div>
-        <!-- jQuery 3 -->
-        <script src="#{request.contextPath}/recursos/bower_components/jquery/dist/jquery.min.js"></script>
-        <!-- jQuery UI 1.11.4 -->
-        <script src="#{request.contextPath}/recursos/bower_components/jquery-ui/jquery-ui.min.js"></script>
-        <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
+        <!-- jQuery 2.1.4 -->        
+        <h:outputScript library="primefaces" name="jquery/jquery.js" target="head" />
+        <h:outputScript library="primefaces" name="jquery/jquery-plugins.js" target="head" />
         <script>
-        $.widget.bridge('uibutton', $.ui.button);
+            $.widget.bridge('uibutton', $.ui.button);
         </script>
         <!-- Bootstrap 3.3.7 -->
         <script src="#{request.contextPath}/recursos/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script src="#{request.contextPath}/recursos/js/jquery.dataTables.js"></script>
         <!-- Morris.js charts -->
         <script src="#{request.contextPath}/recursos/bower_components/raphael/raphael.min.js"></script>
         <script src="#{request.contextPath}/recursos/bower_components/morris.js/morris.min.js"></script>
