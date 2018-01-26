@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 23/01/2018 03:51:29 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 26/01/2018 03:08:13 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivAgentes" table="CIV_AGENTES" schema="CONTRAVENCIONES" optimistic-lock="version">
         <id name="ageId" type="big_decimal">
@@ -25,6 +25,9 @@
         </property>
         <property name="ageFirma" type="blob">
             <column name="AGE_FIRMA" />
+        </property>
+        <property name="ageEstado" type="big_decimal">
+            <column name="AGE_ESTADO" precision="22" scale="0" />
         </property>
         <set name="civDetalleRangoComparendoses" table="CIV_DETALLE_RANGO_COMPARENDOS" inverse="true" lazy="true" fetch="select">
             <key>

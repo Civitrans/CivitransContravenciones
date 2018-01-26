@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 23/01/2018 03:51:28 PM by Hibernate Tools 4.3.1
+// Generated 26/01/2018 03:08:11 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -21,6 +21,7 @@ public class CivAgentes  implements java.io.Serializable {
      private Date ageFechaInicio;
      private Date ageFechaFin;
      private Blob ageFirma;
+     private BigDecimal ageEstado;
      private Set civDetalleRangoComparendoses = new HashSet(0);
 
     public CivAgentes() {
@@ -34,7 +35,7 @@ public class CivAgentes  implements java.io.Serializable {
         this.agePlaca = agePlaca;
         this.ageFechaInicio = ageFechaInicio;
     }
-    public CivAgentes(BigDecimal ageId, CivPersonas civPersonas, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio, Date ageFechaFin, Blob ageFirma, Set civDetalleRangoComparendoses) {
+    public CivAgentes(BigDecimal ageId, CivPersonas civPersonas, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio, Date ageFechaFin, Blob ageFirma, BigDecimal ageEstado, Set civDetalleRangoComparendoses) {
        this.ageId = ageId;
        this.civPersonas = civPersonas;
        this.ageTipo = ageTipo;
@@ -42,6 +43,7 @@ public class CivAgentes  implements java.io.Serializable {
        this.ageFechaInicio = ageFechaInicio;
        this.ageFechaFin = ageFechaFin;
        this.ageFirma = ageFirma;
+       this.ageEstado = ageEstado;
        this.civDetalleRangoComparendoses = civDetalleRangoComparendoses;
     }
    
@@ -93,6 +95,13 @@ public class CivAgentes  implements java.io.Serializable {
     
     public void setAgeFirma(Blob ageFirma) {
         this.ageFirma = ageFirma;
+    }
+    public BigDecimal getAgeEstado() {
+        return this.ageEstado;
+    }
+    
+    public void setAgeEstado(BigDecimal ageEstado) {
+        this.ageEstado = ageEstado;
     }
     public Set getCivDetalleRangoComparendoses() {
         return this.civDetalleRangoComparendoses;
