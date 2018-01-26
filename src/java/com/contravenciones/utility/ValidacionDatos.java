@@ -5,6 +5,13 @@
  */
 package com.contravenciones.utility;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -79,6 +86,15 @@ public class ValidacionDatos {
         //System.out.println("NO");
         return sw;
     }
+    
+     public boolean validarSololetras(String campo) {
+        boolean sw;
+//        Pattern pat = Pattern.compile("[0-9]*");
+//        Matcher mat = pat.matcher("123456");
+        sw = campo.matches("[a-zA-Z]*"); //System.out.println("SI");
+        //System.out.println("NO");
+        return sw;
+    }
 
     /**
      * valida la seguridad del nombre del usuario - Se debe empezar y terminar
@@ -93,7 +109,7 @@ public class ValidacionDatos {
         sw = campo.matches("^[a-zA-Z0-9][a-zA-Z0-9-_.]{2,8}[a-zA-Z0-9]$");
         return sw;
     }
-    
+
     /*Función para convertir la primera letra en mayúscula de una cadena*/
     public String letraMayuscula(String cadena) {
         String nombre = "";
@@ -103,4 +119,26 @@ public class ValidacionDatos {
         nombre = nombre.trim();
         return nombre;
     }
+
+    public Map ordenarMap(Map map) {
+        Map mapResultado = new LinkedHashMap();
+        List misMapKeys = new ArrayList(map.keySet());
+        List misMapValues = new ArrayList(map.values());
+        TreeSet conjuntoOrdenado = new TreeSet(misMapValues);
+        Object[] arrayOrdenado = conjuntoOrdenado.toArray();
+        int size = arrayOrdenado.length;
+        for (int i = 0; i < size; i++) {
+            mapResultado.put(misMapKeys.get(
+                    misMapValues.indexOf(
+                            arrayOrdenado[i])
+            ), arrayOrdenado[i]);
+        }
+
+        Iterator it1 = mapResultado.values().iterator();
+        while (it1.hasNext()) {
+            System.out.println((String) it1.next());
+        }
+        return mapResultado;
+    }
+
 }

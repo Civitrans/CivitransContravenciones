@@ -9,7 +9,9 @@ import com.contravenciones.exception.PersonaException;
 import com.contravenciones.tr.bo.GestionPersonaBO;
 import com.contravenciones.tr.persistence.CivPersonas;
 import com.contravenciones.utility.Log_Handler;
+import com.contravenciones.utility.ValidacionDatos;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -32,8 +34,16 @@ public class BeanGestionPersona implements Serializable {
     private Map<Integer, String> estadoPersona;
     private String buscarPersona;
     private boolean mostrarConsulta = false;
+    private boolean mostrarDetalle = false;
+    private boolean mostrarBuscar = true;
+    private boolean campos = true;
+    private boolean nombreCompleto = true;
+    private boolean nombreSeparado = false;
+    private boolean botones = false;
+    private boolean btnEditar = true;
 
     private int idpersona;
+    private int idDireccion;
     private int tipoDoc;
     private String documento;
     private Date fechaNac;
@@ -43,7 +53,11 @@ public class BeanGestionPersona implements Serializable {
     private int paisExp;
     private int depExp;
     private int munExp;
+    private int depDir;
+    private int munDir;
     private Date fechaExp;
+    private Date fechaInicialDir;
+    private String nombre; // nombre completo de la persona
     private String nombre1;
     private String nombre2;
     private String apellido1;
@@ -53,18 +67,52 @@ public class BeanGestionPersona implements Serializable {
     private String celular;
     private String telefono;
     private String email;
-    private int depDir;
-    private int munDir;
+
     private String dir;
     private boolean btnRegistrar;
     private String origen;
 
+    /*direccion*/
+    private String nomenclatura;
+    private Map<String, String> listNomenclatura; // tipos de documento
+    private String simbolo;
+    private String numero1;
+    private String letra;
+    private boolean generarDireccion = false;
+    private List<String> nuevaDireccion = new ArrayList<>();
+    private boolean detalleDireccion = true;
+    private boolean cancelarDireccion = false;
+    private boolean disDireccion = true;
+
     public void cargarDatos() {
         try {
             getGestionPersonaBO().cargarDatos(this);
+            setListNomenclatura(new ValidacionDatos().ordenarMap(getListNomenclatura()));
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void detalle(CivPersonas bean) {
+        setMostrarDetalle(true);
+        setMostrarBuscar(false);
+        setMostrarConsulta(false);
+        impDetallePersona(bean);
+    }
+
+    protected void impDetallePersona(CivPersonas bean) {
+        try {
+            getGestionPersonaBO().detallePersona(bean, this);
+            //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+        } catch (PersonaException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error al mostrar detalle persona : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+        }
+
     }
 
     /*Método para consultar todos las personas registradas en la base de datos.*/
@@ -90,27 +138,34 @@ public class BeanGestionPersona implements Serializable {
 
     }
 
-    public void guardarDatosPersona() {
-        guardarPersona();
-//        mostrarAlerta();
+    public void guardarDatosPersona(String proceso) {
+        guardarPersona(proceso);
+
     }
 
     /**
      *
+     * @param proceso
      */
-    protected void guardarPersona() {
+    protected void guardarPersona(String proceso) {
         try {
             getGestionPersonaBO().guardarPersona(this);
-            limpiarModal();
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Persona registrada correctamente"));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("messageGeneral");
-            RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
-            
-        } catch (PersonaException ex) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(ex.getNivelFacesMessage(), "Error", ex.getMessage()));
+            if (proceso.equals("insertar")) {
+                limpiarModal();
+                RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
+            } else {
+                deshabilitarCampos();
+            }
+
+        } catch (PersonaException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error guardando persona: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(loginBean.getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
         }
     }
 
@@ -129,8 +184,8 @@ public class BeanGestionPersona implements Serializable {
     public void cancelarModal() {
         RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
     }
-    
-    public void limpiarModal(){
+
+    public void limpiarModal() {
         setTipoDoc(0);
         setNombre1("");
         setNombre2("");
@@ -146,6 +201,112 @@ public class BeanGestionPersona implements Serializable {
         setGrupoSang("");
         setCelular("");
         setEmail("");
+    }
+
+    public void habilitarCampos() {
+        setCampos(false);
+        setBtnEditar(false);
+        setBotones(true);
+        setNombreCompleto(false);
+        setNombreSeparado(true);
+    }
+
+    public void deshabilitarCampos() {
+        setCampos(true);
+        setBtnEditar(true);
+        setBotones(false);
+        setNombreCompleto(true);
+        setNombreSeparado(false);
+        setGenerarDireccion(false);
+        setCancelarDireccion(false);
+        setDetalleDireccion(true);
+        setDisDireccion(true);
+        setNuevaDireccion(new ArrayList<>());
+    }
+
+    public void btnDireccion() {
+        setCancelarDireccion(true);
+        setDetalleDireccion(false);
+        setGenerarDireccion(true);
+        setDir("");
+    }
+
+    public void cancelarEdicion() {
+        impCancelarEdicion();
+    }
+
+    protected void impCancelarEdicion() {
+        try {
+            getGestionPersonaBO().cancelarEditar(this);
+            deshabilitarCampos();
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+        } catch (PersonaException e) {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+        } catch (Exception e) {
+            Log_Handler.registrarEvento("Error : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+        }
+
+    }
+
+    public void generaDireccion(String combo) {
+        String valor = "";
+        if (combo.equals("nom")) {
+            getNuevaDireccion().add(getNomenclatura());
+            setNomenclatura("");
+        }
+        if (combo.equals("sim")) {
+            if (getSimbolo().equals("1")) {
+                getNuevaDireccion().add("No.");
+            }
+            if (getSimbolo().equals("2")) {
+                getNuevaDireccion().add("-");
+            }
+            setSimbolo("");
+        }
+        if (combo.equals("num")) {
+            if (new ValidacionDatos().validarSolonumeros(getNumero1())) {
+                getNuevaDireccion().add(getNumero1());
+                setNumero1("");
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:mensajeDireccion");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Campo solo número"));
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:mensajeDireccion");
+            }
+
+        }
+        if (combo.equals("letra")) {
+            if (new ValidacionDatos().validarSololetras(getLetra().toUpperCase())) {
+                getNuevaDireccion().add(getLetra().toUpperCase());
+                setLetra("");
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:mensajeDireccion");
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Campo solo letras"));
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:mensajeDireccion");
+            }
+
+        }
+        for (String dire : getNuevaDireccion()) {
+            valor += dire + " ";
+        }
+        setDir(valor);
+        setDisDireccion(false);
+    }
+
+    public void reversarDireccion() {
+        String valor = "";
+        if (!getNuevaDireccion().isEmpty()) {
+            getNuevaDireccion().remove(getNuevaDireccion().size() - 1);
+            if(getNuevaDireccion().isEmpty()){
+                setDisDireccion(true);
+            }
+            for (String dire : getNuevaDireccion()) {
+                valor += dire + " ";
+            }
+            setDir(valor);
+        }
     }
 
     /**
@@ -594,6 +755,286 @@ public class BeanGestionPersona implements Serializable {
      */
     public void setOrigen(String origen) {
         this.origen = origen;
+    }
+
+    /**
+     * @return the mostrarDetalle
+     */
+    public boolean isMostrarDetalle() {
+        return mostrarDetalle;
+    }
+
+    /**
+     * @param mostrarDetalle the mostrarDetalle to set
+     */
+    public void setMostrarDetalle(boolean mostrarDetalle) {
+        this.mostrarDetalle = mostrarDetalle;
+    }
+
+    /**
+     * @return the mostrarBuscar
+     */
+    public boolean isMostrarBuscar() {
+        return mostrarBuscar;
+    }
+
+    /**
+     * @param mostrarBuscar the mostrarBuscar to set
+     */
+    public void setMostrarBuscar(boolean mostrarBuscar) {
+        this.mostrarBuscar = mostrarBuscar;
+    }
+
+    /**
+     * @return the campos
+     */
+    public boolean isCampos() {
+        return campos;
+    }
+
+    /**
+     * @param campos the campos to set
+     */
+    public void setCampos(boolean campos) {
+        this.campos = campos;
+    }
+
+    /**
+     * @return the nombreCompleto
+     */
+    public boolean isNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    /**
+     * @param nombreCompleto the nombreCompleto to set
+     */
+    public void setNombreCompleto(boolean nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    /**
+     * @return the nombreSeparado
+     */
+    public boolean isNombreSeparado() {
+        return nombreSeparado;
+    }
+
+    /**
+     * @param nombreSeparado the nombreSeparado to set
+     */
+    public void setNombreSeparado(boolean nombreSeparado) {
+        this.nombreSeparado = nombreSeparado;
+    }
+
+    /**
+     * @return the botones
+     */
+    public boolean isBotones() {
+        return botones;
+    }
+
+    /**
+     * @param botones the botones to set
+     */
+    public void setBotones(boolean botones) {
+        this.botones = botones;
+    }
+
+    /**
+     * @return the btnEditar
+     */
+    public boolean isBtnEditar() {
+        return btnEditar;
+    }
+
+    /**
+     * @param btnEditar the btnEditar to set
+     */
+    public void setBtnEditar(boolean btnEditar) {
+        this.btnEditar = btnEditar;
+    }
+
+    /**
+     * @return the nombre
+     */
+    public String getNombre() {
+        return nombre;
+    }
+
+    /**
+     * @param nombre the nombre to set
+     */
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    /**
+     * @return the idDireccion
+     */
+    public int getIdDireccion() {
+        return idDireccion;
+    }
+
+    /**
+     * @param idDireccion the idDireccion to set
+     */
+    public void setIdDireccion(int idDireccion) {
+        this.idDireccion = idDireccion;
+    }
+
+    /**
+     * @return the fechaInicialDir
+     */
+    public Date getFechaInicialDir() {
+        return fechaInicialDir;
+    }
+
+    /**
+     * @param fechaInicialDir the fechaInicialDir to set
+     */
+    public void setFechaInicialDir(Date fechaInicialDir) {
+        this.fechaInicialDir = fechaInicialDir;
+    }
+
+    /**
+     * @return the via
+     */
+    public String getNomenclatura() {
+        return nomenclatura;
+    }
+
+    /**
+     * @param via the via to set
+     */
+    public void setNomenclatura(String via) {
+        this.nomenclatura = via;
+    }
+
+    /**
+     * @return the numero1
+     */
+    public String getNumero1() {
+        return numero1;
+    }
+
+    /**
+     * @param numero1 the numero1 to set
+     */
+    public void setNumero1(String numero1) {
+        this.numero1 = numero1;
+    }
+
+    /**
+     * @return the listNomenclatura
+     */
+    public Map<String, String> getListNomenclatura() {
+        return listNomenclatura;
+    }
+
+    /**
+     * @param listNomenclatura the listNomenclatura to set
+     */
+    public void setListNomenclatura(Map<String, String> listNomenclatura) {
+        this.listNomenclatura = listNomenclatura;
+    }
+
+    /**
+     * @return the simbolo
+     */
+    public String getSimbolo() {
+        return simbolo;
+    }
+
+    /**
+     * @param simbolo the simbolo to set
+     */
+    public void setSimbolo(String simbolo) {
+        this.simbolo = simbolo;
+    }
+
+    /**
+     * @return the generarDireccion
+     */
+    public boolean isGenerarDireccion() {
+        return generarDireccion;
+    }
+
+    /**
+     * @param generarDireccion the generarDireccion to set
+     */
+    public void setGenerarDireccion(boolean generarDireccion) {
+        this.generarDireccion = generarDireccion;
+    }
+
+    /**
+     * @return the nuevaDireccion
+     */
+    public List<String> getNuevaDireccion() {
+        return nuevaDireccion;
+    }
+
+    /**
+     * @param nuevaDireccion the nuevaDireccion to set
+     */
+    public void setNuevaDireccion(List<String> nuevaDireccion) {
+        this.nuevaDireccion = nuevaDireccion;
+    }
+
+    /**
+     * @return the letra
+     */
+    public String getLetra() {
+        return letra;
+    }
+
+    /**
+     * @param letra the letra to set
+     */
+    public void setLetra(String letra) {
+        this.letra = letra;
+    }
+
+    /**
+     * @return the detalleDireccion
+     */
+    public boolean isDetalleDireccion() {
+        return detalleDireccion;
+    }
+
+    /**
+     * @param detalleDireccion the detalleDireccion to set
+     */
+    public void setDetalleDireccion(boolean detalleDireccion) {
+        this.detalleDireccion = detalleDireccion;
+    }
+
+    /**
+     * @return the cancelarDireccion
+     */
+    public boolean isCancelarDireccion() {
+        return cancelarDireccion;
+    }
+
+    /**
+     * @param cancelarDireccion the cancelarDireccion to set
+     */
+    public void setCancelarDireccion(boolean cancelarDireccion) {
+        this.cancelarDireccion = cancelarDireccion;
+    }
+
+    /**
+     * @return the disDireccion
+     */
+    public boolean isDisDireccion() {
+        return disDireccion;
+    }
+
+    /**
+     * @param disDireccion the disDireccion to set
+     */
+    public void setDisDireccion(boolean disDireccion) {
+        this.disDireccion = disDireccion;
     }
 
 }

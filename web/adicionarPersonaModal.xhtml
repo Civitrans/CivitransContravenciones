@@ -238,7 +238,7 @@
                                 <div class="col-lg-1"/>
                                 <div class="col-lg-7 text-left">
                                     <h:commandLink id="btnRegistrar" class="btn btn-primary" disabled="#{gestionpersonasBean.btnRegistrar}">
-                                       <f:ajax event="click" execute="@form txtDetalleTipoDocumento txtDetalleDocumento" listener="#{gestionpersonasBean.guardarDatosPersona()}"  render="panelModalPersona"/>
+                                       <f:ajax event="click" execute="@form txtDetalleTipoDocumento txtDetalleDocumento" listener="#{gestionpersonasBean.guardarDatosPersona('insertar')}"  render="panelModalPersona"/>
                                         <i class="fa fa-server"></i>
                                         <span>Guardar</span>
                                     </h:commandLink>

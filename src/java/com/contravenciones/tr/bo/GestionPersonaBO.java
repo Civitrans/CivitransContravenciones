@@ -6,6 +6,7 @@
 package com.contravenciones.tr.bo;
 
 import com.contravenciones.jsf.bean.BeanGestionPersona;
+import com.contravenciones.tr.persistence.CivPersonas;
 
 
 /**
@@ -41,5 +42,20 @@ public interface GestionPersonaBO {
      * @throws Exception
      */
     void verificarPersona(BeanGestionPersona bean) throws Exception;
+    
+    /**
+     *
+     * @param bean
+     * @throws Exception
+     */
+    void cancelarEditar(BeanGestionPersona bean) throws Exception;
+    
+    /**
+     *
+     * @param per
+     * @param bean
+     * @throws Exception
+     */
+    void detallePersona(CivPersonas per, BeanGestionPersona bean) throws Exception;
     
 }

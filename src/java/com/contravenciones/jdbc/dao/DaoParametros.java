@@ -35,7 +35,7 @@ public class DaoParametros extends HibernateDaoSupport implements ITParametros, 
         List list = getHibernateTemplate().findByNamedParam(hql, "grupo", grupo);
         return list;
     }
-
+   
     @Override
 
     public CivParametros getParametro(long id_parametro) throws Exception {
