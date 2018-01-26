@@ -18,9 +18,10 @@ public interface GestionPersonaBO {
     /**
      *
      * @param bean
+     * @param accion
      * @throws Exception
      */
-    void listPersona(BeanGestionPersona bean) throws Exception;
+    void listPersona(BeanGestionPersona bean, String accion) throws Exception;
     
      /**
      *

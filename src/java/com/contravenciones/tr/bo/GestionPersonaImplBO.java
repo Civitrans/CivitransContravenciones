@@ -17,6 +17,8 @@ import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPersonas;
 import com.contravenciones.tr.persistence.CivUsuarios;
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -34,16 +36,42 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
     private ITDirecciones direccionesDAO;
 
     @Override
-    public void listPersona(BeanGestionPersona bean) throws Exception {
+    public void listPersona(BeanGestionPersona bean, String accion) throws Exception {
         bean.setListPersonas(new ArrayList<>());
-
-        for (CivPersonas per : getPersonasDAO().listarPersonas(bean.getBuscarPersona().toUpperCase())) {
-            bean.getListPersonas().add(per);
+        if (accion.equals("nombre")) {
+            for (CivPersonas per : getPersonasDAO().listarPersonas(bean.getBuscarPersona().toUpperCase())) {
+                bean.getListPersonas().add(per);
+            }
         }
+        if (accion.equals("documento")) {
+            if (bean.getBuscarPersona().equals("")) {
+                throw new PersonaException("Digite número de documento.", 1);
+            }
+            CivPersonas per = getPersonasDAO().consultarPersonasByDocumento(bean.getBuscarTipoDoc(), bean.getBuscarPersona());
+            if (per != null) {
+                bean.getListPersonas().add(per);
+            }
+            bean.setBuscarTipoDoc(1);
+        }
+
+        if (accion.equals("fecha")) {
+            if (bean.getBuscarFecha() == null) {
+                throw new PersonaException("Digite fecha de ingreso.", 1);
+            }
+            DateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String fecha_ini = formato.format(bean.getBuscarFecha());
+            for (CivPersonas per : getPersonasDAO().listarPersonasFecha(fecha_ini)) {
+                bean.getListPersonas().add(per);
+            }
+            bean.setBuscarFecha(null);
+        }
+
         if (bean.getListPersonas().isEmpty()) {
-            throw new PersonaException("No se encontraron coincidencias.", 2);
+            throw new PersonaException("No se encontraron coincidencias.", 1);
         }
         bean.setMostrarConsulta(true);
+        bean.setBuscarPersona("");
+
     }
 
     @Override
@@ -104,7 +132,7 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
             bean.setPaisNac(div.getPaiId().intValue());
             bean.setDepNac(div.getDepId().intValue());
             bean.setMunNac(div.getMunId().intValue());
-            bean.setFechaExp(persona.getPerFechanac());
+            bean.setFechaExp(persona.getPerFechaexp());
             bean.setPaisExp(exp.getPaiId().intValue());
             bean.setDepExp(exp.getDepId().intValue());
             bean.setMunExp(exp.getMunId().intValue());

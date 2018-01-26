@@ -33,6 +33,8 @@ public class BeanGestionPersona implements Serializable {
     private Map<Integer, String> listTipoDocumento; // tipos de documento
     private Map<Integer, String> estadoPersona;
     private String buscarPersona;
+    private int buscarTipoDoc;
+    private Date buscarFecha;
     private boolean mostrarConsulta = false;
     private boolean mostrarDetalle = false;
     private boolean mostrarBuscar = true;
@@ -116,17 +118,17 @@ public class BeanGestionPersona implements Serializable {
     }
 
     /*Método para consultar todos las personas registradas en la base de datos.*/
-    public void listarPersona() {
+    public void listarPersona(String accion) {
         cargarDatos();
         getListTipoDocumento();
-        impListarPersona();
+        impListarPersona(accion);
         //RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
     }
 
-    protected void impListarPersona() {
+    protected void impListarPersona(String accion) {
         try {
-            getGestionPersonaBO().listPersona(this);
-            //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            getGestionPersonaBO().listPersona(this, accion);
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
         } catch (PersonaException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
@@ -299,7 +301,7 @@ public class BeanGestionPersona implements Serializable {
         String valor = "";
         if (!getNuevaDireccion().isEmpty()) {
             getNuevaDireccion().remove(getNuevaDireccion().size() - 1);
-            if(getNuevaDireccion().isEmpty()){
+            if (getNuevaDireccion().isEmpty()) {
                 setDisDireccion(true);
             }
             for (String dire : getNuevaDireccion()) {
@@ -1035,6 +1037,34 @@ public class BeanGestionPersona implements Serializable {
      */
     public void setDisDireccion(boolean disDireccion) {
         this.disDireccion = disDireccion;
+    }
+
+    /**
+     * @return the buscarTipoDoc
+     */
+    public int getBuscarTipoDoc() {
+        return buscarTipoDoc;
+    }
+
+    /**
+     * @param buscarTipoDoc the buscarTipoDoc to set
+     */
+    public void setBuscarTipoDoc(int buscarTipoDoc) {
+        this.buscarTipoDoc = buscarTipoDoc;
+    }
+
+    /**
+     * @return the buscarFecha
+     */
+    public Date getBuscarFecha() {
+        return buscarFecha;
+    }
+
+    /**
+     * @param buscarFecha the buscarFecha to set
+     */
+    public void setBuscarFecha(Date buscarFecha) {
+        this.buscarFecha = buscarFecha;
     }
 
 }

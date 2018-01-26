@@ -6,6 +6,7 @@
 package com.contravenciones.jdbc.dao;
 
 import com.contravenciones.tr.persistence.CivPersonas;
+import java.util.Date;
 import java.util.List;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -42,6 +43,16 @@ public class DaoPersonas extends HibernateDaoSupport implements ITPersonas {
 
         String hql = "from CivPersonas where Per_Nombre1 like :persona or Per_Nombre2 like :persona or Per_Apellido1 like :persona or Per_Apellido2 like :persona ORDER BY 1 asc";
         List list = getHibernateTemplate().findByNamedParam(hql, "persona", "%" + persona + "%");
+       return list;
+        
+    }
+    
+    @Override
+
+    public List<CivPersonas> listarPersonasFecha(String fecha) throws Exception {
+
+        String hql = "from CivPersonas where per_fechainicial = :fecha order by 1 asc";
+        List list = getHibernateTemplate().findByNamedParam(hql, "fecha", fecha);
        return list;
         
     }

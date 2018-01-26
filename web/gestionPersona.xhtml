@@ -43,12 +43,26 @@
                                             <div class="col-md-12">
                                                 <div class="nav-tabs-custom">
                                                     <ul class="nav nav-tabs">
-                                                        <li class="active"><a href="#nombreRecurso" data-toggle="tab">Nombre Persona</a></li>
-                                                        <li><a href="#usuarioRecurso" data-toggle="tab">Documento Y Tipo Documento</a></li>
-                                                        <li><a href="#fechaRecurso" data-toggle="tab">Fecha Ingreso</a></li>
+                                                        <li class="active">
+                                                            <a href="#nombrePersona" data-toggle="tab">
+                                                                <p:commandButton title="Consultar por número de documento" value="Consultar Persona">
+                                                                    <f:ajax event="click" listener="#{gestionpersonasBean.setMostrarConsulta(false)}" render="gestionPersona:buscarDocumento gestionPersona:buscarFechaIngreso gestionPersona:pnGroup"/>
+                                                                </p:commandButton>
+                                                            </a>
+                                                        </li>
+                                                        <li><a href="#tipoDocumentoBusca" data-toggle="tab">
+                                                                <p:commandButton title="Consultar por número de documento" value="Documento">
+                                                                    <f:ajax event="click" listener="#{gestionpersonasBean.setMostrarConsulta(false)}" render="gestionPersona:txtBuscarPersona gestionPersona:buscarFechaIngreso gestionPersona:pnGroup" />
+                                                                </p:commandButton>
+                                                            </a></li>
+                                                        <li><a href="#fechaIngreso" data-toggle="tab">
+                                                                <p:commandButton title="Consultar por número fecha de registro al sistema" value="Fecha Ingreso">
+                                                                    <f:ajax event="click" listener="#{gestionpersonasBean.setMostrarConsulta(false)}" render="gestionPersona:txtBuscarPersona gestionPersona:buscarDocumento gestionPersona:pnGroup" />
+                                                                </p:commandButton>
+                                                            </a></li>
                                                     </ul>
                                                     <div class="tab-content">
-                                                        <div class="active tab-pane" id="nombreRecurso">
+                                                        <div class="active tab-pane" id="nombrePersona">
                                                             <br></br>
                                                             <div class="row">
                                                                 <div class="col-md-3"></div>
@@ -67,7 +81,7 @@
                                                                         <h:inputText class="form-control text-uppercase" maxlength="20" id="txtBuscarPersona" value="#{gestionpersonasBean.buscarPersona}"></h:inputText>
                                                                         <span class="input-group-btn">
                                                                             <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
-                                                                                <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona()}" execute="gestionPersona:txtBuscarPersona" render="gestionPersona:pnGroup"></f:ajax>
+                                                                                <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona('nombre')}" execute="gestionPersona:txtBuscarPersona" render="gestionPersona:pnGroup"></f:ajax>
                                                                             </h:commandLink>
                                                                         </span>
                                                                     </div>
@@ -76,13 +90,64 @@
                                                             <hr></hr>
                                                         </div>
                                                         <!-- /.tab-pane -->
-                                                        <div class="tab-pane" id="usuarioRecurso">
-                                                            c
+                                                        <div class="tab-pane" id="tipoDocumentoBusca">
+                                                            <br></br>
+                                                            <div class="row">
+                                                                <div class="col-md-3"></div>
+                                                                <div class="col-lg-2">
+                                                                    <div class="form-group">
+                                                                        <label>Tipo Documento</label>
+                                                                        <h:selectOneMenu id="td"  class="form-control"  value="#{gestionpersonasBean.buscarTipoDoc}">
+                                                                            <f:selectItems value="#{parametrosBean.tipo_documentos}" var="tipoDocumento" itemValue="#{tipoDocumento.code}" itemLabel="#{tipoDocumento.nombreP}"></f:selectItems>
+                                                                        </h:selectOneMenu>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+                                                                        <label>Documento</label>
+                                                                        <div class="input-group margin-5">
+                                                                            <h:inputText class="form-control text-uppercase" maxlength="20" id="buscarDocumento" value="#{gestionpersonasBean.buscarPersona}"></h:inputText>
+                                                                            <span class="input-group-btn">
+                                                                                <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
+                                                                                    <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona('documento')}" execute="gestionPersona:buscarDocumento gestionPersona:td" render="gestionPersona:pnGroup"></f:ajax>
+                                                                                </h:commandLink>
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr></hr>
                                                         </div>
                                                         <!-- /.tab-pane -->
 
-                                                        <div class="tab-pane" id="fechaRecurso">
-                                                            b
+                                                        <div class="tab-pane" id="fechaIngreso">
+                                                            <br></br>
+                                                            <div class="row">
+                                                                <div class="col-md-3"></div>
+                                                                <div class="col-lg-3 visible-lg visible-md" style="width: 13%">
+                                                                    <div class="input-group margin-2">
+                                                                        <label class="control-label align-left">Fecha Ingreso</label>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-lg-4">
+                                                                    <div class="form-group">
+                                                                        <div class="input-group margin-5">
+                                                                            <p:watermark for="buscarFechaIngreso" value="dd/mm/aaaa"/>
+                                                                            <h:inputText id="buscarFechaIngreso" class="date datepicker form-control" value="#{gestionpersonasBean.buscarFecha}" maxlength="10">
+                                                                                <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                                            </h:inputText><!--VALUE OK-->
+                                                                            <span class="input-group-btn">
+                                                                                <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
+                                                                                    <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona('fecha')}" execute="gestionPersona:buscarFechaIngreso" render="gestionPersona:pnGroup"></f:ajax>
+                                                                                </h:commandLink>
+                                                                            </span>
+                                                                        </div>
+
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <hr></hr>
                                                         </div>
                                                         <!-- /.tab-pane -->
                                                     </div>
@@ -99,7 +164,17 @@
                             <section class="content-header">
                                 <h:panelGrid id="pnGroup" class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
                                     <h:panelGroup rendered="#{gestionpersonasBean.mostrarConsulta}">
+
                                         <div class="box box-primary">
+                                            <br/>
+                                            <div class="row col-lg-12" align="right">
+                                                <div class="col-md-12 col-lg-12 col-sm-12 col-xs-12">
+                                                    <h:commandLink title="Registrar Persona" class="fa fa-plus fa-2x" onclick="$('#dg_persona').modal('show');">
+                                                        <f:ajax execute="@form" event="click"/>
+                                                    </h:commandLink>   
+                                                </div>
+                                            </div>
+                                            <br/>
                                             <div class="box-body">
                                                 <h:dataTable id="persona" class="table table-striped table-bordered table-hover" value="#{gestionpersonasBean.listPersonas}"  var="per" cellspacing="0">
                                                     <h:column>
@@ -155,7 +230,7 @@
                                                                     <div class="col-lg-2">
                                                                         <div class="form-group">
                                                                             <label>Tipo Documento</label>
-                                                                            <h:selectOneMenu id="txtDetalleTipoDocumento"  class="form-control"  value="#{gestionpersonasBean.tipoDoc}" disabled="true">
+                                                                            <h:selectOneMenu id="tdoc"  class="form-control"  value="#{gestionpersonasBean.tipoDoc}" disabled="true">
                                                                                 <f:selectItems value="#{parametrosBean.tipo_documentos}" var="tipoDocumento" itemValue="#{tipoDocumento.code}" itemLabel="#{tipoDocumento.nombreP}"></f:selectItems>
                                                                             </h:selectOneMenu>
                                                                         </div>
@@ -363,7 +438,7 @@
                                                                                 <h:panelGroup rendered="#{gestionpersonasBean.detalleDireccion}">
                                                                                     <span>
                                                                                         <h:commandLink class="btn btn-success #{gestionpersonasBean.campos?'disabled':''}" disabled="#{gestionpersonasBean.campos}">
-                                                                                            <i class="fa fa-check" />
+                                                                                            <i class="fa fa-sort-down" />
                                                                                             <f:ajax event="click" listener="#{gestionpersonasBean.btnDireccion()}" render="generaDireccion cancelarD detDireccion" />
                                                                                         </h:commandLink>
                                                                                     </span>  
@@ -521,6 +596,7 @@
                             }
                             setFechaInput();
                         </script>
+                        <ui:include src="adicionarPersonaModal.xhtml" />
                     </h:form>
                 </c:if>
             </ui:define>
