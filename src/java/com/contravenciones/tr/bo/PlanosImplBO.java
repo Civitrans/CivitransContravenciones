@@ -311,7 +311,7 @@ public class PlanosImplBO implements PlanosBO {
         int estado_comparendo = 1;
         long idDivipoMatri = 0, idDivipoLicCond = 0, idDivipoLicTran = 0;
         if (cargueComparendo.getFotomulta().equals("") && (!cargueComparendo.getFotomulta().isEmpty())) {
-            getCivcomparendo().setComFotomulta((cargueComparendo.getFotomulta().equals("S") ? 1 : 0));
+            getCivcomparendo().setComFotomulta((cargueComparendo.getFotomulta().equals("S") ? new BigDecimal(1) : new BigDecimal(0)));
         } else {
             getCivcomparendo().setComFotomulta(new BigDecimal(0));
         }
