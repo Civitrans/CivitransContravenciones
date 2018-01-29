@@ -10,6 +10,7 @@ import com.contravenciones.jdbc.dao.ITDirecciones;
 import com.contravenciones.jdbc.dao.ITDivipo;
 import com.contravenciones.jdbc.dao.ITParametros;
 import com.contravenciones.jdbc.dao.ITPersonas;
+import com.contravenciones.jdbc.dao.ITUsuarios;
 import com.contravenciones.jsf.bean.BeanGestionPersona;
 import com.contravenciones.tr.persistence.CivDirecciones;
 import com.contravenciones.tr.persistence.CivDivipos;
@@ -34,6 +35,7 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
     private ITParametros parametrosDAO;
     private ITDivipo divipoDAO;
     private ITDirecciones direccionesDAO;
+    private ITUsuarios usuariosDAO;
 
     @Override
     public void listPersona(BeanGestionPersona bean, String accion) throws Exception {
@@ -140,6 +142,12 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
             bean.setGrupoSang(persona.getPerGruposanguineo() + persona.getPerRh());
             bean.setCelular(persona.getPerCelular());
             bean.setEmail(persona.getPerEmail());
+            bean.setEstado(persona.getPerEstado().intValue());
+            bean.setFechaRegistro(persona.getPerFechainicial());
+            CivUsuarios usu = getUsuariosDAO().consultarUsuarioBy(persona.getUsuId().intValue());
+            if (usu != null) {
+                bean.setUsuario(usu.getUsuNombre());
+            }
 
             CivDirecciones direccion = getDireccionesDAO().consultarDireccionActualByPersona(persona.getPerId().intValue());
             if (direccion != null) {
@@ -245,6 +253,13 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
 
         if (beanPersona.getIdpersona() != 0) {
             persona.setPerId(BigDecimal.valueOf(beanPersona.getIdpersona()));
+            persona.setPerEstado(BigDecimal.valueOf(beanPersona.getEstado()));
+            if (beanPersona.getEstado() == 2) {
+                persona.setPerFechafinal(new Date());
+            }
+            if(beanPersona.getEstado()==1){
+               persona.setPerFechafinal(null); 
+            }
             beanPersona.setNombre(persona.getPerNombre1() + " " + (persona.getPerNombre2() != null ? persona.getPerNombre2() + " " : "") + persona.getPerApellido1() + " " + (persona.getPerApellido2() != null ? persona.getPerApellido2() : ""));
             if (!getPersonasDAO().update(persona)) {
                 throw new PersonaException("Persona no pudo ser actualizada.", 1);
@@ -359,6 +374,20 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
      */
     public void setDireccionesDAO(ITDirecciones direccionesDAO) {
         this.direccionesDAO = direccionesDAO;
+    }
+
+    /**
+     * @return the usuariosDAO
+     */
+    public ITUsuarios getUsuariosDAO() {
+        return usuariosDAO;
+    }
+
+    /**
+     * @param usuariosDAO the usuariosDAO to set
+     */
+    public void setUsuariosDAO(ITUsuarios usuariosDAO) {
+        this.usuariosDAO = usuariosDAO;
     }
 
 }

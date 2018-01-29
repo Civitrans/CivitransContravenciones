@@ -105,7 +105,7 @@
                             </h:commandLink>
                             <h:commandLink disabled="#{agentesBean.btnRegistrar}" id="btnRegistrarAgente" class="btn btn-success btn-submit right">
                                 <span class="fa fa-save"></span> Registrar
-                                <f:ajax event="click" listener="#{agentesBean.registrarAgente()}" execute="agentes:crear"/>
+                                <f:ajax event="click" listener="#{agentesBean.registrarAgente('insertar')}" execute="agentes:crear"/>
                             </h:commandLink>
                         </div>
 

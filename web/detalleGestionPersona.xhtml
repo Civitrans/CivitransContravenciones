@@ -6,120 +6,382 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
-    <body>
-        <c:set var="val" value="false"/>
-        <c:forEach items="${loginBean.listRecursos}" var="rec">
-            <c:if  test="#{rec eq 'gestionRecursos'}" var="bool">
-                <c:set var="val" value="true"/>
-            </c:if>
-        </c:forEach>
-        <c:if  test="#{val eq true}">
 
-            <h:form id="frmDetalleGestionPersona">
-                <section class="content-header">
-                    <h1>
-                        Detalle Personas
-                        <small>Lugar donde podra observar una informacion detallada de la persona</small>
-                    </h1>
-                    <ol class="breadcrumb">
-                        <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
-                        <li><a><i class="fa fa-briefcase"></i> Personas</a></li>
-                        <li><a href="gestionPersona.xhtml"><i class="fa fa-briefcase"></i> Gestión Personas</a></li>
-                        <li class="active">Detalle Personas</li>
-                    </ol>
-                    <br></br>
-                    <div class="box box-primary">
-                        <div class="box-body">
-                            <h6 class="page-header"><i class="fa fa-user"></i> Información Personal</h6>
-                            <div class="row">
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label for="idRecurso">Tipo Documento</label>
-                                        <h:inputText class="form-control text-uppercas" id="tipodocumentoPersona" readonly="true"></h:inputText>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="nombreRecurso">Documento</label>
-                                        <h:inputText class="form-control text-uppercas" id="docuemntoPersona" readonly="true"></h:inputText>
-                                    </div>
-                                </div>
-                                <div class="col-lg-5">
-                                    <div class="form-group">
-                                        <label for="descripcionRecurso">Nombre Completo</label>
-                                        <h:inputText class="form-control text-uppercas" id="nombrePersona" readonly="true"></h:inputText>                                </div>
-                                </div>
-                                  <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label for="fechanacimientoPersona">Fecha Nacimiento</label>
-                                        <h:inputText class="form-control text-uppercas" id="fechanacimientoPersona" readonly="true"></h:inputText>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            
-                            <div class="row">
-                               <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="lugarnacimientoPersona">Lugar Nacimiento</label>
-                                        <h:inputText class="form-control text-uppercas" id="lugarnacimientoPersona" readonly="true"></h:inputText>                                </div>
-                                </div>
-                                 <div class="col-lg-3">
-                                    <div class="form-group">
-                                        <label for="fechaExpedicionPersona">Fecha Expedicion</label>
-                                        <h:inputText class="form-control text-uppercas" id="fechaExpedicionPersona" readonly="true"></h:inputText>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label for="sexoPersona">Sexo</label>
-                                        <h:inputText class="form-control text-uppercas" id="sexoPersona" readonly="true"></h:inputText>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label for="rhPersona">Rh</label>
-                                        <h:inputText class="form-control text-uppercas" id="rhPersona" readonly="true"></h:inputText>
-                                    </div>
-                                </div>
-                                <div class="col-lg-2">
-                                    <div class="form-group">
-                                        <label for="grupoSanguineoPersona">Grupo Sanguineo</label>
-                                        <h:inputText class="form-control text-uppercas" id="grupoSanguineoPersona" readonly="true"></h:inputText>       
-                                    </div>
-                                </div>
-                            </div>
-                            <h6 class="page-header"><i class="fa fa-home"></i> Información Residencia</h6>
-                            
-                            <h5 class="page-header"></h5>
-                            <div class="row">
-                                <div class="col-lg-4"></div>
-                                <div class="col-lg-2">
-                                    <h:commandLink class="btn btn-success" style="width: 100%">
-                                        <span class="fa fa-edit"></span> Editar
-                                    </h:commandLink>
-                                </div>
-                                <div class="col-lg-2" >
-                                    <h:commandLink class="btn btn-danger" style="width: 100%">
-                                        <span class="fa fa-trash"></span> Eliminar
-                                    </h:commandLink>
-                                </div>
-                                <div class="col-lg-4"></div>
+    <h:panelGrid id="datosPersona" class="col-lg-12">
+        <h:panelGroup class="col-lg-12">
+            <div class="box box-primary">
+                <div class="box-body">
+                    <h6 class="page-header" style="color: #000;"><i class="fa fa-user"></i> Información Personal</h6>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <p:messages closable="true" autoUpdate="false" id="mensajeDetallePersona" showDetail="true" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>Tipo Documento</label>
+                                <h:selectOneMenu id="tdoc"  class="form-control"  value="#{gestionpersonasBean.tipoDoc}" disabled="true">
+                                    <f:selectItems value="#{parametrosBean.tipo_documentos}" var="tipoDocumento" itemValue="#{tipoDocumento.code}" itemLabel="#{tipoDocumento.nombreP}"></f:selectItems>
+                                </h:selectOneMenu>
                             </div>
                         </div>
-                    </div> 
-                </section>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>Documento</label>
+                                <h:inputText class="form-control" id="docuemntoPersona" disabled="true" value="#{gestionpersonasBean.documento}"></h:inputText>
+                            </div>
+                        </div>
+                        <h:panelGrid class="col-lg-7">
+                            <h:panelGroup rendered="#{gestionpersonasBean.nombreCompleto}">
+                                <div class="form-group">
+                                    <label>Nombre Completo</label>
+                                    <h:inputText class="form-control" id="nombreCompletoPersona" value="#{gestionpersonasBean.nombre}" disabled="#{gestionpersonasBean.campos}"></h:inputText>  
+                                </div>
+                            </h:panelGroup>
+                        </h:panelGrid>
+                        <h:panelGrid class="col-lg-7">
+                            <h:panelGroup rendered="#{gestionpersonasBean.nombreSeparado}">
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Primer Nombre</label>
+                                        <h:inputText  class="form-control" id="primerN" value="#{gestionpersonasBean.nombre1}" maxlength="50">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Segundo Nombre</label>
+                                        <h:inputText  class="form-control" id="segundoN" value="#{gestionpersonasBean.nombre2}" maxlength="50">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Primer Apellido</label>
+                                        <h:inputText  class="form-control" id="primerA" value="#{gestionpersonasBean.apellido1}" maxlength="50">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Segundo Apellido</label>
+                                        <h:inputText  class="form-control" id="segundoA" value="#{gestionpersonasBean.apellido2}" maxlength="50">
+                                        </h:inputText>
+                                    </div>
+                                </div>
+                            </h:panelGroup>
+                        </h:panelGrid>
 
 
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Fecha Nacimiento</label>
+                                <h:inputText id="fechaNaci" class="date datepicker form-control" value="#{gestionpersonasBean.fechaNac}" maxlength="10" disabled="#{gestionpersonasBean.campos}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                </h:inputText><!--VALUE OK-->
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Pais Nacimiento</label>
+                                <h:selectOneMenu id="paisN"  class="form-control" value="#{gestionpersonasBean.paisNac}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:ajax event="change" render="lugarN" />
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.listarPaises()}" var="pais" itemValue="#{pais.code}" itemLabel="#{pais.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Departamento Nacimiento</label>
+                                <h:selectOneMenu id="lugarN"  class="form-control" value="#{gestionpersonasBean.depNac}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:ajax event="change" render="munN" />
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.listarDepartamentosByPais(gestionpersonasBean.paisNac)}" var="depnac" itemValue="#{depnac.code}" itemLabel="#{depnac.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div> 
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Municipio Nacimiento</label>
+                                <h:selectOneMenu id="munN"  class="form-control" value="#{gestionpersonasBean.munNac}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.listarMunicipios(gestionpersonasBean.depNac)}" var="munac" itemValue="#{munac.code}" itemLabel="#{munac.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>Fecha Expedición</label>
+                                <h:inputText id="fechaE" class="date datepicker form-control" value="#{gestionpersonasBean.fechaExp}" maxlength="10" disabled="#{gestionpersonasBean.campos}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                </h:inputText><!--VALUE OK-->
+                            </div>
+                        </div>
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Pais Expedición</label>
+                                <h:selectOneMenu id="paisE"  class="form-control" value="#{gestionpersonasBean.paisExp}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:ajax event="change" render="depE" />
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.listarPaises()}" var="pais" itemValue="#{pais.code}" itemLabel="#{pais.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Departamento Expedición</label>
+                                <h:selectOneMenu id="depE"  class="form-control" value="#{gestionpersonasBean.depExp}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:ajax event="change" render="munE" />
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.listarDepartamentosByPais(gestionpersonasBean.paisExp)}" var="depexp" itemValue="#{depexp.code}" itemLabel="#{depexp.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Municipio Expedición</label>
+                                <h:selectOneMenu id="munE"  class="form-control" value="#{gestionpersonasBean.munExp}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.listarMunicipios(gestionpersonasBean.depExp)}" var="munexp" itemValue="#{munexp.code}" itemLabel="#{munexp.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Sexo</label>
+                                <h:selectOneMenu id="sexoP"  class="form-control" value="#{gestionpersonasBean.sexo}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItem itemLabel="Femenino" itemValue="F" />
+                                    <f:selectItem itemLabel="Masculino" itemValue="M" />
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Grupo Sanguíneo</label>
+                                <h:selectOneMenu id="grupoSP" class="form-control" value="#{gestionpersonasBean.grupoSang}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.consultarParametros(390)}" var="listgs" itemValue="#{listgs.subGrupo}" itemLabel="#{listgs.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-lg-2">
+                            <div class="form-group">
+                                <label>Celular</label>
+                                <h:inputText  class="form-control" id="cel" value="#{gestionpersonasBean.celular}" disabled="#{gestionpersonasBean.campos}" maxlength="15">
+
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>E-mail</label>
+                                <h:inputText  class="form-control text-lowercase" id="correo" value="#{gestionpersonasBean.email}" disabled="#{gestionpersonasBean.campos}" maxlength="70">
+                                </h:inputText>
+                            </div> 
+                        </div>
+                    </div>
+                    <h6 class="page-header" style="color: #000;"><i class="fa fa-home"></i> Información Residencia</h6>
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Departamento Dirección</label>
+                                <h:selectOneMenu id="depD"  class="form-control" value="#{gestionpersonasBean.depDir}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:ajax event="change" render="MunD" />
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.listarDepartamentos()}" var="depdir" itemValue="#{depdir.code}" itemLabel="#{depdir.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Municipio Dirección</label>
+                                <h:selectOneMenu id="MunD"  class="form-control" value="#{gestionpersonasBean.munDir}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                    <f:selectItems value="#{parametrosBean.listarMunicipios(gestionpersonasBean.depDir)}" var="mundir" itemValue="#{mundir.code}" itemLabel="#{mundir.nombreP}"/>
+                                </h:selectOneMenu>
+                            </div>
+                        </div> 
+                        <div class="col-md-2">
+                            <div class="form-group">
+                                <label>Teléfono</label>
+                                <h:inputText  class="form-control" id="tel" value="#{gestionpersonasBean.telefono}" disabled="#{gestionpersonasBean.campos}"  maxlength="15">
+
+                                </h:inputText>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Dirección</label>
+                            <div class="input-group">
+                                <h:inputText id="dir" class="form-control" value="#{gestionpersonasBean.dir}" readonly="true">
+                                </h:inputText >
+                                <h:panelGrid id="detDireccion" class="input-group-btn">
+                                    <h:panelGroup rendered="#{gestionpersonasBean.detalleDireccion}">
+                                        <span>
+                                            <h:commandLink class="btn btn-success #{gestionpersonasBean.campos?'disabled':''}" disabled="#{gestionpersonasBean.campos}">
+                                                <i class="fa fa-book" />
+                                                <f:ajax event="click" listener="#{gestionpersonasBean.btnDireccion()}" render="generaDireccion cancelarD detDireccion" />
+                                            </h:commandLink>
+                                        </span>  
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                                <h:panelGrid id="cancelarD" class="input-group-btn">
+                                    <h:panelGroup rendered="#{gestionpersonasBean.cancelarDireccion}">
+                                        <span>
+                                            <h:commandLink class="btn btn-danger #{gestionpersonasBean.disDireccion?'disabled':''}" disabled="#{gestionpersonasBean.disDireccion}">
+                                                <i class="fa fa-reply" />
+                                                <f:ajax event="click" listener="#{gestionpersonasBean.reversarDireccion()}" render="dir cancelarD" />
+                                            </h:commandLink>
+                                        </span>  
+                                    </h:panelGroup>
+                                </h:panelGrid>
+                            </div>
+                        </div>
+                    </div>
+                    <h:panelGrid id="generaDireccion" class="col-lg-12">
+                        <h:panelGroup rendered="#{gestionpersonasBean.generarDireccion}">
+                            <h6 class="page-header" style="font-size: 18px; color: #000;"><i class="fa fa-address-book"></i> Generar Dirección</h6>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <p:messages closable="true" autoUpdate="false" id="mensajeDireccion" showDetail="true" />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Nomenclatura</label>
+                                        <h:selectOneMenu id="via"  class="form-control" value="#{gestionpersonasBean.nomenclatura}" disabled="#{gestionpersonasBean.campos}">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                            <f:selectItems value="#{gestionpersonasBean.listNomenclatura.entrySet()}" var="nom" itemValue="#{nom.key}" itemLabel="#{nom.value}"/>
+                                            <f:ajax event="change" listener="#{gestionpersonasBean.generaDireccion('nom')}" render="dir via cancelarD"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group">
+                                        <label>Símbolo</label>
+                                        <h:selectOneMenu id="detvia"  class="form-control" value="#{gestionpersonasBean.simbolo}" disabled="#{gestionpersonasBean.campos}">
+                                            <f:selectItem itemLabel="Seleccione" itemValue="" />
+                                            <f:selectItem itemLabel="#" itemValue="1" />
+                                            <f:selectItem itemLabel="-" itemValue="2" />
+                                            <f:ajax event="change" listener="#{gestionpersonasBean.generaDireccion('sim')}" render="dir detvia cancelarD"/>
+                                        </h:selectOneMenu>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3">
+                                    <label>Número</label>
+                                    <div class="input-group">
+                                        <h:inputText id="numero1" class="form-control" value="#{gestionpersonasBean.numero1}" disabled="#{gestionpersonasBean.campos}" maxlength="5">
+                                        </h:inputText>
+                                        <span class="input-group-btn">
+                                            <h:commandLink class="btn btn-success #{gestionpersonasBean.campos?'disabled':''}" disabled="#{gestionpersonasBean.campos}">
+                                                <i class="fa fa-check" />
+                                                <f:ajax event="click" listener="#{gestionpersonasBean.generaDireccion('num')}" execute="numero1" render="dir numero1 cancelarD" />
+                                            </h:commandLink>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <label>Letra</label>
+                                    <div class="input-group">
+                                        <h:inputText id="letra" class="form-control" value="#{gestionpersonasBean.letra}" disabled="#{gestionpersonasBean.campos}" maxlength="5">
+                                        </h:inputText>
+                                        <span class="input-group-btn">
+                                            <h:commandLink class="btn btn-success #{gestionpersonasBean.campos?'disabled':''}" disabled="#{gestionpersonasBean.campos}">
+                                                <i class="fa fa-check" />
+                                                <f:ajax event="click" listener="#{gestionpersonasBean.generaDireccion('letra')}" execute="letra" render="dir letra cancelarD" />
+                                            </h:commandLink>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h5 class="page-header"></h5>
+                        </h:panelGroup>
+                    </h:panelGrid>
+                    <h6 class="page-header" style="color: #000;"><i class="fa fa-desktop"></i> Información Sistema</h6>
+                    <div class="row">
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Estado Persona</label>
+                                <h:selectOneMenu id="estadoPer"  class="form-control"  value="#{gestionpersonasBean.estado}" disabled="#{gestionpersonasBean.campos}">
+                                    <f:selectItems value="#{gestionpersonasBean.estadoPersona.entrySet()}" var="est" itemValue="#{est.key}" itemLabel="#{est.value}"></f:selectItems>
+                                </h:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Fecha Registro</label>
+                                <h:inputText id="fechaRegistroPersona" class="date datepicker form-control" value="#{gestionpersonasBean.fechaRegistro}" maxlength="10" disabled="true">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                </h:inputText><!--VALUE OK-->
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="form-group">
+                                <label>Usuario Creación</label>
+                                <h:inputText class="form-control" id="usuarioCreacion" value="#{gestionpersonasBean.usuario}" disabled="true"  maxlength="15">
+
+                                </h:inputText>
+                            </div>
+                        </div>
+                    </div>
+                    <h5 class="page-header"></h5>
+                    <div class="row">
+                        <div class="col-lg-12" align="center">
+                            <h:panelGrid id="btnEditar">
+                                <h:panelGroup rendered="#{gestionpersonasBean.btnEditar}">
+                                    <div class="col-lg-6" align="center">
+                                        <h:commandLink class="btn btn-warning" style="width: 200px" >
+                                            <span class="fa fa-edit"></span> Editar
+                                            <f:ajax event="click" listener="#{gestionpersonasBean.habilitarCampos()}" render="btnsEditar btnEditar datosPersona" ></f:ajax>
+                                        </h:commandLink>  
+                                    </div>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-lg-12" align="center">
+                            <h:panelGrid id="btnsEditar">
+                                <h:panelGroup rendered="#{gestionpersonasBean.botones}">
+                                    <div class="col-lg-6" align="center">
+                                        <h:commandLink class="btn btn-warning" style="width: 200px" >
+                                            <span class="fa fa-close"></span> Cancelar
+                                            <f:ajax event="click" listener="#{gestionpersonasBean.cancelarEdicion()}" render="btnsEditar btnEditar datosPersona"></f:ajax>
+                                        </h:commandLink>
+                                    </div>
+                                    <div class="col-lg-6" align="center">
+                                        <h:commandLink class="btn btn-success" style="width: 200px">
+                                            <span class="fa fa-save"></span> Guardar
+                                            <f:ajax event="click" listener="#{gestionpersonasBean.guardarDatosPersona('actualizar')}" execute="datosPersona" render="datosPersona btnsEditar btnEditar"/>
+                                        </h:commandLink> 
+                                    </div>
+                                </h:panelGroup>
+                            </h:panelGrid>
+                        </div>
+                    </div>
+
+                </div>
+            </div> 
+        </h:panelGroup>
+    </h:panelGrid>
 
 
-
-            </h:form>
-        </c:if>
-
-        <hr></hr>
-
-
-    </body>      
 </html>        
 

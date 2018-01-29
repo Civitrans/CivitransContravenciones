@@ -57,8 +57,11 @@ public class BeanGestionPersona implements Serializable {
     private int munExp;
     private int depDir;
     private int munDir;
+    private int estado;
+    private Date fechaRegistro;
     private Date fechaExp;
     private Date fechaInicialDir;
+    private String usuario;
     private String nombre; // nombre completo de la persona
     private String nombre1;
     private String nombre2;
@@ -91,20 +94,22 @@ public class BeanGestionPersona implements Serializable {
             getGestionPersonaBO().cargarDatos(this);
             setListNomenclatura(new ValidacionDatos().ordenarMap(getListNomenclatura()));
         } catch (Exception e) {
-            e.printStackTrace();
+            Log_Handler.registrarEvento("Error al cargar datos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
         }
     }
 
-    public void detalle(CivPersonas bean) {
+    public void detalle(CivPersonas civPersonas) {
         setMostrarDetalle(true);
         setMostrarBuscar(false);
         setMostrarConsulta(false);
-        impDetallePersona(bean);
+        impDetallePersona(civPersonas);
     }
 
-    protected void impDetallePersona(CivPersonas bean) {
+    protected void impDetallePersona(CivPersonas civPersonas) {
         try {
-            getGestionPersonaBO().detallePersona(bean, this);
+            getGestionPersonaBO().detallePersona(civPersonas, this);
             //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
         } catch (PersonaException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
@@ -152,18 +157,21 @@ public class BeanGestionPersona implements Serializable {
     protected void guardarPersona(String proceso) {
         try {
             getGestionPersonaBO().guardarPersona(this);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Persona registrada correctamente"));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("messageGeneral");
+
             if (proceso.equals("insertar")) {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Persona registrada correctamente"));
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("messageGeneral");
                 limpiarModal();
                 RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
             } else {
+                
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
                 deshabilitarCampos();
             }
 
         } catch (PersonaException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("mensajeDetallePersona gestionPersona:messageGeneral");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error guardando persona: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(loginBean.getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
@@ -1065,6 +1073,48 @@ public class BeanGestionPersona implements Serializable {
      */
     public void setBuscarFecha(Date buscarFecha) {
         this.buscarFecha = buscarFecha;
+    }
+
+    /**
+     * @return the estado
+     */
+    public int getEstado() {
+        return estado;
+    }
+
+    /**
+     * @param estado the estado to set
+     */
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
+    /**
+     * @return the fechaRegistro
+     */
+    public Date getFechaRegistro() {
+        return fechaRegistro;
+    }
+
+    /**
+     * @param fechaRegistro the fechaRegistro to set
+     */
+    public void setFechaRegistro(Date fechaRegistro) {
+        this.fechaRegistro = fechaRegistro;
+    }
+
+    /**
+     * @return the usuario
+     */
+    public String getUsuario() {
+        return usuario;
+    }
+
+    /**
+     * @param usuario the usuario to set
+     */
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
 }

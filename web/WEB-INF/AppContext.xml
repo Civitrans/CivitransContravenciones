@@ -248,6 +248,7 @@
         <property name="parametrosDAO" ref="parametrosDAO"/>
         <property name="divipoDAO" ref="divipoDAO"/>
         <property name="direccionesDAO" ref="direccionesDAO"/>
+        <property name="usuariosDAO" ref="usuariosDAO"/>
     </bean>
     <bean id="gestionRecursoBO" class="com.contravenciones.tr.bo.GestionRecursoImplBO">
         <property name="recursosDAO" ref="recursosDAO" />
