@@ -1,14 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivMunicipios" table="CIV_MUNICIPIOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivMunicipios" table="CIV_MUNICIPIOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los diferentes municipios/localidades nacionales o internacionales</comment>
         <id name="munId" type="big_decimal">
             <column name="MUN_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
+        <many-to-one name="civPais" class="com.contravenciones.tr.persistence.CivPais" fetch="select">
+            <column name="PAI_ID" precision="22" scale="0">
+                <comment>fk de la tabla civ_pais</comment>
+            </column>
+        </many-to-one>
         <property name="munNombre" type="string">
             <column name="MUN_NOMBRE" length="200">
                 <comment>Nombre del municipio</comment>
@@ -24,10 +29,21 @@
                 <comment>fk de la tabla civ_departamento</comment>
             </column>
         </property>
-        <property name="paiId" type="big_decimal">
-            <column name="PAI_ID" precision="22" scale="0">
-                <comment>fk de la tabla civ_pais</comment>
-            </column>
-        </property>
+        <set name="civPobladoses" table="CIV_POBLADOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MUN_ID" precision="22" scale="0">
+                    <comment>ID de municipio</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivPoblados" />
+        </set>
+        <set name="civDiviposes" table="CIV_DIVIPOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="MUN_ID" precision="22" scale="0">
+                    <comment>fk de la tabla civ_municipios</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDivipos" />
+        </set>
     </class>
 </hibernate-mapping>

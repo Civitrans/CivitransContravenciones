@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivErrores" table="CIV_ERRORES" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivErrores" table="CIV_ERRORES" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los posibles errores del sistema y sus posibles soluciones.</comment>
         <id name="errId" type="big_decimal">
             <column name="ERR_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <property name="errException" type="string">
             <column name="ERR_EXCEPTION" length="200">

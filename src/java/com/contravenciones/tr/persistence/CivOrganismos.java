@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -23,7 +23,6 @@ public class CivOrganismos  implements java.io.Serializable {
      private Date orgFechainicial;
      private Date orgFechafinal;
      private Date orgFechaproceso;
-     private BigDecimal usuId;
 
     public CivOrganismos() {
     }
@@ -32,7 +31,7 @@ public class CivOrganismos  implements java.io.Serializable {
     public CivOrganismos(BigDecimal orgId) {
         this.orgId = orgId;
     }
-    public CivOrganismos(BigDecimal orgId, String orgNombre, String orgTelefono, String orgDireccion, String orgEmail, String orgNit, String orgCodigo, String orgNombrecorto, BigDecimal orgEstado, Date orgFechainicial, Date orgFechafinal, Date orgFechaproceso, BigDecimal usuId) {
+    public CivOrganismos(BigDecimal orgId, String orgNombre, String orgTelefono, String orgDireccion, String orgEmail, String orgNit, String orgCodigo, String orgNombrecorto, BigDecimal orgEstado, Date orgFechainicial, Date orgFechafinal, Date orgFechaproceso) {
        this.orgId = orgId;
        this.orgNombre = orgNombre;
        this.orgTelefono = orgTelefono;
@@ -45,7 +44,6 @@ public class CivOrganismos  implements java.io.Serializable {
        this.orgFechainicial = orgFechainicial;
        this.orgFechafinal = orgFechafinal;
        this.orgFechaproceso = orgFechaproceso;
-       this.usuId = usuId;
     }
    
     public BigDecimal getOrgId() {
@@ -131,13 +129,6 @@ public class CivOrganismos  implements java.io.Serializable {
     
     public void setOrgFechaproceso(Date orgFechaproceso) {
         this.orgFechaproceso = orgFechaproceso;
-    }
-    public BigDecimal getUsuId() {
-        return this.usuId;
-    }
-    
-    public void setUsuId(BigDecimal usuId) {
-        this.usuId = usuId;
     }
 
 

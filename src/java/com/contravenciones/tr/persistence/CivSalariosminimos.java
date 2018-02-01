@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,7 +12,6 @@ public class CivSalariosminimos  implements java.io.Serializable {
 
 
      private BigDecimal salId;
-     private CivUsuarios civUsuarios;
      private BigDecimal salVigencia;
      private BigDecimal salValor;
      private BigDecimal salEstado;
@@ -23,17 +22,15 @@ public class CivSalariosminimos  implements java.io.Serializable {
     }
 
 	
-    public CivSalariosminimos(BigDecimal salId, CivUsuarios civUsuarios, BigDecimal salVigencia, BigDecimal salValor, BigDecimal salEstado, Date salFechainicial) {
+    public CivSalariosminimos(BigDecimal salId, BigDecimal salVigencia, BigDecimal salValor, BigDecimal salEstado, Date salFechainicial) {
         this.salId = salId;
-        this.civUsuarios = civUsuarios;
         this.salVigencia = salVigencia;
         this.salValor = salValor;
         this.salEstado = salEstado;
         this.salFechainicial = salFechainicial;
     }
-    public CivSalariosminimos(BigDecimal salId, CivUsuarios civUsuarios, BigDecimal salVigencia, BigDecimal salValor, BigDecimal salEstado, Date salFechainicial, Date salFechafinal) {
+    public CivSalariosminimos(BigDecimal salId, BigDecimal salVigencia, BigDecimal salValor, BigDecimal salEstado, Date salFechainicial, Date salFechafinal) {
        this.salId = salId;
-       this.civUsuarios = civUsuarios;
        this.salVigencia = salVigencia;
        this.salValor = salValor;
        this.salEstado = salEstado;
@@ -47,13 +44,6 @@ public class CivSalariosminimos  implements java.io.Serializable {
     
     public void setSalId(BigDecimal salId) {
         this.salId = salId;
-    }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
-    }
-    
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
     }
     public BigDecimal getSalVigencia() {
         return this.salVigencia;

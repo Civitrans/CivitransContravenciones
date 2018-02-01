@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -14,7 +14,6 @@ public class CivTipodocumentos  implements java.io.Serializable {
 
 
      private BigDecimal tipdocId;
-     private CivUsuarios civUsuarios;
      private BigDecimal tipdocCodigo;
      private String tipdocNombre;
      private BigDecimal tipdocEstado;
@@ -27,13 +26,15 @@ public class CivTipodocumentos  implements java.io.Serializable {
     }
 
 	
-    public CivTipodocumentos(BigDecimal tipdocId, String tipdocNombre) {
+    public CivTipodocumentos(BigDecimal tipdocId, BigDecimal tipdocCodigo, String tipdocNombre, BigDecimal tipdocEstado, Date tipdocFechainicial) {
         this.tipdocId = tipdocId;
+        this.tipdocCodigo = tipdocCodigo;
         this.tipdocNombre = tipdocNombre;
+        this.tipdocEstado = tipdocEstado;
+        this.tipdocFechainicial = tipdocFechainicial;
     }
-    public CivTipodocumentos(BigDecimal tipdocId, CivUsuarios civUsuarios, BigDecimal tipdocCodigo, String tipdocNombre, BigDecimal tipdocEstado, Date tipdocFechainicial, Date tipdocFechafinal, String tipdocNombrecorto, Set civPersonases) {
+    public CivTipodocumentos(BigDecimal tipdocId, BigDecimal tipdocCodigo, String tipdocNombre, BigDecimal tipdocEstado, Date tipdocFechainicial, Date tipdocFechafinal, String tipdocNombrecorto, Set civPersonases) {
        this.tipdocId = tipdocId;
-       this.civUsuarios = civUsuarios;
        this.tipdocCodigo = tipdocCodigo;
        this.tipdocNombre = tipdocNombre;
        this.tipdocEstado = tipdocEstado;
@@ -49,13 +50,6 @@ public class CivTipodocumentos  implements java.io.Serializable {
     
     public void setTipdocId(BigDecimal tipdocId) {
         this.tipdocId = tipdocId;
-    }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
-    }
-    
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
     }
     public BigDecimal getTipdocCodigo() {
         return this.tipdocCodigo;

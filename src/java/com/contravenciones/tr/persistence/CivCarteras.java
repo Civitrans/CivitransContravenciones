@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -14,50 +14,46 @@ public class CivCarteras  implements java.io.Serializable {
 
 
      private BigDecimal carId;
-     private CivUsuarios civUsuarios;
-     private CivPersonas civPersonas;
+     private CivTipocarteras civTipocarteras;
      private CivConceptos civConceptos;
-     private BigDecimal pagId;
-     private BigDecimal carTipo;
-     private String carReferencia;
-     private BigDecimal carPeriodo;
+     private String carReferencia1;
+     private String carReferencia2;
      private BigDecimal carValor;
      private BigDecimal carSaldo;
-     private Date carFechasaldo;
-     private BigDecimal carEstado;
+     private BigDecimal carPeriodo;
      private Date carFechainicial;
      private Date carFechafinal;
+     private BigDecimal carEstado;
+     private Set civResolucioneses = new HashSet(0);
+     private Set civComparendoses = new HashSet(0);
      private Set civDetallecarteras = new HashSet(0);
 
     public CivCarteras() {
     }
 
 	
-    public CivCarteras(BigDecimal carId, CivUsuarios civUsuarios, CivPersonas civPersonas, CivConceptos civConceptos, BigDecimal carValor, BigDecimal carSaldo, BigDecimal carEstado, Date carFechainicial) {
+    public CivCarteras(BigDecimal carId, CivConceptos civConceptos, BigDecimal carValor, BigDecimal carSaldo, Date carFechainicial, BigDecimal carEstado) {
         this.carId = carId;
-        this.civUsuarios = civUsuarios;
-        this.civPersonas = civPersonas;
         this.civConceptos = civConceptos;
         this.carValor = carValor;
         this.carSaldo = carSaldo;
-        this.carEstado = carEstado;
         this.carFechainicial = carFechainicial;
+        this.carEstado = carEstado;
     }
-    public CivCarteras(BigDecimal carId, CivUsuarios civUsuarios, CivPersonas civPersonas, CivConceptos civConceptos, BigDecimal pagId, BigDecimal carTipo, String carReferencia, BigDecimal carPeriodo, BigDecimal carValor, BigDecimal carSaldo, Date carFechasaldo, BigDecimal carEstado, Date carFechainicial, Date carFechafinal, Set civDetallecarteras) {
+    public CivCarteras(BigDecimal carId, CivTipocarteras civTipocarteras, CivConceptos civConceptos, String carReferencia1, String carReferencia2, BigDecimal carValor, BigDecimal carSaldo, BigDecimal carPeriodo, Date carFechainicial, Date carFechafinal, BigDecimal carEstado, Set civResolucioneses, Set civComparendoses, Set civDetallecarteras) {
        this.carId = carId;
-       this.civUsuarios = civUsuarios;
-       this.civPersonas = civPersonas;
+       this.civTipocarteras = civTipocarteras;
        this.civConceptos = civConceptos;
-       this.pagId = pagId;
-       this.carTipo = carTipo;
-       this.carReferencia = carReferencia;
-       this.carPeriodo = carPeriodo;
+       this.carReferencia1 = carReferencia1;
+       this.carReferencia2 = carReferencia2;
        this.carValor = carValor;
        this.carSaldo = carSaldo;
-       this.carFechasaldo = carFechasaldo;
-       this.carEstado = carEstado;
+       this.carPeriodo = carPeriodo;
        this.carFechainicial = carFechainicial;
        this.carFechafinal = carFechafinal;
+       this.carEstado = carEstado;
+       this.civResolucioneses = civResolucioneses;
+       this.civComparendoses = civComparendoses;
        this.civDetallecarteras = civDetallecarteras;
     }
    
@@ -68,19 +64,12 @@ public class CivCarteras  implements java.io.Serializable {
     public void setCarId(BigDecimal carId) {
         this.carId = carId;
     }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
+    public CivTipocarteras getCivTipocarteras() {
+        return this.civTipocarteras;
     }
     
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
-    }
-    public CivPersonas getCivPersonas() {
-        return this.civPersonas;
-    }
-    
-    public void setCivPersonas(CivPersonas civPersonas) {
-        this.civPersonas = civPersonas;
+    public void setCivTipocarteras(CivTipocarteras civTipocarteras) {
+        this.civTipocarteras = civTipocarteras;
     }
     public CivConceptos getCivConceptos() {
         return this.civConceptos;
@@ -89,33 +78,19 @@ public class CivCarteras  implements java.io.Serializable {
     public void setCivConceptos(CivConceptos civConceptos) {
         this.civConceptos = civConceptos;
     }
-    public BigDecimal getPagId() {
-        return this.pagId;
+    public String getCarReferencia1() {
+        return this.carReferencia1;
     }
     
-    public void setPagId(BigDecimal pagId) {
-        this.pagId = pagId;
+    public void setCarReferencia1(String carReferencia1) {
+        this.carReferencia1 = carReferencia1;
     }
-    public BigDecimal getCarTipo() {
-        return this.carTipo;
-    }
-    
-    public void setCarTipo(BigDecimal carTipo) {
-        this.carTipo = carTipo;
-    }
-    public String getCarReferencia() {
-        return this.carReferencia;
+    public String getCarReferencia2() {
+        return this.carReferencia2;
     }
     
-    public void setCarReferencia(String carReferencia) {
-        this.carReferencia = carReferencia;
-    }
-    public BigDecimal getCarPeriodo() {
-        return this.carPeriodo;
-    }
-    
-    public void setCarPeriodo(BigDecimal carPeriodo) {
-        this.carPeriodo = carPeriodo;
+    public void setCarReferencia2(String carReferencia2) {
+        this.carReferencia2 = carReferencia2;
     }
     public BigDecimal getCarValor() {
         return this.carValor;
@@ -131,19 +106,12 @@ public class CivCarteras  implements java.io.Serializable {
     public void setCarSaldo(BigDecimal carSaldo) {
         this.carSaldo = carSaldo;
     }
-    public Date getCarFechasaldo() {
-        return this.carFechasaldo;
+    public BigDecimal getCarPeriodo() {
+        return this.carPeriodo;
     }
     
-    public void setCarFechasaldo(Date carFechasaldo) {
-        this.carFechasaldo = carFechasaldo;
-    }
-    public BigDecimal getCarEstado() {
-        return this.carEstado;
-    }
-    
-    public void setCarEstado(BigDecimal carEstado) {
-        this.carEstado = carEstado;
+    public void setCarPeriodo(BigDecimal carPeriodo) {
+        this.carPeriodo = carPeriodo;
     }
     public Date getCarFechainicial() {
         return this.carFechainicial;
@@ -158,6 +126,27 @@ public class CivCarteras  implements java.io.Serializable {
     
     public void setCarFechafinal(Date carFechafinal) {
         this.carFechafinal = carFechafinal;
+    }
+    public BigDecimal getCarEstado() {
+        return this.carEstado;
+    }
+    
+    public void setCarEstado(BigDecimal carEstado) {
+        this.carEstado = carEstado;
+    }
+    public Set getCivResolucioneses() {
+        return this.civResolucioneses;
+    }
+    
+    public void setCivResolucioneses(Set civResolucioneses) {
+        this.civResolucioneses = civResolucioneses;
+    }
+    public Set getCivComparendoses() {
+        return this.civComparendoses;
+    }
+    
+    public void setCivComparendoses(Set civComparendoses) {
+        this.civComparendoses = civComparendoses;
     }
     public Set getCivDetallecarteras() {
         return this.civDetallecarteras;

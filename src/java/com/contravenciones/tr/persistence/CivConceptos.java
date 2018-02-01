@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -14,7 +14,6 @@ public class CivConceptos  implements java.io.Serializable {
 
 
      private BigDecimal conId;
-     private CivUsuarios civUsuarios;
      private String conNombre;
      private String conDescripcion;
      private BigDecimal conTipo;
@@ -31,17 +30,15 @@ public class CivConceptos  implements java.io.Serializable {
     }
 
 	
-    public CivConceptos(BigDecimal conId, CivUsuarios civUsuarios, String conNombre, BigDecimal conTipo, Date conFechainicial, BigDecimal conEstado) {
+    public CivConceptos(BigDecimal conId, String conNombre, BigDecimal conTipo, Date conFechainicial, BigDecimal conEstado) {
         this.conId = conId;
-        this.civUsuarios = civUsuarios;
         this.conNombre = conNombre;
         this.conTipo = conTipo;
         this.conFechainicial = conFechainicial;
         this.conEstado = conEstado;
     }
-    public CivConceptos(BigDecimal conId, CivUsuarios civUsuarios, String conNombre, String conDescripcion, BigDecimal conTipo, BigDecimal conClase, BigDecimal conPrioridad, Date conFechainicial, Date conFechafinal, BigDecimal conEstado, Set civDetallecarteras, Set civDatosParametricoses, Set civCarterases) {
+    public CivConceptos(BigDecimal conId, String conNombre, String conDescripcion, BigDecimal conTipo, BigDecimal conClase, BigDecimal conPrioridad, Date conFechainicial, Date conFechafinal, BigDecimal conEstado, Set civDetallecarteras, Set civDatosParametricoses, Set civCarterases) {
        this.conId = conId;
-       this.civUsuarios = civUsuarios;
        this.conNombre = conNombre;
        this.conDescripcion = conDescripcion;
        this.conTipo = conTipo;
@@ -61,13 +58,6 @@ public class CivConceptos  implements java.io.Serializable {
     
     public void setConId(BigDecimal conId) {
         this.conId = conId;
-    }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
-    }
-    
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
     }
     public String getConNombre() {
         return this.conNombre;

@@ -1,14 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivRecursos" table="CIV_RECURSOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivRecursos" table="CIV_RECURSOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los recursos disponibles para los usuarios del sistema.</comment>
         <id name="recId" type="big_decimal">
             <column name="REC_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
+        <many-to-one name="civPerfiles" class="com.contravenciones.tr.persistence.CivPerfiles" fetch="select">
+            <column name="PERF_ID" precision="22" scale="0">
+                <comment>ID unico del perfil</comment>
+            </column>
+        </many-to-one>
         <many-to-one name="civModulos" class="com.contravenciones.tr.persistence.CivModulos" fetch="select">
             <column name="MOD_ID" precision="22" scale="0">
                 <comment>ID de modulo</comment>
@@ -49,25 +54,25 @@
                 <comment>Tipo de recurso</comment>
             </column>
         </property>
-        <set name="civDetalleRecUsus" table="CIV_DETALLE_REC_USU" inverse="true" lazy="false" fetch="join">
+        <set name="civDetalleRecursoses" table="CIV_DETALLE_RECURSOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="REC_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecursos" />
+        </set>
+        <set name="civDetalleRecUsus" table="CIV_DETALLE_REC_USU" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="REC_ID" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecUsu" />
         </set>
-        <set name="civPerfilrecursos" table="CIV_PERFILRECURSO" inverse="true" lazy="false" fetch="join">
+        <set name="civPerfilrecursos" table="CIV_PERFILRECURSO" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="REC_ID" precision="22" scale="0" not-null="true">
                     <comment>ID del recurso</comment>
                 </column>
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivPerfilrecurso" />
-        </set>
-        <set name="civDetalleRecursoses" table="CIV_DETALLE_RECURSOS" inverse="true" lazy="false" fetch="join">
-            <key>
-                <column name="REC_ID" precision="22" scale="0" />
-            </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecursos" />
         </set>
     </class>
 </hibernate-mapping>

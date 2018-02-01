@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,7 +12,6 @@ public class CivDatosParametricos  implements java.io.Serializable {
 
 
      private BigDecimal dtparaId;
-     private CivUsuarios civUsuarios;
      private CivConceptos civConceptos;
      private BigDecimal dtparaTipo;
      private BigDecimal dtparaPorcentaje;
@@ -24,22 +23,21 @@ public class CivDatosParametricos  implements java.io.Serializable {
      private String dtparaDescripcion;
      private BigDecimal dtparaValorFijo;
      private BigDecimal dtparaLongitud;
+     private BigDecimal concId;
 
     public CivDatosParametricos() {
     }
 
 	
-    public CivDatosParametricos(BigDecimal dtparaId, CivUsuarios civUsuarios, BigDecimal dtparaTipo, Date dtparaFechaIni, BigDecimal dtparaEstado, String dtparaDescripcion) {
+    public CivDatosParametricos(BigDecimal dtparaId, BigDecimal dtparaTipo, Date dtparaFechaIni, BigDecimal dtparaEstado, String dtparaDescripcion) {
         this.dtparaId = dtparaId;
-        this.civUsuarios = civUsuarios;
         this.dtparaTipo = dtparaTipo;
         this.dtparaFechaIni = dtparaFechaIni;
         this.dtparaEstado = dtparaEstado;
         this.dtparaDescripcion = dtparaDescripcion;
     }
-    public CivDatosParametricos(BigDecimal dtparaId, CivUsuarios civUsuarios, CivConceptos civConceptos, BigDecimal dtparaTipo, BigDecimal dtparaPorcentaje, BigDecimal dtparaDiaMin, BigDecimal dtparaDiaMax, Date dtparaFechaIni, Date dtparaFechaFin, BigDecimal dtparaEstado, String dtparaDescripcion, BigDecimal dtparaValorFijo, BigDecimal dtparaLongitud) {
+    public CivDatosParametricos(BigDecimal dtparaId, CivConceptos civConceptos, BigDecimal dtparaTipo, BigDecimal dtparaPorcentaje, BigDecimal dtparaDiaMin, BigDecimal dtparaDiaMax, Date dtparaFechaIni, Date dtparaFechaFin, BigDecimal dtparaEstado, String dtparaDescripcion, BigDecimal dtparaValorFijo, BigDecimal dtparaLongitud, BigDecimal concId) {
        this.dtparaId = dtparaId;
-       this.civUsuarios = civUsuarios;
        this.civConceptos = civConceptos;
        this.dtparaTipo = dtparaTipo;
        this.dtparaPorcentaje = dtparaPorcentaje;
@@ -51,6 +49,7 @@ public class CivDatosParametricos  implements java.io.Serializable {
        this.dtparaDescripcion = dtparaDescripcion;
        this.dtparaValorFijo = dtparaValorFijo;
        this.dtparaLongitud = dtparaLongitud;
+       this.concId = concId;
     }
    
     public BigDecimal getDtparaId() {
@@ -59,13 +58,6 @@ public class CivDatosParametricos  implements java.io.Serializable {
     
     public void setDtparaId(BigDecimal dtparaId) {
         this.dtparaId = dtparaId;
-    }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
-    }
-    
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
     }
     public CivConceptos getCivConceptos() {
         return this.civConceptos;
@@ -143,6 +135,13 @@ public class CivDatosParametricos  implements java.io.Serializable {
     
     public void setDtparaLongitud(BigDecimal dtparaLongitud) {
         this.dtparaLongitud = dtparaLongitud;
+    }
+    public BigDecimal getConcId() {
+        return this.concId;
+    }
+    
+    public void setConcId(BigDecimal concId) {
+        this.concId = concId;
     }
 
 

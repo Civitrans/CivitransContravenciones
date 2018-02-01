@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivPersonas" table="CIV_PERSONAS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivPersonas" table="CIV_PERSONAS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="perId" type="big_decimal">
             <column name="PER_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="civTipodocumentos" class="com.contravenciones.tr.persistence.CivTipodocumentos" fetch="select">
             <column name="TIPDOC_ID" precision="22" scale="0" not-null="true" />
@@ -62,37 +62,16 @@
         <property name="perFechaproceso" type="date">
             <column name="PER_FECHAPROCESO" length="7" />
         </property>
-        <property name="usuId" type="big_decimal">
-            <column name="USU_ID" precision="22" scale="0" />
-        </property>
         <property name="perLugarexpedicion" type="big_decimal">
             <column name="PER_LUGAREXPEDICION" precision="22" scale="0" />
         </property>
-        <set name="civDireccioneses" table="CIV_DIRECCIONES" inverse="true" lazy="false" fetch="select">
+        <set name="civExpedienteses" table="CIV_EXPEDIENTES" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="PER_ID" precision="22" scale="0">
-                    <comment>Fk de la taabla civ_personas</comment>
-                </column>
+                <column name="PER_ID" precision="22" scale="0" not-null="true" />
             </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivDirecciones" />
+            <one-to-many class="com.contravenciones.tr.persistence.CivExpedientes" />
         </set>
-        <set name="civComparendosesForPerId" table="CIV_COMPARENDOS" inverse="true" lazy="false" fetch="select">
-            <key>
-                <column name="PER_ID" precision="22" scale="0" not-null="true">
-                    <comment>PERSONA DEL COMPARENDO</comment>
-                </column>
-            </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivComparendos" />
-        </set>
-        <set name="civComparendosesForPerTestigo" table="CIV_COMPARENDOS" inverse="true" lazy="false" fetch="select">
-            <key>
-                <column name="PER_TESTIGO" precision="22" scale="0">
-                    <comment>TESTIGO DEL COMPARENDO</comment>
-                </column>
-            </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivComparendos" />
-        </set>
-        <set name="civUsuarioses" table="CIV_USUARIOS" inverse="true" lazy="false" fetch="select">
+        <set name="civUsuarioses" table="CIV_USUARIOS" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="PER_ID" precision="22" scale="0" not-null="true">
                     <comment>ID unico de persona</comment>
@@ -100,27 +79,13 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivUsuarios" />
         </set>
-        <set name="civAgenteses" table="CIV_AGENTES" inverse="true" lazy="false" fetch="select">
+        <set name="civDireccioneses" table="CIV_DIRECCIONES" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="PER_ID" precision="22" scale="0" not-null="true" />
-            </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivAgentes" />
-        </set>
-        <set name="civCarterases" table="CIV_CARTERAS" inverse="true" lazy="false" fetch="select">
-            <key>
-                <column name="PER_ID" precision="22" scale="0" not-null="true">
-                    <comment>PERSONA DE LA CARTERA</comment>
+                <column name="PER_ID" precision="22" scale="0">
+                    <comment>Fk de la taabla civ_personas</comment>
                 </column>
             </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivCarteras" />
-        </set>
-        <set name="civComparendosesForPerPropietario" table="CIV_COMPARENDOS" inverse="true" lazy="false" fetch="select">
-            <key>
-                <column name="PER_PROPIETARIO" precision="22" scale="0">
-                    <comment>PROPIETARIO DEL VEHICULO</comment>
-                </column>
-            </key>
-            <one-to-many class="com.contravenciones.tr.persistence.CivComparendos" />
+            <one-to-many class="com.contravenciones.tr.persistence.CivDirecciones" />
         </set>
     </class>
 </hibernate-mapping>

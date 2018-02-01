@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -13,9 +13,9 @@ public class CivValorinfraccion  implements java.io.Serializable {
 
      private BigDecimal valinfId;
      private CivUsuarios civUsuarios;
+     private CivInfracciones civInfracciones;
      private String valinfLey;
      private BigDecimal valinfSalarios;
-     private BigDecimal infId;
      private String valinfResolucion;
      private Date valinfFechares;
      private Date valinfFechainicial;
@@ -26,20 +26,20 @@ public class CivValorinfraccion  implements java.io.Serializable {
     }
 
 	
-    public CivValorinfraccion(BigDecimal valinfId, CivUsuarios civUsuarios, BigDecimal valinfSalarios, BigDecimal infId, Date valinfFechainicial, BigDecimal valinfEstado) {
+    public CivValorinfraccion(BigDecimal valinfId, CivUsuarios civUsuarios, CivInfracciones civInfracciones, BigDecimal valinfSalarios, Date valinfFechainicial, BigDecimal valinfEstado) {
         this.valinfId = valinfId;
         this.civUsuarios = civUsuarios;
+        this.civInfracciones = civInfracciones;
         this.valinfSalarios = valinfSalarios;
-        this.infId = infId;
         this.valinfFechainicial = valinfFechainicial;
         this.valinfEstado = valinfEstado;
     }
-    public CivValorinfraccion(BigDecimal valinfId, CivUsuarios civUsuarios, String valinfLey, BigDecimal valinfSalarios, BigDecimal infId, String valinfResolucion, Date valinfFechares, Date valinfFechainicial, Date valinfFechafinal, BigDecimal valinfEstado) {
+    public CivValorinfraccion(BigDecimal valinfId, CivUsuarios civUsuarios, CivInfracciones civInfracciones, String valinfLey, BigDecimal valinfSalarios, String valinfResolucion, Date valinfFechares, Date valinfFechainicial, Date valinfFechafinal, BigDecimal valinfEstado) {
        this.valinfId = valinfId;
        this.civUsuarios = civUsuarios;
+       this.civInfracciones = civInfracciones;
        this.valinfLey = valinfLey;
        this.valinfSalarios = valinfSalarios;
-       this.infId = infId;
        this.valinfResolucion = valinfResolucion;
        this.valinfFechares = valinfFechares;
        this.valinfFechainicial = valinfFechainicial;
@@ -61,6 +61,13 @@ public class CivValorinfraccion  implements java.io.Serializable {
     public void setCivUsuarios(CivUsuarios civUsuarios) {
         this.civUsuarios = civUsuarios;
     }
+    public CivInfracciones getCivInfracciones() {
+        return this.civInfracciones;
+    }
+    
+    public void setCivInfracciones(CivInfracciones civInfracciones) {
+        this.civInfracciones = civInfracciones;
+    }
     public String getValinfLey() {
         return this.valinfLey;
     }
@@ -74,13 +81,6 @@ public class CivValorinfraccion  implements java.io.Serializable {
     
     public void setValinfSalarios(BigDecimal valinfSalarios) {
         this.valinfSalarios = valinfSalarios;
-    }
-    public BigDecimal getInfId() {
-        return this.infId;
-    }
-    
-    public void setInfId(BigDecimal infId) {
-        this.infId = infId;
     }
     public String getValinfResolucion() {
         return this.valinfResolucion;

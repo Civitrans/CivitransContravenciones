@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -21,7 +21,6 @@ public class CivRangosComparendos  implements java.io.Serializable {
      private BigDecimal ranEstado;
      private String ranNumResolucion;
      private Date ranFechaResolucion;
-     private BigDecimal usuId;
      private BigDecimal ranTipoComparendo;
      private Set civDetalleRangoComparendoses = new HashSet(0);
 
@@ -32,7 +31,7 @@ public class CivRangosComparendos  implements java.io.Serializable {
     public CivRangosComparendos(BigDecimal ranId) {
         this.ranId = ranId;
     }
-    public CivRangosComparendos(BigDecimal ranId, String ranNumInicial, String ranNumFinal, Date ranFechaInicial, Date ranFechaFinal, BigDecimal ranEstado, String ranNumResolucion, Date ranFechaResolucion, BigDecimal usuId, BigDecimal ranTipoComparendo, Set civDetalleRangoComparendoses) {
+    public CivRangosComparendos(BigDecimal ranId, String ranNumInicial, String ranNumFinal, Date ranFechaInicial, Date ranFechaFinal, BigDecimal ranEstado, String ranNumResolucion, Date ranFechaResolucion, BigDecimal ranTipoComparendo, Set civDetalleRangoComparendoses) {
        this.ranId = ranId;
        this.ranNumInicial = ranNumInicial;
        this.ranNumFinal = ranNumFinal;
@@ -41,7 +40,6 @@ public class CivRangosComparendos  implements java.io.Serializable {
        this.ranEstado = ranEstado;
        this.ranNumResolucion = ranNumResolucion;
        this.ranFechaResolucion = ranFechaResolucion;
-       this.usuId = usuId;
        this.ranTipoComparendo = ranTipoComparendo;
        this.civDetalleRangoComparendoses = civDetalleRangoComparendoses;
     }
@@ -101,13 +99,6 @@ public class CivRangosComparendos  implements java.io.Serializable {
     
     public void setRanFechaResolucion(Date ranFechaResolucion) {
         this.ranFechaResolucion = ranFechaResolucion;
-    }
-    public BigDecimal getUsuId() {
-        return this.usuId;
-    }
-    
-    public void setUsuId(BigDecimal usuId) {
-        this.usuId = usuId;
     }
     public BigDecimal getRanTipoComparendo() {
         return this.ranTipoComparendo;

@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -17,7 +17,6 @@ public class CivGrupos  implements java.io.Serializable {
      private String gruNombre;
      private Date fechaInicial;
      private Date fechaFinal;
-     private BigDecimal usuId;
      private Set civParametroses = new HashSet(0);
 
     public CivGrupos() {
@@ -27,12 +26,11 @@ public class CivGrupos  implements java.io.Serializable {
     public CivGrupos(BigDecimal gruId) {
         this.gruId = gruId;
     }
-    public CivGrupos(BigDecimal gruId, String gruNombre, Date fechaInicial, Date fechaFinal, BigDecimal usuId, Set civParametroses) {
+    public CivGrupos(BigDecimal gruId, String gruNombre, Date fechaInicial, Date fechaFinal, Set civParametroses) {
        this.gruId = gruId;
        this.gruNombre = gruNombre;
        this.fechaInicial = fechaInicial;
        this.fechaFinal = fechaFinal;
-       this.usuId = usuId;
        this.civParametroses = civParametroses;
     }
    
@@ -63,13 +61,6 @@ public class CivGrupos  implements java.io.Serializable {
     
     public void setFechaFinal(Date fechaFinal) {
         this.fechaFinal = fechaFinal;
-    }
-    public BigDecimal getUsuId() {
-        return this.usuId;
-    }
-    
-    public void setUsuId(BigDecimal usuId) {
-        this.usuId = usuId;
     }
     public Set getCivParametroses() {
         return this.civParametroses;

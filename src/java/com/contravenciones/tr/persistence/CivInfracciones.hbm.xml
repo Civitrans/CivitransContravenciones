@@ -1,18 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivInfracciones" table="CIV_INFRACCIONES" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivInfracciones" table="CIV_INFRACCIONES" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="infId" type="big_decimal">
             <column name="INF_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
-            <column name="USU_ID" precision="22" scale="0" not-null="true">
-                <comment>USUARIO QUE INGRESO LAINFRACCION</comment>
-            </column>
-        </many-to-one>
         <property name="infCodigoTransito" type="string">
             <column name="INF_CODIGO_TRANSITO" length="3" />
         </property>
@@ -41,13 +36,21 @@
                 <comment>FECHA FIANL DE LA INFRACCION</comment>
             </column>
         </property>
-        <set name="civComparendoses" table="CIV_COMPARENDOS" inverse="true" lazy="false" fetch="join">
+        <set name="civComparendoses" table="CIV_COMPARENDOS" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="INF_ID" precision="22" scale="0" not-null="true">
                     <comment>INFRACCION DEL COMPARENDO</comment>
                 </column>
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivComparendos" />
+        </set>
+        <set name="civValorinfraccions" table="CIV_VALORINFRACCION" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="INF_ID" precision="22" scale="0" not-null="true">
+                    <comment>INFRACCION</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivValorinfraccion" />
         </set>
     </class>
 </hibernate-mapping>

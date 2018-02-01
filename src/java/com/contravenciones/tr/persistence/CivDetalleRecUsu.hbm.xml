@@ -1,33 +1,40 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivDetalleRecUsu" table="CIV_DETALLE_REC_USU" schema="CONTRAVENCIONES" optimistic-lock="version">
-        <id name="detRecId" type="big_decimal">
-            <column name="DET_REC_ID" precision="22" scale="0" />
-            <generator class="increment" />
-        </id>
-        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
+    <class name="com.contravenciones.tr.persistence.CivDetalleRecUsu" table="CIV_DETALLE_REC_USU" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
+        <composite-id name="id" class="com.contravenciones.tr.persistence.CivDetalleRecUsuId">
+            <key-property name="recId" type="big_decimal">
+                <column name="REC_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="usuId" type="big_decimal">
+                <column name="USU_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="propiedadVisible" type="java.lang.Boolean">
+                <column name="PROPIEDAD_VISIBLE" precision="1" scale="0" />
+            </key-property>
+            <key-property name="propiedadEnabled" type="java.lang.Boolean">
+                <column name="PROPIEDAD_ENABLED" precision="1" scale="0" />
+            </key-property>
+            <key-property name="detRecId" type="big_decimal">
+                <column name="DET_REC_ID" precision="22" scale="0" />
+            </key-property>
+            <key-property name="fechaInicial" type="date">
+                <column name="FECHA_INICIAL" length="7" />
+            </key-property>
+            <key-property name="fechaFin" type="date">
+                <column name="FECHA_FIN" length="7" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" update="false" insert="false" fetch="select">
             <column name="USU_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
-        <many-to-one name="civRecursos" class="com.contravenciones.tr.persistence.CivRecursos" fetch="select">
+        <many-to-one name="civRecursos" class="com.contravenciones.tr.persistence.CivRecursos" update="false" insert="false" fetch="select">
             <column name="REC_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
-        <property name="detRecUsuId" type="big_decimal">
-            <column name="DET_REC_USU_ID" precision="22" scale="0" />
-        </property>
-        <property name="propiedadVisible" type="java.lang.Boolean">
-            <column name="PROPIEDAD_VISIBLE" precision="1" scale="0" />
-        </property>
-        <property name="propiedadEnabled" type="java.lang.Boolean">
-            <column name="PROPIEDAD_ENABLED" precision="1" scale="0" />
-        </property>
-        <property name="fechaInicial" type="date">
-            <column name="FECHA_INICIAL" length="7" />
-        </property>
-        <property name="fechaFin" type="date">
-            <column name="FECHA_FIN" length="7" />
-        </property>
+        <many-to-one name="civDetalleRecursos" class="com.contravenciones.tr.persistence.CivDetalleRecursos" update="false" insert="false" fetch="select">
+            <column name="DET_REC_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
     </class>
 </hibernate-mapping>

@@ -1,14 +1,14 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivAttempts" table="CIV_ATTEMPTS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivAttempts" table="CIV_ATTEMPTS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los los intentos de inicio de sesion de usuarios de sistema. En esta tabla se realizan los bloqueos de las cuentas de
         usuario.</comment>
         <id name="ttpId" type="big_decimal">
             <column name="TTP_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
             <column name="USU_ID" precision="22" scale="0" not-null="true">

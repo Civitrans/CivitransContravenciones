@@ -1,14 +1,19 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivPoblados" table="CIV_POBLADOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivPoblados" table="CIV_POBLADOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los poblados a nivel nacional.</comment>
         <id name="pobId" type="big_decimal">
             <column name="POB_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
+        <many-to-one name="civMunicipios" class="com.contravenciones.tr.persistence.CivMunicipios" fetch="select">
+            <column name="MUN_ID" precision="22" scale="0">
+                <comment>ID de municipio</comment>
+            </column>
+        </many-to-one>
         <property name="pobNombre" type="string">
             <column name="POB_NOMBRE" length="200">
                 <comment>Nombre de la poblacion</comment>
@@ -19,10 +24,13 @@
                 <comment>Codigo de la poblacion</comment>
             </column>
         </property>
-        <property name="munId" type="big_decimal">
-            <column name="MUN_ID" precision="22" scale="0">
-                <comment>ID de municipio</comment>
-            </column>
-        </property>
+        <set name="civDiviposes" table="CIV_DIVIPOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="POB_ID" precision="22" scale="0">
+                    <comment>fk de la tabla civ_poblados</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDivipos" />
+        </set>
     </class>
 </hibernate-mapping>

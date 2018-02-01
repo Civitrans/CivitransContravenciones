@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ public class LogEventos  implements java.io.Serializable {
 
 
      private BigDecimal evId;
-     private BigDecimal usuId;
+     private CivUsuarios civUsuarios;
      private String evIp;
      private BigDecimal evNivel;
      private Date evFecha;
@@ -29,9 +29,9 @@ public class LogEventos  implements java.io.Serializable {
     public LogEventos(BigDecimal evId) {
         this.evId = evId;
     }
-    public LogEventos(BigDecimal evId, BigDecimal usuId, String evIp, BigDecimal evNivel, Date evFecha, String evExcpetion, String evMensaje, String evCausa, String evClaseOrigen, String evStacktrace) {
+    public LogEventos(BigDecimal evId, CivUsuarios civUsuarios, String evIp, BigDecimal evNivel, Date evFecha, String evExcpetion, String evMensaje, String evCausa, String evClaseOrigen, String evStacktrace) {
        this.evId = evId;
-       this.usuId = usuId;
+       this.civUsuarios = civUsuarios;
        this.evIp = evIp;
        this.evNivel = evNivel;
        this.evFecha = evFecha;
@@ -49,12 +49,12 @@ public class LogEventos  implements java.io.Serializable {
     public void setEvId(BigDecimal evId) {
         this.evId = evId;
     }
-    public BigDecimal getUsuId() {
-        return this.usuId;
+    public CivUsuarios getCivUsuarios() {
+        return this.civUsuarios;
     }
     
-    public void setUsuId(BigDecimal usuId) {
-        this.usuId = usuId;
+    public void setCivUsuarios(CivUsuarios civUsuarios) {
+        this.civUsuarios = civUsuarios;
     }
     public String getEvIp() {
         return this.evIp;

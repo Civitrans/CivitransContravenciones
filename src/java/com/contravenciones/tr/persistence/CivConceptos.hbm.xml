@@ -1,18 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivConceptos" table="CIV_CONCEPTOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivConceptos" table="CIV_CONCEPTOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="conId" type="big_decimal">
             <column name="CON_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
-            <column name="USU_ID" precision="22" scale="0" not-null="true">
-                <comment>USUARIO QUE INGRESA EL CONCEPTO</comment>
-            </column>
-        </many-to-one>
         <property name="conNombre" type="string">
             <column name="CON_NOMBRE" length="100" not-null="true">
                 <comment>NOMBRE DEL CONCEPTO</comment>
@@ -53,7 +48,7 @@
                 <comment>ESTADO DEL CONCEPTO</comment>
             </column>
         </property>
-        <set name="civDetallecarteras" table="CIV_DETALLECARTERA" inverse="true" lazy="false" fetch="join">
+        <set name="civDetallecarteras" table="CIV_DETALLECARTERA" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="CON_ID" precision="22" scale="0" not-null="true">
                     <comment>CONCEPTO DEL DETALLE DE LA CARTERA</comment>
@@ -61,17 +56,17 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDetallecartera" />
         </set>
-        <set name="civDatosParametricoses" table="CIV_DATOS_PARAMETRICOS" inverse="true" lazy="false" fetch="join">
+        <set name="civDatosParametricoses" table="CIV_DATOS_PARAMETRICOS" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CONC_ID" precision="22" scale="0" />
+                <column name="CON_ID" precision="22" scale="0">
+                    <comment>ID UNICO CONCEPTO</comment>
+                </column>
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDatosParametricos" />
         </set>
-        <set name="civCarterases" table="CIV_CARTERAS" inverse="true" lazy="false" fetch="join">
+        <set name="civCarterases" table="CIV_CARTERAS" inverse="true" lazy="true" fetch="select">
             <key>
-                <column name="CON_ID" precision="22" scale="0" not-null="true">
-                    <comment>CONCEPTO DE LA CARTERA</comment>
-                </column>
+                <column name="CON_ID" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivCarteras" />
         </set>

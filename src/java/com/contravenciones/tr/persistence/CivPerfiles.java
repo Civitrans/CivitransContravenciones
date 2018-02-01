@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -14,8 +14,7 @@ public class CivPerfiles  implements java.io.Serializable {
 
      private BigDecimal perfId;
      private String perfNombre;
-     private Set civUsuperfils = new HashSet(0);
-     private Set civPerfilrecursos = new HashSet(0);
+     private Set civRecursoses = new HashSet(0);
 
     public CivPerfiles() {
     }
@@ -24,11 +23,10 @@ public class CivPerfiles  implements java.io.Serializable {
     public CivPerfiles(BigDecimal perfId) {
         this.perfId = perfId;
     }
-    public CivPerfiles(BigDecimal perfId, String perfNombre, Set civUsuperfils, Set civPerfilrecursos) {
+    public CivPerfiles(BigDecimal perfId, String perfNombre, Set civRecursoses) {
        this.perfId = perfId;
        this.perfNombre = perfNombre;
-       this.civUsuperfils = civUsuperfils;
-       this.civPerfilrecursos = civPerfilrecursos;
+       this.civRecursoses = civRecursoses;
     }
    
     public BigDecimal getPerfId() {
@@ -45,19 +43,12 @@ public class CivPerfiles  implements java.io.Serializable {
     public void setPerfNombre(String perfNombre) {
         this.perfNombre = perfNombre;
     }
-    public Set getCivUsuperfils() {
-        return this.civUsuperfils;
+    public Set getCivRecursoses() {
+        return this.civRecursoses;
     }
     
-    public void setCivUsuperfils(Set civUsuperfils) {
-        this.civUsuperfils = civUsuperfils;
-    }
-    public Set getCivPerfilrecursos() {
-        return this.civPerfilrecursos;
-    }
-    
-    public void setCivPerfilrecursos(Set civPerfilrecursos) {
-        this.civPerfilrecursos = civPerfilrecursos;
+    public void setCivRecursoses(Set civRecursoses) {
+        this.civRecursoses = civRecursoses;
     }
 
 

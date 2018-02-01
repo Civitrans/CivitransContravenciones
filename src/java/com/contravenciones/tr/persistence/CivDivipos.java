@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -13,11 +13,11 @@ public class CivDivipos  implements java.io.Serializable {
 
 
      private BigDecimal divId;
-     private BigDecimal depId;
-     private BigDecimal munId;
-     private BigDecimal pobId;
+     private CivPoblados civPoblados;
+     private CivPais civPais;
+     private CivMunicipios civMunicipios;
+     private CivDepartamentos civDepartamentos;
      private BigDecimal divCodigo;
-     private BigDecimal paiId;
      private Set civDireccioneses = new HashSet(0);
 
     public CivDivipos() {
@@ -27,13 +27,13 @@ public class CivDivipos  implements java.io.Serializable {
     public CivDivipos(BigDecimal divId) {
         this.divId = divId;
     }
-    public CivDivipos(BigDecimal divId, BigDecimal depId, BigDecimal munId, BigDecimal pobId, BigDecimal divCodigo, BigDecimal paiId, Set civDireccioneses) {
+    public CivDivipos(BigDecimal divId, CivPoblados civPoblados, CivPais civPais, CivMunicipios civMunicipios, CivDepartamentos civDepartamentos, BigDecimal divCodigo, Set civDireccioneses) {
        this.divId = divId;
-       this.depId = depId;
-       this.munId = munId;
-       this.pobId = pobId;
+       this.civPoblados = civPoblados;
+       this.civPais = civPais;
+       this.civMunicipios = civMunicipios;
+       this.civDepartamentos = civDepartamentos;
        this.divCodigo = divCodigo;
-       this.paiId = paiId;
        this.civDireccioneses = civDireccioneses;
     }
    
@@ -44,26 +44,33 @@ public class CivDivipos  implements java.io.Serializable {
     public void setDivId(BigDecimal divId) {
         this.divId = divId;
     }
-    public BigDecimal getDepId() {
-        return this.depId;
+    public CivPoblados getCivPoblados() {
+        return this.civPoblados;
     }
     
-    public void setDepId(BigDecimal depId) {
-        this.depId = depId;
+    public void setCivPoblados(CivPoblados civPoblados) {
+        this.civPoblados = civPoblados;
     }
-    public BigDecimal getMunId() {
-        return this.munId;
-    }
-    
-    public void setMunId(BigDecimal munId) {
-        this.munId = munId;
-    }
-    public BigDecimal getPobId() {
-        return this.pobId;
+    public CivPais getCivPais() {
+        return this.civPais;
     }
     
-    public void setPobId(BigDecimal pobId) {
-        this.pobId = pobId;
+    public void setCivPais(CivPais civPais) {
+        this.civPais = civPais;
+    }
+    public CivMunicipios getCivMunicipios() {
+        return this.civMunicipios;
+    }
+    
+    public void setCivMunicipios(CivMunicipios civMunicipios) {
+        this.civMunicipios = civMunicipios;
+    }
+    public CivDepartamentos getCivDepartamentos() {
+        return this.civDepartamentos;
+    }
+    
+    public void setCivDepartamentos(CivDepartamentos civDepartamentos) {
+        this.civDepartamentos = civDepartamentos;
     }
     public BigDecimal getDivCodigo() {
         return this.divCodigo;
@@ -71,13 +78,6 @@ public class CivDivipos  implements java.io.Serializable {
     
     public void setDivCodigo(BigDecimal divCodigo) {
         this.divCodigo = divCodigo;
-    }
-    public BigDecimal getPaiId() {
-        return this.paiId;
-    }
-    
-    public void setPaiId(BigDecimal paiId) {
-        this.paiId = paiId;
     }
     public Set getCivDireccioneses() {
         return this.civDireccioneses;

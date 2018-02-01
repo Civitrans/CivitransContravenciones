@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -17,7 +17,6 @@ public class CivDetalleRangoComparendos  implements java.io.Serializable {
      private String dtranNumero;
      private BigDecimal dtranEstado;
      private Date dtranFechaInicial;
-     private BigDecimal usuId;
      private Date dtranFechaUso;
      private String dtranObservaciones;
 
@@ -25,21 +24,20 @@ public class CivDetalleRangoComparendos  implements java.io.Serializable {
     }
 
 	
-    public CivDetalleRangoComparendos(BigDecimal dtranId, CivRangosComparendos civRangosComparendos, String dtranNumero, BigDecimal dtranEstado, BigDecimal usuId) {
+    public CivDetalleRangoComparendos(BigDecimal dtranId, CivRangosComparendos civRangosComparendos, CivAgentes civAgentes, String dtranNumero, BigDecimal dtranEstado) {
         this.dtranId = dtranId;
         this.civRangosComparendos = civRangosComparendos;
+        this.civAgentes = civAgentes;
         this.dtranNumero = dtranNumero;
         this.dtranEstado = dtranEstado;
-        this.usuId = usuId;
     }
-    public CivDetalleRangoComparendos(BigDecimal dtranId, CivRangosComparendos civRangosComparendos, CivAgentes civAgentes, String dtranNumero, BigDecimal dtranEstado, Date dtranFechaInicial, BigDecimal usuId, Date dtranFechaUso, String dtranObservaciones) {
+    public CivDetalleRangoComparendos(BigDecimal dtranId, CivRangosComparendos civRangosComparendos, CivAgentes civAgentes, String dtranNumero, BigDecimal dtranEstado, Date dtranFechaInicial, Date dtranFechaUso, String dtranObservaciones) {
        this.dtranId = dtranId;
        this.civRangosComparendos = civRangosComparendos;
        this.civAgentes = civAgentes;
        this.dtranNumero = dtranNumero;
        this.dtranEstado = dtranEstado;
        this.dtranFechaInicial = dtranFechaInicial;
-       this.usuId = usuId;
        this.dtranFechaUso = dtranFechaUso;
        this.dtranObservaciones = dtranObservaciones;
     }
@@ -85,13 +83,6 @@ public class CivDetalleRangoComparendos  implements java.io.Serializable {
     
     public void setDtranFechaInicial(Date dtranFechaInicial) {
         this.dtranFechaInicial = dtranFechaInicial;
-    }
-    public BigDecimal getUsuId() {
-        return this.usuId;
-    }
-    
-    public void setUsuId(BigDecimal usuId) {
-        this.usuId = usuId;
     }
     public Date getDtranFechaUso() {
         return this.dtranFechaUso;

@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,7 +15,6 @@ public class CivCajas  implements java.io.Serializable {
 
      private BigDecimal cajId;
      private String cajNombre;
-     private BigDecimal sedId;
      private Date cajFechaInicio;
      private Date cajFechaFin;
      private BigDecimal cajEstado;
@@ -28,10 +27,9 @@ public class CivCajas  implements java.io.Serializable {
     public CivCajas(BigDecimal cajId) {
         this.cajId = cajId;
     }
-    public CivCajas(BigDecimal cajId, String cajNombre, BigDecimal sedId, Date cajFechaInicio, Date cajFechaFin, BigDecimal cajEstado, Set civUsuarioCajases) {
+    public CivCajas(BigDecimal cajId, String cajNombre, Date cajFechaInicio, Date cajFechaFin, BigDecimal cajEstado, Set civUsuarioCajases) {
        this.cajId = cajId;
        this.cajNombre = cajNombre;
-       this.sedId = sedId;
        this.cajFechaInicio = cajFechaInicio;
        this.cajFechaFin = cajFechaFin;
        this.cajEstado = cajEstado;
@@ -51,13 +49,6 @@ public class CivCajas  implements java.io.Serializable {
     
     public void setCajNombre(String cajNombre) {
         this.cajNombre = cajNombre;
-    }
-    public BigDecimal getSedId() {
-        return this.sedId;
-    }
-    
-    public void setSedId(BigDecimal sedId) {
-        this.sedId = sedId;
     }
     public Date getCajFechaInicio() {
         return this.cajFechaInicio;

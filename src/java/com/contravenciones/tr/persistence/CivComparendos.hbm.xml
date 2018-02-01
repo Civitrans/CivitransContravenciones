@@ -1,38 +1,29 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivComparendos" table="CIV_COMPARENDOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivComparendos" table="CIV_COMPARENDOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="comId" type="big_decimal">
             <column name="COM_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="civPersonasByPerId" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
-            <column name="PER_ID" precision="22" scale="0" not-null="true">
-                <comment>PERSONA DEL COMPARENDO</comment>
-            </column>
-        </many-to-one>
-        <many-to-one name="civPersonasByPerTestigo" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
-            <column name="PER_TESTIGO" precision="22" scale="0">
-                <comment>TESTIGO DEL COMPARENDO</comment>
-            </column>
-        </many-to-one>
-        <many-to-one name="civPersonasByPerPropietario" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
-            <column name="PER_PROPIETARIO" precision="22" scale="0">
-                <comment>PROPIETARIO DEL VEHICULO</comment>
-            </column>
-        </many-to-one>
         <many-to-one name="civInfracciones" class="com.contravenciones.tr.persistence.CivInfracciones" fetch="select">
             <column name="INF_ID" precision="22" scale="0" not-null="true">
                 <comment>INFRACCION DEL COMPARENDO</comment>
             </column>
         </many-to-one>
-        <property name="sedId" type="big_decimal">
-            <column name="SED_ID" precision="22" scale="0" not-null="true">
-                <comment>SEDE DEL COMPARENDO</comment>
+        <many-to-one name="civExpedientes" class="com.contravenciones.tr.persistence.CivExpedientes" fetch="select">
+            <column name="EXP_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="civCarteras" class="com.contravenciones.tr.persistence.CivCarteras" fetch="select">
+            <column name="CAR_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <many-to-one name="civAgentes" class="com.contravenciones.tr.persistence.CivAgentes" fetch="select">
+            <column name="AGE_ID" precision="22" scale="0" not-null="true">
+                <comment>AGENTE DELCOMPARENDO</comment>
             </column>
-        </property>
+        </many-to-one>
         <property name="comNumero" type="string">
             <column name="COM_NUMERO" length="20" not-null="true" unique="true">
                 <comment>NUMERO DEL COMPARENDO</comment>
@@ -146,6 +137,11 @@
                 <comment>DIVIPO DE LA LICENCIA DE TRNASITO</comment>
             </column>
         </property>
+        <property name="perPropietario" type="big_decimal">
+            <column name="PER_PROPIETARIO" precision="22" scale="0">
+                <comment>PROPIETARIO DEL VEHICULO</comment>
+            </column>
+        </property>
         <property name="comNitempresa" type="string">
             <column name="COM_NITEMPRESA" length="15">
                 <comment>NIT DE LA EMPRESA</comment>
@@ -159,11 +155,6 @@
         <property name="comTarjetaoperacion" type="string">
             <column name="COM_TARJETAOPERACION" length="10">
                 <comment>TARAJETA DE OPERACION</comment>
-            </column>
-        </property>
-        <property name="ageId" type="big_decimal">
-            <column name="AGE_ID" precision="22" scale="0" not-null="true">
-                <comment>AGENTE DELCOMPARENDO</comment>
             </column>
         </property>
         <property name="comFuga" type="big_decimal">
@@ -206,6 +197,11 @@
                 <comment>TIPO DEL COMPARENDO</comment>
             </column>
         </property>
+        <property name="perTestigo" type="big_decimal">
+            <column name="PER_TESTIGO" precision="22" scale="0">
+                <comment>TESTIGO DEL COMPARENDO</comment>
+            </column>
+        </property>
         <property name="comOrganismo" type="string">
             <column name="COM_ORGANISMO" length="20" not-null="true">
                 <comment>ORGANISMO</comment>
@@ -224,11 +220,6 @@
         <property name="comFechanoti" type="date">
             <column name="COM_FECHANOTI" length="7">
                 <comment>FECHA NOTIFICACION</comment>
-            </column>
-        </property>
-        <property name="usuId" type="big_decimal">
-            <column name="USU_ID" precision="22" scale="0" not-null="true">
-                <comment>USUARIO QUE INGRESO EL COMPARENDO AL SISTEMA</comment>
             </column>
         </property>
         <property name="comFechaproceso" type="date">

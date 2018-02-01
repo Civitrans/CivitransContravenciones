@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,35 +15,37 @@ public class CivAgentes  implements java.io.Serializable {
 
 
      private BigDecimal ageId;
-     private CivPersonas civPersonas;
+     private BigDecimal perId;
      private BigDecimal ageTipo;
      private String agePlaca;
      private Date ageFechaInicio;
      private Date ageFechaFin;
      private Blob ageFirma;
      private BigDecimal ageEstado;
+     private Set civComparendoses = new HashSet(0);
      private Set civDetalleRangoComparendoses = new HashSet(0);
 
     public CivAgentes() {
     }
 
 	
-    public CivAgentes(BigDecimal ageId, CivPersonas civPersonas, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio) {
+    public CivAgentes(BigDecimal ageId, BigDecimal perId, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio) {
         this.ageId = ageId;
-        this.civPersonas = civPersonas;
+        this.perId = perId;
         this.ageTipo = ageTipo;
         this.agePlaca = agePlaca;
         this.ageFechaInicio = ageFechaInicio;
     }
-    public CivAgentes(BigDecimal ageId, CivPersonas civPersonas, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio, Date ageFechaFin, Blob ageFirma, BigDecimal ageEstado, Set civDetalleRangoComparendoses) {
+    public CivAgentes(BigDecimal ageId, BigDecimal perId, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio, Date ageFechaFin, Blob ageFirma, BigDecimal ageEstado, Set civComparendoses, Set civDetalleRangoComparendoses) {
        this.ageId = ageId;
-       this.civPersonas = civPersonas;
+       this.perId = perId;
        this.ageTipo = ageTipo;
        this.agePlaca = agePlaca;
        this.ageFechaInicio = ageFechaInicio;
        this.ageFechaFin = ageFechaFin;
        this.ageFirma = ageFirma;
        this.ageEstado = ageEstado;
+       this.civComparendoses = civComparendoses;
        this.civDetalleRangoComparendoses = civDetalleRangoComparendoses;
     }
    
@@ -54,12 +56,12 @@ public class CivAgentes  implements java.io.Serializable {
     public void setAgeId(BigDecimal ageId) {
         this.ageId = ageId;
     }
-    public CivPersonas getCivPersonas() {
-        return this.civPersonas;
+    public BigDecimal getPerId() {
+        return this.perId;
     }
     
-    public void setCivPersonas(CivPersonas civPersonas) {
-        this.civPersonas = civPersonas;
+    public void setPerId(BigDecimal perId) {
+        this.perId = perId;
     }
     public BigDecimal getAgeTipo() {
         return this.ageTipo;
@@ -102,6 +104,13 @@ public class CivAgentes  implements java.io.Serializable {
     
     public void setAgeEstado(BigDecimal ageEstado) {
         this.ageEstado = ageEstado;
+    }
+    public Set getCivComparendoses() {
+        return this.civComparendoses;
+    }
+    
+    public void setCivComparendoses(Set civComparendoses) {
+        this.civComparendoses = civComparendoses;
     }
     public Set getCivDetalleRangoComparendoses() {
         return this.civDetalleRangoComparendoses;

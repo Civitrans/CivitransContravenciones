@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,39 +12,24 @@ public class CivDetallecartera  implements java.io.Serializable {
 
 
      private BigDecimal detcarId;
-     private CivUsuarios civUsuarios;
      private CivConceptos civConceptos;
      private CivCarteras civCarteras;
      private String detcarReferencia;
      private Date detcarFecha;
      private byte detcarEstado;
      private BigDecimal detcarValor;
-     private BigDecimal pagId;
 
     public CivDetallecartera() {
     }
 
-	
-    public CivDetallecartera(BigDecimal detcarId, CivUsuarios civUsuarios, CivConceptos civConceptos, CivCarteras civCarteras, String detcarReferencia, Date detcarFecha, byte detcarEstado, BigDecimal detcarValor) {
-        this.detcarId = detcarId;
-        this.civUsuarios = civUsuarios;
-        this.civConceptos = civConceptos;
-        this.civCarteras = civCarteras;
-        this.detcarReferencia = detcarReferencia;
-        this.detcarFecha = detcarFecha;
-        this.detcarEstado = detcarEstado;
-        this.detcarValor = detcarValor;
-    }
-    public CivDetallecartera(BigDecimal detcarId, CivUsuarios civUsuarios, CivConceptos civConceptos, CivCarteras civCarteras, String detcarReferencia, Date detcarFecha, byte detcarEstado, BigDecimal detcarValor, BigDecimal pagId) {
+    public CivDetallecartera(BigDecimal detcarId, CivConceptos civConceptos, CivCarteras civCarteras, String detcarReferencia, Date detcarFecha, byte detcarEstado, BigDecimal detcarValor) {
        this.detcarId = detcarId;
-       this.civUsuarios = civUsuarios;
        this.civConceptos = civConceptos;
        this.civCarteras = civCarteras;
        this.detcarReferencia = detcarReferencia;
        this.detcarFecha = detcarFecha;
        this.detcarEstado = detcarEstado;
        this.detcarValor = detcarValor;
-       this.pagId = pagId;
     }
    
     public BigDecimal getDetcarId() {
@@ -53,13 +38,6 @@ public class CivDetallecartera  implements java.io.Serializable {
     
     public void setDetcarId(BigDecimal detcarId) {
         this.detcarId = detcarId;
-    }
-    public CivUsuarios getCivUsuarios() {
-        return this.civUsuarios;
-    }
-    
-    public void setCivUsuarios(CivUsuarios civUsuarios) {
-        this.civUsuarios = civUsuarios;
     }
     public CivConceptos getCivConceptos() {
         return this.civConceptos;
@@ -102,13 +80,6 @@ public class CivDetallecartera  implements java.io.Serializable {
     
     public void setDetcarValor(BigDecimal detcarValor) {
         this.detcarValor = detcarValor;
-    }
-    public BigDecimal getPagId() {
-        return this.pagId;
-    }
-    
-    public void setPagId(BigDecimal pagId) {
-        this.pagId = pagId;
     }
 
 

@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -12,11 +12,10 @@ public class CivComparendos  implements java.io.Serializable {
 
 
      private BigDecimal comId;
-     private CivPersonas civPersonasByPerId;
-     private CivPersonas civPersonasByPerTestigo;
-     private CivPersonas civPersonasByPerPropietario;
      private CivInfracciones civInfracciones;
-     private BigDecimal sedId;
+     private CivExpedientes civExpedientes;
+     private CivCarteras civCarteras;
+     private CivAgentes civAgentes;
      private String comNumero;
      private Date comFecha;
      private String comHora;
@@ -40,10 +39,10 @@ public class CivComparendos  implements java.io.Serializable {
      private BigDecimal comTipoinfractor;
      private String comLicenciatran;
      private BigDecimal divLicenciatra;
+     private BigDecimal perPropietario;
      private String comNitempresa;
      private String comNombreempresa;
      private String comTarjetaoperacion;
-     private BigDecimal ageId;
      private BigDecimal comFuga;
      private BigDecimal comAccidente;
      private BigDecimal comInmovilizacion;
@@ -52,11 +51,11 @@ public class CivComparendos  implements java.io.Serializable {
      private BigDecimal comElectronico;
      private BigDecimal comFotomulta;
      private BigDecimal comTipo;
+     private BigDecimal perTestigo;
      private String comOrganismo;
      private BigDecimal comEstado;
      private String comGradoalco;
      private Date comFechanoti;
-     private BigDecimal usuId;
      private Date comFechaproceso;
      private BigDecimal patId;
      private BigDecimal gruId;
@@ -69,18 +68,18 @@ public class CivComparendos  implements java.io.Serializable {
     }
 
 	
-    public CivComparendos(BigDecimal comId, CivPersonas civPersonasByPerId, CivInfracciones civInfracciones, BigDecimal sedId, String comNumero, Date comFecha, String comHora, String comDireccion, BigDecimal munId, BigDecimal comTipoinfractor, BigDecimal ageId, BigDecimal comFuga, BigDecimal comAccidente, BigDecimal comInmovilizacion, BigDecimal comPolca, BigDecimal comFirmado, BigDecimal comElectronico, BigDecimal comFotomulta, BigDecimal comTipo, String comOrganismo, BigDecimal comEstado, BigDecimal usuId, Date comFechaproceso) {
+    public CivComparendos(BigDecimal comId, CivInfracciones civInfracciones, CivExpedientes civExpedientes, CivCarteras civCarteras, CivAgentes civAgentes, String comNumero, Date comFecha, String comHora, String comDireccion, BigDecimal munId, BigDecimal comTipoinfractor, BigDecimal comFuga, BigDecimal comAccidente, BigDecimal comInmovilizacion, BigDecimal comPolca, BigDecimal comFirmado, BigDecimal comElectronico, BigDecimal comFotomulta, BigDecimal comTipo, String comOrganismo, BigDecimal comEstado, Date comFechaproceso) {
         this.comId = comId;
-        this.civPersonasByPerId = civPersonasByPerId;
         this.civInfracciones = civInfracciones;
-        this.sedId = sedId;
+        this.civExpedientes = civExpedientes;
+        this.civCarteras = civCarteras;
+        this.civAgentes = civAgentes;
         this.comNumero = comNumero;
         this.comFecha = comFecha;
         this.comHora = comHora;
         this.comDireccion = comDireccion;
         this.munId = munId;
         this.comTipoinfractor = comTipoinfractor;
-        this.ageId = ageId;
         this.comFuga = comFuga;
         this.comAccidente = comAccidente;
         this.comInmovilizacion = comInmovilizacion;
@@ -91,16 +90,14 @@ public class CivComparendos  implements java.io.Serializable {
         this.comTipo = comTipo;
         this.comOrganismo = comOrganismo;
         this.comEstado = comEstado;
-        this.usuId = usuId;
         this.comFechaproceso = comFechaproceso;
     }
-    public CivComparendos(BigDecimal comId, CivPersonas civPersonasByPerId, CivPersonas civPersonasByPerTestigo, CivPersonas civPersonasByPerPropietario, CivInfracciones civInfracciones, BigDecimal sedId, String comNumero, Date comFecha, String comHora, BigDecimal comVia, BigDecimal comTipovia, String comDireccion, BigDecimal munId, String locId, BigDecimal divId, String comPlaca, BigDecimal comClase, BigDecimal comServicio, BigDecimal comRadioAccion, BigDecimal comModalidad, BigDecimal comPasajeros, BigDecimal divMatri, String comLicenciacon, String comCategoria, BigDecimal divLicencia, Date comFechavence, BigDecimal comTipoinfractor, String comLicenciatran, BigDecimal divLicenciatra, String comNitempresa, String comNombreempresa, String comTarjetaoperacion, BigDecimal ageId, BigDecimal comFuga, BigDecimal comAccidente, BigDecimal comInmovilizacion, BigDecimal comPolca, BigDecimal comFirmado, BigDecimal comElectronico, BigDecimal comFotomulta, BigDecimal comTipo, String comOrganismo, BigDecimal comEstado, String comGradoalco, Date comFechanoti, BigDecimal usuId, Date comFechaproceso, BigDecimal patId, BigDecimal gruId, String comObservaciones, BigDecimal comTipoingreso, String comDireccioninfra, BigDecimal divDireccioninfra) {
+    public CivComparendos(BigDecimal comId, CivInfracciones civInfracciones, CivExpedientes civExpedientes, CivCarteras civCarteras, CivAgentes civAgentes, String comNumero, Date comFecha, String comHora, BigDecimal comVia, BigDecimal comTipovia, String comDireccion, BigDecimal munId, String locId, BigDecimal divId, String comPlaca, BigDecimal comClase, BigDecimal comServicio, BigDecimal comRadioAccion, BigDecimal comModalidad, BigDecimal comPasajeros, BigDecimal divMatri, String comLicenciacon, String comCategoria, BigDecimal divLicencia, Date comFechavence, BigDecimal comTipoinfractor, String comLicenciatran, BigDecimal divLicenciatra, BigDecimal perPropietario, String comNitempresa, String comNombreempresa, String comTarjetaoperacion, BigDecimal comFuga, BigDecimal comAccidente, BigDecimal comInmovilizacion, BigDecimal comPolca, BigDecimal comFirmado, BigDecimal comElectronico, BigDecimal comFotomulta, BigDecimal comTipo, BigDecimal perTestigo, String comOrganismo, BigDecimal comEstado, String comGradoalco, Date comFechanoti, Date comFechaproceso, BigDecimal patId, BigDecimal gruId, String comObservaciones, BigDecimal comTipoingreso, String comDireccioninfra, BigDecimal divDireccioninfra) {
        this.comId = comId;
-       this.civPersonasByPerId = civPersonasByPerId;
-       this.civPersonasByPerTestigo = civPersonasByPerTestigo;
-       this.civPersonasByPerPropietario = civPersonasByPerPropietario;
        this.civInfracciones = civInfracciones;
-       this.sedId = sedId;
+       this.civExpedientes = civExpedientes;
+       this.civCarteras = civCarteras;
+       this.civAgentes = civAgentes;
        this.comNumero = comNumero;
        this.comFecha = comFecha;
        this.comHora = comHora;
@@ -124,10 +121,10 @@ public class CivComparendos  implements java.io.Serializable {
        this.comTipoinfractor = comTipoinfractor;
        this.comLicenciatran = comLicenciatran;
        this.divLicenciatra = divLicenciatra;
+       this.perPropietario = perPropietario;
        this.comNitempresa = comNitempresa;
        this.comNombreempresa = comNombreempresa;
        this.comTarjetaoperacion = comTarjetaoperacion;
-       this.ageId = ageId;
        this.comFuga = comFuga;
        this.comAccidente = comAccidente;
        this.comInmovilizacion = comInmovilizacion;
@@ -136,11 +133,11 @@ public class CivComparendos  implements java.io.Serializable {
        this.comElectronico = comElectronico;
        this.comFotomulta = comFotomulta;
        this.comTipo = comTipo;
+       this.perTestigo = perTestigo;
        this.comOrganismo = comOrganismo;
        this.comEstado = comEstado;
        this.comGradoalco = comGradoalco;
        this.comFechanoti = comFechanoti;
-       this.usuId = usuId;
        this.comFechaproceso = comFechaproceso;
        this.patId = patId;
        this.gruId = gruId;
@@ -157,27 +154,6 @@ public class CivComparendos  implements java.io.Serializable {
     public void setComId(BigDecimal comId) {
         this.comId = comId;
     }
-    public CivPersonas getCivPersonasByPerId() {
-        return this.civPersonasByPerId;
-    }
-    
-    public void setCivPersonasByPerId(CivPersonas civPersonasByPerId) {
-        this.civPersonasByPerId = civPersonasByPerId;
-    }
-    public CivPersonas getCivPersonasByPerTestigo() {
-        return this.civPersonasByPerTestigo;
-    }
-    
-    public void setCivPersonasByPerTestigo(CivPersonas civPersonasByPerTestigo) {
-        this.civPersonasByPerTestigo = civPersonasByPerTestigo;
-    }
-    public CivPersonas getCivPersonasByPerPropietario() {
-        return this.civPersonasByPerPropietario;
-    }
-    
-    public void setCivPersonasByPerPropietario(CivPersonas civPersonasByPerPropietario) {
-        this.civPersonasByPerPropietario = civPersonasByPerPropietario;
-    }
     public CivInfracciones getCivInfracciones() {
         return this.civInfracciones;
     }
@@ -185,12 +161,26 @@ public class CivComparendos  implements java.io.Serializable {
     public void setCivInfracciones(CivInfracciones civInfracciones) {
         this.civInfracciones = civInfracciones;
     }
-    public BigDecimal getSedId() {
-        return this.sedId;
+    public CivExpedientes getCivExpedientes() {
+        return this.civExpedientes;
     }
     
-    public void setSedId(BigDecimal sedId) {
-        this.sedId = sedId;
+    public void setCivExpedientes(CivExpedientes civExpedientes) {
+        this.civExpedientes = civExpedientes;
+    }
+    public CivCarteras getCivCarteras() {
+        return this.civCarteras;
+    }
+    
+    public void setCivCarteras(CivCarteras civCarteras) {
+        this.civCarteras = civCarteras;
+    }
+    public CivAgentes getCivAgentes() {
+        return this.civAgentes;
+    }
+    
+    public void setCivAgentes(CivAgentes civAgentes) {
+        this.civAgentes = civAgentes;
     }
     public String getComNumero() {
         return this.comNumero;
@@ -353,6 +343,13 @@ public class CivComparendos  implements java.io.Serializable {
     public void setDivLicenciatra(BigDecimal divLicenciatra) {
         this.divLicenciatra = divLicenciatra;
     }
+    public BigDecimal getPerPropietario() {
+        return this.perPropietario;
+    }
+    
+    public void setPerPropietario(BigDecimal perPropietario) {
+        this.perPropietario = perPropietario;
+    }
     public String getComNitempresa() {
         return this.comNitempresa;
     }
@@ -373,13 +370,6 @@ public class CivComparendos  implements java.io.Serializable {
     
     public void setComTarjetaoperacion(String comTarjetaoperacion) {
         this.comTarjetaoperacion = comTarjetaoperacion;
-    }
-    public BigDecimal getAgeId() {
-        return this.ageId;
-    }
-    
-    public void setAgeId(BigDecimal ageId) {
-        this.ageId = ageId;
     }
     public BigDecimal getComFuga() {
         return this.comFuga;
@@ -437,6 +427,13 @@ public class CivComparendos  implements java.io.Serializable {
     public void setComTipo(BigDecimal comTipo) {
         this.comTipo = comTipo;
     }
+    public BigDecimal getPerTestigo() {
+        return this.perTestigo;
+    }
+    
+    public void setPerTestigo(BigDecimal perTestigo) {
+        this.perTestigo = perTestigo;
+    }
     public String getComOrganismo() {
         return this.comOrganismo;
     }
@@ -464,13 +461,6 @@ public class CivComparendos  implements java.io.Serializable {
     
     public void setComFechanoti(Date comFechanoti) {
         this.comFechanoti = comFechanoti;
-    }
-    public BigDecimal getUsuId() {
-        return this.usuId;
-    }
-    
-    public void setUsuId(BigDecimal usuId) {
-        this.usuId = usuId;
     }
     public Date getComFechaproceso() {
         return this.comFechaproceso;

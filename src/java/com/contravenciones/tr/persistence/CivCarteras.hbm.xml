@@ -1,79 +1,56 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivCarteras" table="CIV_CARTERAS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivCarteras" table="CIV_CARTERAS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="carId" type="big_decimal">
             <column name="CAR_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
-            <column name="USU_ID" precision="22" scale="0" not-null="true">
-                <comment>USUARIO QUE INGRESO LA CARTERA</comment>
-            </column>
-        </many-to-one>
-        <many-to-one name="civPersonas" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
-            <column name="PER_ID" precision="22" scale="0" not-null="true">
-                <comment>PERSONA DE LA CARTERA</comment>
-            </column>
+        <many-to-one name="civTipocarteras" class="com.contravenciones.tr.persistence.CivTipocarteras" fetch="select">
+            <column name="TIPCAR_ID" precision="22" scale="0" />
         </many-to-one>
         <many-to-one name="civConceptos" class="com.contravenciones.tr.persistence.CivConceptos" fetch="select">
-            <column name="CON_ID" precision="22" scale="0" not-null="true">
-                <comment>CONCEPTO DE LA CARTERA</comment>
-            </column>
+            <column name="CON_ID" precision="22" scale="0" not-null="true" />
         </many-to-one>
-        <property name="pagId" type="big_decimal">
-            <column name="PAG_ID" precision="22" scale="0">
-                <comment>PAGO DE LA CARTERA</comment>
-            </column>
+        <property name="carReferencia1" type="string">
+            <column name="CAR_REFERENCIA1" length="50" />
         </property>
-        <property name="carTipo" type="big_decimal">
-            <column name="CAR_TIPO" precision="22" scale="0">
-                <comment>TIPO DE LA CARTERA</comment>
-            </column>
-        </property>
-        <property name="carReferencia" type="string">
-            <column name="CAR_REFERENCIA" length="30">
-                <comment>REFERENCIA DE LA CARTERA</comment>
-            </column>
-        </property>
-        <property name="carPeriodo" type="big_decimal">
-            <column name="CAR_PERIODO" precision="22" scale="0">
-                <comment>PERIODO DE LA CARTERA</comment>
-            </column>
+        <property name="carReferencia2" type="string">
+            <column name="CAR_REFERENCIA2" length="50" />
         </property>
         <property name="carValor" type="big_decimal">
-            <column name="CAR_VALOR" precision="22" scale="0" not-null="true">
-                <comment>VALOR DE LA CARTERA</comment>
-            </column>
+            <column name="CAR_VALOR" precision="22" scale="0" not-null="true" />
         </property>
         <property name="carSaldo" type="big_decimal">
-            <column name="CAR_SALDO" precision="22" scale="0" not-null="true">
-                <comment>SALDO DE LA CARTERA</comment>
-            </column>
+            <column name="CAR_SALDO" precision="22" scale="0" not-null="true" />
         </property>
-        <property name="carFechasaldo" type="date">
-            <column name="CAR_FECHASALDO" length="7">
-                <comment>FECHA DEL SALDO</comment>
-            </column>
-        </property>
-        <property name="carEstado" type="big_decimal">
-            <column name="CAR_ESTADO" precision="22" scale="0" not-null="true">
-                <comment>ESTADO DE LA CARTERA</comment>
-            </column>
+        <property name="carPeriodo" type="big_decimal">
+            <column name="CAR_PERIODO" precision="22" scale="0" />
         </property>
         <property name="carFechainicial" type="date">
-            <column name="CAR_FECHAINICIAL" length="7" not-null="true">
-                <comment>FECHA INICIAL DE LA CARTERA</comment>
-            </column>
+            <column name="CAR_FECHAINICIAL" length="7" not-null="true" />
         </property>
         <property name="carFechafinal" type="date">
-            <column name="CAR_FECHAFINAL" length="7">
-                <comment>FECHA FINAL DE LA CARTERA</comment>
-            </column>
+            <column name="CAR_FECHAFINAL" length="7" />
         </property>
-        <set name="civDetallecarteras" table="CIV_DETALLECARTERA" inverse="true" lazy="false" fetch="join">
+        <property name="carEstado" type="big_decimal">
+            <column name="CAR_ESTADO" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="civResolucioneses" table="CIV_RESOLUCIONES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CAR_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivResoluciones" />
+        </set>
+        <set name="civComparendoses" table="CIV_COMPARENDOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="CAR_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivComparendos" />
+        </set>
+        <set name="civDetallecarteras" table="CIV_DETALLECARTERA" inverse="true" lazy="true" fetch="select">
             <key>
                 <column name="CAR_ID" precision="22" scale="0" not-null="true">
                     <comment>CARTERA DEL DETALLE DE LA CARTERA</comment>

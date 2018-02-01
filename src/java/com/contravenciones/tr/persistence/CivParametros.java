@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
+// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -22,7 +22,6 @@ public class CivParametros  implements java.io.Serializable {
      private Date parFechainicial;
      private Date parFechafinal;
      private Date parFechaproceso;
-     private BigDecimal usuId;
 
     public CivParametros() {
     }
@@ -31,7 +30,7 @@ public class CivParametros  implements java.io.Serializable {
     public CivParametros(BigDecimal parId) {
         this.parId = parId;
     }
-    public CivParametros(BigDecimal parId, CivGrupos civGrupos, String parNombre, String parNombrecorto, BigDecimal parCodigo, BigDecimal parSubcodigo, BigDecimal parPrioridad, BigDecimal parEstado, Date parFechainicial, Date parFechafinal, Date parFechaproceso, BigDecimal usuId) {
+    public CivParametros(BigDecimal parId, CivGrupos civGrupos, String parNombre, String parNombrecorto, BigDecimal parCodigo, BigDecimal parSubcodigo, BigDecimal parPrioridad, BigDecimal parEstado, Date parFechainicial, Date parFechafinal, Date parFechaproceso) {
        this.parId = parId;
        this.civGrupos = civGrupos;
        this.parNombre = parNombre;
@@ -43,7 +42,6 @@ public class CivParametros  implements java.io.Serializable {
        this.parFechainicial = parFechainicial;
        this.parFechafinal = parFechafinal;
        this.parFechaproceso = parFechaproceso;
-       this.usuId = usuId;
     }
    
     public BigDecimal getParId() {
@@ -122,13 +120,6 @@ public class CivParametros  implements java.io.Serializable {
     
     public void setParFechaproceso(Date parFechaproceso) {
         this.parFechaproceso = parFechaproceso;
-    }
-    public BigDecimal getUsuId() {
-        return this.usuId;
-    }
-    
-    public void setUsuId(BigDecimal usuId) {
-        this.usuId = usuId;
     }
 
 

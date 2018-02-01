@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivPais" table="CIV_PAIS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivPais" table="CIV_PAIS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los diferentes paises disponibles en el sistema.</comment>
         <id name="paiId" type="big_decimal">
             <column name="PAI_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
         <property name="paiNombre" type="string">
             <column name="PAI_NOMBRE" length="200">
@@ -19,5 +19,29 @@
                 <comment>Codigo del pais</comment>
             </column>
         </property>
+        <set name="civMunicipioses" table="CIV_MUNICIPIOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PAI_ID" precision="22" scale="0">
+                    <comment>fk de la tabla civ_pais</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivMunicipios" />
+        </set>
+        <set name="civDepartamentoses" table="CIV_DEPARTAMENTOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PAI_ID" precision="22" scale="0">
+                    <comment>ID unico del pais</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDepartamentos" />
+        </set>
+        <set name="civDiviposes" table="CIV_DIVIPOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="PAI_ID" precision="22" scale="0">
+                    <comment>fk de la tabla civ_pais</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDivipos" />
+        </set>
     </class>
 </hibernate-mapping>

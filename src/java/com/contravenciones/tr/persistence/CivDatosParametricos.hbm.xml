@@ -1,18 +1,17 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
-    <class name="com.contravenciones.tr.persistence.CivDatosParametricos" table="CIV_DATOS_PARAMETRICOS" schema="CONTRAVENCIONES" optimistic-lock="version">
+    <class name="com.contravenciones.tr.persistence.CivDatosParametricos" table="CIV_DATOS_PARAMETRICOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="dtparaId" type="big_decimal">
             <column name="DTPARA_ID" precision="22" scale="0" />
-            <generator class="increment" />
+            <generator class="assigned" />
         </id>
-        <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" fetch="select">
-            <column name="USU_ID" precision="22" scale="0" not-null="true" />
-        </many-to-one>
         <many-to-one name="civConceptos" class="com.contravenciones.tr.persistence.CivConceptos" fetch="select">
-            <column name="CONC_ID" precision="22" scale="0" />
+            <column name="CON_ID" precision="22" scale="0">
+                <comment>ID UNICO CONCEPTO</comment>
+            </column>
         </many-to-one>
         <property name="dtparaTipo" type="big_decimal">
             <column name="DTPARA_TIPO" precision="22" scale="0" not-null="true" />
@@ -43,6 +42,9 @@
         </property>
         <property name="dtparaLongitud" type="big_decimal">
             <column name="DTPARA_LONGITUD" precision="22" scale="0" />
+        </property>
+        <property name="concId" type="big_decimal">
+            <column name="CONC_ID" precision="22" scale="0" />
         </property>
     </class>
 </hibernate-mapping>
