@@ -11,7 +11,7 @@ import java.io.Serializable;
  * Clase que define un recurso del sistema. Por ejemplo una vista que se llama
  * desde el menú principal.
  *
- * @author ing_jefreypadilla
+ * @author Roymer Camacho
  */
 public class Recurso implements Serializable {
 

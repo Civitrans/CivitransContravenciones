@@ -22,7 +22,7 @@
                             <div class="form-group">
                                 <label>Tipo Documento</label>
                                 <h:selectOneMenu id="tdoc"  class="form-control"  value="#{gestionpersonasBean.tipoDoc}" disabled="true">
-                                    <f:selectItems value="#{parametrosBean.tipo_documentos}" var="tipoDocumento" itemValue="#{tipoDocumento.code}" itemLabel="#{tipoDocumento.nombreP}"></f:selectItems>
+                                    <f:selectItems value="#{gestionpersonasBean.listaTipoDocumento}" var="tipoDocumento" itemValue="#{tipoDocumento.tipdocId.intValue()}" itemLabel="#{tipoDocumento.tipdocNombre}"></f:selectItems>
                                 </h:selectOneMenu>
                             </div>
                         </div>

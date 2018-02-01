@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/01/2018 03:08:13 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivPerfiles" table="CIV_PERFILES" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los diferentes perfiles de usuario del sistema. Ver CIV_USUPERFIL.</comment>
@@ -14,7 +14,7 @@
                 <comment>Nombre del perfil</comment>
             </column>
         </property>
-        <set name="civUsuperfils" table="CIV_USUPERFIL" inverse="true" lazy="true" fetch="select">
+        <set name="civUsuperfils" table="CIV_USUPERFIL" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="PERF_ID" precision="22" scale="0" not-null="true">
                     <comment>ID del perfil de usuario</comment>
@@ -22,7 +22,7 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivUsuperfil" />
         </set>
-        <set name="civPerfilrecursos" table="CIV_PERFILRECURSO" inverse="true" lazy="true" fetch="select">
+        <set name="civPerfilrecursos" table="CIV_PERFILRECURSO" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="PERF_ID" precision="22" scale="0">
                     <comment>ID del perfil</comment>

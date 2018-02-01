@@ -5,6 +5,7 @@ import com.contravenciones.tr.persistence.CivRecursos;
 import com.contravenciones.tr.persistence.CivUsuarios;
 import java.io.Serializable;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
@@ -41,6 +42,8 @@ public class DaoLogin extends HibernateDaoSupport implements ITLogin, Serializab
      */
     @Override
     public List<CivRecursos> listarRecursos(int usu_id) throws Exception {
+        
+       
 
         Session session = getHibernateTemplate().getSessionFactory().openSession();
 

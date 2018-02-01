@@ -6,6 +6,7 @@ package com.contravenciones.tr.bo;
 
 import com.contravenciones.jsf.bean.BeanLogin;
 import com.contravenciones.model.Modulo;
+import com.contravenciones.tr.persistence.CivPerfilrecurso;
 import java.util.List;
 
 /**
@@ -28,6 +29,23 @@ public interface LoginBO {
      * @throws java.lang.Exception
      */
     List<Modulo> listarModulos(BeanLogin obj) throws Exception;
+    
+    /**
+     *
+     * @param obj
+     * @return
+     * @throws java.lang.Exception
+     */
+    void listarPerfilRecursos(BeanLogin obj) throws Exception;
+    
+    /**
+     *
+     * @param obj
+     * @param tipo
+     * @return
+     * @throws java.lang.Exception
+     */
+    void filtrarRecursosPlantillas(BeanLogin obj, int tipo) throws Exception;
 
     /**
      *

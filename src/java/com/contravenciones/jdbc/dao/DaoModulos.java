@@ -12,7 +12,7 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 /**
  *
- * @author JefreySistemas
+ * @author Roymer Camacho
  */
 public class DaoModulos extends HibernateDaoSupport implements ITModulos {
 

@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/01/2018 03:08:13 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivConceptos" table="CIV_CONCEPTOS" schema="CONTRAVENCIONES" optimistic-lock="version">
         <id name="conId" type="big_decimal">
@@ -53,7 +53,7 @@
                 <comment>ESTADO DEL CONCEPTO</comment>
             </column>
         </property>
-        <set name="civDetallecarteras" table="CIV_DETALLECARTERA" inverse="true" lazy="true" fetch="select">
+        <set name="civDetallecarteras" table="CIV_DETALLECARTERA" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="CON_ID" precision="22" scale="0" not-null="true">
                     <comment>CONCEPTO DEL DETALLE DE LA CARTERA</comment>
@@ -61,13 +61,13 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDetallecartera" />
         </set>
-        <set name="civDatosParametricoses" table="CIV_DATOS_PARAMETRICOS" inverse="true" lazy="true" fetch="select">
+        <set name="civDatosParametricoses" table="CIV_DATOS_PARAMETRICOS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="CONC_ID" precision="22" scale="0" />
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDatosParametricos" />
         </set>
-        <set name="civCarterases" table="CIV_CARTERAS" inverse="true" lazy="true" fetch="select">
+        <set name="civCarterases" table="CIV_CARTERAS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="CON_ID" precision="22" scale="0" not-null="true">
                     <comment>CONCEPTO DE LA CARTERA</comment>

@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author ing_jefreypadilla
+ * @author Roymer Camacho
  */
 public class DaoSedes extends HibernateDaoSupport implements ITSedes {
 

@@ -45,4 +45,5 @@
     <table-filter match-name="CIV_ESTRUCTURA_SIMIT"/>
     <table-filter match-name="CIV_DATOS_PARAMETRICOS"/>
     <table-filter match-name="CIV_PLANTILLAS"/>
+    <table-filter match-name="CIV_TIPODOCUMENTOS"/>
 </hibernate-reverse-engineering>

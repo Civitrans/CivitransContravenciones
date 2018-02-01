@@ -31,7 +31,7 @@ import java.util.List;
 
 /**
  *
- * @author ing_jefreypadilla
+ * @author Roymer Camacho
  */
 public class ParametrosImplBO implements ParametrosBO, Serializable {
 

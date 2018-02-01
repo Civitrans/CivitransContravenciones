@@ -46,6 +46,7 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.0.203:1521:orclciv</property>
     <property name="hibernate.connection.username">contravenciones</property>
     <property name="hibernate.connection.password">desarrollo</property>
+    <property name="hibernate.current_session_context_class">thread</property>
     <mapping resource="com/contravenciones/tr/persistence/CivUsuarioCajas.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivDetallecartera.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivCargueplano.hbm.xml"/>
@@ -61,6 +62,7 @@ Contributor(s):
     <mapping resource="com/contravenciones/tr/persistence/CivComparendos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivDivipos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivPoblados.hbm.xml"/>
+    <mapping resource="com/contravenciones/tr/persistence/CivTipodocumentos.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivUspHistoria.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivUsuarios.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivPais.hbm.xml"/>

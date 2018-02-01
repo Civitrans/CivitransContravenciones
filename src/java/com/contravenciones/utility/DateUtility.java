@@ -14,7 +14,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 
 /**
  *
- * @author ing_jefreypadilla
+ * @author Roymer Camacho
  */
 public class DateUtility {
 

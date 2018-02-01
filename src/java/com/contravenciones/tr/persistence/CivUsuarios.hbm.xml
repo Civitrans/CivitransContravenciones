@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/01/2018 03:08:13 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivUsuarios" table="CIV_USUARIOS" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan la informacion de los usuarios registrados en el sistema.</comment>
@@ -54,7 +54,7 @@
                 <comment>Bandera si el usuario es RUNT o no</comment>
             </column>
         </property>
-        <set name="civSalariosminimoses" table="CIV_SALARIOSMINIMOS" inverse="true" lazy="true" fetch="select">
+        <set name="civSalariosminimoses" table="CIV_SALARIOSMINIMOS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
                     <comment>USUARIO QUE INGRESO EL REGISTRO</comment>
@@ -62,7 +62,7 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivSalariosminimos" />
         </set>
-        <set name="civUspHistorias" table="CIV_USP_HISTORIA" inverse="true" lazy="true" fetch="select">
+        <set name="civUspHistorias" table="CIV_USP_HISTORIA" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0">
                     <comment>ID de usuario</comment>
@@ -70,7 +70,7 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivUspHistoria" />
         </set>
-        <set name="civValorinfraccions" table="CIV_VALORINFRACCION" inverse="true" lazy="true" fetch="select">
+        <set name="civValorinfraccions" table="CIV_VALORINFRACCION" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
                     <comment>USUARIO QUE INGRESO EL VALOR DE LA INFRACCION</comment>
@@ -78,7 +78,7 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivValorinfraccion" />
         </set>
-        <set name="civCarterases" table="CIV_CARTERAS" inverse="true" lazy="true" fetch="select">
+        <set name="civCarterases" table="CIV_CARTERAS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
                     <comment>USUARIO QUE INGRESO LA CARTERA</comment>
@@ -86,13 +86,13 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivCarteras" />
         </set>
-        <set name="civPerfilrecursos" table="CIV_PERFILRECURSO" inverse="true" lazy="true" fetch="select">
+        <set name="civPerfilrecursos" table="CIV_PERFILRECURSO" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivPerfilrecurso" />
         </set>
-        <set name="civInfraccioneses" table="CIV_INFRACCIONES" inverse="true" lazy="true" fetch="select">
+        <set name="civInfraccioneses" table="CIV_INFRACCIONES" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
                     <comment>USUARIO QUE INGRESO LAINFRACCION</comment>
@@ -100,7 +100,7 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivInfracciones" />
         </set>
-        <set name="civConceptoses" table="CIV_CONCEPTOS" inverse="true" lazy="true" fetch="select">
+        <set name="civConceptoses" table="CIV_CONCEPTOS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
                     <comment>USUARIO QUE INGRESA EL CONCEPTO</comment>
@@ -108,7 +108,7 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivConceptos" />
         </set>
-        <set name="civUsuarioCajases" table="CIV_USUARIO_CAJAS" inverse="true" lazy="true" fetch="select">
+        <set name="civUsuarioCajases" table="CIV_USUARIO_CAJAS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="10" scale="0" not-null="true">
                     <comment>ID de usuario</comment>
@@ -116,7 +116,7 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivUsuarioCajas" />
         </set>
-        <set name="civDetallecarteras" table="CIV_DETALLECARTERA" inverse="true" lazy="true" fetch="select">
+        <set name="civDetallecarteras" table="CIV_DETALLECARTERA" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
                     <comment>USUARIO QUE INGRESO EL DETALLE DE LA CARTERA</comment>
@@ -124,7 +124,13 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDetallecartera" />
         </set>
-        <set name="civAttemptses" table="CIV_ATTEMPTS" inverse="true" lazy="true" fetch="select">
+        <set name="civTipodocumentoses" table="CIV_TIPODOCUMENTOS" inverse="true" lazy="false" fetch="join">
+            <key>
+                <column name="USU_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivTipodocumentos" />
+        </set>
+        <set name="civAttemptses" table="CIV_ATTEMPTS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
                     <comment>ID unico de usuario</comment>
@@ -132,19 +138,19 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivAttempts" />
         </set>
-        <set name="civDatosParametricoses" table="CIV_DATOS_PARAMETRICOS" inverse="true" lazy="true" fetch="select">
+        <set name="civDatosParametricoses" table="CIV_DATOS_PARAMETRICOS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDatosParametricos" />
         </set>
-        <set name="civDetalleRecUsus" table="CIV_DETALLE_REC_USU" inverse="true" lazy="true" fetch="select">
+        <set name="civDetalleRecUsus" table="CIV_DETALLE_REC_USU" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true" />
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivDetalleRecUsu" />
         </set>
-        <set name="civUsuperfils" table="CIV_USUPERFIL" inverse="true" lazy="true" fetch="select">
+        <set name="civUsuperfils" table="CIV_USUPERFIL" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="USU_ID" precision="22" scale="0" not-null="true">
                     <comment>ID de usuario</comment>

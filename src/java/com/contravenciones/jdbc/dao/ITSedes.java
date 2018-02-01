@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author ing_jefreypadilla
+ * @author Roymer Camacho
  */
 public interface ITSedes {
 

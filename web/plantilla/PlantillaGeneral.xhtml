@@ -4,7 +4,8 @@
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:head>
         <title>Civitrans</title>
@@ -34,7 +35,7 @@
         <link rel="stylesheet" href="#{request.contextPath}/recursos/bower_components/morris.js/morris.css"></link>
         <!-- jvectormap -->
         <link rel="stylesheet" href="#{request.contextPath}/recursos/bower_components/jvectormap/jquery-jvectormap.css"></link>
-       
+
         <!-- bootstrap wysihtml5 - text editor -->
         <link rel="stylesheet" href="#{request.contextPath}/recursos/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css"></link>
 
@@ -65,7 +66,6 @@
         <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false" >
             <p:graphicImage url="#{request.contextPath}/recursos/images/loading.gif" style="width: 25px;"/> Espere...
         </p:dialog>
-
         <div class="wrapper">
 
             <div id="top" class="top">
@@ -198,7 +198,7 @@
                                                     </div>    
                                                 </h:form>
                                                 <div class="pull-right">
-                                                    <h:link outcome="/CerrarSesion.jsp" class="btn btn-default btn-flat">Sign out</h:link>
+                                                    <h:link outcome="/CerrarSesion.jsp" class="btn btn-default btn-flat">Cerrar Sesión</h:link>
                                                 </div>
                                             </li>
                                         </ul>
@@ -230,23 +230,34 @@
                                 </div>
 
                                 <!-- sidebar menu: : style can be found in sidebar.less -->
+
                                 <ul class="sidebar-menu" data-widget="tree">
                                     <li class="header">Navegacion Principal</li>
-                                    <ui:repeat value="#{loginBean.listModulos}" var="modu">
-                                        <li class="treeview">
-                                            <a href="#">
-                                                <i class="fa #{modu.icon}"></i> <span>#{modu.nombre}</span>
-                                                <span class="pull-right-container">
-                                                    <i class="fa fa-angle-left pull-right"></i>
-                                                </span>
-                                            </a>
-                                            <ul class="treeview-menu">
-                                                <ui:repeat value="#{modu.listRecurso}" var="recx">
-                                                    <li><h:link outcome="#{recx.carpeta}#{recx.descripcion}"><i class="fa fa-circle-o"></i> #{recx.nombre} </h:link></li>
-                                                </ui:repeat>
-                                            </ul>
-                                        </li>
-                                    </ui:repeat>
+                                    <c:set value="0" var="valor"></c:set>
+                                    <c:forEach items="#{loginBean.listRedireccion}" var="modu">
+                                        <c:if test="${modu.civRecursos.civModulos.modId.intValue()!=valor}">
+                                            <c:set value="${modu.civRecursos.civModulos.modId.intValue()}" var="valor"></c:set>
+                                            <li class="treeview">
+                                                <a href="#">
+                                                    <i class="fa #{modu.civRecursos.civModulos.icon}"></i> <span>#{modu.civRecursos.civModulos.modNombre}</span>
+                                                    <span class="pull-right-container">
+                                                        <i class="fa fa-angle-left pull-right"></i>
+                                                    </span>
+                                                </a>
+
+                                                <ul class="treeview-menu">
+                                                    <c:forEach items="${loginBean.listRedireccion}" var="val">
+                                                        <c:if test="${valor == val.civRecursos.civModulos.modId.intValue()}">
+                                                            <li><h:link outcome="${val.civRecursos.recCarpeta}${val.civRecursos.recDescripcion}"><i class="fa fa-circle-o"></i> ${val.civRecursos.recNombre} </h:link></li>
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </ul>
+
+                                            </li>
+                                        </c:if>
+
+                                    </c:forEach>
+
                                     <!--
                                         <li class="header">LABELS</li>
                                         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
@@ -804,7 +815,7 @@
         <script src="#{request.contextPath}/recursos/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
         <!-- jQuery Knob Chart -->
         <script src="#{request.contextPath}/recursos/bower_components/jquery-knob/dist/jquery.knob.min.js"></script>
-        
+
         <!-- Bootstrap WYSIHTML5 -->
         <script src="#{request.contextPath}/recursos/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
         <!-- Slimscroll -->

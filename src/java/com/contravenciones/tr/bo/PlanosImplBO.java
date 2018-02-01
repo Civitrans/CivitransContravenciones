@@ -20,6 +20,7 @@ import com.contravenciones.tr.persistence.CivDivipos;
 import com.contravenciones.tr.persistence.CivEstructuraSimit;
 import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPersonas;
+import com.contravenciones.tr.persistence.CivTipodocumentos;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.InputStreamReader;
@@ -362,8 +363,9 @@ public class PlanosImplBO implements PlanosBO {
             infractor = getPersonasDAO().consultarPersonasByDocumento(Integer.parseInt(cargueComparendo.getComtipodoc()), cargueComparendo.getCominfractor());
         }
         if (infractor == null) {
+            CivTipodocumentos tipoDocumentoInfractor = new CivTipodocumentos();
             infractor = new CivPersonas();
-            infractor.setPerTipodocumento(new BigDecimal(cargueComparendo.getComtipodoc()));
+            infractor.setCivTipodocumentos(tipoDocumentoInfractor.set);
             infractor.setPerDocumento(cargueComparendo.getCominfractor());
             infractor.setPerNombre1(cargueComparendo.getComnombe());
             infractor.setPerApellido1(cargueComparendo.getComapellido());

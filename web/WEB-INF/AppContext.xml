@@ -40,14 +40,18 @@
     </bean>
     
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
+        
         <property name="dataSource">
             <ref bean="dataSource"/>
         </property>
+        
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
                 <prop key="hibernate.show_sql">false</prop>
-                <prop key="hibernate.generate_statistics">true</prop>
+                <prop key="hibernate.generate_statistics">false</prop>
+                <prop key="current_session_context_class">thread</prop>
+                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
                 <prop key="hibernate.connection.pool_size">3</prop>
                 <prop key="hibernate.max_fetch_depth">1</prop>
                 <prop key="hibernate.connection.release_mode">after_transaction</prop>
@@ -101,6 +105,7 @@
                 <value>com/contravenciones/tr/persistence/CivConceptos.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivDatosParametricos.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivPlantillas.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivTipodocumentos.hbm.xml</value>
             </list>
         </property>
     </bean>
@@ -205,6 +210,10 @@
     <bean id="comparendosDAO" class="com.contravenciones.jdbc.dao.DaoComparendos">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
+    <bean id="tiposDocumentosDAO" class="com.contravenciones.jdbc.dao.DaoTipoDocumento">
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
+    
     <!-- BOS -->
     <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
         <property name="loginDAO" ref="loginDAO"></property>
@@ -212,6 +221,7 @@
         <property name="personasDAO" ref="personasDAO"></property>
         <property name="usuariosDAO" ref="usuariosDAO" />
         <property name="plantillasDAO" ref="plantillasDAO" />
+        <property name="perfilRecursosDAO" ref="perfilRecursoDAO" />
     </bean>   
     <bean id="GestionUsuarioBO" class="com.contravenciones.tr.bo.GestionUsuarioImplBO">
         <property name="usuariosDAO" ref="usuariosDAO" />
@@ -249,6 +259,7 @@
         <property name="divipoDAO" ref="divipoDAO"/>
         <property name="direccionesDAO" ref="direccionesDAO"/>
         <property name="usuariosDAO" ref="usuariosDAO"/>
+        <property name="tiposDocumentosDAO" ref="tiposDocumentosDAO"/>
     </bean>
     <bean id="gestionRecursoBO" class="com.contravenciones.tr.bo.GestionRecursoImplBO">
         <property name="recursosDAO" ref="recursosDAO" />
@@ -290,7 +301,6 @@
     <!-- Transaction -->    
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
-        <property name="dataSource" ref="dataSource" />
     </bean>
    
     <tx:annotation-driven transaction-manager="transactionManager" />

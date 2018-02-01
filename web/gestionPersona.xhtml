@@ -10,8 +10,8 @@
         <ui:composition template="#{loginBean.plantilla}">
             <ui:define name="content">
                 <c:set var="val" value="false"/>
-                <c:forEach items="${loginBean.listRecursos}" var="rec">
-                    <c:if  test="#{rec eq 'gestionPersona'}" var="bool">
+                <c:forEach items="${loginBean.listPerfilRecursos}" var="rec">
+                    <c:if  test="#{rec.civRecursos.recDescripcion eq 'gestionPersona'}" var="bool">
                         <c:set var="val" value="true"/>
                     </c:if>
                 </c:forEach>
@@ -81,7 +81,7 @@
                                                                         <h:inputText class="form-control text-uppercase" maxlength="20" id="txtBuscarPersona" value="#{gestionpersonasBean.buscarPersona}"></h:inputText>
                                                                         <span class="input-group-btn">
                                                                             <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
-                                                                                <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona('nombre')}" execute="gestionPersona:txtBuscarPersona" render="gestionPersona:pnGroup"></f:ajax>
+                                                                                <f:ajax event="click" listener="#{gestionpersonasBean.listarPersona('nombre')}" execute="gestionPersona:txtBuscarPersona" render="gestionPersona:pnGroup gestionPersona:messageGeneral"></f:ajax>
                                                                             </h:commandLink>
                                                                         </span>
                                                                     </div>
@@ -98,7 +98,7 @@
                                                                     <div class="form-group">
                                                                         <label>Tipo Documento</label>
                                                                         <h:selectOneMenu id="td"  class="form-control"  value="#{gestionpersonasBean.buscarTipoDoc}">
-                                                                            <f:selectItems value="#{parametrosBean.tipo_documentos}" var="tipoDocumento" itemValue="#{tipoDocumento.code}" itemLabel="#{tipoDocumento.nombreP}"></f:selectItems>
+                                                                            <f:selectItems value="#{gestionpersonasBean.listaTipoDocumento}" var="tipoDocumento" itemValue="#{tipoDocumento.tipdocId}" itemLabel="#{tipoDocumento.tipdocNombre}"></f:selectItems>
                                                                         </h:selectOneMenu>
                                                                     </div>
                                                                 </div>
@@ -183,7 +183,7 @@
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">Tipo Documento</f:facet>
-                                                            #{gestionpersonasBean.listTipoDocumento.get(per.perTipodocumento.intValue())} 
+                                                           #{per.civTipodocumentos.tipdocNombre}
                                                     </h:column>
                                                     <h:column>
                                                         <f:facet name="header">Documento</f:facet>

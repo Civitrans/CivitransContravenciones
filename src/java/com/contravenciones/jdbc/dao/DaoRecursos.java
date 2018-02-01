@@ -14,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author JefreySistemas
+ * @author Roymer Camacho
  */
 public class DaoRecursos extends HibernateDaoSupport implements ITRecursos {
 

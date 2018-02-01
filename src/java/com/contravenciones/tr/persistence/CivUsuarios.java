@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 26/01/2018 03:08:11 PM by Hibernate Tools 4.3.1
+// Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -32,6 +32,7 @@ public class CivUsuarios  implements java.io.Serializable {
      private Set civConceptoses = new HashSet(0);
      private Set civUsuarioCajases = new HashSet(0);
      private Set civDetallecarteras = new HashSet(0);
+     private Set civTipodocumentoses = new HashSet(0);
      private Set civAttemptses = new HashSet(0);
      private Set civDatosParametricoses = new HashSet(0);
      private Set civDetalleRecUsus = new HashSet(0);
@@ -52,7 +53,7 @@ public class CivUsuarios  implements java.io.Serializable {
         this.usuFechaproceso = usuFechaproceso;
         this.usuUsuariorunt = usuUsuariorunt;
     }
-    public CivUsuarios(BigDecimal usuId, CivSedes civSedes, CivPersonas civPersonas, String usuNombre, String usuPassword, BigDecimal usuEstado, Date usuFechainicial, Date usuFechafinal, Date usuFechaproceso, BigDecimal usuUsuariorunt, Set civSalariosminimoses, Set civUspHistorias, Set civValorinfraccions, Set civCarterases, Set civPerfilrecursos, Set civInfraccioneses, Set civConceptoses, Set civUsuarioCajases, Set civDetallecarteras, Set civAttemptses, Set civDatosParametricoses, Set civDetalleRecUsus, Set civUsuperfils) {
+    public CivUsuarios(BigDecimal usuId, CivSedes civSedes, CivPersonas civPersonas, String usuNombre, String usuPassword, BigDecimal usuEstado, Date usuFechainicial, Date usuFechafinal, Date usuFechaproceso, BigDecimal usuUsuariorunt, Set civSalariosminimoses, Set civUspHistorias, Set civValorinfraccions, Set civCarterases, Set civPerfilrecursos, Set civInfraccioneses, Set civConceptoses, Set civUsuarioCajases, Set civDetallecarteras, Set civTipodocumentoses, Set civAttemptses, Set civDatosParametricoses, Set civDetalleRecUsus, Set civUsuperfils) {
        this.usuId = usuId;
        this.civSedes = civSedes;
        this.civPersonas = civPersonas;
@@ -72,6 +73,7 @@ public class CivUsuarios  implements java.io.Serializable {
        this.civConceptoses = civConceptoses;
        this.civUsuarioCajases = civUsuarioCajases;
        this.civDetallecarteras = civDetallecarteras;
+       this.civTipodocumentoses = civTipodocumentoses;
        this.civAttemptses = civAttemptses;
        this.civDatosParametricoses = civDatosParametricoses;
        this.civDetalleRecUsus = civDetalleRecUsus;
@@ -210,6 +212,13 @@ public class CivUsuarios  implements java.io.Serializable {
     
     public void setCivDetallecarteras(Set civDetallecarteras) {
         this.civDetallecarteras = civDetallecarteras;
+    }
+    public Set getCivTipodocumentoses() {
+        return this.civTipodocumentoses;
+    }
+    
+    public void setCivTipodocumentoses(Set civTipodocumentoses) {
+        this.civTipodocumentoses = civTipodocumentoses;
     }
     public Set getCivAttemptses() {
         return this.civAttemptses;

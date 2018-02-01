@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/01/2018 03:08:13 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivSedes" table="CIV_SEDES" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan las sedes de los diferentes organismos de transito</comment>
@@ -59,7 +59,7 @@
                 <comment>Estado del registro</comment>
             </column>
         </property>
-        <set name="civUsuarioCajases" table="CIV_USUARIO_CAJAS" inverse="true" lazy="true" fetch="select">
+        <set name="civUsuarioCajases" table="CIV_USUARIO_CAJAS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="SED_ID" precision="20" scale="0" not-null="true">
                     <comment>ID de sede</comment>
@@ -67,7 +67,7 @@
             </key>
             <one-to-many class="com.contravenciones.tr.persistence.CivUsuarioCajas" />
         </set>
-        <set name="civUsuarioses" table="CIV_USUARIOS" inverse="true" lazy="true" fetch="select">
+        <set name="civUsuarioses" table="CIV_USUARIOS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="SED_ID" precision="22" scale="0" not-null="true">
                     <comment>ID de sede del organismo</comment>

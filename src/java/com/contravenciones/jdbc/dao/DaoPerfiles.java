@@ -11,7 +11,7 @@ import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 
 /**
  *
- * @author JefreySistemas
+ * @author Roymer Camacho
  */
 public class DaoPerfiles extends HibernateDaoSupport implements ITPerfiles {
 

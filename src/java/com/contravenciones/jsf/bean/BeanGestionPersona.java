@@ -8,6 +8,7 @@ package com.contravenciones.jsf.bean;
 import com.contravenciones.exception.PersonaException;
 import com.contravenciones.tr.bo.GestionPersonaBO;
 import com.contravenciones.tr.persistence.CivPersonas;
+import com.contravenciones.tr.persistence.CivTipodocumentos;
 import com.contravenciones.utility.Log_Handler;
 import com.contravenciones.utility.ValidacionDatos;
 import java.io.Serializable;
@@ -24,13 +25,14 @@ import org.primefaces.context.RequestContext;
  *
  * @author Roymer Camacho
  */
-public class BeanGestionPersona implements Serializable {
+public class BeanGestionPersona {
 
     private BeanLogin loginBean;
     private GestionPersonaBO gestionPersonaBO;
 
     private List<CivPersonas> listPersonas;
     private Map<Integer, String> listTipoDocumento; // tipos de documento
+    private List<CivTipodocumentos> listaTipoDocumento;
     private Map<Integer, String> estadoPersona;
     private String buscarPersona;
     private int buscarTipoDoc;
@@ -88,7 +90,8 @@ public class BeanGestionPersona implements Serializable {
     private boolean detalleDireccion = true;
     private boolean cancelarDireccion = false;
     private boolean disDireccion = true;
-
+    
+    @PostConstruct
     public void cargarDatos() {
         try {
             getGestionPersonaBO().cargarDatos(this);
@@ -124,7 +127,7 @@ public class BeanGestionPersona implements Serializable {
 
     /*Método para consultar todos las personas registradas en la base de datos.*/
     public void listarPersona(String accion) {
-        cargarDatos();
+        //cargarDatos();
         getListTipoDocumento();
         impListarPersona(accion);
         //RequestContext.getCurrentInstance().execute("reload()"); // Función para mantener la paginación de la tabla donde se listan los usuarios registrados en la base de datos.
@@ -133,7 +136,7 @@ public class BeanGestionPersona implements Serializable {
     protected void impListarPersona(String accion) {
         try {
             getGestionPersonaBO().listPersona(this, accion);
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
         } catch (PersonaException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
             FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
@@ -1115,6 +1118,20 @@ public class BeanGestionPersona implements Serializable {
      */
     public void setUsuario(String usuario) {
         this.usuario = usuario;
+    }
+
+    /**
+     * @return the listaTipoDocumento
+     */
+    public List<CivTipodocumentos> getListaTipoDocumento() {
+        return listaTipoDocumento;
+    }
+
+    /**
+     * @param listaTipoDocumento the listaTipoDocumento to set
+     */
+    public void setListaTipoDocumento(List<CivTipodocumentos> listaTipoDocumento) {
+        this.listaTipoDocumento = listaTipoDocumento;
     }
 
 }

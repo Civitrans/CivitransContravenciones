@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 26/01/2018 03:08:13 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 29/01/2018 01:31:54 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivGrupos" table="CIV_GRUPOS" schema="CONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los grupos parametricos del sistema.</comment>
@@ -29,7 +29,7 @@
                 <comment>fk de la tabla civ_usuarios para marcar quien ingreso el grupo</comment>
             </column>
         </property>
-        <set name="civParametroses" table="CIV_PARAMETROS" inverse="true" lazy="true" fetch="select">
+        <set name="civParametroses" table="CIV_PARAMETROS" inverse="true" lazy="false" fetch="join">
             <key>
                 <column name="GRU_ID" precision="22" scale="0">
                     <comment>ID unico del grupo parametrico del sistema</comment>

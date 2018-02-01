@@ -62,6 +62,9 @@ public class AgentesImplBO implements AgentesBO {
         
         CivAgentes civ = getAgentesDAO().agentes(1);
         
+        String doc = civ.getCivPersonas().getPerDocumento();
+        String ti = civ.getAgePlaca();
+        
         if (BuscarReferencia.equals("nombre")) {
             for (CivPersonas per : getPersonasDAO().listarPersonas(bean.getReferencia().toUpperCase())) {
                 if (per != null) {

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author JefreySistemas
+ * @author Roymer Camacho
  */
 public interface ITRecursos {
     

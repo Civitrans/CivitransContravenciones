@@ -5,6 +5,7 @@ import com.contravenciones.model.Modulo;
 import com.contravenciones.model.Recurso;
 import com.contravenciones.singleton.AuthSingleton;
 import com.contravenciones.tr.bo.LoginBO;
+import com.contravenciones.tr.persistence.CivPerfilrecurso;
 import com.contravenciones.utility.Log_Handler;
 import java.io.Serializable;
 import java.util.Date;
@@ -58,6 +59,9 @@ public class BeanLogin implements Serializable {
     private int tipo;
     private String plantilla;
 
+    private List<CivPerfilrecurso> listPerfilRecursos;
+    private List<CivPerfilrecurso> listRedireccion;
+
     /**
      *
      * @return
@@ -67,8 +71,9 @@ public class BeanLogin implements Serializable {
 //            Log_Handler.registrarEvento("Tiempo fuera de lugar del reloj: " + NTPClient.retrasoReloj(), null, Log_Handler.INFO, getClass(),Integer.parseInt(loginBean.getID_Usuario()));
             setNotificationMap(new LinkedHashMap<>());
             getLoginBO().iniciarSesion(this); //Se cargan datos y ejecutan validaciones de usuario.
-            setListModulos(getLoginBO().listarModulos(this)); //Se carga el menu correspondiente al usuario
-            setListRecursos(getLoginBO().listarRecursos(this)); // Se cargan los recursos correspondientes al usuario
+            getLoginBO().listarPerfilRecursos(this);
+            //setListModulos(getLoginBO().listarModulos(this)); //Se carga el menu correspondiente al usuario
+            //setListRecursos(getLoginBO().listarRecursos(this)); // Se cargan los recursos correspondientes al usuario
             AuthSingleton.getInstancia().reesstablecerFuncionario(Integer.parseInt(id_usuario)); //Se reestablecen credenciales de RUNT
             setNombre(getNombre().toUpperCase(Locale.ROOT));
             validarAcceso(); //Revisar Estado del Usuario
@@ -91,37 +96,33 @@ public class BeanLogin implements Serializable {
 
         try {
 
-            for (Modulo mod : getListModulos()) {
-                for (Recurso re : mod.getListRecurso()) {
-
-                    if (re.getTipo() == 1 && !isAd()) {
-                        setAd(true);
-                    }
-
-                    if (re.getTipo() == 2 && !isOp()) {
-                        setOp(true);
-                    }
+            for (CivPerfilrecurso per : getListPerfilRecursos()) {
+                if (per.getCivRecursos().getRecTipo().intValue() == 1 && !isAd()) {
+                    setAd(true);
+                }
+                if (per.getCivRecursos().getRecTipo().intValue() == 2 && !isOp()) {
+                    setOp(true);
                 }
             }
 
             setAut_RUNT((isAd() && isOp()));
-            String api;
+
             if (getUserEstado() == 3) { //Usuario Por reestablecer credenciales
                 return "/reestablecer.civ";
             } else {
 
-                //String api = isAd() && isOp() ? "/redirec" : isAd() && !isOp() ? "/inicioAdministrativo" : "/inicioOperativo";
-                api = isAut_RUNT() ? "/redirec" : "/inicio";
+                if (isAut_RUNT()) {
+                    return "/redirec?faces-redirect=true";
+                }
 
                 if (isAd() && !isOp()) {
-                    setListModulos(getLoginBO().listarModulos(this, 1)); //Se carga el menu correspondiente al usuario
-                    //    setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralAdminstrativa.xhtml");
+                    setTipo(1);
                 } else if (!isAd() && isOp()) {
-                    setListModulos(getLoginBO().listarModulos(this, 2)); //Se carga el menu correspondiente al usuario
-                    //    setPlantilla("/plantillas/AdminLTE-2.4.2/plantillaGeneralOperativa.xhtml");
+                    setTipo(2);
                 }
             }
-            return api + "?faces-redirect=true"; //Redirect=true obligatorio para validaciones de filtro
+
+            return redireccion(tipo); //Redirect=true obligatorio para validaciones de filtro
 
         } catch (LoginException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, "", e.getMessage()));
@@ -136,8 +137,9 @@ public class BeanLogin implements Serializable {
     public String redireccion(int tp) throws Exception {
         try {
             setTipo(tp);
-            setListModulos(getLoginBO().listarModulos(this, tipo)); //Se carga el menu correspondiente al usuario
-            return redireccionImpl()+"?faces-redirect=true";
+            getLoginBO().filtrarRecursosPlantillas(this, tipo);
+            //setListModulos(getLoginBO().listarModulos(this, tipo)); //Se carga el menu correspondiente al usuario
+            return redireccionImpl() + "?faces-redirect=true";
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -536,6 +538,34 @@ public class BeanLogin implements Serializable {
      */
     public void setTipo(int tipo) {
         this.tipo = tipo;
+    }
+
+    /**
+     * @return the listPerfilRecursos
+     */
+    public List<CivPerfilrecurso> getListPerfilRecursos() {
+        return listPerfilRecursos;
+    }
+
+    /**
+     * @param listPerfilRecursos the listPerfilRecursos to set
+     */
+    public void setListPerfilRecursos(List<CivPerfilrecurso> listPerfilRecursos) {
+        this.listPerfilRecursos = listPerfilRecursos;
+    }
+
+    /**
+     * @return the listRedireccion
+     */
+    public List<CivPerfilrecurso> getListRedireccion() {
+        return listRedireccion;
+    }
+
+    /**
+     * @param listRedireccion the listRedireccion to set
+     */
+    public void setListRedireccion(List<CivPerfilrecurso> listRedireccion) {
+        this.listRedireccion = listRedireccion;
     }
 
 }
