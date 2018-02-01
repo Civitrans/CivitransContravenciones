@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivExpedientes" table="CIV_EXPEDIENTES" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
+        <id name="expId" type="big_decimal">
+            <column name="EXP_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="civPersonas" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
+            <column name="PER_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="expNumero" type="string">
+            <column name="EXP_NUMERO" length="30" not-null="true" />
+        </property>
+        <property name="expEstado" type="big_decimal">
+            <column name="EXP_ESTADO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="expFecha" type="date">
+            <column name="EXP_FECHA" length="7" not-null="true" />
+        </property>
+        <property name="expTipo" type="big_decimal">
+            <column name="EXP_TIPO" precision="22" scale="0" not-null="true" />
+        </property>
+        <set name="civComparendoses" table="CIV_COMPARENDOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="EXP_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivComparendos" />
+        </set>
+        <set name="civResolucioneses" table="CIV_RESOLUCIONES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="EXP_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivResoluciones" />
+        </set>
+    </class>
+</hibernate-mapping>

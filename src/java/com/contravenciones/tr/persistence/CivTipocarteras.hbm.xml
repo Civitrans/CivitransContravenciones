@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivTipocarteras" table="CIV_TIPOCARTERAS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
+        <id name="tipcarId" type="big_decimal">
+            <column name="TIPCAR_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="tipcarCodigo" type="big_decimal">
+            <column name="TIPCAR_CODIGO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="tipcarNombre" type="string">
+            <column name="TIPCAR_NOMBRE" length="20" not-null="true" />
+        </property>
+        <property name="tipcarNombrecorto" type="string">
+            <column name="TIPCAR_NOMBRECORTO" length="5" />
+        </property>
+        <property name="tipcarEstado" type="big_decimal">
+            <column name="TIPCAR_ESTADO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="tipcarFechainicial" type="date">
+            <column name="TIPCAR_FECHAINICIAL" length="7" not-null="true" />
+        </property>
+        <property name="tipcarFechafinal" type="date">
+            <column name="TIPCAR_FECHAFINAL" length="7" />
+        </property>
+        <set name="civCarterases" table="CIV_CARTERAS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TIPCAR_ID" precision="22" scale="0" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivCarteras" />
+        </set>
+    </class>
+</hibernate-mapping>

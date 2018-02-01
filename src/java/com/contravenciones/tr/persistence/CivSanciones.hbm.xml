@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivSanciones" table="CIV_SANCIONES" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
+        <id name="sanId" type="big_decimal">
+            <column name="SAN_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="civResoluciones" class="com.contravenciones.tr.persistence.CivResoluciones" fetch="select">
+            <column name="RES_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

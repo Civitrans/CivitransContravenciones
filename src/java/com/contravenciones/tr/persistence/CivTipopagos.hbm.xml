@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivTipopagos" table="CIV_TIPOPAGOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
+        <id name="tippagId" type="big_decimal">
+            <column name="TIPPAG_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <property name="tipcarNombre" type="string">
+            <column name="TIPCAR_NOMBRE" length="30" not-null="true" />
+        </property>
+        <property name="tipcarEstado" type="big_decimal">
+            <column name="TIPCAR_ESTADO" precision="22" scale="0" />
+        </property>
+        <property name="tipcarFechainicial" type="date">
+            <column name="TIPCAR_FECHAINICIAL" length="7" not-null="true" />
+        </property>
+        <property name="tipcarFechafinal" type="date">
+            <column name="TIPCAR_FECHAFINAL" length="7" />
+        </property>
+        <set name="civUsuariosTipopagoses" table="CIV_USUARIOS_TIPOPAGOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="TIPPAG_ID" precision="22" scale="0" not-null="true">
+                    <comment>Tipo de pago</comment>
+                </column>
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivUsuariosTipopagos" />
+        </set>
+    </class>
+</hibernate-mapping>

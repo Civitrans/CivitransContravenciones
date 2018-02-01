@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
+<hibernate-mapping>
+    <class name="com.contravenciones.tr.persistence.CivResoluciones" table="CIV_RESOLUCIONES" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
+        <id name="resId" type="big_decimal">
+            <column name="RES_ID" precision="22" scale="0" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="civExpedientes" class="com.contravenciones.tr.persistence.CivExpedientes" fetch="select">
+            <column name="EXP_ID" precision="22" scale="0" />
+        </many-to-one>
+        <many-to-one name="civCarteras" class="com.contravenciones.tr.persistence.CivCarteras" fetch="select">
+            <column name="CAR_ID" precision="22" scale="0" not-null="true" />
+        </many-to-one>
+        <property name="resNumero" type="string">
+            <column name="RES_NUMERO" length="30" not-null="true" />
+        </property>
+        <property name="resFecha" type="date">
+            <column name="RES_FECHA" length="7" not-null="true" />
+        </property>
+        <property name="resNumAnterior" type="string">
+            <column name="RES_NUM_ANTERIOR" length="30" />
+        </property>
+        <property name="resEstado" type="big_decimal">
+            <column name="RES_ESTADO" precision="22" scale="0" not-null="true" />
+        </property>
+        <property name="resFechainicial" type="date">
+            <column name="RES_FECHAINICIAL" length="7" not-null="true" />
+        </property>
+        <property name="resFechafinal" type="date">
+            <column name="RES_FECHAFINAL" length="7" />
+        </property>
+        <set name="civCobrocoactivos" table="CIV_COBROCOACTIVO" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RES_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivCobrocoactivo" />
+        </set>
+        <set name="civDescuentoses" table="CIV_DESCUENTOS" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RES_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivDescuentos" />
+        </set>
+        <set name="civFinanciacioneses" table="CIV_FINANCIACIONES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RES_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivFinanciaciones" />
+        </set>
+        <set name="civSancioneses" table="CIV_SANCIONES" inverse="true" lazy="true" fetch="select">
+            <key>
+                <column name="RES_ID" precision="22" scale="0" not-null="true" />
+            </key>
+            <one-to-many class="com.contravenciones.tr.persistence.CivSanciones" />
+        </set>
+    </class>
+</hibernate-mapping>
