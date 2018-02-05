@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivDatosParametricos" table="CIV_DATOS_PARAMETRICOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="dtparaId" type="big_decimal">
             <column name="DTPARA_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civConceptos" class="com.contravenciones.tr.persistence.CivConceptos" fetch="select">
             <column name="CON_ID" precision="22" scale="0">

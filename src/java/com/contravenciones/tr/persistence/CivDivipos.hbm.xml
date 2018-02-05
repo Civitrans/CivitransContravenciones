@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los datos de los Divipos a nivel nacional.</comment>
         <id name="divId" type="big_decimal">
             <column name="DIV_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civPoblados" class="com.contravenciones.tr.persistence.CivPoblados" fetch="select">
             <column name="POB_ID" precision="22" scale="0">

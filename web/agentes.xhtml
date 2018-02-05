@@ -10,8 +10,8 @@
         <ui:composition template="#{loginBean.plantilla}">
             <ui:define name="content">
                 <c:set var="val" value="false"/>
-                <c:forEach items="${loginBean.listRecursos}" var="rec">
-                    <c:if  test="#{rec eq 'agentes'}" var="bool">
+                <c:forEach items="${loginBean.listPerfilRecursos}" var="rec">
+                    <c:if  test="#{rec.civRecursos.recDescripcion eq 'agentes'}" var="bool">
                         <c:set var="val" value="true"/>
                     </c:if>
                 </c:forEach>
@@ -28,7 +28,7 @@
                             <div class="row">
                                 <div class="col-lg-12">
                                     <h:panelGrid id="menuConsulta" class="col-lg-12">
-                                        <h:panelGroup rendered="#{gestionrecursosBean.mostrarBuscar}">
+                                        <h:panelGroup rendered="#{agentesBean.mostrarBuscar}">
                                             <section class="content-header">
 
                                                 <h1>
@@ -151,9 +151,13 @@
                                                                     #{ran.agePlaca} 
                                                             </h:column>
                                                             <h:column>
+                                                                <f:facet name="header">Estado Agente</f:facet>
+                                                                    #{agentesBean.estadoAgentes.get(ran.estadoAgente)} 
+                                                            </h:column>
+                                                            <h:column>
                                                                 <f:facet name="header">Detalle</f:facet>
                                                                 <h:commandLink class="fa fa-eye">  <!-- onclick="$('#exampleModal').modal('toggle')" -->
-                                                                    <f:ajax event="click" listener="#{gestionrecursosBean.detalle(recu)}" execute="recurso" render="@form" />
+                                                                    <f:ajax event="click" listener="#{agentesBean.detalleAgente(ran)}" execute="agente" render="@form" />
                                                                 </h:commandLink>
                                                             </h:column>
                                                         </h:dataTable>
@@ -164,13 +168,109 @@
                                     </h:panelGrid>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-12">
+
+                                    <h:panelGrid id="detallePersona" class="col-lg-12">
+                                        <h:panelGroup rendered="#{gestionpersonasBean.mostrarDetalle}">
+                                            <section class="content-header">
+                                                <h1>
+                                                    Detalle Agente
+                                                    <small>Lugar donde podra observar una informacion detallada del agente</small>
+                                                </h1>
+                                                <ol class="breadcrumb">
+                                                    <li><a href="inicio.xhtml"><i class="fa fa-dashboard"></i> Inicio</a></li>
+                                                    <li><a><i class="fa fa-briefcase"></i> Rangos</a></li>
+                                                    <li><a href="agentes.xhtml"><i class="fa fa-briefcase"></i> Agentes</a></li>
+                                                    <li class="active">Detalle Agente</li>
+                                                </ol>
+                                                <br></br>
+                                                <div class="box box-primary">
+                                                    <div class="box-body">
+                                                        <h6 class="page-header" style="color: #000;"><i class="fa fa-user-secret"></i> Información Agente</h6>
+                                                        <div class="row">
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label>Tipo Agente</label>
+                                                                    <h:selectOneMenu id="tipoAgente"  class="form-control"  value="#{agentesBean.tipoAgente}" disabled="#{agentesBean.campos}">
+                                                                        <f:selectItems value="#{agentesBean.tipoAgentes.entrySet()}" var="ag" itemValue="#{ag.key}" itemLabel="#{ag.value}"></f:selectItems>
+                                                                    </h:selectOneMenu>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label>Placa</label>
+                                                                    <h:inputText class="form-control" id="numeroPlaca" disabled="#{agentesBean.campos}" value="#{agentesBean.placa}"></h:inputText>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label>Estado Agente</label>
+                                                                    <h:selectOneMenu id="estadoAgente"  class="form-control"  value="#{agentesBean.estadoAgente}" disabled="#{agentesBean.campos}">
+                                                                        <f:selectItems value="#{agentesBean.estadoAgentes.entrySet()}" var="es" itemValue="#{es.key}" itemLabel="#{es.value}"></f:selectItems>
+                                                                    </h:selectOneMenu>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-lg-3">
+                                                                <div class="form-group">
+                                                                    <label>Fecha Registro</label>
+                                                                    <h:inputText id="fechaRegistro" class="date datepicker form-control" value="#{agentesBean.fechaRegistro}" maxlength="10" disabled="true">
+                                                                        <f:convertDateTime pattern="dd/MM/yyyy"></f:convertDateTime>
+                                                                    </h:inputText><!--VALUE OK-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <hr/>
+                                                            <div class="col-lg-12" align="center">
+                                                                <h:panelGrid id="botonEditar">
+                                                                    <h:panelGroup rendered="#{agentesBean.btnEditar}">
+                                                                        <div class="col-lg-6" align="center">
+                                                                            <h:commandLink class="btn btn-warning" style="width: 200px" >
+                                                                                <span class="fa fa-edit"></span> Editar
+                                                                                <f:ajax event="click" listener="#{agentesBean.habilitarCampos()}" render="botonEditar botonesEditar estadoAgente tipoAgente numeroPlaca" ></f:ajax>
+                                                                            </h:commandLink>  
+                                                                        </div>
+                                                                    </h:panelGroup>
+                                                                </h:panelGrid>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-lg-12" align="center">
+                                                                <h:panelGrid id="botonesEditar">
+                                                                    <h:panelGroup rendered="#{agentesBean.botones}">
+                                                                        <div class="col-lg-6" align="center">
+                                                                            <h:commandLink class="btn btn-warning" style="width: 200px" >
+                                                                                <span class="fa fa-close"></span> Cancelar
+                                                                                <f:ajax event="click" listener="#{agentesBean.cancelarEdicion()}" render="botonesEditar botonEditar estadoAgente tipoAgente numeroPlaca"></f:ajax>
+                                                                            </h:commandLink>
+                                                                        </div>
+                                                                        <div class="col-lg-6" align="center">
+                                                                            <h:commandLink class="btn btn-success" style="width: 200px">
+                                                                                <span class="fa fa-save"></span> Guardar
+                                                                                <f:ajax event="click" listener="#{agentesBean.registrarAgente('actualizar')}" execute="estadoAgente tipoAgente numeroPlaca" render="botonesEditar botonEditar estadoAgente tipoAgente numeroPlaca"/>
+                                                                            </h:commandLink> 
+                                                                        </div>
+                                                                    </h:panelGroup>
+                                                                </h:panelGrid>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <ui:include src="detalleGestionPersona.xhtml" />   
+                                            </section> 
+
+                                        </h:panelGroup>
+                                    </h:panelGrid>
+                                </div>
+                            </div>
                         </div>
                         <ui:include src="adicionaAgenteModal.xhtml" />
                         <script>
                             setFechaInput();
                         </script>
                         <ui:include src="adicionarPersonaModal.xhtml" />
-                        
+
                     </h:form>
                 </c:if>
             </ui:define>

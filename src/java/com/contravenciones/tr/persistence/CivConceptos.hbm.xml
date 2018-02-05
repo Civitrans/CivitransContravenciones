@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivConceptos" table="CIV_CONCEPTOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="conId" type="big_decimal">
             <column name="CON_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="conNombre" type="string">
             <column name="CON_NOMBRE" length="100" not-null="true">

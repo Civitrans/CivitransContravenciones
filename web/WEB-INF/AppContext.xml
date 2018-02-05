@@ -223,6 +223,7 @@
         <property name="personasDAO" ref="personasDAO"></property>
         <property name="usuariosDAO" ref="usuariosDAO" />
         <property name="plantillasDAO" ref="plantillasDAO" />
+        <property name="perfilRecursoDAO" ref="perfilRecursoDAO" />
     </bean>   
     <bean id="GestionUsuarioBO" class="com.contravenciones.tr.bo.GestionUsuarioImplBO">
         <property name="usuariosDAO" ref="usuariosDAO" />
@@ -255,6 +256,7 @@
         <property name="parametrosDAO" ref="parametrosDAO"/>
         <property name="divipoDAO" ref="divipoDAO"/>
         <property name="direccionesDAO" ref="direccionesDAO"/>
+        <property name="tiposDocumentosDAO" ref="tiposDocumentosDAO"/>
     </bean>
     <bean id="gestionRecursoBO" class="com.contravenciones.tr.bo.GestionRecursoImplBO">
         <property name="recursosDAO" ref="recursosDAO" />

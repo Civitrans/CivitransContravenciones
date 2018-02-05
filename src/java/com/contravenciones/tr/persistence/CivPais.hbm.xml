@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan los diferentes paises disponibles en el sistema.</comment>
         <id name="paiId" type="big_decimal">
             <column name="PAI_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="paiNombre" type="string">
             <column name="PAI_NOMBRE" length="200">

@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivHistorialUsuarioCaja" table="CIV_HISTORIAL_USUARIO_CAJA" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="hisUsuCajId" type="big_decimal">
             <column name="HIS_USU_CAJ_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="usuId" type="big_decimal">
             <column name="USU_ID" precision="22" scale="0" />

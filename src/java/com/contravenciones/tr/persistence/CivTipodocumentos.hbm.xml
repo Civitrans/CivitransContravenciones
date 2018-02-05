@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivTipodocumentos" table="CIV_TIPODOCUMENTOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="tipdocId" type="big_decimal">
             <column name="TIPDOC_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="tipdocCodigo" type="big_decimal">
             <column name="TIPDOC_CODIGO" precision="22" scale="0" not-null="true" />

@@ -34,6 +34,23 @@ public interface LoginBO {
      * @return @throws Exception
      */
     public String generarContrasena() throws Exception;
+    
+    /**
+     *
+     * @param obj
+     * @return
+     * @throws java.lang.Exception
+     */
+    void listarPerfilRecursos(BeanLogin obj) throws Exception;
+    
+    /**
+     *
+     * @param obj
+     * @param tipo
+     * @return
+     * @throws java.lang.Exception
+     */
+    void filtrarRecursosPlantillas(BeanLogin obj, int tipo) throws Exception;
 
     /**
      *

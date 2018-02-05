@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivTipopagos" table="CIV_TIPOPAGOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="tippagId" type="big_decimal">
             <column name="TIPPAG_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="tipcarNombre" type="string">
             <column name="TIPCAR_NOMBRE" length="30" not-null="true" />

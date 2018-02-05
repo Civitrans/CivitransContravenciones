@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivDetallecartera" table="CIV_DETALLECARTERA" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="detcarId" type="big_decimal">
             <column name="DETCAR_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civConceptos" class="com.contravenciones.tr.persistence.CivConceptos" fetch="select">
             <column name="CON_ID" precision="22" scale="0" not-null="true">

@@ -7,7 +7,7 @@
         <comment>En esta tabla se almacenan la informacion de los usuarios registrados en el sistema.</comment>
         <id name="usuId" type="big_decimal">
             <column name="USU_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civPersonas" class="com.contravenciones.tr.persistence.CivPersonas" fetch="select">
             <column name="PER_ID" precision="22" scale="0" not-null="true">

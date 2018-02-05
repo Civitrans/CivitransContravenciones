@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivRangosComparendos" table="CIV_RANGOS_COMPARENDOS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="ranId" type="big_decimal">
             <column name="RAN_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="ranNumInicial" type="string">
             <column name="RAN_NUM_INICIAL" length="20" />

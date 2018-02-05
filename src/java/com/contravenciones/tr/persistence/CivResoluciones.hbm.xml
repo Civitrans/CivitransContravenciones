@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivResoluciones" table="CIV_RESOLUCIONES" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="resId" type="big_decimal">
             <column name="RES_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <many-to-one name="civExpedientes" class="com.contravenciones.tr.persistence.CivExpedientes" fetch="select">
             <column name="EXP_ID" precision="22" scale="0" />

@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivInfracciones" table="CIV_INFRACCIONES" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="infId" type="big_decimal">
             <column name="INF_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="infCodigoTransito" type="string">
             <column name="INF_CODIGO_TRANSITO" length="3" />

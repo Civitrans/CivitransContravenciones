@@ -6,6 +6,7 @@
 package com.contravenciones.jdbc.dao;
 
 import com.contravenciones.tr.persistence.CivPerfilrecurso;
+import java.math.BigDecimal;
 import java.util.List;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
@@ -53,8 +54,8 @@ public class DaoPerfilRecurso extends HibernateDaoSupport implements ITPerfilRec
 
     public List<CivPerfilrecurso> listPerfilRecursoByIDUsuarioFechaFin(long idusuario) throws Exception {
 
-        String hql = "from CivPerfilrecurso where usu_id=:idusuario and PERREC_FECHAFIN is null";
-        List list = getHibernateTemplate().findByNamedParam(hql, "idusuario", idusuario);
+        String hql = "from CivPerfilrecurso where civUsuarios.usuId=:idusuario and perrecFechafin is null order by civRecursos.civModulos.modId asc";
+        List list = getHibernateTemplate().findByNamedParam(hql, "idusuario", BigDecimal.valueOf(idusuario));
         return list;
     }
     

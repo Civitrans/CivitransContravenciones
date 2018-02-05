@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivEstructuraSimit" table="CIV_ESTRUCTURA_SIMIT" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="estrId" type="big_decimal">
             <column name="ESTR_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="estrNombreCampo" type="string">
             <column name="ESTR_NOMBRE_CAMPO" length="50">

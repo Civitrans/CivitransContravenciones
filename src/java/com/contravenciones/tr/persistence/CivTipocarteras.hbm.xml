@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivTipocarteras" table="CIV_TIPOCARTERAS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="tipcarId" type="big_decimal">
             <column name="TIPCAR_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="tipcarCodigo" type="big_decimal">
             <column name="TIPCAR_CODIGO" precision="22" scale="0" not-null="true" />

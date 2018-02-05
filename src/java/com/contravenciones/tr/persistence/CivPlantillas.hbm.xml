@@ -6,7 +6,7 @@
     <class name="com.contravenciones.tr.persistence.CivPlantillas" table="CIV_PLANTILLAS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <id name="planId" type="big_decimal">
             <column name="PLAN_ID" precision="22" scale="0" />
-            <generator class="assigned" />
+            <generator class="increment" />
         </id>
         <property name="planUri" type="string">
             <column name="PLAN_URI" length="100">

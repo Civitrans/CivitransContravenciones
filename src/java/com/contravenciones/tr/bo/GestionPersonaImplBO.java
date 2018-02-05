@@ -10,11 +10,13 @@ import com.contravenciones.jdbc.dao.ITDirecciones;
 import com.contravenciones.jdbc.dao.ITDivipo;
 import com.contravenciones.jdbc.dao.ITParametros;
 import com.contravenciones.jdbc.dao.ITPersonas;
+import com.contravenciones.jdbc.dao.ITTipoDocumento;
 import com.contravenciones.jsf.bean.BeanGestionPersona;
 import com.contravenciones.tr.persistence.CivDirecciones;
 import com.contravenciones.tr.persistence.CivDivipos;
 import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPersonas;
+import com.contravenciones.tr.persistence.CivTipodocumentos;
 import com.contravenciones.tr.persistence.CivUsuarios;
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -34,6 +36,7 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
     private ITParametros parametrosDAO;
     private ITDivipo divipoDAO;
     private ITDirecciones direccionesDAO;
+    private ITTipoDocumento tiposDocumentosDAO;
 
     @Override
     public void listPersona(BeanGestionPersona bean, String accion) throws Exception {
@@ -77,11 +80,11 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
     @Override
     public void cargarDatos(BeanGestionPersona bean) throws Exception {
         //Combo de Tipo de documento que se encuentra en la tabla parametros
-        bean.setListTipoDocumento(new HashMap<>());
+        bean.setListaTipoDocumento(new ArrayList<>());
         bean.setEstadoPersona(new HashMap<>());
         bean.setListNomenclatura(new HashMap<>());
-        for (CivParametros objParametros : getParametrosDAO().listParametros(5)) {
-            bean.getListTipoDocumento().put(objParametros.getParCodigo().intValue(), objParametros.getParNombre());
+        for(CivTipodocumentos td : getTiposDocumentosDAO().listAll()){
+            bean.getListaTipoDocumento().add(td);
         }
         for (CivParametros objParametros : getParametrosDAO().listParametros(391)) {
             bean.getEstadoPersona().put(objParametros.getParCodigo().intValue(), objParametros.getParNombre());
@@ -89,6 +92,7 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
         for (CivParametros objParametros : getParametrosDAO().listParametros(396)) {
             bean.getListNomenclatura().put(objParametros.getParNombrecorto(), objParametros.getParNombre());
         }
+        
 
     }
 
@@ -117,11 +121,11 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
         CivPersonas persona = getPersonasDAO().consultarPersonasById(per.getPerId().intValue());
 
         if (persona != null) {
-/*
+
             CivDivipos div = getDivipoDAO().getDivipo(persona.getPerLugarnacimiento().longValue());
             CivDivipos exp = getDivipoDAO().getDivipo(persona.getPerLugarexpedicion().longValue());
             bean.setIdpersona(persona.getPerId().intValue());
-            bean.setTipoDoc(persona.getPerTipodocumento().intValue());
+            bean.setTipoDoc(persona.getCivTipodocumentos().getTipdocId().intValue());
             bean.setDocumento(persona.getPerDocumento());
             bean.setNombre(persona.getPerNombre1() + " " + (persona.getPerNombre2() != null ? persona.getPerNombre2() + " " : "") + persona.getPerApellido1() + " " + (persona.getPerApellido2() != null ? persona.getPerApellido2() : ""));
             bean.setNombre1(persona.getPerNombre1());
@@ -129,13 +133,13 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
             bean.setApellido1(persona.getPerApellido1());
             bean.setApellido2(persona.getPerApellido2());
             bean.setFechaNac(persona.getPerFechanac());
-            bean.setPaisNac(div.getPaiId().intValue());
-            bean.setDepNac(div.getDepId().intValue());
-            bean.setMunNac(div.getMunId().intValue());
+            bean.setPaisNac(div.getCivPais().getPaiId().intValue());
+            bean.setDepNac(div.getCivDepartamentos().getDepId().intValue());
+            bean.setMunNac(div.getCivMunicipios().getMunId().intValue());
             bean.setFechaExp(persona.getPerFechaexp());
-            bean.setPaisExp(exp.getPaiId().intValue());
-            bean.setDepExp(exp.getDepId().intValue());
-            bean.setMunExp(exp.getMunId().intValue());
+            bean.setPaisExp(exp.getCivPais().getPaiId().intValue());
+            bean.setDepExp(exp.getCivDepartamentos().getDepId().intValue());
+            bean.setMunExp(exp.getCivMunicipios().getMunId().intValue());
             bean.setSexo(persona.getPerSexo());
             bean.setGrupoSang(persona.getPerGruposanguineo() + persona.getPerRh());
             bean.setCelular(persona.getPerCelular());
@@ -146,12 +150,12 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
                 CivDivipos dir = getDivipoDAO().getDivipo(direccion.getCivDivipos().getDivId().intValue());
                 bean.setIdDireccion(direccion.getDirId().intValue());
                 bean.setTelefono(direccion.getDirTelefono());
-                bean.setDepDir(dir.getDepId().intValue());
-                bean.setMunDir(dir.getMunId().intValue());
+                bean.setDepDir(dir.getCivDepartamentos().getDepId().intValue());
+                bean.setMunDir(dir.getCivMunicipios().getMunId().intValue());
                 bean.setDir(direccion.getDirDescripcion());
                 bean.setFechaInicialDir(direccion.getDirFechainicial());
             }
-            */
+            
         }
 
     }
@@ -359,6 +363,20 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
      */
     public void setDireccionesDAO(ITDirecciones direccionesDAO) {
         this.direccionesDAO = direccionesDAO;
+    }
+
+    /**
+     * @return the tiposDocumentosDAO
+     */
+    public ITTipoDocumento getTiposDocumentosDAO() {
+        return tiposDocumentosDAO;
+    }
+
+    /**
+     * @param tiposDocumentosDAO the tiposDocumentosDAO to set
+     */
+    public void setTiposDocumentosDAO(ITTipoDocumento tiposDocumentosDAO) {
+        this.tiposDocumentosDAO = tiposDocumentosDAO;
     }
 
 }

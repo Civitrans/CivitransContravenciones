@@ -27,7 +27,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import com.contravenciones.jdbc.dao.ITAttempts;
+import com.contravenciones.jdbc.dao.ITPerfilRecursos;
 import com.contravenciones.jdbc.dao.ITPlantillas;
+import com.contravenciones.tr.persistence.CivPerfilrecurso;
 import com.contravenciones.utility.ValidacionDatos;
 import java.util.ArrayList;
 
@@ -45,6 +47,7 @@ public class LoginImplBO implements LoginBO, Serializable {
     private ITPersonas personasDAO;
     private ITUsuarios usuariosDAO;
     private ITPlantillas plantillasDAO;
+    private ITPerfilRecursos perfilRecursoDAO;
     
     @Override
     public void iniciarSesion(BeanLogin obj) throws Exception {
@@ -302,6 +305,28 @@ public class LoginImplBO implements LoginBO, Serializable {
     }
     
     @Override
+    public void listarPerfilRecursos(BeanLogin obj) throws Exception {
+
+        obj.setListPerfilRecursos(new ArrayList<>());
+        for (CivPerfilrecurso pr : getPerfilRecursoDAO().listPerfilRecursoByIDUsuarioFechaFin(Integer.parseInt(obj.getID_Usuario()))) {
+            pr.getCivRecursos().setRecNombre(new ValidacionDatos().letraMayuscula(pr.getCivRecursos().getRecNombre()));
+            obj.getListPerfilRecursos().add(pr);
+        }
+
+    }
+
+    @Override
+    public void filtrarRecursosPlantillas(BeanLogin obj, int tipo) throws Exception {
+        obj.setListRedireccion(new ArrayList<>());
+        for (CivPerfilrecurso pr : obj.getListPerfilRecursos()) {
+            if (pr.getCivRecursos().getRecTipo().intValue() == tipo) {
+                obj.getListRedireccion().add(pr);
+            }
+        }
+
+    }
+    
+    @Override
     public List<String> listarRecursos(BeanLogin obj) throws Exception {
         List<CivRecursos> listR = getLoginDAO().listarRecursos(Integer.parseInt(obj.getID_Usuario()));
         List<String> rec = new LinkedList<>();
@@ -411,6 +436,20 @@ public class LoginImplBO implements LoginBO, Serializable {
      */
     public void setPlantillasDAO(ITPlantillas plantillasDAO) {
         this.plantillasDAO = plantillasDAO;
+    }
+
+    /**
+     * @return the perfilRecursoDAO
+     */
+    public ITPerfilRecursos getPerfilRecursoDAO() {
+        return perfilRecursoDAO;
+    }
+
+    /**
+     * @param perfilRecursoDAO the perfilRecursoDAO to set
+     */
+    public void setPerfilRecursoDAO(ITPerfilRecursos perfilRecursoDAO) {
+        this.perfilRecursoDAO = perfilRecursoDAO;
     }
     
 }
