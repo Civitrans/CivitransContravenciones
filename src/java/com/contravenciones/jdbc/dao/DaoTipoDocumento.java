@@ -41,7 +41,12 @@ public class DaoTipoDocumento extends HibernateDaoSupport implements ITTipoDocum
     }
 
     @Override
-    public CivTipodocumentos getTipoDocumento(int tipoDocumento) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public CivTipodocumentos getTipoDocumento(BigDecimal codigoDocumento) throws Exception {
+       String hql = "from CivTipodocumentos where tipdocCodigo=:codigoDocumento";
+        List list = getHibernateTemplate().findByNamedParam(hql, "codigoDocumento", codigoDocumento);
+        if (list.size() > 0) {
+            return (CivTipodocumentos) list.get(0);
+        }
+        return null;
     }
 }

@@ -30,8 +30,8 @@ public class DaoPersonas extends HibernateDaoSupport implements ITPersonas {
 
     @Override
     public CivPersonas consultarPersonasByDocumento(int tipo, String nro_documento) throws Exception {
-        String hql = "from CivPersonas where per_tipodocumento =:tipo and per_documento=:nro_documento";
-        List list = getHibernateTemplate().findByNamedParam(hql, new String[]{"tipo", "nro_documento"}, new Object[]{tipo, nro_documento});
+        String hql = "from CivPersonas where civTipodocumentos.tipdocCodigo =:tipo and perDocumento=:nro_documento";
+        List list = getHibernateTemplate().findByNamedParam(hql, new String[]{"tipo", "nro_documento"}, new Object[]{new BigDecimal(tipo), nro_documento});
         if (list.size() > 0) {
             return (CivPersonas) list.get(0);
         }

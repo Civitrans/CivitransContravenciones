@@ -6,6 +6,7 @@
 package com.contravenciones.jdbc.dao;
 
 import com.contravenciones.tr.persistence.CivTipodocumentos;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -40,6 +41,6 @@ public interface ITTipoDocumento {
      */
     public List<CivTipodocumentos> listAll() throws Exception;
     
-     public CivTipodocumentos getTipoDocumento(int tipoDocumento) throws Exception;
+     public CivTipodocumentos getTipoDocumento(BigDecimal tipoDocumento) throws Exception;
    
 }
