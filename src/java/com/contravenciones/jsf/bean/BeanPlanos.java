@@ -22,25 +22,31 @@ import javax.servlet.http.Part;
 public class BeanPlanos implements Serializable {
 
     private BeanLogin loginBean;
+    private BeanGestionPersona beanPersona;
     private PlanosBO planosBO;
+
     private Part file;
+    private List listaLinea;
+
     private List<CivCarguecomparendo> listComparendos; // Plano Arriba 
     private HashMap<String, String> hashLine; // Lienas del Error
     private List<HashMap> listLinea; //Listya de lineas de Error 
     private int cargados;
     private int noCargados;
 
-    public void updaloFile() {
+    
+
+    public void getPlanoComparendo() {
         if (getFile() == null) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Infomarcion", Log_Handler.solucionError(new Exception("Debe cargar una archivo"))));
             return;
         }
-        uploadFileImpl();
+        cargarPlanoComparendo();
     }
 
-    protected void uploadFileImpl() {
+    protected void cargarPlanoComparendo() {
         try {
-            getPlanosBO().getListEstructura(this);
+            getPlanosBO().guardarComparendoPlano(this);
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error Subien archivo plano: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
@@ -157,6 +163,34 @@ public class BeanPlanos implements Serializable {
      */
     public void setNoCargados(int noCargados) {
         this.noCargados = noCargados;
+    }
+
+    /**
+     * @return the listaLinea
+     */
+    public List getListaLinea() {
+        return listaLinea;
+    }
+
+    /**
+     * @param listaLinea the listaLinea to set
+     */
+    public void setListaLinea(List listaLinea) {
+        this.listaLinea = listaLinea;
+    }
+
+    /**
+     * @return the beanPersona
+     */
+    public BeanGestionPersona getBeanPersona() {
+        return beanPersona;
+    }
+
+    /**
+     * @param beanPersona the beanPersona to set
+     */
+    public void setBeanPersona(BeanGestionPersona beanPersona) {
+        this.beanPersona = beanPersona;
     }
 
 }

@@ -8,6 +8,8 @@ package com.contravenciones.jdbc.dao;
 import com.contravenciones.tr.persistence.CivAgentes;
 import java.math.BigDecimal;
 import java.util.List;
+import org.hibernate.Criteria;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -57,7 +59,27 @@ public class DaoAgentes extends HibernateDaoSupport implements ITAgentes {
         String hql = "from CivAgentes where ageId =:id";
         List list = getHibernateTemplate().findByNamedParam(hql, "id", BigDecimal.valueOf(id));
         if (list.size() > 0) {
-            return (CivAgentes)list.get(0);
+            return (CivAgentes) list.get(0);
+        }
+        return null;
+    }
+
+    @Override
+
+    public CivAgentes agentes(int id) throws Exception {
+        
+        Criteria cri = getHibernateTemplate().getSessionFactory().openSession().createCriteria(CivAgentes.class);
+        
+       CivAgentes holi=(CivAgentes) cri.add(Restrictions.idEq(BigDecimal.ONE)).uniqueResult();
+       return holi;
+    }
+
+    @Override
+    public CivAgentes getAgente(String placa) throws Exception {
+        String hql = "from CivAgentes where agePlaca =:placa";
+        List list = getHibernateTemplate().findByNamedParam(hql, "placa", placa);
+        if (list.size() > 0) {
+            return (CivAgentes) list.get(0);
         }
         return null;
     }

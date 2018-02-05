@@ -7,6 +7,7 @@ package com.contravenciones.jdbc.dao;
 
 import com.contravenciones.tr.persistence.CivCarguecomparendo;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -17,6 +18,12 @@ public class DaoCargueComparendos extends HibernateDaoSupport implements ITCargu
     @Override
     public CivCarguecomparendo getCargueComparendo(long comparendo, String documento, long tipoDocumento) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+     @Transactional(rollbackFor = Exception.class)
+    public long insert(CivCarguecomparendo civCargueComparendo) throws Exception {
+        return Long.parseLong(getHibernateTemplate().save(civCargueComparendo).toString());
     }
 
 }
