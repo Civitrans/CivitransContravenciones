@@ -38,6 +38,7 @@ public class DaoAgentes extends HibernateDaoSupport implements ITAgentes {
 
         String hql = "from CivAgentes where per_id =:idper";
         List list = getHibernateTemplate().findByNamedParam(hql, "idper", idper);
+        
         return list;
 
     }

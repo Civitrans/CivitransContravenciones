@@ -56,6 +56,8 @@ public class AgentesImplBO implements AgentesBO {
                 if (per != null) {
                     for (CivAgentes ag : getAgentesDAO().listarAgentes(per.getPerId().intValue())) {
                         if (ag != null) {
+                            ag.getCivPersonas().getPerDocumento();
+                            ag.getCivPersonas().getCivTipodocumentos().getTipdocNombre();
                             Agente dat = new Agente();
                             dat.setAgeId(ag.getAgeId().intValue());
                             dat.setAgeTipo(ag.getAgeTipo().intValue());
