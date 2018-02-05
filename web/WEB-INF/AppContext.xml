@@ -35,23 +35,19 @@
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
         <property name="url" value="jdbc:oracle:thin:@192.168.0.203:1521:orclciv"/>
-        <property name="username" value="Contravenciones"/>
+        <property name="username" value="civitranscontravenciones"/>
         <property name="password" value="desarrollo"/>
     </bean>
     
     <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean">
-        
         <property name="dataSource">
             <ref bean="dataSource"/>
         </property>
-        
         <property name="hibernateProperties">
             <props>
                 <prop key="hibernate.dialect">org.hibernate.dialect.Oracle10gDialect</prop>
                 <prop key="hibernate.show_sql">false</prop>
-                <prop key="hibernate.generate_statistics">false</prop>
-                <prop key="current_session_context_class">thread</prop>
-                <prop key="hibernate.enable_lazy_load_no_trans">true</prop>
+                <prop key="hibernate.generate_statistics">true</prop>
                 <prop key="hibernate.connection.pool_size">3</prop>
                 <prop key="hibernate.max_fetch_depth">1</prop>
                 <prop key="hibernate.connection.release_mode">after_transaction</prop>
@@ -62,50 +58,59 @@
         </property>
         <property name="mappingResources">
             <list>
-                <value>com/contravenciones/tr/persistence/CivPersonas.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivCajas.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivDetalleRangoComparendos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivOrganismos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivPoblados.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivEstructuraSimit.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivRangosComparendos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivDetalleRecursos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivAgentes.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivUsuperfil.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivCarguecomparendo.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivUspHistoria.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivDivipos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivValorinfraccion.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/LogEventos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivDetalleRecUsu.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivPerfilrecurso.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivErrores.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivUsuarios.hbm.xml</value>
+                
                 <value>com/contravenciones/tr/persistence/CivUsuarioCajas.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivGrupos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivDirecciones.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivAttempts.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivRecursos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivComparendos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivCargueplano.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivSedes.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivPais.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivInfracciones.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivDepartamentos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivHistorialUsuarioCaja.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivDetallecartera.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivSalariosminimos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivPerfiles.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivModulos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivCarteras.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivParametros.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivUsuariosCajasTipopagos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivHistorialPerfilRecurso.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivMunicipios.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivUsuariosTipopagos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivCobrocoactivo.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivComparendos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPoblados.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivConceptos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivSanciones.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/LogEventos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivCajas.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivCarteras.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivErrores.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPerfiles.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivAttempts.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivParametros.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivDatosParametricos.hbm.xml</value>
-                <value>com/contravenciones/tr/persistence/CivPlantillas.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivRangosComparendos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivRecursos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDescuentos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivModulos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDetalleRangoComparendos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPerfilrecurso.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivCargueplano.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDirecciones.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivHistorialPerfilRecurso.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDepartamentos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPersonas.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivOrganismos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivCarguecomparendo.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivAgentes.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDivipos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivTipocarteras.hbm.xml</value>
                 <value>com/contravenciones/tr/persistence/CivTipodocumentos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivUspHistoria.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivTipopagos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivUsuarios.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPais.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivPlantillas.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDetalleRecursos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivFinanciaciones.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivInfracciones.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivValorinfraccion.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivHistorialUsuarioCaja.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivMunicipios.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivEstructuraSimit.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivExpedientes.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivResoluciones.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivGrupos.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivDetalleRecUsu.hbm.xml</value>
+                <value>com/contravenciones/tr/persistence/CivSalariosminimos.hbm.xml</value>
+                
+                
             </list>
         </property>
     </bean>
@@ -153,16 +158,7 @@
     <bean id="recursosDAO" class="com.contravenciones.jdbc.dao.DaoRecursos">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <bean id="sedesDAO" class="com.contravenciones.jdbc.dao.DaoSedes">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
-    <bean id="usuarioCajaTipoPagoDAO" class="com.contravenciones.jdbc.dao.DaoUsuariosCajasTipoPagos">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
     <bean id="usuarioCajasDAO" class="com.contravenciones.jdbc.dao.DaoUsuarioCajas">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
-    <bean id="usuarioPerfilDAO" class="com.contravenciones.jdbc.dao.DaoUsuarioPerfil">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
     <bean id="perfilRecursoDAO" class="com.contravenciones.jdbc.dao.DaoPerfilRecurso">
@@ -207,13 +203,6 @@
     <bean id="plantillasDAO" class="com.contravenciones.jdbc.dao.DaoPlantillas">
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
-    <bean id="comparendosDAO" class="com.contravenciones.jdbc.dao.DaoComparendos">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
-    <bean id="tiposDocumentosDAO" class="com.contravenciones.jdbc.dao.DaoTipoDocumento">
-        <property name="sessionFactory" ref="sessionFactory"></property>
-    </bean>
-    
     <!-- BOS -->
     <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
         <property name="loginDAO" ref="loginDAO"></property>
@@ -221,7 +210,6 @@
         <property name="personasDAO" ref="personasDAO"></property>
         <property name="usuariosDAO" ref="usuariosDAO" />
         <property name="plantillasDAO" ref="plantillasDAO" />
-        <property name="perfilRecursosDAO" ref="perfilRecursoDAO" />
     </bean>   
     <bean id="GestionUsuarioBO" class="com.contravenciones.tr.bo.GestionUsuarioImplBO">
         <property name="usuariosDAO" ref="usuariosDAO" />
@@ -229,8 +217,6 @@
         <property name="perfilesDAO" ref="perfilesDAO" />
         <property name="perfilRecursosDAO" ref="perfilRecursoDAO"  />
         <property name="recursosDAO" ref="recursosDAO" />
-        <property name="usuarioPerfilDAO" ref="usuarioPerfilDAO" />
-        <property name="sedesDAO" ref="sedesDAO" />
         <property name="parametrosDAO" ref="parametrosDAO"/>
         <property name="attemptsDAO" ref="attemptsDAO"/>
         <property name="usuarioCajasDAO" ref="usuarioCajasDAO"/>
@@ -240,7 +226,6 @@
         <property name="historialUsuarioCajaDAO" ref="historialUsuarioCajaDAO" />
         <property name="detalleRecursosDAO" ref="detalleRecursosDAO" />
         <property name="detalleRecUsuDAO" ref="detalleRecUsuDAO" />
-        <property name="usuarioCajaTipoPagoDAO" ref="usuarioCajaTipoPagoDAO"/>
     </bean>
     <bean id="parametroBO" class="com.contravenciones.tr.bo.ParametrosImplBO">
         <property name="parametrosDAO" ref="parametrosDAO" />
@@ -248,7 +233,6 @@
         <property name="municipiosDAO" ref="municipiosDAO" />
         <property name="paisDAO" ref="paisDAO" />
         <property name="personasDAO" ref="personasDAO" />
-        <property name="sedesDAO" ref="sedesDAO" />
         <property name="perfilesDAO" ref="perfilesDAO" />
         <property name="cajasDAO" ref="cajasDAO" />
         <property name="usuariosDAO" ref="usuariosDAO" />
@@ -258,8 +242,6 @@
         <property name="parametrosDAO" ref="parametrosDAO"/>
         <property name="divipoDAO" ref="divipoDAO"/>
         <property name="direccionesDAO" ref="direccionesDAO"/>
-        <property name="usuariosDAO" ref="usuariosDAO"/>
-        <property name="tiposDocumentosDAO" ref="tiposDocumentosDAO"/>
     </bean>
     <bean id="gestionRecursoBO" class="com.contravenciones.tr.bo.GestionRecursoImplBO">
         <property name="recursosDAO" ref="recursosDAO" />
@@ -279,7 +261,6 @@
         <property name="agentesDAO" ref="agentesDAO"/>
         <property name="detalleRangoComparendosDAO" ref="detalleRangoComparendosDAO"/>
         <property name="datosParametricosDAO" ref="datosParametricosDAO"/>
-        <property name="sedesDAO" ref="sedesDAO" />
         <property name="usuariosDAO" ref="usuariosDAO" />
     </bean>
     <bean id="AgentesBO" class="com.contravenciones.tr.bo.AgentesImplBO">
@@ -292,15 +273,11 @@
     <bean id="planosBO" class="com.contravenciones.tr.bo.PlanosImplBO">
         <property name="estructuraSimitDAO" ref="estructuraSimitDAO"/>
         <property name="cargueComparendosDAO" ref="cargueComparendosDAO"/>
-        <property name="comparendosDAO" ref="comparendosDAO"/>
-        <property name="divipoDAO" ref="divipoDAO"/>
-        <property name="personasDAO" ref="personasDAO"></property>
-        <property name="direccionesDAO" ref="direccionesDAO"/>
-        <property name="parametrosDAO" ref="parametrosDAO"/>
     </bean>
     <!-- Transaction -->    
     <bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
+        <property name="dataSource" ref="dataSource" />
     </bean>
    
     <tx:annotation-driven transaction-manager="transactionManager" />

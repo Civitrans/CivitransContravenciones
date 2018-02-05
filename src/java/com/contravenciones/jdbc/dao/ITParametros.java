@@ -6,7 +6,6 @@
 package com.contravenciones.jdbc.dao;
 
 import com.contravenciones.tr.persistence.CivParametros;
-import com.contravenciones.tr.persistence.CivSedes;
 import java.util.List;
 
 /**
@@ -26,12 +25,7 @@ public interface ITParametros {
      */
     public List<CivParametros> listParametros(long grupo) throws Exception;
   
-    /**
-     * Retorna el listado de todas las Sedes de la base de datos.
-     *
-     * @return @throws Exception La Excepción lanzada en caso de error.
-     */
-    public List<CivSedes> getSedes() throws Exception;
+
 
     /**
      *

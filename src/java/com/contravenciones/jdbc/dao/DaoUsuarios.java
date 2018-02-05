@@ -16,7 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Roymer Camacho
+ * @author JefreySistemas
  */
 public class DaoUsuarios extends HibernateDaoSupport implements ITUsuarios {
 

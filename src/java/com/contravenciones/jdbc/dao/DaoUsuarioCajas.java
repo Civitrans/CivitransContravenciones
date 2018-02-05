@@ -13,7 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Roymer Camacho
+ * @author ing_jefreypadilla
  */
 public class DaoUsuarioCajas extends HibernateDaoSupport implements ITUsuarioCajas {
 

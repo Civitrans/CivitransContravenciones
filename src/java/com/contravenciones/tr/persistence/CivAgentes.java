@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
+// Generated 5/02/2018 01:39:57 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ public class CivAgentes  implements java.io.Serializable {
 
 
      private BigDecimal ageId;
-     private BigDecimal perId;
+     private CivPersonas civPersonas;
      private BigDecimal ageTipo;
      private String agePlaca;
      private Date ageFechaInicio;
@@ -29,16 +29,16 @@ public class CivAgentes  implements java.io.Serializable {
     }
 
 	
-    public CivAgentes(BigDecimal ageId, BigDecimal perId, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio) {
+    public CivAgentes(BigDecimal ageId, CivPersonas civPersonas, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio) {
         this.ageId = ageId;
-        this.perId = perId;
+        this.civPersonas = civPersonas;
         this.ageTipo = ageTipo;
         this.agePlaca = agePlaca;
         this.ageFechaInicio = ageFechaInicio;
     }
-    public CivAgentes(BigDecimal ageId, BigDecimal perId, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio, Date ageFechaFin, Blob ageFirma, BigDecimal ageEstado, Set civComparendoses, Set civDetalleRangoComparendoses) {
+    public CivAgentes(BigDecimal ageId, CivPersonas civPersonas, BigDecimal ageTipo, String agePlaca, Date ageFechaInicio, Date ageFechaFin, Blob ageFirma, BigDecimal ageEstado, Set civComparendoses, Set civDetalleRangoComparendoses) {
        this.ageId = ageId;
-       this.perId = perId;
+       this.civPersonas = civPersonas;
        this.ageTipo = ageTipo;
        this.agePlaca = agePlaca;
        this.ageFechaInicio = ageFechaInicio;
@@ -56,12 +56,12 @@ public class CivAgentes  implements java.io.Serializable {
     public void setAgeId(BigDecimal ageId) {
         this.ageId = ageId;
     }
-    public BigDecimal getPerId() {
-        return this.perId;
+    public CivPersonas getCivPersonas() {
+        return this.civPersonas;
     }
     
-    public void setPerId(BigDecimal perId) {
-        this.perId = perId;
+    public void setCivPersonas(CivPersonas civPersonas) {
+        this.civPersonas = civPersonas;
     }
     public BigDecimal getAgeTipo() {
         return this.ageTipo;

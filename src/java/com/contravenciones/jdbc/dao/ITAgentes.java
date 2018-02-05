@@ -58,14 +58,6 @@ public interface ITAgentes {
      * @throws Exception La Excepción lanzada en caso de error.
      */
     public CivAgentes listarAgentesId(int id) throws Exception;
-     /**
-     
-     *
-     * @param id
-     * @return Retorna verdadero si la actualización fue correcta.
-     * @throws Exception La Excepción lanzada en caso de error.
-     */
-    public CivAgentes agentes(int id) throws Exception;
 
    
 }

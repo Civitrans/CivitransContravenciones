@@ -12,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Roymer Camacho
+ * @author ing_jefreypadilla
  */
 public class DaoDirecciones extends HibernateDaoSupport implements ITDirecciones {
 

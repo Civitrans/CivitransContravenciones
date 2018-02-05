@@ -40,17 +40,7 @@ public interface AgentesBO {
      /**
      *
      * @param bean
-     * @param accion
      * @throws Exception
      */
-    void registrarAgente(BeanAgentes bean, String accion) throws Exception;
-    
-      /**
-     *
-     * @param bean
-     * @param id
-     * @throws Exception
-     */
-    void detalleAgente(BeanAgentes bean, int id) throws Exception;
-    
+    void registrarAgente(BeanAgentes bean) throws Exception;
 }

@@ -46,7 +46,6 @@ Contributor(s):
     <property name="hibernate.connection.url">jdbc:oracle:thin:@192.168.0.203:1521:orclciv</property>
     <property name="hibernate.connection.username">civitranscontravenciones</property>
     <property name="hibernate.connection.password">desarrollo</property>
-    <property name="hibernate.current_session_context_class">thread</property>
     <mapping resource="com/contravenciones/tr/persistence/CivUsuarioCajas.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivDetallecartera.hbm.xml"/>
     <mapping resource="com/contravenciones/tr/persistence/CivUsuariosTipopagos.hbm.xml"/>

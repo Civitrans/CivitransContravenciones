@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Roymer Camacho
+ * @author ing_jefreypadilla
  */
 public interface ITPerfilRecursos {
 

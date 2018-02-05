@@ -362,7 +362,7 @@ public class BeanGestionUsuario implements Serializable {
 
     }
 
-    /*Comprueba los detalles recursos asignados a un usuario*/
+    /*Comprueba los detalles recursos asignados a un usuario
     public void checkDetalleRecurso(BeanGestionUsuario bean) throws Exception {
         int cont = 0;
         for (CivDetalleRecUsu dr : getDetalleRbyRecurso()) {
@@ -378,7 +378,7 @@ public class BeanGestionUsuario implements Serializable {
             bean.setCheckDetalleRecursoAct(false);
         }
     }
-
+*/
     //Opción NO de modal confirmación
     public void NOConfirmacion() {
         modalConfirmacionNO();

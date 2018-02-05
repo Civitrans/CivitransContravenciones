@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 5/02/2018 01:40:00 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivPerfiles" table="CIV_PERFILES" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <comment>En esta tabla se almacenan los diferentes perfiles de usuario del sistema. Ver CIV_USUPERFIL.</comment>

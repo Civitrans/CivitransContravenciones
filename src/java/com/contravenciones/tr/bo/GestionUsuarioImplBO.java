@@ -12,8 +12,6 @@ import com.contravenciones.jdbc.dao.ITPerfilRecursos;
 import com.contravenciones.jdbc.dao.ITPerfiles;
 import com.contravenciones.jdbc.dao.ITPersonas;
 import com.contravenciones.jdbc.dao.ITRecursos;
-import com.contravenciones.jdbc.dao.ITSedes;
-import com.contravenciones.jdbc.dao.ITUsuarioPerfil;
 import com.contravenciones.jdbc.dao.ITUsuarios;
 import com.contravenciones.tr.persistence.CivAttempts;
 import com.contravenciones.tr.persistence.CivPerfiles;
@@ -21,7 +19,6 @@ import com.contravenciones.tr.persistence.CivPersonas;
 import com.contravenciones.tr.persistence.CivRecursos;
 import com.contravenciones.tr.persistence.CivUspHistoria;
 import com.contravenciones.tr.persistence.CivUsuarios;
-import com.contravenciones.tr.persistence.CivUsuperfil;
 import com.contravenciones.utility.ValidacionPassword;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -39,7 +36,6 @@ import com.contravenciones.jdbc.dao.ITDetalleRecursos;
 import com.contravenciones.jdbc.dao.ITHistorialPerfilRecurso;
 import com.contravenciones.jdbc.dao.ITHistorialUsuarioCaja;
 import com.contravenciones.jdbc.dao.ITModulos;
-import com.contravenciones.jdbc.dao.ITUsuarioCajaTipoPago;
 import com.contravenciones.jdbc.dao.ITUsuarioCajas;
 import com.contravenciones.jsf.bean.BeanGestionUsuario;
 import com.contravenciones.tr.persistence.CivCajas;
@@ -51,10 +47,8 @@ import com.contravenciones.tr.persistence.CivModulos;
 import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPerfilrecurso;
 import com.contravenciones.tr.persistence.CivPerfilrecursoId;
-import com.contravenciones.tr.persistence.CivSedes;
 import com.contravenciones.tr.persistence.CivUsuarioCajas;
 import com.contravenciones.tr.persistence.CivUsuarioCajasId;
-import com.contravenciones.tr.persistence.CivUsuariosCajasTipopagos;
 import com.contravenciones.utility.Log_Handler;
 import com.contravenciones.utility.ValidacionDatos;
 import java.util.LinkedHashMap;
@@ -73,12 +67,9 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
     private ITPerfiles perfilesDAO;
     private ITRecursos recursosDAO;
     private ITParametros parametrosDAO;
-    private ITSedes sedesDAO;
     private ITCajas cajaDAO;
     private ITPerfilRecursos perfilRecursosDAO;
-    private ITUsuarioPerfil usuarioPerfilDAO;
     private ITUsuarioCajas usuarioCajasDAO;
-    private ITUsuarioCajaTipoPago usuarioCajaTipoPagoDAO;
     private ITModulos modulosDAO;
     private ITHistorialPerfilRecurso HistorialPerfilRecursoDAO;
     private ITHistorialUsuarioCaja historialUsuarioCajaDAO;
@@ -970,19 +961,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         this.parametrosDAO = parametrosDAO;
     }
 
-    /**
-     * @return the sedesDAO
-     */
-    public ITSedes getSedesDAO() {
-        return sedesDAO;
-    }
-
-    /**
-     * @param sedesDAO the sedesDAO to set
-     */
-    public void setSedesDAO(ITSedes sedesDAO) {
-        this.sedesDAO = sedesDAO;
-    }
 
     /**
      * @return the cajaDAO
@@ -1012,19 +990,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         this.perfilRecursosDAO = perfilRecursosDAO;
     }
 
-    /**
-     * @return the usuarioPerfilDAO
-     */
-    public ITUsuarioPerfil getUsuarioPerfilDAO() {
-        return usuarioPerfilDAO;
-    }
-
-    /**
-     * @param usuarioPerfilDAO the usuarioPerfilDAO to set
-     */
-    public void setUsuarioPerfilDAO(ITUsuarioPerfil usuarioPerfilDAO) {
-        this.usuarioPerfilDAO = usuarioPerfilDAO;
-    }
 
     /**
      * @return the usuarioCajasDAO
@@ -1040,19 +1005,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         this.usuarioCajasDAO = usuarioCajasDAO;
     }
 
-    /**
-     * @return the usuarioCajaTipoPagoDAO
-     */
-    public ITUsuarioCajaTipoPago getUsuarioCajaTipoPagoDAO() {
-        return usuarioCajaTipoPagoDAO;
-    }
-
-    /**
-     * @param usuarioCajaTipoPagoDAO the usuarioCajaTipoPagoDAO to set
-     */
-    public void setUsuarioCajaTipoPagoDAO(ITUsuarioCajaTipoPago usuarioCajaTipoPagoDAO) {
-        this.usuarioCajaTipoPagoDAO = usuarioCajaTipoPagoDAO;
-    }
 
        /**
      * @return the modulosDAO

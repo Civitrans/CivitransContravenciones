@@ -12,7 +12,6 @@ import com.contravenciones.jdbc.dao.ITPaises;
 import com.contravenciones.jdbc.dao.ITParametros;
 import com.contravenciones.jdbc.dao.ITPerfiles;
 import com.contravenciones.jdbc.dao.ITPersonas;
-import com.contravenciones.jdbc.dao.ITSedes;
 import com.contravenciones.jdbc.dao.ITUsuarios;
 import com.contravenciones.jsf.bean.BeanParametros;
 import com.contravenciones.tr.persistence.CivCajas;
@@ -22,7 +21,6 @@ import com.contravenciones.tr.persistence.CivPais;
 import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPerfiles;
 import com.contravenciones.tr.persistence.CivPersonas;
-import com.contravenciones.tr.persistence.CivSedes;
 import com.contravenciones.tr.persistence.CivUsuarios;
 
 import java.io.Serializable;
@@ -31,7 +29,7 @@ import java.util.List;
 
 /**
  *
- * @author Roymer Camacho
+ * @author ing_jefreypadilla
  */
 public class ParametrosImplBO implements ParametrosBO, Serializable {
 
@@ -43,7 +41,6 @@ public class ParametrosImplBO implements ParametrosBO, Serializable {
     private ITPaises paisDAO;
     private ITPerfiles perfilesDAO;
     private ITPersonas personasDAO;
-    private ITSedes sedesDAO;
     private ITCajas cajasDAO;
 
     @Override
@@ -146,17 +143,6 @@ public class ParametrosImplBO implements ParametrosBO, Serializable {
         return lista;
     }
     
-        @Override
-    public void listSedes(BeanParametros bean) throws Exception {
-        List<CivSedes> sede = getSedesDAO().listSedesByOrganismo(Long.parseLong(bean.getCode()));
-        bean.setLista(new ArrayList<>());
-        for (CivSedes civSedes : sede) {
-            BeanParametros bp = new BeanParametros();
-            bp.setNombreP(civSedes.getSedNombrecorto());
-            bp.setCode(civSedes.getSedId().toString());
-            bean.getLista().add(bp);
-        }
-    }
     
     /**
      *Método para listar cajas
@@ -244,19 +230,6 @@ public class ParametrosImplBO implements ParametrosBO, Serializable {
      */
     public void setPersonasDAO(ITPersonas personasDAO) {
         this.personasDAO = personasDAO;
-    }
-    /**
-     * @return the sedesDAO
-     */
-    public ITSedes getSedesDAO() {
-        return sedesDAO;
-    }
-
-    /**
-     * @param sedesDAO the sedesDAO to set
-     */
-    public void setSedesDAO(ITSedes sedesDAO) {
-        this.sedesDAO = sedesDAO;
     }
     /**
      * @return the perfilesDAO

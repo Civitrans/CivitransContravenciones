@@ -70,7 +70,6 @@ public class SalarioMinimoImplBO implements SalarioMinimoBO {
             sal.setSalVigencia(BigDecimal.valueOf(Integer.parseInt(bean.getVigencia())));
             sal.setSalEstado(BigDecimal.ONE);
             sal.setSalFechainicial(new Date());
-            sal.setCivUsuarios(us);
             getSalarioMinimoDAO().insert(sal);
         } else {
             throw new SalarioMinimoException("La vigencia ya tiene asignada un salario mínimo", 2);
@@ -107,7 +106,6 @@ public class SalarioMinimoImplBO implements SalarioMinimoBO {
         sal.setSalFechainicial(bean.getFechaIni());
         CivUsuarios us = new CivUsuarios();
         us.setUsuId(BigDecimal.valueOf(Integer.parseInt(bean.getLoginBean().getID_Usuario())));
-        sal.setCivUsuarios(us);
         getSalarioMinimoDAO().update(sal);
 
     }

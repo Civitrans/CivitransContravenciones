@@ -14,7 +14,7 @@ import java.util.List;
 
 /**
  *
- * @author Roymer Camacho
+ * @author JefreySistemas
  */
 public interface ITUsuarios {
 

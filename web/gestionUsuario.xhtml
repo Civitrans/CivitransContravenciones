@@ -14,8 +14,8 @@
 
             <ui:define name="content">
                 <c:set var="val" value="false"/>
-                <c:forEach items="${loginBean.listPerfilRecursos}" var="rec">
-                    <c:if  test="#{rec.civRecursos.recDescripcion eq 'gestionUsuario'}" var="bool">
+                <c:forEach items="${loginBean.listRecursos}" var="rec">
+                    <c:if  test="#{rec eq 'gestionUsuario'}" var="bool">
                         <c:set var="val" value="true"/>
                     </c:if>
                 </c:forEach>

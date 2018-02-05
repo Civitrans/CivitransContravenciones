@@ -13,7 +13,6 @@ import com.contravenciones.tr.persistence.CivCarguecomparendo;
  */
 public interface ITCargueComparendos {
     
-    public CivCarguecomparendo getCargueComparendo(String comparendo,String documento, long tipoDocumento) throws Exception;
+    public CivCarguecomparendo getCargueComparendo(long comparendo,String documento, long tipoDocumento) throws Exception;
     
-    public long insert(CivCarguecomparendo civCarguecomparendo) throws Exception;
 }

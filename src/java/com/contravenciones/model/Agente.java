@@ -44,7 +44,6 @@ public class Agente implements Serializable {
     private String agePlaca;
     private Date ageFechaInicio;
     private Date ageFechaFin;
-    private int estadoAgente;
 
     /**
      * @return the serialVersionUID
@@ -422,19 +421,5 @@ public class Agente implements Serializable {
      */
     public void setAgeFechaFin(Date ageFechaFin) {
         this.ageFechaFin = ageFechaFin;
-    }
-
-    /**
-     * @return the estadoAgente
-     */
-    public int getEstadoAgente() {
-        return estadoAgente;
-    }
-
-    /**
-     * @param estadoAgente the estadoAgente to set
-     */
-    public void setEstadoAgente(int estadoAgente) {
-        this.estadoAgente = estadoAgente;
     }
 }

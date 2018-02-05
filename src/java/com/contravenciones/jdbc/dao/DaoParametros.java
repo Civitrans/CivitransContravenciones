@@ -6,7 +6,6 @@
 package com.contravenciones.jdbc.dao;
 
 import com.contravenciones.tr.persistence.CivParametros;
-import com.contravenciones.tr.persistence.CivSedes;
 import java.io.Serializable;
 import java.util.List;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
@@ -64,14 +63,6 @@ public class DaoParametros extends HibernateDaoSupport implements ITParametros, 
         return true;
     }
 
-    @Override
-
-    public List<CivSedes> getSedes() {
-
-        String hql = "FROM CivSedes";
-        List list = getHibernateTemplate().find(hql);
-        return list;
-    }
 
     @Override
     public CivParametros getParametroByCodeGrupo(int grupo, int codigo) throws Exception {

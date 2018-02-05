@@ -12,7 +12,6 @@ import com.contravenciones.jdbc.dao.ITDetalleRangoComparendos;
 import com.contravenciones.jdbc.dao.ITParametros;
 import com.contravenciones.jdbc.dao.ITPersonas;
 import com.contravenciones.jdbc.dao.ITRangos;
-import com.contravenciones.jdbc.dao.ITSedes;
 import com.contravenciones.jdbc.dao.ITUsuarios;
 import com.contravenciones.jsf.bean.BeanRangos;
 import com.contravenciones.model.Agente;
@@ -23,7 +22,6 @@ import com.contravenciones.tr.persistence.CivDetalleRangoComparendos;
 import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPersonas;
 import com.contravenciones.tr.persistence.CivRangosComparendos;
-import com.contravenciones.tr.persistence.CivSedes;
 import com.contravenciones.tr.persistence.CivUsuarios;
 import com.contravenciones.utility.ValidacionDatos;
 import java.math.BigDecimal;
@@ -44,20 +42,19 @@ public class RangosImplBO implements RangosBO {
     private ITDetalleRangoComparendos detalleRangoComparendosDAO;
     private ITParametros parametrosDAO;
     private ITDatosParametricos datosParametricosDAO;
-    private ITSedes sedesDAO;
     private ITUsuarios usuariosDAO;
 
     @Override
     public void cargarDatos(BeanRangos bean) throws Exception {
         String numeros = "";
         CivDatosParametricos dp = getDatosParametricosDAO().consultarDatosPID(1);
-        CivSedes s = getSedesDAO().getSedeById(bean.getLoginBean().getSede());
+        int s = 231;
         if (dp != null) {
             for (int i = 0; i < dp.getDtparaLongitud().intValue(); i++) {
                 numeros += "0";
             }
-            String rangoLong = (numeros.substring(0, dp.getDtparaLongitud().intValue() - (s.getSedCodigo() + "").length()));
-            String rango = s.getSedCodigo() + rangoLong;
+            String rangoLong = (numeros.substring(0, dp.getDtparaLongitud().intValue() - (s + "").length()));
+            String rango = s+ rangoLong;
             bean.setMaxLength(rangoLong.length());
             bean.setRangoInicial(rango);
             bean.setRangoFinal(rango);
@@ -101,7 +98,6 @@ public class RangosImplBO implements RangosBO {
         ran.setRanEstado(BigDecimal.ONE);
         ran.setRanNumResolucion(bean.getNumeroRango().toUpperCase());
         ran.setRanFechaResolucion(bean.getFechaResolucion());
-        ran.setUsuId(BigDecimal.valueOf(Integer.parseInt(bean.getLoginBean().getID_Usuario())));
         ran.setRanTipoComparendo(BigDecimal.valueOf(bean.getTipoComparendo()));
         long idRango = getRangosDAO().insert(ran);
 
@@ -116,7 +112,6 @@ public class RangosImplBO implements RangosBO {
             dr.setDtranNumero(valor);
             dr.setDtranEstado(BigDecimal.ONE);
             dr.setDtranFechaInicial(new Date());
-            dr.setUsuId(BigDecimal.valueOf(Integer.parseInt(bean.getLoginBean().getID_Usuario())));
             getDetalleRangoComparendosDAO().insert(dr);
         }
     }
@@ -143,7 +138,6 @@ public class RangosImplBO implements RangosBO {
         ran.setRanEstado(BigDecimal.valueOf(bean.getEstado()));
         ran.setRanNumResolucion(bean.getNumeroRango().toUpperCase());
         ran.setRanFechaResolucion(bean.getFechaResolucion());
-        ran.setUsuId(BigDecimal.valueOf(bean.getCodigoUsuario()));
         ran.setRanTipoComparendo(BigDecimal.valueOf(bean.getTipoComparendo()));
         getRangosDAO().update(ran);
     }
@@ -163,7 +157,6 @@ public class RangosImplBO implements RangosBO {
             r.setRanNumResolucion(ran.getRanNumResolucion());
             r.setRanFechaResolucion(ran.getRanFechaResolucion());
             r.setRanTipoComparendo(ran.getRanTipoComparendo().intValue());
-            r.setUsuId(ran.getUsuId().intValue());
             for (CivDetalleRangoComparendos dr : getDetalleRangoComparendosDAO().detalleRangobyId(ran.getRanId().intValue())) {
                 cantidad++;
                 if (dr.getDtranEstado().intValue() == 1) {
@@ -369,19 +362,6 @@ public class RangosImplBO implements RangosBO {
         this.datosParametricosDAO = datosParametricosDAO;
     }
 
-    /**
-     * @return the sedesDAO
-     */
-    public ITSedes getSedesDAO() {
-        return sedesDAO;
-    }
-
-    /**
-     * @param sedesDAO the sedesDAO to set
-     */
-    public void setSedesDAO(ITSedes sedesDAO) {
-        this.sedesDAO = sedesDAO;
-    }
 
     /**
      * @return the usuariosDAO

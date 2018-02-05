@@ -6,19 +6,13 @@
 package com.contravenciones.jdbc.dao;
 
 import com.contravenciones.tr.persistence.CivPerfilrecurso;
-import java.math.BigDecimal;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
-import org.hibernate.Criteria;
-import org.hibernate.criterion.Order;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.orm.hibernate4.support.HibernateDaoSupport;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
- * @author Roymer Camacho
+ * @author ing_jefreypadilla
  */
 public class DaoPerfilRecurso extends HibernateDaoSupport implements ITPerfilRecursos {
 
@@ -45,7 +39,7 @@ public class DaoPerfilRecurso extends HibernateDaoSupport implements ITPerfilRec
         List list = getHibernateTemplate().findByNamedParam(hql, "perfil", perfil);
         return list;
     }
-
+    
     @Override
 
     public List<CivPerfilrecurso> listPerfilRecursoByIDUsuario(long idusuario) throws Exception {
@@ -54,26 +48,16 @@ public class DaoPerfilRecurso extends HibernateDaoSupport implements ITPerfilRec
         List list = getHibernateTemplate().findByNamedParam(hql, "idusuario", idusuario);
         return list;
     }
-
+    
     @Override
 
     public List<CivPerfilrecurso> listPerfilRecursoByIDUsuarioFechaFin(long idusuario) throws Exception {
 
-        Criteria cri = getHibernateTemplate().getSessionFactory().openSession().createCriteria(CivPerfilrecurso.class);
-
-        List<CivPerfilrecurso> perfilRecurso = cri
-                .add(Restrictions.eq("civUsuarios.usuId", BigDecimal.valueOf(idusuario)))
-                .add(Restrictions.and(Restrictions.isNull("perrecFechafin")))
-                .list();
-
-        Collections.sort(perfilRecurso, (CivPerfilrecurso o1, CivPerfilrecurso o2) -> o2.getCivRecursos().getCivModulos().getModId().intValue() - o1.getCivRecursos().getCivModulos().getModId().intValue());
-
-        if (perfilRecurso == null) {
-            return null;
-        }
-        return perfilRecurso;
+        String hql = "from CivPerfilrecurso where usu_id=:idusuario and PERREC_FECHAFIN is null";
+        List list = getHibernateTemplate().findByNamedParam(hql, "idusuario", idusuario);
+        return list;
     }
-
+    
     @Override
 
     public List<CivPerfilrecurso> listPerfilRecurso() throws Exception {

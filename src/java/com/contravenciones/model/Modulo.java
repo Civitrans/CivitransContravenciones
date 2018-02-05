@@ -12,7 +12,7 @@ import java.util.List;
  * Clase que define los módulos y recursos a los cuales los usuarios tienen
  * acceso.
  *
- * @author Roymer Camacho
+ * @author ing_jefreypadilla
  */
 public class Modulo implements Serializable {
 

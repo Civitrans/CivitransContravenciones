@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-<!-- Generated 1/02/2018 01:51:58 PM by Hibernate Tools 4.3.1 -->
+<!-- Generated 5/02/2018 01:40:00 PM by Hibernate Tools 4.3.1 -->
 <hibernate-mapping>
     <class name="com.contravenciones.tr.persistence.CivUsuarioCajas" table="CIV_USUARIO_CAJAS" schema="CIVITRANSCONTRAVENCIONES" optimistic-lock="version">
         <comment>En est tabla se almacenan las cajas de liquidacion correspondientes a cada usuario.</comment>
@@ -11,12 +11,6 @@
             </key-property>
             <key-property name="cajId" type="big_decimal">
                 <column name="CAJ_ID" precision="22" scale="0" />
-            </key-property>
-            <key-property name="usucajFechaInicio" type="date">
-                <column name="USUCAJ_FECHA_INICIO" length="7" />
-            </key-property>
-            <key-property name="usucajFechaFin" type="date">
-                <column name="USUCAJ_FECHA_FIN" length="7" />
             </key-property>
         </composite-id>
         <many-to-one name="civUsuarios" class="com.contravenciones.tr.persistence.CivUsuarios" update="false" insert="false" fetch="select">
@@ -29,5 +23,15 @@
                 <comment>ID de caja</comment>
             </column>
         </many-to-one>
+        <property name="usucajFechaInicio" type="date">
+            <column name="USUCAJ_FECHA_INICIO" length="7" not-null="true">
+                <comment>Fecha inicio del registro</comment>
+            </column>
+        </property>
+        <property name="usucajFechaFin" type="date">
+            <column name="USUCAJ_FECHA_FIN" length="7">
+                <comment>Fecha fin del registro</comment>
+            </column>
+        </property>
     </class>
 </hibernate-mapping>

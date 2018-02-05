@@ -119,10 +119,6 @@
             <value>#{AgentesBO}</value>
         </managed-property>
         <managed-property>
-            <property-name>beanPersona</property-name>
-            <value>#{gestionpersonasBean}</value>
-        </managed-property>
-        <managed-property>
             <property-name>loginBean</property-name>
             <value>#{loginBean}</value>
         </managed-property>

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Roymer Camacho
+ * @author ing_jefreypadilla
  */
 public interface ParametrosBO {
 
@@ -70,8 +70,7 @@ public interface ParametrosBO {
      */
     List<BeanParametros> listParametrosBySubCodigo(BeanParametros beanPar) throws Exception;
 
-    
-    void listSedes(BeanParametros bean) throws Exception;
+   
     
     /** Lista las cajas en estado 1
      *

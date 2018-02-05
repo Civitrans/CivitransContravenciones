@@ -223,28 +223,7 @@ public class BeanParametros implements Serializable {
         }
     }
 
-    /**
-     *
-     * @param organismo
-     * @return
-     */
-    public List<BeanParametros> listSedes(int organismo) {
-        setCode(organismo + "");
-        impListSedes();
-        return getLista();
-    }
-
-    /**
-     *
-     */
-    protected void impListSedes() {
-        try {
-            getParametroBO().listSedes(this);
-        } catch (Exception e) {
-            Log_Handler.registrarEvento("Error listando sedes: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-        }
-    }
+   
     
     public List<BeanParametros> listCajas(int estado) {//Listar cajas
         setCodigoCaja(estado+"");//Envia el estado de la caja

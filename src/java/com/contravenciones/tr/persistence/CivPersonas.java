@@ -1,5 +1,5 @@
 package com.contravenciones.tr.persistence;
-// Generated 1/02/2018 01:51:55 PM by Hibernate Tools 4.3.1
+// Generated 5/02/2018 01:39:57 PM by Hibernate Tools 4.3.1
 
 
 import java.math.BigDecimal;
@@ -35,6 +35,7 @@ public class CivPersonas  implements java.io.Serializable {
      private BigDecimal perLugarexpedicion;
      private Set civExpedienteses = new HashSet(0);
      private Set civUsuarioses = new HashSet(0);
+     private Set civAgenteses = new HashSet(0);
      private Set civDireccioneses = new HashSet(0);
 
     public CivPersonas() {
@@ -49,7 +50,7 @@ public class CivPersonas  implements java.io.Serializable {
         this.perApellido1 = perApellido1;
         this.perEstado = perEstado;
     }
-    public CivPersonas(BigDecimal perId, CivTipodocumentos civTipodocumentos, String perDocumento, Date perFechanac, String perGruposanguineo, String perRh, String perSexo, String perNombre1, String perNombre2, String perApellido1, String perApellido2, String perEmail, String perCelular, BigDecimal perLugarnacimiento, Date perFechaexp, BigDecimal perEstado, Date perFechainicial, Date perFechafinal, Date perFechaproceso, BigDecimal perLugarexpedicion, Set civExpedienteses, Set civUsuarioses, Set civDireccioneses) {
+    public CivPersonas(BigDecimal perId, CivTipodocumentos civTipodocumentos, String perDocumento, Date perFechanac, String perGruposanguineo, String perRh, String perSexo, String perNombre1, String perNombre2, String perApellido1, String perApellido2, String perEmail, String perCelular, BigDecimal perLugarnacimiento, Date perFechaexp, BigDecimal perEstado, Date perFechainicial, Date perFechafinal, Date perFechaproceso, BigDecimal perLugarexpedicion, Set civExpedienteses, Set civUsuarioses, Set civAgenteses, Set civDireccioneses) {
        this.perId = perId;
        this.civTipodocumentos = civTipodocumentos;
        this.perDocumento = perDocumento;
@@ -72,6 +73,7 @@ public class CivPersonas  implements java.io.Serializable {
        this.perLugarexpedicion = perLugarexpedicion;
        this.civExpedienteses = civExpedienteses;
        this.civUsuarioses = civUsuarioses;
+       this.civAgenteses = civAgenteses;
        this.civDireccioneses = civDireccioneses;
     }
    
@@ -228,6 +230,13 @@ public class CivPersonas  implements java.io.Serializable {
     
     public void setCivUsuarioses(Set civUsuarioses) {
         this.civUsuarioses = civUsuarioses;
+    }
+    public Set getCivAgenteses() {
+        return this.civAgenteses;
+    }
+    
+    public void setCivAgenteses(Set civAgenteses) {
+        this.civAgenteses = civAgenteses;
     }
     public Set getCivDireccioneses() {
         return this.civDireccioneses;
