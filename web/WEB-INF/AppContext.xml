@@ -219,6 +219,9 @@
     <bean id="usuarioTipoPagosDAO" class="com.contravenciones.jdbc.dao.DaoUsuarioTipoPagos"> 
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
+    <bean id="organismosDAO" class="com.contravenciones.jdbc.dao.DaoOrganismos"> 
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
     <!-- BOS -->
     <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
         <property name="loginDAO" ref="loginDAO"></property>
@@ -281,6 +284,7 @@
         <property name="detalleRangoComparendosDAO" ref="detalleRangoComparendosDAO"/>
         <property name="datosParametricosDAO" ref="datosParametricosDAO"/>
         <property name="usuariosDAO" ref="usuariosDAO" />
+        <property name="organismosDAO" ref="organismosDAO" />
     </bean>
     <bean id="AgentesBO" class="com.contravenciones.tr.bo.AgentesImplBO">
         <property name="personasDAO" ref="personasDAO" />

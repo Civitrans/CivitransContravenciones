@@ -109,12 +109,6 @@
                                                                     #{usu.nombreUsuario}
                                                             </h:column>
                                                             <h:column>
-                                                                <f:facet name="header">Usuario Runt</f:facet>
-                                                                <h:outputLabel  >
-                                                                    #{usu.usuarioRunt>0?"Si":"No"}
-                                                                </h:outputLabel>
-                                                            </h:column>
-                                                            <h:column>
                                                                 <f:facet name="header">Estado</f:facet>
                                                                 <h:outputLabel style="text" >
                                                                     #{usu.estado} 
@@ -222,23 +216,6 @@
 
                                                                         </div>
 
-                                                                        <div class="form-group">
-                                                                            <h:outputLabel>
-                                                                                Perfil
-                                                                            </h:outputLabel>
-                                                                            <h:selectOneMenu disabled="${gestionusuarioBean.doc}" value="#{gestionusuarioBean.codePerfilSeleccionado}" id="cmbPerfil"  class="form-control select2-dropdown">
-                                                                                <f:selectItems value="#{gestionusuarioBean.listPerfil}"  var="perfilUsuario"  itemValue="#{perfilUsuario.codePerfil}" itemLabel="#{perfilUsuario.nombrePerfil}" />
-                                                                            </h:selectOneMenu>
-                                                                        </div>
-                                                                        <div class="form-group">
-                                                                            <h:outputLabel>
-                                                                                Usuario Runt
-                                                                            </h:outputLabel>
-                                                                            <h:selectOneMenu disabled="${gestionusuarioBean.doc}" id="drop" value="#{gestionusuarioBean.usuarioRunt}" class="select2-dropdown form-control" style="width: auto">
-                                                                                <f:selectItem itemValue="0" itemLabel="No"  />
-                                                                                <f:selectItem itemValue="1" itemLabel="Si" />
-                                                                            </h:selectOneMenu> 
-                                                                        </div>
                                                                     </div>
 
                                                                 </div>
@@ -354,10 +331,6 @@
                                                         <div class="col-lg-6">
                                                             <h:outputLabel>Usuario</h:outputLabel>
                                                             <h:inputText readonly="true" class="form-control success" id="txtUsuario4" value="#{gestionusuarioBean.nombreUsuarioPerfilar}"/>
-                                                        </div>
-                                                        <div class="col-lg-6">
-                                                            <h:outputLabel>Perfil Actual</h:outputLabel>
-                                                            <h:inputText readonly="true" class="form-control success" id="txtUsuario5" value="#{gestionusuarioBean.nombrePerfilUsuario}"/>
                                                         </div>
                                                     </div>
                                                 </div>

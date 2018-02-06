@@ -75,6 +75,7 @@ public class BeanRangos implements Serializable {
         try {
             cargarDatos();
             getRangosBO().listRangos(this);
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("rangos:messageGeneral");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al listar rangos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));

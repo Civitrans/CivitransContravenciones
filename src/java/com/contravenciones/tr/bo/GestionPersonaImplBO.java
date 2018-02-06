@@ -220,7 +220,9 @@ public class GestionPersonaImplBO implements GestionPersonaBO {
 //            // esto se debe utilzar cuando se coloque la relacion en la base de datos 
 //            throw new Exception("Por implementar");
 //        }
-        //persona.setPerTipodocumento(BigDecimal.valueOf(beanPersona.getTipoDoc()));
+        CivTipodocumentos td = new CivTipodocumentos();
+        td.setTipdocId(BigDecimal.valueOf(beanPersona.getTipoDoc()));
+        persona.setCivTipodocumentos(td);
         persona.setPerDocumento(beanPersona.getDocumento());
         persona.setPerFechanac(beanPersona.getFechaNac());//buscar campo fecha_nacimiento
         if (beanPersona.getGrupoSang() != null && beanPersona.getGrupoSang().length() > 0) {

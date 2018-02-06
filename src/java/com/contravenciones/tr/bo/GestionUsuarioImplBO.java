@@ -209,10 +209,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
 
         if (recursos.isEmpty()) {
             CivUsuarios usu = getUsuariosDAO().consultarUsuarioBy(codigoUsuario);
-            List<CivPerfilrecurso> p = getPerfilRecursosDAO().listPerfilRecursoByIDUsuarioFechaFin(codigoUsuario);
-            if (p.isEmpty()) {
-                throw new UsuariosException("El usuario no tiene un perfil activo. Contacte con el administrador del sistema", 3);
-            }
             int id = 0;
             for (CivPerfilrecurso pe : recursos) {
                 if (id != pe.getCivRecursos().getCivPerfiles().getPerfId().intValue()) {

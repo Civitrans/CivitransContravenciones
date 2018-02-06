@@ -74,7 +74,7 @@
                                                                         
                                                                         <span class="input-group-btn">
                                                                             <h:commandLink class="btn btn-info btn-dropbox" value="Buscar">
-                                                                                <f:ajax event="click" listener="#{rangosBean.listaRangos()}"></f:ajax>
+                                                                                <f:ajax event="click" listener="#{rangosBean.listaRangos()}" render="rangos:buscar"></f:ajax>
                                                                             </h:commandLink>
                                                                         </span>
                                                                     </div>

@@ -9,6 +9,7 @@ import com.contravenciones.exception.RangosException;
 import com.contravenciones.jdbc.dao.ITAgentes;
 import com.contravenciones.jdbc.dao.ITDatosParametricos;
 import com.contravenciones.jdbc.dao.ITDetalleRangoComparendos;
+import com.contravenciones.jdbc.dao.ITOrganismos;
 import com.contravenciones.jdbc.dao.ITParametros;
 import com.contravenciones.jdbc.dao.ITPersonas;
 import com.contravenciones.jdbc.dao.ITRangos;
@@ -43,18 +44,19 @@ public class RangosImplBO implements RangosBO {
     private ITParametros parametrosDAO;
     private ITDatosParametricos datosParametricosDAO;
     private ITUsuarios usuariosDAO;
+    private ITOrganismos organismosDAO;
 
     @Override
     public void cargarDatos(BeanRangos bean) throws Exception {
         String numeros = "";
         CivDatosParametricos dp = getDatosParametricosDAO().consultarDatosPID(1);
-        int s = 231;
+        long codigoOrganismo = Integer.parseInt(getOrganismosDAO().consultaCodigoOrganismo(1).getOrgCodigo());
         if (dp != null) {
             for (int i = 0; i < dp.getDtparaLongitud().intValue(); i++) {
                 numeros += "0";
             }
-            String rangoLong = (numeros.substring(0, dp.getDtparaLongitud().intValue() - (s + "").length()));
-            String rango = s+ rangoLong;
+            String rangoLong = (numeros.substring(0, dp.getDtparaLongitud().intValue() - (codigoOrganismo + "").length()));
+            String rango = codigoOrganismo + rangoLong;
             bean.setMaxLength(rangoLong.length());
             bean.setRangoInicial(rango);
             bean.setRangoFinal(rango);
@@ -362,7 +364,6 @@ public class RangosImplBO implements RangosBO {
         this.datosParametricosDAO = datosParametricosDAO;
     }
 
-
     /**
      * @return the usuariosDAO
      */
@@ -375,6 +376,20 @@ public class RangosImplBO implements RangosBO {
      */
     public void setUsuariosDAO(ITUsuarios usuariosDAO) {
         this.usuariosDAO = usuariosDAO;
+    }
+
+    /**
+     * @return the organismosDAO
+     */
+    public ITOrganismos getOrganismosDAO() {
+        return organismosDAO;
+    }
+
+    /**
+     * @param organismosDAO the organismosDAO to set
+     */
+    public void setOrganismosDAO(ITOrganismos organismosDAO) {
+        this.organismosDAO = organismosDAO;
     }
 
 }
