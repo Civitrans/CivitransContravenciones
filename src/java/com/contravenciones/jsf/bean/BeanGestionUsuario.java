@@ -5,7 +5,6 @@
  */
 package com.contravenciones.jsf.bean;
 
-import com.contravenciones.exception.PasswordException;
 import com.contravenciones.exception.UsuariosException;
 import com.contravenciones.tr.bo.GestionUsuarioBO;
 import com.contravenciones.tr.persistence.CivDetalleRecUsu;
@@ -13,13 +12,10 @@ import com.contravenciones.tr.persistence.CivDetalleRecursos;
 import com.contravenciones.tr.persistence.CivPerfilrecurso;
 import com.contravenciones.utility.Log_Handler;
 import java.io.Serializable;
-import static java.lang.Thread.currentThread;
-import java.util.AbstractList;
 import java.util.ArrayList;
 import java.util.Date; 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -113,6 +109,7 @@ public class BeanGestionUsuario implements Serializable {
     private List<BeanGestionUsuario> listRecursosSeleccionado; //Lista para cargar el select de recursos asignados -- Modal Actualizar Usuario --
     private List<Integer> listRecursosbyModulo; // Lista los recursos por id de módulo.
     private List<CivDetalleRecUsu> detalleRbyRecurso; // 
+    private List<CivPerfilrecurso> perfilAsignados;
     private Map<Integer, String> detalleRbyRecurso1; //Lista solo los recursos que contienen detalles recursos por usuario
 
     @PostConstruct
@@ -482,6 +479,7 @@ public class BeanGestionUsuario implements Serializable {
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al perfilar el usuario : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(loginBean.getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("frmConUsuario:messageGeneral");
         }
     }
 
@@ -525,6 +523,7 @@ public class BeanGestionUsuario implements Serializable {
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al perfilar el usuario : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(loginBean.getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("frmConUsuario:messageGeneral");
         }
 
     }
@@ -541,6 +540,7 @@ public class BeanGestionUsuario implements Serializable {
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al perfilar el usuario : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(loginBean.getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("frmConUsuario:messageGeneral");
         }
 
     }
@@ -552,6 +552,7 @@ public class BeanGestionUsuario implements Serializable {
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al generar contraseña del usuario : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(loginBean.getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("frmConUsuario:messageGeneral");
         }
     }
 
@@ -2361,6 +2362,20 @@ public class BeanGestionUsuario implements Serializable {
      */
     public void setMostrar(boolean mostrar) {
         this.mostrar = mostrar;
+    }
+
+    /**
+     * @return the perfilAsignados
+     */
+    public List<CivPerfilrecurso> getPerfilAsignados() {
+        return perfilAsignados;
+    }
+
+    /**
+     * @param perfilAsignados the perfilAsignados to set
+     */
+    public void setPerfilAsignados(List<CivPerfilrecurso> perfilAsignados) {
+        this.perfilAsignados = perfilAsignados;
     }
 
 }

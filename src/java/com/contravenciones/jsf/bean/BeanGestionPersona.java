@@ -25,7 +25,7 @@ import org.primefaces.context.RequestContext;
  *
  * @author Roymer Camacho
  */
-public class BeanGestionPersona implements Serializable{
+public class BeanGestionPersona implements Serializable {
 
     private BeanLogin loginBean;
     private GestionPersonaBO gestionPersonaBO;
@@ -74,6 +74,7 @@ public class BeanGestionPersona implements Serializable{
     private String celular;
     private String telefono;
     private String email;
+    private String formulario="gestionPersona:"; //Nombre del formulario para mostrar los respectivos mensajes
 
     private String dir;
     private boolean btnRegistrar;
@@ -90,7 +91,7 @@ public class BeanGestionPersona implements Serializable{
     private boolean detalleDireccion = true;
     private boolean cancelarDireccion = false;
     private boolean disDireccion = true;
-    
+
     @PostConstruct
     public void cargarDatos() {
         try {
@@ -99,7 +100,7 @@ public class BeanGestionPersona implements Serializable{
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al cargar datos : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         }
     }
 
@@ -116,11 +117,11 @@ public class BeanGestionPersona implements Serializable{
             //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
         } catch (PersonaException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al mostrar detalle persona : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         }
 
     }
@@ -139,11 +140,11 @@ public class BeanGestionPersona implements Serializable{
             //FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
         } catch (PersonaException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error al listar personas : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         }
 
     }
@@ -163,22 +164,22 @@ public class BeanGestionPersona implements Serializable{
 
             if (proceso.equals("insertar")) {
                 FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, null, "Persona registrada correctamente"));
-                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("messageGeneral");
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
                 limpiarModal();
                 RequestContext.getCurrentInstance().execute("$('#dg_persona').modal('toggle'); $('#" + getOrigen() + "').modal('toggle')");
             } else {
-                
-                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
                 deshabilitarCampos();
             }
 
         } catch (PersonaException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("mensajeDetallePersona gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDetallePersona");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error guardando persona: ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(loginBean.getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         }
     }
 
@@ -252,23 +253,25 @@ public class BeanGestionPersona implements Serializable{
         try {
             getGestionPersonaBO().cancelarEditar(this);
             deshabilitarCampos();
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         } catch (PersonaException e) {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(e.getNivelFacesMessage(), null, e.getMessage()));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         } catch (Exception e) {
             Log_Handler.registrarEvento("Error : ", e, Log_Handler.ERROR, getClass(), Integer.parseInt(getLoginBean().getID_Usuario()));
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", Log_Handler.solucionError(e)));
-            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:messageGeneral");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"messageGeneral");
         }
 
     }
 
     public void generaDireccion(String combo) {
+
         String valor = "";
         if (combo.equals("nom")) {
             getNuevaDireccion().add(getNomenclatura());
             setNomenclatura("");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDireccion");
         }
         if (combo.equals("sim")) {
             if (getSimbolo().equals("1")) {
@@ -278,34 +281,48 @@ public class BeanGestionPersona implements Serializable{
                 getNuevaDireccion().add("-");
             }
             setSimbolo("");
+            FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDireccion");
         }
         if (combo.equals("num")) {
-            if (new ValidacionDatos().validarSolonumeros(getNumero1())) {
-                getNuevaDireccion().add(getNumero1());
-                setNumero1("");
-                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:mensajeDireccion");
+
+            if (!getNumero1().equals("")) {
+                if (new ValidacionDatos().validarSolonumeros(getNumero1())) {
+                    getNuevaDireccion().add(getNumero1());
+                    setNumero1("");
+                    FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDireccion");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Campo solo número"));
+                    FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDireccion");
+                }
             } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Campo solo número"));
-                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:mensajeDireccion");
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Campo número vacío"));
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDireccion");
             }
 
         }
         if (combo.equals("letra")) {
-            if (new ValidacionDatos().validarSololetras(getLetra().toUpperCase())) {
-                getNuevaDireccion().add(getLetra().toUpperCase());
-                setLetra("");
-                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:mensajeDireccion");
-            } else {
-                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Campo solo letras"));
-                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add("gestionPersona:mensajeDireccion");
-            }
 
+            if (!getLetra().equals("")) {
+                if (new ValidacionDatos().validarSololetras(getLetra().toUpperCase())) {
+                    getNuevaDireccion().add(getLetra().toUpperCase());
+                    setLetra("");
+                    FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDireccion");
+                } else {
+                    FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Campo solo letras"));
+                    FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDireccion");
+                }
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_WARN, null, "Campo letra vacío"));
+                FacesContext.getCurrentInstance().getPartialViewContext().getRenderIds().add(getFormulario()+"mensajeDireccion");
+            }
         }
         for (String dire : getNuevaDireccion()) {
             valor += dire + " ";
         }
+        
         setDir(valor);
         setDisDireccion(false);
+
     }
 
     public void reversarDireccion() {
@@ -1132,6 +1149,20 @@ public class BeanGestionPersona implements Serializable{
      */
     public void setListaTipoDocumento(List<CivTipodocumentos> listaTipoDocumento) {
         this.listaTipoDocumento = listaTipoDocumento;
+    }
+
+    /**
+     * @return the formulario
+     */
+    public String getFormulario() {
+        return formulario;
+    }
+
+    /**
+     * @param formulario the formulario to set
+     */
+    public void setFormulario(String formulario) {
+        this.formulario = formulario;
     }
 
 }

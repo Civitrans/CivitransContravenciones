@@ -136,15 +136,15 @@
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header">Tipo Documento</f:facet>
-                                                                    #{agentesBean.listTipoDocumento.get(ran.perTipodocumento)} 
+                                                                    #{ran.civPersonas.civTipodocumentos.tipdocNombre} 
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header">Documento</f:facet>
-                                                                    #{ran.perDocumento} 
+                                                                    #{ran.civPersonas.perDocumento} 
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header">Nombre Completo</f:facet>
-                                                                    #{ran.perNombre1} #{ran.perNombre2} #{ran.perApellido1} #{ran.perApellido2} 
+                                                                    #{ran.civPersonas.perNombre1} #{ran.civPersonas.perNombre2} #{ran.civPersonas.perApellido1} #{ran.civPersonas.perApellido2} 
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header">Placa</f:facet>
@@ -152,7 +152,7 @@
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header">Estado Agente</f:facet>
-                                                                    #{agentesBean.estadoAgentes.get(ran.estadoAgente)} 
+                                                                    #{ran.ageEstado} 
                                                             </h:column>
                                                             <h:column>
                                                                 <f:facet name="header">Detalle</f:facet>

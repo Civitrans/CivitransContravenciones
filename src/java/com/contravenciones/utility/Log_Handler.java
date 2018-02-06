@@ -126,7 +126,6 @@ public class Log_Handler {
             } else {
                 logEventos.setEvMensaje(mensaje);
             }
-            logEventos.setUsuId(new BigDecimal(id_usuario));
             logEventos.setEvFecha(new Date());
             logEventos.setEvClaseOrigen(clase.getCanonicalName());
             logEventos.setEvNivel(new BigDecimal(nivel));

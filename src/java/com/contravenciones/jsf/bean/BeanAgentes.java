@@ -150,14 +150,15 @@ public class BeanAgentes implements Serializable {
         setDetalleConsulta(false);
     }
 
-    public void detalleAgente(Agente ag) {
+    public void detalleAgente(CivAgentes ag) {
         setMostrarBuscar(false);
         setMostrarConsultaAgente(false);
         CivPersonas per = new CivPersonas();
-        per.setPerId(BigDecimal.valueOf(ag.getPerId()));
+        per.setPerId(ag.getCivPersonas().getPerId());
         getBeanPersona().cargarDatos();
+        getBeanPersona().setFormulario("agentes:");
         getBeanPersona().detalle(per);
-        impDetalleAgente(ag.getAgeId());
+        impDetalleAgente(ag.getAgeId().intValue());
     }
 
     protected void impDetalleAgente(int id) {

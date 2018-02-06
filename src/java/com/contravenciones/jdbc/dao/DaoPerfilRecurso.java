@@ -45,8 +45,8 @@ public class DaoPerfilRecurso extends HibernateDaoSupport implements ITPerfilRec
 
     public List<CivPerfilrecurso> listPerfilRecursoByIDUsuario(long idusuario) throws Exception {
 
-        String hql = "from CivPerfilrecurso where usu_id=:idusuario";
-        List list = getHibernateTemplate().findByNamedParam(hql, "idusuario", idusuario);
+        String hql = "from CivPerfilrecurso where civUsuarios.usuId=:idusuario";
+        List list = getHibernateTemplate().findByNamedParam(hql, "idusuario", BigDecimal.valueOf(idusuario));
         return list;
     }
     

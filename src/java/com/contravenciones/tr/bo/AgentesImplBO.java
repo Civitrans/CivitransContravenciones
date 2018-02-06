@@ -45,7 +45,7 @@ public class AgentesImplBO implements AgentesBO {
         bean.setTipoAgentes(new HashMap<>());
         bean.setEstadoAgentes(new HashMap<>());
         for(CivTipodocumentos td : getTiposDocumentosDAO().listAll()){
-            bean.getListaTipoDocumento().add(td);
+            bean.getListTipoDocumento().add(td);
         }
         for (CivParametros objParametros : getParametrosDAO().listParametros(391)) {
             bean.getEstadoPersona().put(objParametros.getParCodigo().intValue(), objParametros.getParNombre());

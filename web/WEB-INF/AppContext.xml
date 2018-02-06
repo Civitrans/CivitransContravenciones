@@ -216,6 +216,9 @@
      <bean id="detalleCarterasDAO" class="com.contravenciones.jdbc.dao.DaoDetalleCarteras"> 
         <property name="sessionFactory" ref="sessionFactory"></property>
     </bean>
+    <bean id="usuarioTipoPagosDAO" class="com.contravenciones.jdbc.dao.DaoUsuarioTipoPagos"> 
+        <property name="sessionFactory" ref="sessionFactory"></property>
+    </bean>
     <!-- BOS -->
     <bean id="loginBO" class="com.contravenciones.tr.bo.LoginImplBO">
         <property name="loginDAO" ref="loginDAO"></property>
@@ -240,6 +243,7 @@
         <property name="historialUsuarioCajaDAO" ref="historialUsuarioCajaDAO" />
         <property name="detalleRecursosDAO" ref="detalleRecursosDAO" />
         <property name="detalleRecUsuDAO" ref="detalleRecUsuDAO" />
+        <property name="usuarioTipoPagosDAO" ref="usuarioTipoPagosDAO" />
     </bean>
     <bean id="parametroBO" class="com.contravenciones.tr.bo.ParametrosImplBO">
         <property name="parametrosDAO" ref="parametrosDAO" />
@@ -284,6 +288,7 @@
         <property name="rangosDAO" ref="rangosComparendosDAO"/>
         <property name="agentesDAO" ref="agentesDAO"/>
         <property name="detalleRangoComparendosDAO" ref="detalleRangoComparendosDAO"/>
+        <property name="tiposDocumentosDAO" ref="tiposDocumentosDAO"/>
     </bean>
     <bean id="planosBO" class="com.contravenciones.tr.bo.PlanosImplBO">
         <property name="estructuraSimitDAO" ref="estructuraSimitDAO"/>

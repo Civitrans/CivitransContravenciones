@@ -37,6 +37,7 @@ import com.contravenciones.jdbc.dao.ITHistorialPerfilRecurso;
 import com.contravenciones.jdbc.dao.ITHistorialUsuarioCaja;
 import com.contravenciones.jdbc.dao.ITModulos;
 import com.contravenciones.jdbc.dao.ITUsuarioCajas;
+import com.contravenciones.jdbc.dao.ITUsuarioTipoPago;
 import com.contravenciones.jsf.bean.BeanGestionUsuario;
 import com.contravenciones.tr.persistence.CivCajas;
 import com.contravenciones.tr.persistence.CivDetalleRecUsu;
@@ -47,8 +48,10 @@ import com.contravenciones.tr.persistence.CivModulos;
 import com.contravenciones.tr.persistence.CivParametros;
 import com.contravenciones.tr.persistence.CivPerfilrecurso;
 import com.contravenciones.tr.persistence.CivPerfilrecursoId;
+import com.contravenciones.tr.persistence.CivTipopagos;
 import com.contravenciones.tr.persistence.CivUsuarioCajas;
 import com.contravenciones.tr.persistence.CivUsuarioCajasId;
+import com.contravenciones.tr.persistence.CivUsuariosTipopagos;
 import com.contravenciones.utility.Log_Handler;
 import com.contravenciones.utility.ValidacionDatos;
 import java.util.LinkedHashMap;
@@ -75,6 +78,7 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
     private ITHistorialUsuarioCaja historialUsuarioCajaDAO;
     private ITDetalleRecursos detalleRecursosDAO;
     private ITDetalleRecUsu detalleRecUsuDAO;
+    private ITUsuarioTipoPago usuarioTipoPagosDAO;
 
     @Override
     public void listRecursosPerfiles(BeanGestionUsuario bean) throws Exception {
@@ -189,10 +193,7 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
             bnUsuario.setCodeEstado(object.getUsuEstado().intValue());
             bnUsuario.setEstado(getParametrosDAO().getParametroByCodeGrupo(13, object.getUsuEstado().intValue()).getParNombre());
             bnUsuario.setFechaFin(object.getUsuFechafinal());
-            bnUsuario.setUsuarioRunt(object.getUsuUsuariorunt().toString());
             bnUsuario.setLista(new ArrayList<>());
-            List<CivUsuperfil> list = getUsuarioPerfilDAO().listUsuperfil(object.getUsuId().longValue());
-
             bean.getListUsuario().add(bnUsuario);
 
         }
@@ -203,21 +204,24 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
 
     @Override
     public void detalleUsuario(int codigoUsuario, BeanGestionUsuario bean) throws Exception {
-
+        bean.setPerfilAsignados(new ArrayList<>());
         List<CivPerfilrecurso> recursos = getPerfilRecursosDAO().listPerfilRecursoByIDUsuario(codigoUsuario);
 
         if (recursos.isEmpty()) {
             CivUsuarios usu = getUsuariosDAO().consultarUsuarioBy(codigoUsuario);
-            CivUsuperfil p = getUsuarioPerfilDAO().getPerfilUsuario(codigoUsuario);
-            if (p == null) {
+            List<CivPerfilrecurso> p = getPerfilRecursosDAO().listPerfilRecursoByIDUsuarioFechaFin(codigoUsuario);
+            if (p.isEmpty()) {
                 throw new UsuariosException("El usuario no tiene un perfil activo. Contacte con el administrador del sistema", 3);
             }
-            int idperfil = p.getCivPerfiles().getPerfId().intValue();
-            String nombrePerfil = getPerfilesDAO().consultarPerfilById(idperfil).getPerfNombre();
-            bean.setUsuarioRunt(usu.getUsuUsuariorunt().toString());
+            int id = 0;
+            for (CivPerfilrecurso pe : recursos) {
+                if (id != pe.getCivRecursos().getCivPerfiles().getPerfId().intValue()) {
+                    bean.getPerfilAsignados().add(pe);
+                    id = pe.getCivRecursos().getCivPerfiles().getPerfId().intValue();
+                }
+
+            }
             bean.setEstado(usu.getUsuEstado().toString());
-            bean.setCodePerfilSeleccionado(idperfil);
-            bean.setNombrePerfilUsuario(nombrePerfil);
             RequestContext.getCurrentInstance().execute("$('#perfilesEditar').modal('toggle')");
         } else {
             throw new UsuariosException("El usuario seleccionado ya ha sido perfilado", 2);
@@ -238,6 +242,7 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
     @Override
     public void detalleUsuarioActualizacion(int codigoUsuario, BeanGestionUsuario bean) throws Exception {
         int con = 0, co = 0;
+        bean.setPerfilAsignados(new ArrayList<>());
         bean.setListRecursosSeleccionado(new ArrayList<>());
         CivUsuarios usu = getUsuariosDAO().consultarUsuarioBy(codigoUsuario);
         List<CivPerfilrecurso> recursos = getPerfilRecursosDAO().listPerfilRecursoByIDUsuarioFechaFin(codigoUsuario);
@@ -245,30 +250,32 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         if (usu != null) {
             CivPersonas per = getPersonasDAO().consultarPersonasById(usu.getCivPersonas().getPerId().intValue());
             bean.setNombrePersona(per.getPerNombre1() + " " + (per.getPerNombre2() != null ? per.getPerNombre2() + " " : "") + per.getPerApellido1() + " " + (per.getPerApellido2() != null ? per.getPerApellido2() : ""));
-            
-            if(usu.getUsuEstado().intValue()==3){
+
+            if (usu.getUsuEstado().intValue() == 3) {
                 bean.setDisableEstado(true);
                 bean.setTitleEstado("Debe iniciar sesión");
-            }else{
-               bean.setDisableEstado(false);
-                bean.setTitleEstado("Estado del usuario"); 
+            } else {
+                bean.setDisableEstado(false);
+                bean.setTitleEstado("Estado del usuario");
             }
         }
 
         if (!recursos.isEmpty()) {
-            int idperfil = getUsuarioPerfilDAO().getPerfilUsuario(codigoUsuario).getCivPerfiles().getPerfId().intValue();
-            String nombrePerfil = getPerfilesDAO().consultarPerfilById(idperfil).getPerfNombre();
-            bean.setUsuarioRunt(usu.getUsuUsuariorunt().toString());
-            bean.setCodeEstado(usu.getUsuEstado().intValue());
-            bean.setCodePerfilSeleccionado(idperfil);
-            bean.setNombrePerfilUsuario(nombrePerfil);
+            int id = 0;
+            for (CivPerfilrecurso p : recursos) {
+                if (id != p.getCivRecursos().getCivPerfiles().getPerfId().intValue()) {
+                    bean.getPerfilAsignados().add(p);
+                    id = p.getCivRecursos().getCivPerfiles().getPerfId().intValue();
+                }
+
+            }
             bean.setEstadoMensajePerfil(false);
             for (CivPerfilrecurso recurso : recursos) {
 
                 if (recurso.getCivRecursos().getRecId().intValue() == 8) {
                     con++;
                     List<CivUsuarioCajas> cajasUsuario = getUsuarioCajasDAO().listUsuarioCajasByUsuarioFechaFin(codigoUsuario);
-                    List<CivUsuariosCajasTipopagos> tipoPago = getUsuarioCajaTipoPagoDAO().listTipoPagosByUsuarioFechaFin(codigoUsuario);
+                    List<CivUsuariosTipopagos> tipoPago = getUsuarioTipoPagosDAO().listTipoPagosByUsuarioFechaFin(codigoUsuario);
                     if (cajasUsuario != null) {
                         for (CivUsuarioCajas cajaUsu : cajasUsuario) {
                             for (BeanGestionUsuario listCaja : bean.getListCajas()) {
@@ -280,9 +287,9 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                         bean.setEstadoRenderActualizarCheckCaja(true);
                     }
                     if (tipoPago != null) {
-                        for (CivUsuariosCajasTipopagos tipoPagoUsuario : tipoPago) {
+                        for (CivUsuariosTipopagos tipoPagoUsuario : tipoPago) {
                             for (BeanGestionUsuario listPago : bean.getListMetodoPago()) {
-                                if (tipoPagoUsuario.getUstipTipoPago().intValue() == listPago.getCodeTipoPago()) {
+                                if (tipoPagoUsuario.getCivTipopagos().getTippagId().intValue() == listPago.getCodeTipoPago()) {
                                     listPago.setCheckValueTipoPago(true);
                                 }
                             }
@@ -409,25 +416,11 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         usuarios.setUsuFechainicial(new Date());
         usuarios.setUsuNombre(bean.getNombreUsuarioPerfilar().toUpperCase()); //Generar nombre Usuario
         usuarios.setUsuPassword(DigestHandler.encryptSHA2(bean.getDocumento()));
-        usuarios.setUsuUsuariorunt(BigDecimal.valueOf(Long.parseLong(bean.getUsuarioRunt())));
         usuarios.setUsuFechaproceso(new Date());
-        usuarios.setCivSedes(getSedesDAO().getSedeById(bean.getCodeSede()));
         usuarios.setCivPersonas(persona);
         long idUSuario = getUsuariosDAO().insert(usuarios);
         usuarios.setUsuId(BigDecimal.valueOf(idUSuario));
         getUsuariosDAO().insertHisPass(new CivUspHistoria(null, usuarios, DigestHandler.encryptSHA2(bean.getDocumento()), new Date(), BigDecimal.ONE));
-
-        CivUsuperfil usuarioperfil = new CivUsuperfil();
-        CivPerfiles codigoPerfil = new CivPerfiles();
-        CivUsuarios codigoUsuario = new CivUsuarios();
-        codigoPerfil.setPerfId(BigDecimal.valueOf(bean.getCodePerfilSeleccionado()));
-        codigoUsuario.setUsuId(BigDecimal.valueOf(idUSuario));
-        usuarioperfil.setCivPerfiles(codigoPerfil);
-        usuarioperfil.setCivUsuarios(codigoUsuario);
-        usuarioperfil.setUsuperFechaini(new Date());
-        bean.setNombrePerfilUsuario((getPerfilesDAO().consultarPerfilById(codigoPerfil.getPerfId().intValue())).getPerfNombre()); //Guarda el perfil del usuario
-        getUsuarioPerfilDAO().registrarUsuarioPerfil(usuarioperfil);
-
     }
 
     @Override
@@ -449,7 +442,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                 recurso.setPerrecFechaini(new Date());
                 recurso.setId(recursoId);
                 recurso.setCivRecursos(idrecurso);
-                recurso.setCivPerfiles(perfil);
                 getPerfilRecursosDAO().insert(recurso);
             }
 
@@ -460,14 +452,15 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
             for (BeanGestionUsuario obj : bean.getListMetodoPago()) {
 
                 if (obj.isCheckValueTipoPago()) {
-                    CivUsuariosCajasTipopagos tipoPago = new CivUsuariosCajasTipopagos();
+                    CivUsuariosTipopagos tipoPago = new CivUsuariosTipopagos();
+                    CivTipopagos tp = new CivTipopagos();
+                    tp.setTippagId(BigDecimal.valueOf(obj.getCodeTipoPago()));
 
-                    tipoPago.setUsuId(usuario.getUsuId().longValue());
-                    tipoPago.setCajId(obj.getCodeCaja());
+                    tipoPago.setCivUsuarios(usuario);
                     tipoPago.setUstipEstado(BigDecimal.ONE);
                     tipoPago.setFechainicial(new Date());
-                    tipoPago.setUstipTipoPago(BigDecimal.valueOf(obj.getCodeTipoPago()));
-                    getUsuarioCajaTipoPagoDAO().insert(tipoPago);
+                    tipoPago.setCivTipopagos(tp);
+                    getUsuarioTipoPagosDAO().insert(tipoPago);
                 }
 
             }
@@ -479,14 +472,11 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
 
                 if (obj.isCheckValueCaja()) {
                     CivUsuarioCajas caja = new CivUsuarioCajas();
-                    CivSedes idsede = new CivSedes();
-                    idsede.setSedId(usuario.getCivSedes().getSedId());
 
                     CivCajas idcaja = new CivCajas();
                     idcaja.setCajId(BigDecimal.valueOf(obj.getCodeCaja()));
                     CivUsuarioCajasId usuariocajaID = new CivUsuarioCajasId(usuario.getUsuId().longValue(), idcaja.getCajId());
 
-                    caja.setCivSedes(idsede);
                     caja.setId(usuariocajaID);
                     caja.setUsucajFechaInicio(new Date());
                     getUsuarioCajasDAO().insert(caja);
@@ -501,13 +491,16 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
             for (BeanGestionUsuario obj : bean.getListDetalleRecursosSeleccionado()) {
                 if (obj.isCheckDetalleRecurso()) {
                     CivDetalleRecUsu recusu = new CivDetalleRecUsu();
+                    CivDetalleRecursos dtRec = new CivDetalleRecursos();
 
                     CivRecursos rec = new CivRecursos();
                     rec.setRecId(BigDecimal.valueOf(obj.getCodeRecursoDetalle()));
 
+                    dtRec.setDetRecId(BigDecimal.valueOf(obj.getCodeDetalleRecurso()));
+
                     recusu.setCivRecursos(rec);
                     recusu.setCivUsuarios(usuario);
-                    recusu.setDetRecId(BigDecimal.valueOf(obj.getCodeDetalleRecurso()));
+                    recusu.setCivDetalleRecursos(dtRec);
                     recusu.setPropiedadVisible(true);
                     recusu.setFechaInicial(new Date());
                     getDetalleRecUsuDAO().insert(recusu);
@@ -554,28 +547,24 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         civUsuarios.setUsuFechainicial(usuario.getUsuFechainicial());
         civUsuarios.setUsuFechaproceso(usuario.getUsuFechaproceso());
         civUsuarios.setCivPersonas(usuario.getCivPersonas());
-        civUsuarios.setCivSedes(usuario.getCivSedes());
-        civUsuarios.setUsuUsuariorunt(BigDecimal.valueOf(Integer.parseInt(bean.getUsuarioRunt())));
 
         getUsuariosDAO().update(civUsuarios);
 
         /*actualiza todos los tipos de pago y caja con fecha fin*/
         if (!bean.isEstadoRenderActualizarCheck() || !bean.isEstadoRenderActualizarCheckCaja()) {
-            List<CivUsuariosCajasTipopagos> usuTPago = getUsuarioCajaTipoPagoDAO().listTipoPagosByUsuario(usuario.getUsuId().intValue());
+            List<CivUsuariosTipopagos> usuTPago = getUsuarioTipoPagosDAO().listTipoPagosByUsuario(usuario.getUsuId().intValue());
             List<CivUsuarioCajas> usCaja = getUsuarioCajasDAO().listUsuarioCajasByUsuario(usuario.getUsuId().intValue());
 
             if (usuTPago != null) {
                 if (!usuTPago.isEmpty()) {
-                    for (CivUsuariosCajasTipopagos utp : usuTPago) {
-                        CivUsuariosCajasTipopagos utpa = new CivUsuariosCajasTipopagos();
-                        utpa.setUsuId(utp.getUsuId());
-                        utpa.setCajId(utp.getCajId());
-                        utpa.setUstipTipoPago(utp.getUstipTipoPago());
+                    for (CivUsuariosTipopagos utp : usuTPago) {
+                        CivUsuariosTipopagos utpa = new CivUsuariosTipopagos();
+                        utpa.setCivUsuarios(utp.getCivUsuarios());
+                        utpa.setCivTipopagos(utp.getCivTipopagos());
                         utpa.setUstipEstado(utp.getUstipEstado());
                         utpa.setFechainicial(utp.getFechainicial());
                         utpa.setFechafin(new Date());
-                        utpa.setUsuCajTpId(utp.getUsuCajTpId());
-                        getUsuarioCajaTipoPagoDAO().update(utpa);
+                        getUsuarioTipoPagosDAO().update(utpa);
                     }
                 }
             }
@@ -585,7 +574,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                     for (CivUsuarioCajas usca : usCaja) {
                         CivUsuarioCajas usucaja = new CivUsuarioCajas();
                         usucaja.setId(usca.getId());
-                        usucaja.setCivSedes(usca.getCivSedes());
                         usucaja.setUsucajFechaInicio(usca.getUsucajFechaInicio());
                         usucaja.setUsucajFechaFin(new Date());
                         getUsuarioCajasDAO().update(usucaja);
@@ -598,35 +586,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         List<CivPerfilrecurso> perfilesUsuarios = getPerfilRecursosDAO().listPerfilRecursoByIDUsuario(usuario.getUsuId().longValue());
         CivPerfiles perfil = getPerfilesDAO().consultarPerfilById(bean.getCodePerfilSeleccionado());
 
-        /*Actualiza el perfil del usuario*/
-        CivUsuperfil up = getUsuarioPerfilDAO().getPerfilUsuario(usuario.getUsuId().intValue());
-
-        if (up.getCivPerfiles().getPerfId().intValue() != bean.getCodePerfilSeleccionado()) {
-            CivUsuperfil usuper = new CivUsuperfil();
-
-            usuper.setUsuperFechaini(up.getUsuperFechaini());
-            usuper.setUsuperFechafin(new Date());
-            usuper.setCivUsuarios(up.getCivUsuarios());
-            usuper.setCivPerfiles(up.getCivPerfiles());
-            usuper.setUsuperId(up.getUsuperId());
-            getUsuarioPerfilDAO().updateUsuarioPerfil(usuper);
-
-            CivUsuperfil usuperins = new CivUsuperfil();
-
-            usuperins.setUsuperFechaini(new Date());
-            usuperins.setCivUsuarios(usuario);
-            usuperins.setCivPerfiles(perfil);
-            getUsuarioPerfilDAO().registrarUsuarioPerfil(usuperins);
-        }
-
-        for (CivPerfilrecurso actPer : perfilesUsuarios) {
-            CivPerfilrecurso pr = new CivPerfilrecurso();
-            pr.setId(actPer.getId());
-            pr.setCivPerfiles(perfil);
-            pr.setPerrecFechaini(actPer.getPerrecFechaini());
-            pr.setPerrecFechafin(actPer.getPerrecFechafin());
-            getPerfilRecursosDAO().update(pr);
-        }
 
         /*Inserta los nuevos valores de los recursos del usuario*/
         for (BeanGestionUsuario ob : bean.getListaRecursosPerfilUsuario()) {
@@ -650,7 +609,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
 
                             recurso.setPerrecFechaini(new Date());
                             recurso.setId(actPer.getId());
-                            recurso.setCivPerfiles(perfil);
                             getPerfilRecursosDAO().update(recurso);
 
                         }
@@ -667,7 +625,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                     recurso.setPerrecFechaini(new Date());
                     recurso.setId(recursoId);
                     recurso.setCivRecursos(idrecurso);
-                    recurso.setCivPerfiles(perfil);
                     getPerfilRecursosDAO().insert(recurso);
                 }
 
@@ -679,7 +636,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                         /*inserta el registro anterior a la tabla historial perfil recurso*/
                         if (actPer.getPerrecFechafin() == null) {
                             CivHistorialPerfilRecurso recursos = new CivHistorialPerfilRecurso();
-                            recursos.setPerfId(actPer.getCivPerfiles().getPerfId());
                             recursos.setRecId(actPer.getId().getRecId());
                             recursos.setUsuId(actPer.getId().getUsuId());
                             recursos.setHisFechaIni(actPer.getPerrecFechaini());
@@ -693,7 +649,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                         recurso.setPerrecFechaini(actPer.getPerrecFechaini());
                         recurso.setPerrecFechafin(new Date());
                         recurso.setId(actPer.getId());
-                        recurso.setCivPerfiles(perfil);
                         getPerfilRecursosDAO().update(recurso);
                     }
                 }
@@ -718,7 +673,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                                         CivUsuarioCajas cajausu = new CivUsuarioCajas();
 
                                         cajausu.setId(caj.getId());
-                                        cajausu.setCivSedes(caj.getCivSedes());
                                         cajausu.setUsucajFechaInicio(new Date());
                                         getUsuarioCajasDAO().update(cajausu);
 
@@ -731,7 +685,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                                 CivUsuarioCajas cajausu = new CivUsuarioCajas();
                                 CivUsuarioCajasId cajaID = new CivUsuarioCajasId(usuario.getUsuId().longValue(), BigDecimal.valueOf(listCaja.getCodeCaja()));
                                 cajausu.setId(cajaID);
-                                cajausu.setCivSedes(usuario.getCivSedes());
                                 cajausu.setUsucajFechaInicio(new Date());
                                 getUsuarioCajasDAO().insert(cajausu);
 
@@ -746,7 +699,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                                         CivHistorialUsuarioCaja hc = new CivHistorialUsuarioCaja();
                                         hc.setUsuId(BigDecimal.valueOf(caj.getId().getUsuId()));
                                         hc.setCajId(caj.getId().getCajId());
-                                        hc.setSedId(caj.getCivSedes().getSedId());
                                         hc.setHisFechaInicio(caj.getUsucajFechaInicio());
                                         hc.setHisFechaFin(new Date());
                                         getHistorialUsuarioCajaDAO().insert(hc);
@@ -759,7 +711,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                                     usc.setUsucajFechaFin(new Date());
                                     usc.setUsucajFechaInicio(caj.getUsucajFechaInicio());
                                     usc.setId(caj.getId());
-                                    usc.setCivSedes(caj.getCivSedes());
                                     getUsuarioCajasDAO().update(usc);
 
                                 }
@@ -773,38 +724,43 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         }
         if (bean.isEstadoRenderActualizarCheck()) {
             /*Actualiza los tipos de pagos*/
-            List<CivUsuariosCajasTipopagos> usuPago = getUsuarioCajaTipoPagoDAO().listTipoPagosByUsuario(usuario.getUsuId().intValue());
+            List<CivUsuariosTipopagos> usuPago = getUsuarioTipoPagosDAO().listTipoPagosByUsuario(usuario.getUsuId().intValue());
             if (usuPago != null) {
                 if (bean.getListMetodoPago() != null || !bean.getListMetodoPago().isEmpty()) {
                     for (BeanGestionUsuario listMetodoPago : bean.getListMetodoPago()) {
 
                         if (listMetodoPago.isCheckValueTipoPago()) {
                             int cont = 0;
-                            for (CivUsuariosCajasTipopagos pag : usuPago) {
-                                if (pag.getUstipTipoPago().intValue() == listMetodoPago.getCodeTipoPago() && pag.getFechafin() == null) {
+                            for (CivUsuariosTipopagos pag : usuPago) {
+                                if (pag.getCivTipopagos().getTippagId().intValue() == listMetodoPago.getCodeTipoPago() && pag.getFechafin() == null) {
                                     cont++;
                                 }
                             }
 
                             if (cont == 0) {
-                                CivUsuariosCajasTipopagos tp = new CivUsuariosCajasTipopagos();
-                                tp.setUsuId(usuario.getUsuId().intValue());
-                                tp.setUstipTipoPago(BigDecimal.valueOf(listMetodoPago.getCodeTipoPago()));
+                                CivUsuariosTipopagos tp = new CivUsuariosTipopagos();
+                                CivTipopagos tipPago = new CivTipopagos();
+                                tipPago.setTippagId(BigDecimal.valueOf(listMetodoPago.getCodeTipoPago()));
+
+                                tp.setCivUsuarios(usuario);
+                                tp.setCivTipopagos(tipPago);
                                 tp.setUstipEstado(BigDecimal.ONE);
                                 tp.setFechainicial(new Date());
-                                getUsuarioCajaTipoPagoDAO().insert(tp);
+                                getUsuarioTipoPagosDAO().insert(tp);
                             }
                         } else {
-                            for (CivUsuariosCajasTipopagos pag : usuPago) {
-                                if (pag.getUstipTipoPago().intValue() == listMetodoPago.getCodeTipoPago()) {
-                                    CivUsuariosCajasTipopagos tp = new CivUsuariosCajasTipopagos();
-                                    tp.setUsuId(usuario.getUsuId().intValue());
-                                    tp.setUstipTipoPago(BigDecimal.valueOf(listMetodoPago.getCodeTipoPago()));
+                            for (CivUsuariosTipopagos pag : usuPago) {
+                                if (pag.getCivTipopagos().getTippagId().intValue() == listMetodoPago.getCodeTipoPago()) {
+                                    CivUsuariosTipopagos tp = new CivUsuariosTipopagos();
+                                    CivTipopagos tipPago = new CivTipopagos();
+                                    tipPago.setTippagId(BigDecimal.valueOf(listMetodoPago.getCodeTipoPago()));
+
+                                    tp.setCivUsuarios(usuario);
+                                    tp.setCivTipopagos(tipPago);
                                     tp.setUstipEstado(BigDecimal.valueOf(2));
                                     tp.setFechainicial(pag.getFechainicial());
                                     tp.setFechafin(new Date());
-                                    tp.setUsuCajTpId(pag.getUsuCajTpId());
-                                    getUsuarioCajaTipoPagoDAO().update(tp);
+                                    getUsuarioTipoPagosDAO().update(tp);
                                 }
                             }
                         }
@@ -822,10 +778,12 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
 
                     CivRecursos rec = new CivRecursos();
                     rec.setRecId(BigDecimal.valueOf(obj.getCodeRecursoDetalle()));
+                    CivDetalleRecursos dtRec = new CivDetalleRecursos();
+                    dtRec.setDetRecId(BigDecimal.valueOf(obj.getCodeDetalleRecurso()));
 
                     recusu.setCivRecursos(rec);
                     recusu.setCivUsuarios(usuario);
-                    recusu.setDetRecId(BigDecimal.valueOf(obj.getCodeDetalleRecurso()));
+                    recusu.setCivDetalleRecursos(dtRec);
                     recusu.setPropiedadVisible(true);
                     recusu.setFechaInicial(new Date());
                     getDetalleRecUsuDAO().insert(recusu);
@@ -841,31 +799,36 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
                     if (bg.getDetRecObjeto().equals("1")) {
                         int cont = 0;
                         for (CivDetalleRecUsu dt : bean.getDetalleRbyRecurso()) {
-                            if (dt.getDetRecId().intValue() == bg.getDetRecId().intValue() && dt.getPropiedadVisible()) {
+                            if (dt.getCivDetalleRecursos().getDetRecId().intValue() == bg.getDetRecId().intValue() && dt.getPropiedadVisible()) {
                                 cont++;
                             }
                         }
                         if (cont == 0) {
                             CivDetalleRecUsu d = new CivDetalleRecUsu();
+                            CivDetalleRecursos dtRec = new CivDetalleRecursos();
+                            dtRec.setDetRecId(BigDecimal.valueOf(bg.getDetRecId().intValue()));
+
                             d.setCivRecursos(bg.getCivRecursos());
                             d.setCivUsuarios(civUsuarios);
                             d.setPropiedadVisible(true);
                             d.setFechaInicial(new Date());
-                            d.setDetRecId(BigDecimal.valueOf(bg.getDetRecId().intValue()));
+                            d.setCivDetalleRecursos(dtRec);
                             getDetalleRecUsuDAO().insert(d);
                         }
                     } else {
                         if (bg.getDetRecObjeto().equals("2")) {
                             for (CivDetalleRecUsu dt : bean.getDetalleRbyRecurso()) {
-                                if (dt.getDetRecId().intValue() == bg.getDetRecId().intValue()) {
+                                if (dt.getCivDetalleRecursos().getDetRecId().intValue() == bg.getDetRecId().intValue()) {
                                     CivDetalleRecUsu d = new CivDetalleRecUsu();
-                                    d.setDetRecUsuId(BigDecimal.valueOf(dt.getDetRecUsuId().intValue()));
+                                    CivDetalleRecursos dtRec = new CivDetalleRecursos();
+                                    dtRec.setDetRecId(BigDecimal.valueOf(bg.getDetRecId().intValue()));
+
                                     d.setCivRecursos(bg.getCivRecursos());
                                     d.setCivUsuarios(civUsuarios);
                                     d.setPropiedadVisible(false);
                                     d.setFechaInicial(dt.getFechaInicial());
                                     d.setFechaFin(new Date());
-                                    d.setDetRecId(BigDecimal.valueOf(bg.getDetRecId().intValue()));
+                                    d.setCivDetalleRecursos(dtRec);
                                     getDetalleRecUsuDAO().update(d);
                                 }
                             }
@@ -961,7 +924,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         this.parametrosDAO = parametrosDAO;
     }
 
-
     /**
      * @return the cajaDAO
      */
@@ -990,7 +952,6 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         this.perfilRecursosDAO = perfilRecursosDAO;
     }
 
-
     /**
      * @return the usuarioCajasDAO
      */
@@ -1005,8 +966,7 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
         this.usuarioCajasDAO = usuarioCajasDAO;
     }
 
-
-       /**
+    /**
      * @return the modulosDAO
      */
     public ITModulos getModulosDAO() {
@@ -1074,6 +1034,20 @@ public class GestionUsuarioImplBO implements GestionUsuarioBO {
      */
     public void setDetalleRecUsuDAO(ITDetalleRecUsu detalleRecUsuDAO) {
         this.detalleRecUsuDAO = detalleRecUsuDAO;
+    }
+
+    /**
+     * @return the usuarioTipoPagosDAO
+     */
+    public ITUsuarioTipoPago getUsuarioTipoPagosDAO() {
+        return usuarioTipoPagosDAO;
+    }
+
+    /**
+     * @param usuarioTipoPagosDAO the usuarioTipoPagosDAO to set
+     */
+    public void setUsuarioTipoPagosDAO(ITUsuarioTipoPago usuarioTipoPagosDAO) {
+        this.usuarioTipoPagosDAO = usuarioTipoPagosDAO;
     }
 
 }
